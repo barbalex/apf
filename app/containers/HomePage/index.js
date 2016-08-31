@@ -11,6 +11,9 @@
 
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
+// import 'react-mdl/extra/material'
+// import 'react-mdl/out/ReactMDL'
+// import 'react-mdl/extra/material.css'
 import { FABButton, Icon } from 'react-mdl'
 import messages from './messages'
 
