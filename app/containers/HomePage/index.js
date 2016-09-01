@@ -11,6 +11,7 @@
 
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
+import { Button } from 'react-toolbox/lib/button'
 import messages from './messages'
 
 export default class HomePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -19,6 +20,7 @@ export default class HomePage extends React.Component { // eslint-disable-line r
     return (
       <h1>
         <FormattedMessage {...messages.header} />
+        <Button label="Hello World!" raised />
       </h1>
     )
   }
