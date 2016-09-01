@@ -11,10 +11,6 @@
 
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
-// import 'react-mdl/extra/material'
-// import 'react-mdl/out/ReactMDL'
-// import 'react-mdl/extra/material.css'
-import { FABButton, Icon } from 'react-mdl'
 import messages from './messages'
 
 export default class HomePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -23,9 +19,6 @@ export default class HomePage extends React.Component { // eslint-disable-line r
     return (
       <h1>
         <FormattedMessage {...messages.header} />
-        <FABButton colored>
-          <Icon name="add" />
-        </FABButton>
       </h1>
     )
   }

@@ -10,12 +10,6 @@ import 'babel-polyfill'
 // Load the manifest.json file and the .htaccess file
 import '!file?name=[name].[ext]!./manifest.json'
 import 'file?name=[name].[ext]!./.htaccess'
-// import 'file?name=[name].[ext]!../node_modules/react-mdl/extra/material.css'
-// import 'file?name=[name].[ext]!../node_modules/react-mdl/extra/material.js'
-// import '!file?name=[name].[ext]!../node_modules/react-mdl/extra/material.css'
-// import '!!style-loader!css-loader!../node_modules/react-mdl/extra/material.css'
-// import '!file?name=[name].[ext]!../node_modules/react-mdl/extra/material.js'
-// import '!file?name=[name].[ext]!../node_modules/react-mdl/out/ReactMDL.js'
 /* eslint-enable import/no-unresolved */
 
 // Import all the third party stuff
@@ -27,9 +21,6 @@ import { syncHistoryWithStore } from 'react-router-redux'
 import useScroll from 'react-router-scroll'
 import LanguageProvider from 'containers/LanguageProvider'
 import configureStore from './store'
-import 'react-mdl/out/ReactMDL'
-import 'react-mdl/extra/material'
-import 'react-mdl/extra/material.css'
 
 // Import i18n messages
 import { translationMessages } from './i18n'
