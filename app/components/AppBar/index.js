@@ -45,7 +45,9 @@ const MyAppBar = () =>
         >
           <MenuItem
             primaryText="Über apflora.ch"
-            onTouchTap={() => window.open('https://github.com/FNSKtZH/apflora/wiki')}
+            onTouchTap={() =>
+              window.open('https://github.com/FNSKtZH/apflora/wiki')
+            }
           />
         </IconMenu>
       </div>
