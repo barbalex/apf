@@ -1,0 +1,9 @@
+.menuDiv {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tab {
+  padding-right: 20px !important;
+  padding-left: 20px !important;
+}

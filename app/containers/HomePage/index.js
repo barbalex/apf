@@ -13,44 +13,14 @@ import React from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import AppBar from 'material-ui/AppBar'
-import { Tabs, Tab } from 'material-ui/Tabs'
-
-const styles = {
-  tab: {
-    paddingRight: 20,
-    paddingLeft: 20,
-  },
-}
+import AppBar from '../../components/AppBar'
 
 export default class HomePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   render() {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-        <AppBar
-          title="AP Flora"
-          iconElementRight={
-            <Tabs>
-              <Tab
-                label="Arten"
-                value="arten"
-                style={styles.tab}
-              />
-              <Tab
-                label="Exporte"
-                value="exporte"
-                style={styles.tab}
-              />
-              <Tab
-                label="User"
-                value="user"
-                style={styles.tab}
-              />
-            </Tabs>
-          }
-          showMenuIconButton={false}
-        />
+        <AppBar />
       </MuiThemeProvider>
     )
   }
