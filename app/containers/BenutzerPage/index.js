@@ -10,12 +10,19 @@
  */
 
 import React from 'react'
+import Helmet from 'react-helmet'
 
 export default class BenutzerPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   render() {
     return (
       <div>
+        <Helmet
+          title="AP Flora Benutzer"
+          meta={[
+            { name: 'description', content: 'Benutzer von apfora.ch' },
+          ]}
+        />
         this is Benutzer page
       </div>
     )
