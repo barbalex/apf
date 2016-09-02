@@ -11,15 +11,22 @@
 
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
+import RaisedButton from 'material-ui/RaisedButton'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import messages from './messages'
 
 export default class HomePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   render() {
     return (
-      <h1>
-        <FormattedMessage {...messages.header} />
-      </h1>
+      <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+        <h1>
+          <FormattedMessage {...messages.header} />
+          <RaisedButton label="Default" />
+        </h1>
+      </MuiThemeProvider>
     )
   }
 }
