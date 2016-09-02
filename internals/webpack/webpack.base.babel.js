@@ -4,7 +4,6 @@
 
 const path = require('path');
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = (options) => ({
   entry: options.entry,
@@ -18,10 +17,6 @@ module.exports = (options) => ({
       loader: 'babel',
       exclude: /node_modules/,
       query: options.babelQuery,
-    }, {
-      test: /\.scss$/,
-      loaders: ['style', 'css', 'sass'],
-      exclude: /(node_modules)\/react-toolbox/,
     }, {
       // Transform our own .css files with PostCSS and CSS-modules
       test: /\.css$/,
@@ -84,7 +79,6 @@ module.exports = (options) => ({
       'jsnext:main',
       'main',
     ],
-    // packageMains: ['browser', 'web', 'browserify', 'main', 'style'],
   },
   devtool: options.devtool,
   target: 'web', // Make web variables accessible to webpack, e.g. window
