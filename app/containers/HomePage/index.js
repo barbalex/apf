@@ -10,22 +10,55 @@
  */
 
 import React from 'react'
-import { FormattedMessage } from 'react-intl'
-import RaisedButton from 'material-ui/RaisedButton'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import messages from './messages'
+import AppBar from 'material-ui/AppBar'
+import { Tabs, Tab } from 'material-ui/Tabs'
+
+const styles = {
+  appBar: {
+    flexWrap: 'wrap',
+  },
+  tabs: {
+    width: '100%',
+  },
+  tab: {
+    paddingRight: 20,
+    paddingLeft: 20,
+  }
+}
 
 export default class HomePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   render() {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-        <h1>
-          <FormattedMessage {...messages.header} />
-          <RaisedButton label="Default" />
-        </h1>
+        <AppBar
+          title="AP Flora"
+          iconElementRight={
+            <Tabs
+              styles={styles.tabs}
+            >
+              <Tab
+                label="Arten"
+                value="arten"
+                style={styles.tab}
+              />
+              <Tab
+                label="Exporte"
+                value="exporte"
+                style={styles.tab}
+              />
+              <Tab
+                label="User"
+                value="user"
+                style={styles.tab}
+              />
+            </Tabs>
+          }
+          style={styles.appBar}
+        />
       </MuiThemeProvider>
     )
   }
