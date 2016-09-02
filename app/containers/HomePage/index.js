@@ -26,7 +26,7 @@ const styles = {
   tab: {
     paddingRight: 20,
     paddingLeft: 20,
-  }
+  },
 }
 
 export default class HomePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -58,6 +58,7 @@ export default class HomePage extends React.Component { // eslint-disable-line r
             </Tabs>
           }
           style={styles.appBar}
+          showMenuIconButton={false}
         />
       </MuiThemeProvider>
     )
