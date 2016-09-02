@@ -33,7 +33,59 @@ export default function createRoutes(store) {
 
         importModules.catch(errorLoading);
       },
-    }, {
+    },
+    {
+      path: '/programme',
+      name: 'programme',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          System.import('containers/ProgrammePage'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([component]) => {
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    },
+    {
+      path: '/exporte',
+      name: 'exporte',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          System.import('containers/ExportePage'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([component]) => {
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    },
+    {
+      path: '/benutzer',
+      name: 'benutzer',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          System.import('containers/BenutzerPage'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([component]) => {
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    },
+    {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {

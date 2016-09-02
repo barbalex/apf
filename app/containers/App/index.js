@@ -16,8 +16,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import AppBar from '../../components/AppBar'
-
-import styles from './styles.css';
+import styles from './styles.css'
 
 export default class App extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
@@ -27,14 +26,16 @@ export default class App extends React.Component { // eslint-disable-line react/
 
   render() {
     return (
-      <div className={styles.container}>
-        <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-          <div>
-            <AppBar />
+      <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+        <div>
+          <AppBar />
+          <div
+            className={styles.content}
+          >
             {React.Children.toArray(this.props.children)}
           </div>
-        </MuiThemeProvider>
-      </div>
-    );
+        </div>
+      </MuiThemeProvider>
+    )
   }
 }
