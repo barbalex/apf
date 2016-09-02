@@ -17,12 +17,6 @@ import AppBar from 'material-ui/AppBar'
 import { Tabs, Tab } from 'material-ui/Tabs'
 
 const styles = {
-  appBar: {
-    flexWrap: 'wrap',
-  },
-  tabs: {
-    width: '100%',
-  },
   tab: {
     paddingRight: 20,
     paddingLeft: 20,
@@ -37,9 +31,7 @@ export default class HomePage extends React.Component { // eslint-disable-line r
         <AppBar
           title="AP Flora"
           iconElementRight={
-            <Tabs
-              styles={styles.tabs}
-            >
+            <Tabs>
               <Tab
                 label="Arten"
                 value="arten"
@@ -57,7 +49,6 @@ export default class HomePage extends React.Component { // eslint-disable-line r
               />
             </Tabs>
           }
-          style={styles.appBar}
           showMenuIconButton={false}
         />
       </MuiThemeProvider>
