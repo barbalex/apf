@@ -1,15 +1,15 @@
 {
-  "name": "react-boilerplate",
-  "version": "3.1.0",
-  "description": "A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices",
+  "name": "apflora",
+  "version": "0.1.0",
+  "description": "Aktionspläne für Flora-Arten",
   "repository": {
     "type": "git",
-    "url": "git://github.com/mxstbr/react-boilerplate.git"
+    "url": "git://github.com/barbalex/apf.git"
   },
   "engines": {
     "npm": ">=3"
   },
-  "author": "Max Stoiber",
+  "author": "Alexander Gabriel",
   "license": "MIT",
   "scripts": {
     "analyze:clean": "rimraf stats.json",
@@ -98,6 +98,7 @@
       }
     },
     "rules": {
+      "linebreak-style": 0,
       "arrow-body-style": [
         2,
         "as-needed"
