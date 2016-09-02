@@ -1,3 +1,3 @@
 #Neues Frontend für apflora.ch
 
-verwendet [https://github.com/mxstbr/react-boilerplate](react-boilerplate)
+verwendet [react-boilerplate](https://github.com/mxstbr/react-boilerplate)
