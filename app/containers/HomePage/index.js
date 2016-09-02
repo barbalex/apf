@@ -10,18 +10,14 @@
  */
 
 import React from 'react'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
-import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import AppBar from '../../components/AppBar'
 
 export default class HomePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   render() {
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-        <AppBar />
-      </MuiThemeProvider>
+      <div>
+        this is home
+      </div>
     )
   }
 }
