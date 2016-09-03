@@ -4,23 +4,23 @@
  *
  */
 
-import { fromJS } from 'immutable';
+import { fromJS } from 'immutable'
 import {
   CHANGE_LOCALE,
-} from './constants';
+} from './constants'
 
 const initialState = fromJS({
   locale: 'en',
-});
+})
 
 function languageProviderReducer(state = initialState, action) {
   switch (action.type) {
     case CHANGE_LOCALE:
       return state
-        .set('locale', action.locale);
+        .set('locale', action.locale)
     default:
-      return state;
+      return state
   }
 }
 
-export default languageProviderReducer;
+export default languageProviderReducer

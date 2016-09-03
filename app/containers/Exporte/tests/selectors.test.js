@@ -1,11 +1,11 @@
-// import { selectExporteDomain } from '../selectors';
-// import { fromJS } from 'immutable';
-import expect from 'expect';
+// import { selectExporteDomain } from '../selectors'
+// import { fromJS } from 'immutable'
+import expect from 'expect'
 
-// const selector = selectExporteDomain();
+// const selector = selectExporteDomain()
 
 describe('selectExporteDomain', () => {
   it('Expect to have unit tests specified', () => {
-    expect('Test case').toEqual(false);
-  });
-});
+    expect('Test case').toEqual(false)
+  })
+})

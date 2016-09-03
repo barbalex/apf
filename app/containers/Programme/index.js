@@ -4,11 +4,11 @@
  *
  */
 
-import React from 'react';
-import { connect } from 'react-redux';
-import Helmet from 'react-helmet';
-import selectProgramme from './selectors';
-import styles from './styles.css';
+import React from 'react'
+import { connect } from 'react-redux'
+import Helmet from 'react-helmet'
+import selectProgramme from './selectors'
+import styles from './styles.css'
 
 export class Programme extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
@@ -22,16 +22,16 @@ export class Programme extends React.Component { // eslint-disable-line react/pr
         />
         Programme Page
       </div>
-    );
+    )
   }
 }
 
-const mapStateToProps = selectProgramme();
+const mapStateToProps = selectProgramme()
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-  };
+  }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Programme);
+export default connect(mapStateToProps, mapDispatchToProps)(Programme)

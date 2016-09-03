@@ -1,11 +1,11 @@
-// import { selectProgrammeDomain } from '../selectors';
-// import { fromJS } from 'immutable';
-import expect from 'expect';
+// import { selectProgrammeDomain } from '../selectors'
+// import { fromJS } from 'immutable'
+import expect from 'expect'
 
-// const selector = selectProgrammeDomain();
+// const selector = selectProgrammeDomain()
 
 describe('selectProgrammeDomain', () => {
   it('Expect to have unit tests specified', () => {
-    expect('Test case').toEqual(false);
-  });
-});
+    expect('Test case').toEqual(false)
+  })
+})

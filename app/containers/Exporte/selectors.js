@@ -1,9 +1,9 @@
-import { createSelector } from 'reselect';
+import { createSelector } from 'reselect'
 
 /**
  * Direct selector to the exporte state domain
  */
-const selectExporteDomain = () => state => state.get('exporte');
+const selectExporteDomain = () => state => state.get('exporte')
 
 /**
  * Other specific selectors
@@ -17,9 +17,9 @@ const selectExporteDomain = () => state => state.get('exporte');
 const selectExporte = () => createSelector(
   selectExporteDomain(),
   (substate) => substate.toJS()
-);
+)
 
-export default selectExporte;
+export default selectExporte
 export {
   selectExporteDomain,
-};
+}

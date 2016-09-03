@@ -1,9 +1,9 @@
-import { createSelector } from 'reselect';
+import { createSelector } from 'reselect'
 
 /**
  * Direct selector to the benutzer state domain
  */
-const selectBenutzerDomain = () => state => state.get('benutzer');
+const selectBenutzerDomain = () => state => state.get('benutzer')
 
 /**
  * Other specific selectors
@@ -17,9 +17,9 @@ const selectBenutzerDomain = () => state => state.get('benutzer');
 const selectBenutzer = () => createSelector(
   selectBenutzerDomain(),
   (substate) => substate.toJS()
-);
+)
 
-export default selectBenutzer;
+export default selectBenutzer
 export {
   selectBenutzerDomain,
-};
+}

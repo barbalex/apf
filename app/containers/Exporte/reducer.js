@@ -4,20 +4,20 @@
  *
  */
 
-import { fromJS } from 'immutable';
+import { fromJS } from 'immutable'
 import {
   DEFAULT_ACTION,
-} from './constants';
+} from './constants'
 
-const initialState = fromJS({});
+const initialState = fromJS({})
 
 function exporteReducer(state = initialState, action) {
   switch (action.type) {
     case DEFAULT_ACTION:
-      return state;
+      return state
     default:
-      return state;
+      return state
   }
 }
 
-export default exporteReducer;
+export default exporteReducer
