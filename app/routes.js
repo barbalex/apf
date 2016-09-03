@@ -33,59 +33,67 @@ export default function createRoutes(store) {
 
         importModules.catch(errorLoading);
       },
-    },
-    {
+    }, {
       path: '/programme',
       name: 'programme',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          System.import('containers/ProgrammePage'),
+          System.import('containers/Programme/reducer'),
+          System.import('containers/Programme/sagas'),
+          System.import('containers/Programme'),
         ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([component]) => {
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('programme', reducer.default);
+          injectSagas(sagas.default);
           renderRoute(component);
         });
 
         importModules.catch(errorLoading);
       },
-    },
-    {
-      path: '/exporte',
-      name: 'exporte',
-      getComponent(nextState, cb) {
-        const importModules = Promise.all([
-          System.import('containers/ExportePage'),
-        ]);
-
-        const renderRoute = loadModule(cb);
-
-        importModules.then(([component]) => {
-          renderRoute(component);
-        });
-
-        importModules.catch(errorLoading);
-      },
-    },
-    {
+    }, {
       path: '/benutzer',
       name: 'benutzer',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          System.import('containers/BenutzerPage'),
+          System.import('containers/Benutzer/reducer'),
+          System.import('containers/Benutzer/sagas'),
+          System.import('containers/Benutzer'),
         ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([component]) => {
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('benutzer', reducer.default);
+          injectSagas(sagas.default);
           renderRoute(component);
         });
 
         importModules.catch(errorLoading);
       },
-    },
-    {
+    }, {
+      path: '/exporte',
+      name: 'exporte',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          System.import('containers/Exporte/reducer'),
+          System.import('containers/Exporte/sagas'),
+          System.import('containers/Exporte'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('exporte', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {
