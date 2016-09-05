@@ -15,7 +15,7 @@ export class Exporte extends React.Component { // eslint-disable-line react/pref
     return (
       <div className={styles.exporte}>
         <Helmet
-          title="Exporte"
+          title="AP Flora: Exporte"
           meta={[
             { name: 'description', content: 'Description of Exporte' },
           ]}

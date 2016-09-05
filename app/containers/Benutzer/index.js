@@ -15,7 +15,7 @@ export class Benutzer extends React.Component { // eslint-disable-line react/pre
     return (
       <div className={styles.benutzer}>
         <Helmet
-          title="Benutzer"
+          title="AP Flora: Benutzer"
           meta={[
             { name: 'description', content: 'Description of Benutzer' },
           ]}

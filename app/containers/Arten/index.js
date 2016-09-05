@@ -15,7 +15,7 @@ export class Arten extends React.Component { // eslint-disable-line react/prefer
     return (
       <div className={styles.arten}>
         <Helmet
-          title="Arten"
+          title="AP Flora: Arten"
           meta={[
             { name: 'description', content: 'Description of Arten' },
           ]}
