@@ -1,6 +1,6 @@
 /*
  *
- * Programme reducer
+ * Arten reducer
  *
  */
 
@@ -11,7 +11,7 @@ import {
 
 const initialState = fromJS({})
 
-function programmeReducer(state = initialState, action) {
+function artenReducer(state = initialState, action) {
   switch (action.type) {
     case DEFAULT_ACTION:
       return state
@@ -20,4 +20,4 @@ function programmeReducer(state = initialState, action) {
   }
 }
 
-export default programmeReducer
+export default artenReducer

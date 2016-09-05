@@ -1,9 +1,9 @@
 import { createSelector } from 'reselect'
 
 /**
- * Direct selector to the programme state domain
+ * Direct selector to the  state domain
  */
-const selectProgrammeDomain = () => state => state.get('programme')
+const  = () => state => state.get('')
 
 /**
  * Other specific selectors
@@ -11,15 +11,15 @@ const selectProgrammeDomain = () => state => state.get('programme')
 
 
 /**
- * Default selector used by Programme
+ * Default selector used by
  */
 
-const selectProgramme = () => createSelector(
-  selectProgrammeDomain(),
+const  = () => createSelector(
+  (),
   (substate) => substate.toJS()
 )
 
-export default selectProgramme
+export default
 export {
-  selectProgrammeDomain,
+  ,
 }

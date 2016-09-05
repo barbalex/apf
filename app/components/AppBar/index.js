@@ -20,7 +20,7 @@ const MyAppBar = () =>
           className={styles.tabs}
         >
           <Tab
-            label="Programme"
+            label="Arten"
             value="programs"
             className={styles.tab}
           />

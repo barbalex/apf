@@ -34,19 +34,19 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     }, {
-      path: '/programme',
-      name: 'programme',
+      path: '/arten',
+      name: 'arten',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          System.import('containers/Programme/reducer'),
-          System.import('containers/Programme/sagas'),
-          System.import('containers/Programme'),
+          System.import('containers/Arten/reducer'),
+          System.import('containers/Arten/sagas'),
+          System.import('containers/Arten'),
         ]);
 
         const renderRoute = loadModule(cb);
 
         importModules.then(([reducer, sagas, component]) => {
-          injectReducer('programme', reducer.default);
+          injectReducer('arten', reducer.default);
           injectSagas(sagas.default);
           renderRoute(component);
         });
