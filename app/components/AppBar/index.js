@@ -8,7 +8,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
 
 import styles from './styles.css'
 
-const MenuBar2 = () =>
+const MyAppBar = () =>
   <AppBar
     title="AP Flora"
     className={styles.menuDiv}
@@ -55,4 +55,4 @@ const MenuBar2 = () =>
     showMenuIconButton={false}
   />
 
-export default MenuBar2
+export default MyAppBar
