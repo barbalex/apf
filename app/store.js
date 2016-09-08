@@ -1,7 +1,7 @@
 import { observable } from 'mobx'
 import $ from 'jquery'
 
-export class Store {
+export default class Store {
   @observable data
   @observable ui
 
