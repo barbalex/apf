@@ -44,7 +44,7 @@ window.app = app
 
 // import components
 import App from './containers/App'
-import Arten from './containers/Arten'
+import Projekte from './containers/Projekte'
 import Exporte from './containers/Exporte'
 import Benutzer from './containers/Benutzer'
 
@@ -56,11 +56,11 @@ ReactDOM.render(
       component={App}
     >
       <IndexRoute
-        component={Arten}
+        component={Projekte}
       />
       <Route
-        path="Arten"
-        component={Arten}
+        path="Projekte"
+        component={Projekte}
       />
       <Route
         path="exporte"

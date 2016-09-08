@@ -1,7 +1,7 @@
 {
   "name": "apflora",
   "version": "0.1.0",
-  "description": "Aktionspläne für Flora-Arten",
+  "description": "Aktionspläne für Flora-Projekte",
   "repository": {
     "type": "git",
     "url": "git://github.com/barbalex/apf.git"
