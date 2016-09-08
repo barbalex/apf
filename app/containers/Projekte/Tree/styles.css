@@ -1,0 +1,9 @@
+.tree {
+  min-width: 400px;
+  max-width: 400px;
+  display: flex;
+  align-items: stretch;
+  border-color: white;
+  border-width: 1px;
+  border-style: solid;
+}

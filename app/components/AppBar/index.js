@@ -16,9 +16,7 @@ const MyAppBar = () =>
       <div
         className={styles.menuDiv}
       >
-        <Tabs
-          className={styles.tabs}
-        >
+        <Tabs>
           <Tab
             label="Projekte"
             value="programs"

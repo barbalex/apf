@@ -1,0 +1,8 @@
+.main {
+  width: 100%;
+  border-color: white;
+  border-width: 1px;
+  border-style: solid;
+  display: flex;
+  align-items: stretch;
+}

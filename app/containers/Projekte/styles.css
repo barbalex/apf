@@ -1,3 +1,6 @@
-.projekte { /* stylelint-disable */
-
+.inhalt { /* stylelint-disable */
+  display: flex;
+  flex-wrap: nowrap;
+  min-height: 100%;
+  align-items: stretch;
 }
