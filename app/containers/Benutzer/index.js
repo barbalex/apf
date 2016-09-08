@@ -6,6 +6,7 @@
 
 import React from 'react'
 import Helmet from 'react-helmet'
+import app from 'ampersand-app'
 import styles from './styles.css'
 
 export default class Benutzer extends React.Component { // eslint-disable-line react/prefer-stateless-function

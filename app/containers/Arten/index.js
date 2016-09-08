@@ -6,6 +6,7 @@
 
 import React, { Component, PropTypes } from 'react'
 import Helmet from 'react-helmet'
+import app from 'ampersand-app'
 import styles from './styles.css'
 
 export default class Arten extends Component { // eslint-disable-line react/prefer-stateless-function
@@ -14,7 +15,8 @@ export default class Arten extends Component { // eslint-disable-line react/pref
   }
 
   render() {
-    console.log('Arten.js, render, props:', this.props)
+    const store = app.store
+    console.log('Arten.js, render, store:', store)
     return (
       <div className={styles.arten}>
         <Helmet

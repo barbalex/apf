@@ -18,7 +18,6 @@ import 'script!jquery'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
-import mobx from 'mobx'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
@@ -28,15 +27,20 @@ injectTapEventPlugin()
 import 'sanitize.css/sanitize.css'
 
 // create store
+import app from 'ampersand-app'
 import store from './store'
-const props = mobx.toJS(store)
-console.log('store:', store)
-console.log('props:', props)
+app.extend({
+  init() {
+    this.store = store
+  },
+})
+app.init()
 
-// TODO: use ampersand-app for store
-const createElement = function (Component, props) {
-  return <Component store={props} />
-}
+/**
+ * expose 'app' to the browser console
+ * this is handy to call actions and stores in the browser console
+ */
+window.app = app
 
 // import components
 import App from './containers/App'
@@ -49,27 +53,22 @@ ReactDOM.render(
     <Route
       path="/"
       name="home"
-      component={createElement(App, props)}
-      store={props}
+      component={App}
     >
       <IndexRoute
         component={Arten}
-        store={props}
       />
       <Route
         path="Arten"
         component={Arten}
-        store={props}
       />
       <Route
         path="exporte"
         component={Exporte}
-        store={props}
       />
       <Route
         path="benutzer"
         component={Benutzer}
-        store={props}
       />
     </Route>
   </Router>,
