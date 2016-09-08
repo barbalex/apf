@@ -27,15 +27,13 @@ export default class App extends React.Component { // eslint-disable-line react/
 
   render() {
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-        <div>
+      <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)} className={styles.content}>
+        <div
+          className={styles.content}
+        >
           <DevTools />
           <AppBar />
-          <div
-            className={styles.content}
-          >
-            {React.Children.toArray(this.props.children)}
-          </div>
+          {React.Children.toArray(this.props.children)}
         </div>
       </MuiThemeProvider>
     )
