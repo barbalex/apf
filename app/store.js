@@ -1,7 +1,7 @@
 import { observable } from 'mobx-react'
 import $ from 'jquery'
 
-export default class Store {
+class Store {
   @observable data
   @observable ui
 
@@ -35,10 +35,13 @@ export default class Store {
         },
       },
     }
-    $.resize(() => {
+    /*$.resize(() => {
       // should this be debounced?
       this.windowWidth = $(window).width()
       this.windowHeight = $(window).height()
-    })
+    })*/
   }
 }
+
+// create a singleton
+export default new Store()

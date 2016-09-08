@@ -12,32 +12,67 @@ import '!file?name=[name].[ext]!./manifest.json'
 import 'file?name=[name].[ext]!./.htaccess'
 /* eslint-enable import/no-unresolved */
 
+import 'script!jquery'
+
 // Import all the third party stuff
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Router, browserHistory } from 'react-router'
+import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+import mobx from 'mobx'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin()
-import store from './store'
 
 // Import the CSS reset, which HtmlWebpackPlugin transfers to the build folder
 import 'sanitize.css/sanitize.css'
 
-// Set up the router, wrapping all Routes in the App component
-import App from 'containers/App'
-import createRoutes from './routes'
-const rootRoute = {
-  component: App,
-  childRoutes: createRoutes(store),
+// create store
+import store from './store'
+const props = mobx.toJS(store)
+console.log('store:', store)
+console.log('props:', props)
+
+// TODO: use ampersand-app for store
+const createElement = function (Component, props) {
+  return <Component store={props} />
 }
 
+// import components
+import App from './containers/App'
+import Arten from './containers/Arten'
+import Exporte from './containers/Exporte'
+import Benutzer from './containers/Benutzer'
+
 ReactDOM.render(
-  <Router
-    history={browserHistory}
-    routes={rootRoute}
-  />,
+  <Router history={browserHistory}>
+    <Route
+      path="/"
+      name="home"
+      component={createElement(App, props)}
+      store={props}
+    >
+      <IndexRoute
+        component={Arten}
+        store={props}
+      />
+      <Route
+        path="Arten"
+        component={Arten}
+        store={props}
+      />
+      <Route
+        path="exporte"
+        component={Exporte}
+        store={props}
+      />
+      <Route
+        path="benutzer"
+        component={Benutzer}
+        store={props}
+      />
+    </Route>
+  </Router>,
   document.getElementById('app')
 )
 
