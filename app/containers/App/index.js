@@ -15,6 +15,7 @@ import React from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
+import DevTools from 'mobx-react-devtools'
 import AppBar from '../../components/AppBar'
 import styles from './styles.css'
 
@@ -28,6 +29,7 @@ export default class App extends React.Component { // eslint-disable-line react/
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
         <div>
+          <DevTools />
           <AppBar />
           <div
             className={styles.content}
