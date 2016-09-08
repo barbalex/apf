@@ -1,51 +1,44 @@
-/**
- * Create the store with asynchronously loaded reducers
- */
+import { observable } from 'mobx'
+import $ from 'jquery'
 
-import { createStore, applyMiddleware, compose } from 'redux';
-import { fromJS } from 'immutable';
-import { routerMiddleware } from 'react-router-redux';
-import createSagaMiddleware from 'redux-saga';
-import createReducer from './reducers';
+export class Store {
+  @observable data
+  @observable ui
 
-const sagaMiddleware = createSagaMiddleware();
-const devtools = window.devToolsExtension || (() => noop => noop);
-
-export default function configureStore(initialState = {}, history) {
-  // Create the store with two middlewares
-  // 1. sagaMiddleware: Makes redux-sagas work
-  // 2. routerMiddleware: Syncs the location/URL path to the state
-  const middlewares = [
-    sagaMiddleware,
-    routerMiddleware(history),
-  ];
-
-  const enhancers = [
-    applyMiddleware(...middlewares),
-    devtools(),
-  ];
-
-  const store = createStore(
-    createReducer(),
-    fromJS(initialState),
-    compose(...enhancers)
-  );
-
-  // Create hook for async sagas
-  store.runSaga = sagaMiddleware.run;
-
-  // Make reducers hot reloadable, see http://mxs.is/googmo
-  /* istanbul ignore next */
-  if (module.hot) {
-    System.import('./reducers').then((reducerModule) => {
-      const createReducers = reducerModule.default;
-      const nextReducers = createReducers(store.asyncReducers);
-
-      store.replaceReducer(nextReducers);
-    });
+  constructor(transportLayer) {
+    this.transportLayer = transportLayer
+    this.data = {
+      nodes: [],
+      nodes2: [],
+      activeDataset: null,
+      map: null,
+    }
+    this.ui = {
+      windowWidth: $(window).width(),
+      windowHeight: $(window).height(),
+      artenViews: {
+        tree: {
+          visible: true,
+          width: '400px',
+        },
+        tree2: {
+          visible: false,
+          width: 0,
+        },
+        form: {
+          visible: true,
+          width: '100%',
+        },
+        map: {
+          visible: false,
+          width: 0,
+        },
+      },
+    }
+    $.resize(() => {
+      // should this be debounced?
+      this.windowWidth = $(window).width()
+      this.windowHeight = $(window).height()
+    })
   }
-
-  // Initialize it with no other reducers
-  store.asyncReducers = {};
-  return store;
 }

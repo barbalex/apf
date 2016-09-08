@@ -2,7 +2,6 @@
 // They are all wrapped in the App component, which should contain the navbar etc
 // See http://blog.mxstbr.com/2016/01/react-apps-with-pages for more information
 // about the code splitting business
-import { getAsyncInjectors } from 'utils/asyncInjectors';
 
 const errorLoading = (err) => {
   console.error('Dynamic page loading failed', err); // eslint-disable-line no-console
@@ -12,10 +11,7 @@ const loadModule = (cb) => (componentModule) => {
   cb(null, componentModule.default);
 };
 
-export default function createRoutes(store) {
-  // Create reusable async injectors using getAsyncInjectors factory
-  const { injectReducer, injectSagas } = getAsyncInjectors(store); // eslint-disable-line no-unused-vars
-
+export default function createRoutes() {
   return [
     {
       path: '/',
@@ -38,16 +34,12 @@ export default function createRoutes(store) {
       name: 'arten',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          System.import('containers/Arten/reducer'),
-          System.import('containers/Arten/sagas'),
           System.import('containers/Arten'),
         ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([reducer, sagas, component]) => {
-          injectReducer('arten', reducer.default);
-          injectSagas(sagas.default);
+        importModules.then(([component]) => {
           renderRoute(component);
         });
 
@@ -58,16 +50,12 @@ export default function createRoutes(store) {
       name: 'benutzer',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          System.import('containers/Benutzer/reducer'),
-          System.import('containers/Benutzer/sagas'),
           System.import('containers/Benutzer'),
         ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([reducer, sagas, component]) => {
-          injectReducer('benutzer', reducer.default);
-          injectSagas(sagas.default);
+        importModules.then(([component]) => {
           renderRoute(component);
         });
 
@@ -78,16 +66,12 @@ export default function createRoutes(store) {
       name: 'exporte',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          System.import('containers/Exporte/reducer'),
-          System.import('containers/Exporte/sagas'),
           System.import('containers/Exporte'),
         ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([reducer, sagas, component]) => {
-          injectReducer('exporte', reducer.default);
-          injectSagas(sagas.default);
+        importModules.then(([component]) => {
           renderRoute(component);
         });
 
