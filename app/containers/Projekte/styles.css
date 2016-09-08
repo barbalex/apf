@@ -1,6 +1,7 @@
 .inhalt { /* stylelint-disable */
   display: flex;
   flex-wrap: nowrap;
-  min-height: 100%;
   align-items: stretch;
+  align-content: stretch;
+  height: 100%;
 }
