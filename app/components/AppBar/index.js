@@ -16,6 +16,9 @@ const MyAppBar = () =>
       <div
         className={styles.menuDiv}
       >
+        <IconButton
+          iconClassName="public"
+        />
         <Tabs>
           <Tab
             label="Projekte"
