@@ -19,10 +19,12 @@ class Store {
       projekteViews: {
         tree: {
           visible: true,
+          treeActive: true,
           width: '400px',
         },
         tree2: {
           visible: false,
+          treeActive: true,
           width: 0,
         },
         daten: {
