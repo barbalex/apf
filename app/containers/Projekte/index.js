@@ -14,6 +14,8 @@ import TreeContainer from './TreeContainer'
 import Daten from './Daten'
 import Karte from './Karte'
 
+const { store } = app
+
 export default class Projekte extends Component { // eslint-disable-line react/prefer-stateless-function
   /*
   constructor(props) {
@@ -21,7 +23,6 @@ export default class Projekte extends Component { // eslint-disable-line react/p
   }*/
 
   render() {
-    const { store } = app
     console.log('Projekte.js, render, store:', store)
     console.log('Projekte.js, render, this.props:', this.props)
     console.log('Projekte.js, render, this.context:', this.context)
@@ -50,6 +51,7 @@ export default class Projekte extends Component { // eslint-disable-line react/p
           <FlatButton
             label="Karte"
             primary={store.ui.projekteViews.map.visible}
+            onClick={() => { store.ui.projekteViews.map.visible = !store.ui.projekteViews.map.visible }}
           />
         </Toolbar>
         <div className={styles.content} >
