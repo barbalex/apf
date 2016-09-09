@@ -26,21 +26,15 @@ injectTapEventPlugin()
 // Import the CSS reset, which HtmlWebpackPlugin transfers to the build folder
 import 'sanitize.css/sanitize.css'
 
-// create store
-import app from 'ampersand-app'
-import store from './store'
-app.extend({
-  init() {
-    this.store = store
-  },
-})
-app.init()
+// create state
+import createState from './createState'
+const state = createState()
 
 /**
- * expose 'app' to the browser console
+ * expose state to the browser console
  * this is handy to call actions and stores in the browser console
  */
-window.app = app
+window.state = state
 
 // import components
 import App from './containers/App'

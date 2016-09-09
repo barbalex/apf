@@ -6,15 +6,12 @@
 
 import React, { Component } from 'react'
 import Helmet from 'react-helmet'
-import app from 'ampersand-app'
 import { Toolbar } from 'material-ui/Toolbar'
 import FlatButton from 'material-ui/FlatButton'
 import styles from './styles.css'
 import TreeContainer from './TreeContainer'
 import Daten from './Daten'
 import Karte from './Karte'
-
-const { store } = app
 
 export default class Projekte extends Component { // eslint-disable-line react/prefer-stateless-function
   /*
@@ -23,10 +20,6 @@ export default class Projekte extends Component { // eslint-disable-line react/p
   }*/
 
   render() {
-    console.log('Projekte.js, render, store:', store)
-    console.log('Projekte.js, render, this.props:', this.props)
-    console.log('Projekte.js, render, this.context:', this.context)
-    // TODO: set primary on active FlatButton
     return (
       <div className={styles.container}>
         <Helmet
