@@ -1,6 +1,6 @@
 /*
  *
- * Tree
+ * TreeContainer
  *
  */
 
@@ -8,12 +8,10 @@ import React, { Component, PropTypes } from 'react'
 import app from 'ampersand-app'
 import { Tabs, Tab } from 'material-ui/Tabs'
 import styles from './styles.css'
+import Filter from './Filter'
+import Tree from './Tree'
 
-export default class Tree extends Component { // eslint-disable-line react/prefer-stateless-function
-  constructor(props) {
-    super(props);
-  }
-
+export default class TreeContainer extends Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     const store = app.store
     return (
@@ -28,7 +26,8 @@ export default class Tree extends Component { // eslint-disable-line react/prefe
             value="filter"
           />
         </Tabs>
-        Strukturbaum
+        <Tree />
+        <Filter />
       </div>
     )
   }

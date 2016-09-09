@@ -10,8 +10,8 @@ import app from 'ampersand-app'
 import { Toolbar } from 'material-ui/Toolbar'
 import FlatButton from 'material-ui/FlatButton'
 import styles from './styles.css'
-import Tree from './Tree'
-import Formulare from './Formulare'
+import TreeContainer from './TreeContainer'
+import Daten from './Daten'
 import Karte from './Karte'
 
 export default class Projekte extends Component { // eslint-disable-line react/prefer-stateless-function
@@ -53,8 +53,8 @@ export default class Projekte extends Component { // eslint-disable-line react/p
           />
         </Toolbar>
         <div className={styles.content} >
-          <Tree />
-          <Formulare />
+          <TreeContainer />
+          <Daten />
           <Karte />
         </div>
       </div>
