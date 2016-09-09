@@ -9,3 +9,9 @@
   flex-wrap: nowrap;
   height: 100%;
 }
+
+.toolbar {
+  display: flex;
+  justify-content: flex-end !important;
+  align-items: center;
+}

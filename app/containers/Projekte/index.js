@@ -4,10 +4,10 @@
  *
  */
 
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import Helmet from 'react-helmet'
 import app from 'ampersand-app'
-import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar'
+import { Toolbar } from 'material-ui/Toolbar'
 import FlatButton from 'material-ui/FlatButton'
 import styles from './styles.css'
 import Tree from './Tree'
@@ -16,12 +16,15 @@ import Karte from './Karte'
 
 export default class Projekte extends Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
-    super(props);
+    super(props)
   }
 
   render() {
-    const store = app.store
+    const { store } = app
     console.log('Projekte.js, render, store:', store)
+    console.log('Projekte.js, render, this.props:', this.props)
+    console.log('Projekte.js, render, this.context:', this.context)
+    // TODO: set primary on active FlatButton
     return (
       <div className={styles.container}>
         <Helmet
@@ -30,11 +33,23 @@ export default class Projekte extends Component { // eslint-disable-line react/p
             { name: 'description', content: 'Description of Projekte' },
           ]}
         />
-        <Toolbar>
-          <FlatButton label="Strukturbaum" />
-          <FlatButton label="Strukturbaum 2" />
-          <FlatButton label="Daten" />
-          <FlatButton label="Karte" />
+        <Toolbar className={styles.toolbar} >
+          <FlatButton
+            label="Strukturbaum"
+            primary={store.ui.projekteViews.tree.visible}
+          />
+          <FlatButton
+            label="Strukturbaum 2"
+            primary={store.ui.projekteViews.tree2.visible}
+          />
+          <FlatButton
+            label="Daten"
+            primary={store.ui.projekteViews.daten.visible}
+          />
+          <FlatButton
+            label="Karte"
+            primary={store.ui.projekteViews.map.visible}
+          />
         </Toolbar>
         <div className={styles.content} >
           <Tree />
