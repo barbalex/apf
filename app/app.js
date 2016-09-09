@@ -26,21 +26,14 @@ injectTapEventPlugin()
 // Import the CSS reset, which HtmlWebpackPlugin transfers to the build folder
 import 'sanitize.css/sanitize.css'
 
-// create state
-import createState from './createState'
-const state = createState()
-
-/**
- * expose state to the browser console
- * this is handy to call actions and stores in the browser console
- */
-window.state = state
-
 // import components
 import App from './containers/App'
 import Projekte from './containers/Projekte'
 import Exporte from './containers/Exporte'
 import Benutzer from './containers/Benutzer'
+
+// TODO: redirect to login if not logged in
+/* see: http://stackoverflow.com/questions/35850871/how-to-connect-state-to-props-with-mobx-js-observer-when-use-es6-class/36164488#36164488 */
 
 ReactDOM.render(
   <Router history={browserHistory}>

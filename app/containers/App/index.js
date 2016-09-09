@@ -16,6 +16,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import DevTools from 'mobx-react-devtools'
+import store from '../../store'
 import AppBar from '../../components/AppBar'
 import styles from './styles.css'
 
@@ -25,9 +26,35 @@ export default class App extends React.Component { // eslint-disable-line react/
     children: React.PropTypes.node,
   }
 
+  static contextTypes = {
+    router: React.PropTypes.object.isRequired,
+  }
+
+  static childContextTypes = {
+    store: React.PropTypes.object,
+  }
+
+  getChildContext() {
+    /**
+     * Register store to be passed down to components
+     */
+    return {
+      store,
+    }
+  }
+
+  componentWillMount() {
+    // TODO: check if logged in
+    /* see: http://stackoverflow.com/questions/35850871/how-to-connect-state-to-props-with-mobx-js-observer-when-use-es6-class/36164488#36164488 */
+  }
+
   render() {
+    console.log('App, render, store:', store)
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)} className={styles.content}>
+      <MuiThemeProvider
+        muiTheme={getMuiTheme(darkBaseTheme)}
+        className={styles.content}
+      >
         <div
           className={styles.content}
         >
