@@ -34,7 +34,7 @@ class Store extends singleton {
         visible: true,
         width: '100%',
       },
-      map: {
+      karte: {
         visible: false,
         width: 0,
       },

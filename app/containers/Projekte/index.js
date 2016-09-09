@@ -48,14 +48,17 @@ const Projekte = observer(
             />
             <FlatButton
               label="Karte"
-              primary={store.ui.projekteViews.map.visible}
-              onClick={() => { store.ui.projekteViews.map.visible = !store.ui.projekteViews.map.visible }}
+              primary={store.ui.projekteViews.karte.visible}
+              onClick={() => { store.ui.projekteViews.karte.visible = !store.ui.projekteViews.karte.visible }}
             />
           </Toolbar>
           <div className={styles.content} >
             <TreeContainer />
             <Daten />
-            <Karte />
+            {
+              store.ui.projekteViews.karte.visible
+              && <Karte />
+            }
           </div>
         </div>
       )
