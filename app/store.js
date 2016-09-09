@@ -16,7 +16,7 @@ class Store {
     this.ui = {
       windowWidth: $(window).width(),
       windowHeight: $(window).height(),
-      artenViews: {
+      projekteViews: {
         tree: {
           visible: true,
           width: '400px',
@@ -25,7 +25,7 @@ class Store {
           visible: false,
           width: 0,
         },
-        form: {
+        daten: {
           visible: true,
           width: '100%',
         },
