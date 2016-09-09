@@ -15,9 +15,10 @@ import Formulare from './Formulare'
 import Karte from './Karte'
 
 export default class Projekte extends Component { // eslint-disable-line react/prefer-stateless-function
+  /*
   constructor(props) {
     super(props)
-  }
+  }*/
 
   render() {
     const { store } = app
