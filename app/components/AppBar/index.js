@@ -5,6 +5,7 @@ import IconMenu from 'material-ui/IconMenu'
 import MenuItem from 'material-ui/MenuItem'
 import IconButton from 'material-ui/IconButton/IconButton'
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
+import PublicIcon from 'material-ui/svg-icons/social/public'
 
 import styles from './styles.css'
 
@@ -16,9 +17,7 @@ const MyAppBar = () =>
       <div
         className={styles.menuDiv}
       >
-        <IconButton
-          iconClassName="public"
-        />
+        <IconButton><PublicIcon /></IconButton>
         <Tabs>
           <Tab
             label="Projekte"
