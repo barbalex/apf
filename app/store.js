@@ -21,14 +21,14 @@ class Store extends singleton {
     windowWidth: $(window).width(),
     windowHeight: $(window).height(),
     projekteViews: {
-      tree: {
+      strukturbaum: {
         visible: true,
-        treeActive: true,
+        activeTab: 'strukturbaum',
         width: '400px',
       },
-      tree2: {
+      strukturbaum2: {
         visible: false,
-        treeActive: true,
+        strukturbaumActive: true,
         width: 0,
       },
       daten: {

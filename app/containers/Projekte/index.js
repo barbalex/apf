@@ -34,11 +34,11 @@ const Projekte = observer(
           <Toolbar className={styles.toolbar} >
             <FlatButton
               label="Strukturbaum"
-              primary={store.ui.projekteViews.tree.visible}
+              primary={store.ui.projekteViews.strukturbaum.visible}
             />
             <FlatButton
               label="Strukturbaum 2"
-              primary={store.ui.projekteViews.tree2.visible}
+              primary={store.ui.projekteViews.strukturbaum2.visible}
               disabled
             />
             <FlatButton
