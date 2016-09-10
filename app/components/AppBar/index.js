@@ -13,49 +13,56 @@ const onClickTab = (path) => {
   browserHistory.push(path)
 }
 
-const MyAppBar = () =>
-  <AppBar
-    title="AP Flora"
-    className={styles.menuDiv}
-    iconElementRight={
-      <div
-        className={styles.menuDiv}
-      >
-        <Tabs>
-          <Tab
-            label="Projekte"
-            className={styles.tab}
-            onClick={() => onClickTab('/projekte')}
-          />
-          <Tab
-            label="Exporte"
-            className={styles.tab}
-            onClick={() => onClickTab('/exporte')}
-          />
-          <Tab
-            label="Benutzer"
-            className={styles.tab}
-            onClick={() => onClickTab('/benutzer')}
-          />
-        </Tabs>
-        <IconMenu
-          iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-          anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
-          targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-          style={{
-            paddingLeft: 10,
-          }}
+const MyAppBar = (props) => {
+  const { location } = props
+  return (
+    <AppBar
+      title="AP Flora"
+      className={styles.menuDiv}
+      iconElementRight={
+        <div
+          className={styles.menuDiv}
         >
-          <MenuItem
-            primaryText="Über apflora.ch"
-            onTouchTap={() =>
-              window.open('https://github.com/FNSKtZH/apflora/wiki')
-            }
-          />
-        </IconMenu>
-      </div>
-    }
-    showMenuIconButton={false}
-  />
+          <Tabs
+            value={location.pathname}
+            onChange={onClickTab}
+          >
+            <Tab
+              label="Projekte"
+              value="/projekte"
+              className={styles.tab}
+            />
+            <Tab
+              label="Exporte"
+              value="/exporte"
+              className={styles.tab}
+            />
+            <Tab
+              label="Benutzer"
+              value="/benutzer"
+              className={styles.tab}
+            />
+          </Tabs>
+          <IconMenu
+            iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+            anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+            targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+            style={{
+              paddingLeft: 10,
+            }}
+          >
+            <MenuItem
+              primaryText="Über apflora.ch"
+              onTouchTap={() =>
+                window.open('https://github.com/FNSKtZH/apflora/wiki')
+              }
+            />
+          </IconMenu>
+        </div>
+      }
+      showMenuIconButton={false}
+    />
+  )
+}
 
 export default MyAppBar
