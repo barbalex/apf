@@ -34,32 +34,45 @@ const Projekte = observer(
           <Toolbar className={styles.toolbar} >
             <FlatButton
               label="Strukturbaum"
-              primary={store.ui.projekteViews.strukturbaum.visible}
+              primary={store.ui.projekte.strukturbaum.visible}
+              onClick={() => {
+                store.ui.projekte.strukturbaum.visible = !store.ui.projekte.strukturbaum.visible
+              }}
             />
             <FlatButton
               label="Strukturbaum 2"
-              primary={store.ui.projekteViews.strukturbaum2.visible}
+              primary={store.ui.projekte.strukturbaum2.visible}
+              onClick={() => {
+                store.ui.projekte.strukturbaum2.visible = !store.ui.projekte.strukturbaum2.visible
+              }}
               disabled
             />
             <FlatButton
               label="Daten"
-              primary={store.ui.projekteViews.daten.visible}
-              onClick={() => { store.ui.projekteViews.daten.visible = !store.ui.projekteViews.daten.visible }}
+              primary={store.ui.projekte.daten.visible}
+              onClick={() => {
+                store.ui.projekte.daten.visible = !store.ui.projekte.daten.visible
+              }}
             />
             <FlatButton
               label="Karte"
-              primary={store.ui.projekteViews.karte.visible}
-              onClick={() => { store.ui.projekteViews.karte.visible = !store.ui.projekteViews.karte.visible }}
+              primary={store.ui.projekte.karte.visible}
+              onClick={() => {
+                store.ui.projekte.karte.visible = !store.ui.projekte.karte.visible
+              }}
             />
           </Toolbar>
           <div className={styles.content} >
-            <TreeContainer />
             {
-              store.ui.projekteViews.daten.visible
+              store.ui.projekte.strukturbaum.visible
+              && <TreeContainer />
+            }
+            {
+              store.ui.projekte.daten.visible
               && <Daten />
             }
             {
-              store.ui.projekteViews.karte.visible
+              store.ui.projekte.karte.visible
               && <Karte />
             }
           </div>
