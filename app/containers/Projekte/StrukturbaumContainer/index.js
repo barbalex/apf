@@ -1,6 +1,6 @@
 /*
  *
- * TreeContainer
+ * StrukturbaumContainer
  *
  */
 
@@ -9,10 +9,10 @@ import { observer } from 'mobx-react'
 import { Tabs, Tab } from 'material-ui/Tabs'
 import styles from './styles.css'
 import Filter from './Filter'
-import Tree from './Tree'
+import Strukturbaum from './Strukturbaum'
 
-const TreeContainer = observer(
-  class TreeContainer extends Component { // eslint-disable-line react/prefer-stateless-function
+const StrukturbaumContainer = observer(
+  class StrukturbaumContainer extends Component { // eslint-disable-line react/prefer-stateless-function
     static contextTypes = {
       router: React.PropTypes.object.isRequired,
       store: React.PropTypes.object.isRequired,
@@ -35,7 +35,7 @@ const TreeContainer = observer(
               label="Strukturbaum"
               value="strukturbaum"
             >
-              <Tree />
+              <Strukturbaum />
             </Tab>
             <Tab
               label="Filter"
@@ -50,4 +50,4 @@ const TreeContainer = observer(
   }
 )
 
-export default TreeContainer
+export default StrukturbaumContainer

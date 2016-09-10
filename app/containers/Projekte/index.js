@@ -10,7 +10,7 @@ import Helmet from 'react-helmet'
 import { Toolbar } from 'material-ui/Toolbar'
 import FlatButton from 'material-ui/FlatButton'
 import styles from './styles.css'
-import TreeContainer from './TreeContainer'
+import StrukturbaumContainer from './StrukturbaumContainer'
 import Daten from './Daten'
 import Karte from './Karte'
 
@@ -65,7 +65,7 @@ const Projekte = observer(
           <div className={styles.content} >
             {
               store.ui.projekte.strukturbaum.visible
-              && <TreeContainer />
+              && <StrukturbaumContainer />
             }
             {
               store.ui.projekte.daten.visible
