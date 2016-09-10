@@ -3,6 +3,11 @@
   flex-wrap: wrap;
 }
 
+.menuDiv > div {
+  /* without this the tabs partly cover the adjacent menu bar */
+  margin-top: -1px !important;
+}
+
 .tab {
   padding-right: 20px !important;
   padding-left: 20px !important;
