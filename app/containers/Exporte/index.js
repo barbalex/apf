@@ -18,7 +18,7 @@ export default class Exporte extends React.Component { // eslint-disable-line re
             { name: 'description', content: 'Description of Exporte' },
           ]}
         />
-        Exporte Page
+        Exporte
       </div>
     )
   }

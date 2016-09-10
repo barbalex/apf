@@ -18,7 +18,7 @@ export default class Benutzer extends React.Component { // eslint-disable-line r
             { name: 'description', content: 'Description of Benutzer' },
           ]}
         />
-        This is Benutzer page
+        Benutzer
       </div>
     )
   }
