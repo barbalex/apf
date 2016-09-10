@@ -50,9 +50,14 @@ export default class App extends React.Component { // eslint-disable-line react/
 
   render() {
     console.log('App, render, store:', store)
+    const theme = Object.assign({}, darkBaseTheme, {
+      appBar: {
+        height: 51,
+      },
+    })
     return (
       <MuiThemeProvider
-        muiTheme={getMuiTheme(darkBaseTheme)}
+        muiTheme={getMuiTheme(theme)}
         className={styles.content}
       >
         <div
