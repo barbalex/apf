@@ -41,6 +41,7 @@ const Projekte = observer(
             <FlatButton
               label="Strukturbaum 2"
               primary={store.ui.projekteViews.tree2.visible}
+              disabled
             />
             <FlatButton
               label="Daten"
