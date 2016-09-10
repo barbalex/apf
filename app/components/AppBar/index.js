@@ -9,12 +9,12 @@ import { browserHistory } from 'react-router'
 
 import styles from './styles.css'
 
-const onClickTab = (path) => {
-  browserHistory.push(path)
-}
-
 const MyAppBar = (props) => {
   const { location } = props
+  const onClickTab = (path) => {
+    browserHistory.push(path)
+  }
+
   return (
     <AppBar
       title="AP Flora"
