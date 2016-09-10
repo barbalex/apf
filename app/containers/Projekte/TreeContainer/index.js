@@ -20,7 +20,7 @@ const TreeContainer = observer(
 
     onClickTab = (value) => {
       const { store } = this.context
-      store.ui.projekteViews.strukturbaum.activeTab = value
+      store.ui.projekte.strukturbaum.activeTab = value
     }
 
     render() {
@@ -28,7 +28,7 @@ const TreeContainer = observer(
       return (
         <div className={styles.strukturbaum}>
           <Tabs
-            value={store.ui.projekteViews.strukturbaum.activeTab}
+            value={store.ui.projekte.strukturbaum.activeTab}
             onChange={this.onClickTab}
           >
             <Tab

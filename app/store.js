@@ -20,7 +20,7 @@ class Store extends singleton {
   ui = observable({
     windowWidth: $(window).width(),
     windowHeight: $(window).height(),
-    projekteViews: {
+    projekte: {
       strukturbaum: {
         visible: true,
         activeTab: 'strukturbaum',
