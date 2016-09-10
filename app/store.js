@@ -24,20 +24,16 @@ class Store extends singleton {
       strukturbaum: {
         visible: true,
         activeTab: 'strukturbaum',
-        width: '400px',
       },
       strukturbaum2: {
         visible: false,
         strukturbaumActive: true,
-        width: 0,
       },
       daten: {
         visible: true,
-        width: '100%',
       },
       karte: {
         visible: false,
-        width: 0,
       },
     },
   })
