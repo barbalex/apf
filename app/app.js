@@ -39,7 +39,6 @@ ReactDOM.render(
   <Router history={browserHistory}>
     <Route
       path="/"
-      name="home"
       component={App}
     >
       <IndexRedirect
