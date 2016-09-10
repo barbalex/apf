@@ -23,8 +23,6 @@ const Projekte = observer(
 
     render() {
       const { router, store } = this.context
-      console.log('Projekte, render, router:', router)
-      console.log('Projekte, render, store:', store)
       return (
         <div className={styles.container}>
           <Helmet
