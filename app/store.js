@@ -4,7 +4,7 @@
  * from: http://stackoverflow.com/questions/35850871/how-to-connect-state-to-props-with-mobx-js-observer-when-use-es6-class/36164488#36164488
  */
 
-// import { observable } from 'mobx-react'  // reason for error????
+// import { observable } from 'mobx-react'  // reason for HORRIBLE webpack error????
 import { observable } from 'mobx'
 import $ from 'jquery'
 import singleton from 'singleton'
@@ -15,6 +15,7 @@ class Store extends singleton {
     nodes2: [],
     activeDataset: null,
     map: null,
+    user: null,
   })
   ui = observable({
     windowWidth: $(window).width(),
