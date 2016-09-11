@@ -42,18 +42,18 @@ ReactDOM.render(
       component={App}
     >
       <IndexRedirect
-        to="/projekte"
+        to="/Projekte"
       />
       <Route
-        path="projekte"
+        path="Projekte"
         component={Projekte}
       />
       <Route
-        path="exporte"
+        path="Exporte"
         component={Exporte}
       />
       <Route
-        path="benutzer"
+        path="Benutzer"
         component={Benutzer}
       />
     </Route>

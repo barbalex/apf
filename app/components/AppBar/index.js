@@ -29,17 +29,17 @@ const MyAppBar = (props) => {
           >
             <Tab
               label="Projekte"
-              value="/projekte"
+              value="/Projekte"
               className={styles.tab}
             />
             <Tab
               label="Exporte"
-              value="/exporte"
+              value="/Exporte"
               className={styles.tab}
             />
             <Tab
               label="Benutzer"
-              value="/benutzer"
+              value="/Benutzer"
               className={styles.tab}
             />
           </Tabs>
