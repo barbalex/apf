@@ -13,16 +13,19 @@ import styles from './styles.css'
 
 const data = [
   {
-    nodeId: 'root',
-    type: 'root',
-    name: 'root',
-    children: ['projekt/1'],
-  },
-  {
     nodeId: 'projekt/1',
     datasetId: 1,
     type: 'dataset',
     name: 'AP Flora Kt. ZH',
+    expanded: false,
+    nrOfUnloadedChildren: 526,
+    parentId: 'root',
+  },
+  {
+    nodeId: 'projekt/2',
+    datasetId: 2,
+    type: 'dataset',
+    name: 'zweites Projekt',
     expanded: false,
     nrOfUnloadedChildren: 526,
     parentId: 'root',
@@ -85,21 +88,19 @@ const Strukturbaum = observer(
   class Strukturbaum extends Component { // eslint-disable-line react/prefer-stateless-function
     render() {  // eslint-disable-line class-methods-use-this
       return (
-        <div className={styles.container}>
-          <AutoSizer>
-            {
-              ({ height, width }) => (
-                <List
-                  height={height}
-                  rowCount={data.length}
-                  rowHeight={20}
-                  rowRenderer={cellRenderer}
-                  width={width}
-                />
-              )
-            }
-          </AutoSizer>
-        </div>
+        <AutoSizer>
+          {
+            ({ height, width }) => (
+              <List
+                height={height}
+                rowCount={data.length}
+                rowHeight={20}
+                rowRenderer={cellRenderer}
+                width={width}
+              />
+            )
+          }
+        </AutoSizer>
       )
     }
   }

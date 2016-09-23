@@ -34,6 +34,7 @@ const StrukturbaumContainer = observer(
             <Tab
               label="Strukturbaum"
               value="strukturbaum"
+              className={styles.strukturbaumTab}
             >
               <Strukturbaum />
             </Tab>
