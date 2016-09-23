@@ -86,7 +86,6 @@ const Strukturbaum = observer(
     render() {  // eslint-disable-line class-methods-use-this
       return (
         <div className={styles.container}>
-          Strukturbaum
           <AutoSizer>
             {
               ({ height, width }) => (
