@@ -38,8 +38,8 @@ function renderItem(item, keyPrefix) {
   const onClick = (event) => {
     event.stopPropagation()
     item.expanded = !item.expanded
-    List.recomputeRowHeights()
-    List.forceUpdate()
+    myList.recomputeRowHeights()
+    myList.forceUpdate()
   }
 
   const props = { key: keyPrefix }
@@ -72,6 +72,11 @@ function renderItem(item, keyPrefix) {
   return React.DOM.ul(null, React.DOM.li(props, children))
 }
 
+let myList
+function setRef(ref) {
+  myList = ref
+}
+
 function cellRenderer(params) {
   const renderedCell = renderItem(data[params.index], params.index)
 
@@ -97,6 +102,7 @@ const Strukturbaum = observer(
                 rowHeight={20}
                 rowRenderer={cellRenderer}
                 width={width}
+                ref={setRef}
               />
             )
           }
