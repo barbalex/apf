@@ -9,37 +9,10 @@
 import React, { Component } from 'react'
 import { observer } from 'mobx-react'
 import { AutoSizer, List } from 'react-virtualized'
+import projectSampleData from './projectSampleData.json'
 import styles from './styles.css'
 
-const data = [
-  {
-    nodeId: 'root',
-    name: 'root',
-    expanded: true,
-    children: [
-      {
-        nodeId: 'projekt/1',
-        datasetId: 1,
-        type: 'dataset',
-        name: 'AP Flora Kt. ZH',
-        expanded: false,
-        nrOfUnloadedChildren: 526,
-        parentId: 'root',
-        children: [],
-      },
-      {
-        nodeId: 'projekt/2',
-        datasetId: 2,
-        type: 'dataset',
-        name: 'zweites Projekt',
-        expanded: false,
-        nrOfUnloadedChildren: 526,
-        parentId: 'root',
-        children: [],
-      },
-    ],
-  },
-]
+const data = projectSampleData
 
 console.log('nodes data:', data)
 
