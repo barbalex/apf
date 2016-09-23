@@ -13,22 +13,31 @@ import styles from './styles.css'
 
 const data = [
   {
-    nodeId: 'projekt/1',
-    datasetId: 1,
-    type: 'dataset',
-    name: 'AP Flora Kt. ZH',
-    expanded: false,
-    nrOfUnloadedChildren: 526,
-    parentId: 'root',
-  },
-  {
-    nodeId: 'projekt/2',
-    datasetId: 2,
-    type: 'dataset',
-    name: 'zweites Projekt',
-    expanded: false,
-    nrOfUnloadedChildren: 526,
-    parentId: 'root',
+    nodeId: 'root',
+    name: 'root',
+    expanded: true,
+    children: [
+      {
+        nodeId: 'projekt/1',
+        datasetId: 1,
+        type: 'dataset',
+        name: 'AP Flora Kt. ZH',
+        expanded: false,
+        nrOfUnloadedChildren: 526,
+        parentId: 'root',
+        children: [],
+      },
+      {
+        nodeId: 'projekt/2',
+        datasetId: 2,
+        type: 'dataset',
+        name: 'zweites Projekt',
+        expanded: false,
+        nrOfUnloadedChildren: 526,
+        parentId: 'root',
+        children: [],
+      },
+    ],
   },
 ]
 
@@ -38,8 +47,6 @@ function renderItem(item, keyPrefix) {
   const onClick = (event) => {
     event.stopPropagation()
     item.expanded = !item.expanded
-    myList.recomputeRowHeights()
-    myList.forceUpdate()
   }
 
   const props = { key: keyPrefix }
@@ -50,7 +57,7 @@ function renderItem(item, keyPrefix) {
     props.onClick = onClick
     itemText = `[-] ${item.name}`
     children = item.children.map((child, index) =>
-      renderItem(child, `${keyPrefix}-${index}`)
+      renderItem(child, `${child.nodeId}-child-${index}`)
     )
   } else if (item.children.length) {
     props.onClick = onClick
@@ -60,53 +67,45 @@ function renderItem(item, keyPrefix) {
   }
 
   children.unshift(
-    React.DOM.div({
-      className: 'item',
-      key: 'label',
-      style: {
-        cursor: item.children.length ? 'pointer' : 'auto',
-      },
-    }, itemText)
+    <div
+      className="item"
+      key={`${item.nodeId}-child`}
+      style={{ cursor: item.children && item.children.length ? 'pointer' : 'auto' }}
+    >
+      {itemText}
+    </div>
   )
 
-  return React.DOM.ul(null, React.DOM.li(props, children))
-}
-
-let myList
-function setRef(ref) {
-  myList = ref
-}
-
-function cellRenderer(params) {
-  const renderedCell = renderItem(data[params.index], params.index)
-
-  return React.DOM.ul(
-    {
-      key: params.key,
-      style: params.style,
-    },
-    renderedCell
+  return (
+    <li
+      key={item.nodeId}
+      onClick={props.onClick}
+    >
+      <ul>
+        {children}
+      </ul>
+    </li>
   )
 }
+
+const rowRenderer = ({ key, index }) =>
+  <ul
+    key={key}
+  >
+    {renderItem(data[index], index)}
+  </ul>
 
 const Strukturbaum = observer(
   class Strukturbaum extends Component { // eslint-disable-line react/prefer-stateless-function
     render() {  // eslint-disable-line class-methods-use-this
       return (
-        <AutoSizer>
-          {
-            ({ height, width }) => (
-              <List
-                height={height}
-                rowCount={data.length}
-                rowHeight={20}
-                rowRenderer={cellRenderer}
-                width={width}
-                ref={setRef}
-              />
-            )
-          }
-        </AutoSizer>
+        <List
+          height={600}
+          rowCount={data.length}
+          rowHeight={200}
+          rowRenderer={rowRenderer}
+          width={600}
+        />
       )
     }
   }
