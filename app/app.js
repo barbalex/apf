@@ -27,10 +27,10 @@ injectTapEventPlugin()
 import 'sanitize.css/sanitize.css'
 
 // import components
-import App from './containers/App'
-import Projekte from './containers/Projekte'
-import Exporte from './containers/Exporte'
-import Benutzer from './containers/Benutzer'
+import App from './components/App'
+import Projekte from './components/Projekte'
+import Exporte from './components/Exporte'
+import Benutzer from './components/Benutzer'
 
 // TODO: redirect to login if not logged in
 /* see: http://stackoverflow.com/questions/35850871/how-to-connect-state-to-props-with-mobx-js-observer-when-use-es6-class/36164488#36164488 */
