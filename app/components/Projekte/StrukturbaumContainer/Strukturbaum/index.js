@@ -9,14 +9,14 @@
 import React, { Component } from 'react'
 import { observer } from 'mobx-react'
 import { AutoSizer, List } from 'react-virtualized'
-import buildNodes from './buildNodes'
 import styles from './styles.css'
 
-const rawData = [
+const data = [
   {
     nodeId: 'root',
     type: 'root',
     name: 'root',
+    children: ['projekt/1'],
   },
   {
     nodeId: 'projekt/1',
@@ -29,7 +29,6 @@ const rawData = [
   },
 ]
 
-const data = buildNodes(rawData)
 console.log('nodes data:', data)
 
 function renderItem(item, keyPrefix) {
@@ -84,7 +83,7 @@ function cellRenderer(params) {
 
 const Strukturbaum = observer(
   class Strukturbaum extends Component { // eslint-disable-line react/prefer-stateless-function
-    render() {
+    render() {  // eslint-disable-line class-methods-use-this
       return (
         <div className={styles.container}>
           Strukturbaum
