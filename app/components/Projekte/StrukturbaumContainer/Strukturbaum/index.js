@@ -14,8 +14,6 @@ import styles from './styles.css'
 
 const data = projectSampleData
 
-console.log('nodes data:', data)
-
 function renderItem(item, keyPrefix) {
   const onClick = (event) => {
     event.stopPropagation()
@@ -78,6 +76,7 @@ const Strukturbaum = observer(
           rowHeight={200}
           rowRenderer={rowRenderer}
           width={600}
+          className={styles.container}
         />
       )
     }
