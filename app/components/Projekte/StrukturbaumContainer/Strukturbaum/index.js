@@ -39,7 +39,7 @@ function renderItem(item, keyPrefix) {
 
   children.unshift(
     <div
-      className="item"
+      className={styles.item}
       key={`${item.nodeId}-child`}
       style={{ cursor: item.children && item.children.length ? 'pointer' : 'auto' }}
     >
@@ -48,28 +48,28 @@ function renderItem(item, keyPrefix) {
   )
 
   return (
-    <li
+    <ul
       key={item.nodeId}
       onClick={props.onClick}
     >
-      <ul>
+      <li>
         {children}
-      </ul>
-    </li>
+      </li>
+    </ul>
   )
 }
 
 const rowRenderer = ({ key, index }) =>
-  <ul
+  <div
     key={key}
   >
     {renderItem(data[index], index)}
-  </ul>
+  </div>
 
 const Strukturbaum = observer(
   class Strukturbaum extends Component { // eslint-disable-line react/prefer-stateless-function
     render() {  // eslint-disable-line class-methods-use-this
-      const rowHeight = data[0].expanded ? (data[0].children.length * 23.6) : 23.6
+      const rowHeight = data[0].expanded ? (data[0].children.length * 24) : 24
       return (
         <List
           height={600}

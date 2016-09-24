@@ -2,5 +2,7 @@
   overflow-y: scroll !important;
 }
 
-.container > div {
+.item {
+  line-height: 1em;
+  font-size: 1em;
 }
