@@ -1,6 +1,6 @@
 .container {
+  overflow-y: scroll !important;
 }
 
 .container > div {
-  overflow-y: scroll !important;
 }
