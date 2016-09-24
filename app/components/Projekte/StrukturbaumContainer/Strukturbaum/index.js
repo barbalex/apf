@@ -69,11 +69,12 @@ const rowRenderer = ({ key, index }) =>
 const Strukturbaum = observer(
   class Strukturbaum extends Component { // eslint-disable-line react/prefer-stateless-function
     render() {  // eslint-disable-line class-methods-use-this
+      const rowHeight = data[0].expanded ? (data[0].children.length * 23.6) : 23.6
       return (
         <List
           height={600}
           rowCount={data.length}
-          rowHeight={200}
+          rowHeight={rowHeight}
           rowRenderer={rowRenderer}
           width={600}
           className={styles.container}
