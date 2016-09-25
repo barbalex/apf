@@ -26,7 +26,7 @@ const StrukturbaumContainer = observer(
       const id = 1
       const folder = null
       const levels = 'all'
-      store.actions.loadNodes(table, id, folder, levels)
+      store.actions.fetchNodes(table, id, folder, levels)
     }
 
     onClickTab = (value) => {
@@ -55,14 +55,16 @@ const StrukturbaumContainer = observer(
             >
             </Tab>
           </Tabs>
-          {
-            activeTab === 'strukturbaum'
-            && <Strukturbaum />
-          }
-          {
-            activeTab === 'filter'
-            && <Filter />
-          }
+          <div className={styles.tabsContent}>
+            {
+              activeTab === 'strukturbaum'
+              && <Strukturbaum />
+            }
+            {
+              activeTab === 'filter'
+              && <Filter />
+            }
+          </div>
         </div>
       )
     }

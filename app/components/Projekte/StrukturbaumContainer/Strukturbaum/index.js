@@ -42,6 +42,10 @@ const Strukturbaum = observer(
       const { store } = this.context
       const onClick = (event) => {
         event.stopPropagation()
+        if (!item.expanded) {
+          // fetch data
+          //store.actions.
+        }
         store.actions.toggleNodeExpanded(item)
       }
 
@@ -90,7 +94,7 @@ const Strukturbaum = observer(
         return <div>lade Daten...</div>
       }
       const nodes = store.data.nodes
-      const rowHeight = nodes[0].expanded ? (nodes[0].children.length * 24) : 24
+      const rowHeight = nodes[0].expanded ? ((nodes[0].children.length + 1) * 22.87) : 1 * 22.87
       return (
         <AutoSizer>
           {({ height, width }) => (
