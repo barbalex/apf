@@ -8,8 +8,7 @@
 
 import React, { Component } from 'react'
 import { observer } from 'mobx-react'
-import { AutoSizer, List, ScrollSync } from 'react-virtualized'
-import { Scrollbars } from 'react-custom-scrollbars'
+import { AutoSizer, List } from 'react-virtualized'
 import projectSampleData from './projectSampleData.json'
 import styles from './styles.css'
 
