@@ -18,6 +18,17 @@ const StrukturbaumContainer = observer(
       store: React.PropTypes.object.isRequired,
     }
 
+    componentDidMount() {
+      // load node
+      // TODO: depending on path
+      const { store } = this.context
+      const table = 'projekt'
+      const id = 1
+      const folder = null
+      const levels = 'all'
+      store.loadNodes(table, id, folder, levels)
+    }
+
     onClickTab = (value) => {
       const { store } = this.context
       store.ui.projekte.strukturbaum.activeTab = value

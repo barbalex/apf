@@ -5,13 +5,20 @@
  */
 
 // import { observable } from 'mobx-react'  // reason for HORRIBLE webpack error????
-import { observable } from 'mobx'
+import { observable, action } from 'mobx'
 import $ from 'jquery'
 import singleton from 'singleton'
 
+import apiBaseUrl from './modules/apiBaseUrl'
+
 class Store extends singleton {
+  constructor() {
+    super()
+    this.toggleNodeExpanded = this.toggleNodeExpanded.bind(this)
+  }
   data = observable({
     nodes: [],
+    loadingNodes: false,
     nodes2: [],
     activeDataset: null,
     map: null,
@@ -37,6 +44,22 @@ class Store extends singleton {
       },
     },
   })
+
+  loadNodes(table, id = null, folder = null, levels = '') {
+    this.data.loadingNodes = true
+    fetch(`${apiBaseUrl}/node?table=projekt&id=1&levels=all`)
+      .then(resp => resp.json())
+      .then((nodes) => {
+        this.data.nodes = nodes
+        this.data.loadingNodes = false
+      })
+      .catch(error => console.log(error))
+  }
+
+  toggleNodeExpanded(node) {
+    action(node.expanded = !node.expanded)
+  }
+
 }
 
 export default Store.get()

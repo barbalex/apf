@@ -5,85 +5,113 @@
  * https://github.com/bvaughn/react-virtualized/blob/master/playground/tree.js
  *
  */
+/* eslint-disable no-console */
 
 import React, { Component } from 'react'
 import { observer } from 'mobx-react'
 import { AutoSizer, List } from 'react-virtualized'
-import projectSampleData from './projectSampleData.json'
 import styles from './styles.css'
 
-const data = projectSampleData
-
-function renderItem(item, keyPrefix) {
-  const onClick = (event) => {
-    event.stopPropagation()
-    item.expanded = !item.expanded
-  }
-
-  const props = { key: keyPrefix }
-  let children = []
-  let itemText
-
-  if (item.expanded) {
-    props.onClick = onClick
-    itemText = `- ${item.name}`
-    children = item.children.map((child, index) =>
-      renderItem(child, `${child.nodeId}-child-${index}`)
-    )
-  } else if (item.children.length) {
-    props.onClick = onClick
-    itemText = `+ ${item.name}`
-  } else {
-    itemText = `    ${item.name}`
-  }
-
-  children.unshift(
-    <div
-      className={styles.item}
-      key={`${item.nodeId}-child`}
-      style={{ cursor: item.children && item.children.length ? 'pointer' : 'auto' }}
-    >
-      {itemText}
-    </div>
-  )
-
-  return (
-    <ul
-      key={item.nodeId}
-      onClick={props.onClick}
-    >
-      <li>
-        {children}
-      </li>
-    </ul>
-  )
-}
-
-const rowRenderer = ({ key, index }) =>
-  <div
-    key={key}
-  >
-    {renderItem(data[index], index)}
-  </div>
+let ListRef
 
 const Strukturbaum = observer(
   class Strukturbaum extends Component { // eslint-disable-line react/prefer-stateless-function
-    render() {  // eslint-disable-line class-methods-use-this
-      const rowHeight = data[0].expanded ? (data[0].children.length * 24) : 24
+    constructor() {
+      super()
+      this.rowRenderer = this.rowRenderer.bind(this)
+      this.renderItem = this.renderItem.bind(this)
+    }
+
+    static contextTypes = {
+      router: React.PropTypes.object.isRequired,
+      store: React.PropTypes.object.isRequired,
+    }
+
+    rowRenderer({ key, index }) {
+      const { store } = this.context
       return (
-        <AutoSizer>
-          {({ height, width }) => (
-            <List
-              height={height}
-              rowCount={data.length}
-              rowHeight={rowHeight}
-              rowRenderer={rowRenderer}
-              width={width}
-              className={styles.container}
-            />
-          )}
-        </AutoSizer>
+        <div
+          key={key}
+        >
+          {this.renderItem(store.data.nodes[index], index)}
+        </div>
       )
+    }
+
+    renderItem(item, keyPrefix) {
+      const { store } = this.context
+      const onClick = (event) => {
+        event.stopPropagation()
+        console.log('item.expanded:', item.expanded)
+        // item.expanded = !item.expanded
+        store.toggleNodeExpanded(item)
+        // ListRef.forceUpdate()
+        console.log('item.expanded:', item.expanded)
+        console.log('store:', store)
+      }
+
+      const props = { key: keyPrefix }
+      let children = []
+      let itemText
+
+      if (item.expanded) {
+        props.onClick = onClick
+        itemText = `- ${item.name}`
+        children = item.children.map((child, index) =>
+          this.renderItem(child, `${child.nodeId}-child-${index}`)
+        )
+      } else if (item.children.length) {
+        props.onClick = onClick
+        itemText = `+ ${item.name}`
+      } else {
+        itemText = `    ${item.name}`
+      }
+
+      children.unshift(
+        <div
+          className={styles.item}
+          key={`${item.nodeId}-child`}
+          style={{ cursor: item.children && item.children.length ? 'pointer' : 'auto' }}
+        >
+          {itemText}
+        </div>
+      )
+
+      return (
+        <ul
+          key={item.nodeId}
+          onClick={props.onClick}
+        >
+          <li>
+            {children}
+          </li>
+        </ul>
+      )
+    }
+
+    render() {  // eslint-disable-line class-methods-use-this
+      const { store } = this.context
+      if (store.data.loadingNodes) {
+        return <div>lade Daten...</div>
+      } else {
+        const nodes = store.data.nodes
+        const rowHeight = nodes[0].expanded ? (nodes[0].children.length * 24) : 24
+        return (
+          <AutoSizer>
+            {({ height, width }) => (
+              <List
+                height={height}
+                rowCount={nodes.length}
+                rowHeight={rowHeight}
+                rowRenderer={this.rowRenderer}
+                width={width}
+                className={styles.container}
+                ref={(ref) => { ListRef = ref }}
+              />
+            )}
+          </AutoSizer>
+        )
+      }
     }
   }
 )
