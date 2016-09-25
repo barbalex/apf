@@ -26,7 +26,7 @@ const StrukturbaumContainer = observer(
       const id = 1
       const folder = null
       const levels = 'all'
-      store.loadNodes(table, id, folder, levels)
+      store.actions.loadNodes(table, id, folder, levels)
     }
 
     onClickTab = (value) => {

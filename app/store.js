@@ -14,7 +14,8 @@ import apiBaseUrl from './modules/apiBaseUrl'
 class Store extends singleton {
   constructor() {
     super()
-    this.toggleNodeExpanded = this.toggleNodeExpanded.bind(this)
+    this.actions.loadNodes = this.actions.loadNodes.bind(this)
+    this.actions.toggleNodeExpanded = this.actions.toggleNodeExpanded.bind(this)
   }
   data = observable({
     nodes: [],
@@ -45,21 +46,22 @@ class Store extends singleton {
     },
   })
 
-  loadNodes(table, id = null, folder = null, levels = '') {
-    this.data.loadingNodes = true
-    fetch(`${apiBaseUrl}/node?table=${table}&id=${id}$folder=${folder}&levels=${levels}`)
-      .then(resp => resp.json())
-      .then((nodes) => {
-        transaction(() => {
-          this.data.nodes = nodes
-          this.data.loadingNodes = false
+  actions = {
+    loadNodes(table, id = null, folder = null, levels = '') {
+      this.data.loadingNodes = true
+      fetch(`${apiBaseUrl}/node?table=${table}&id=${id}$folder=${folder}&levels=${levels}`)
+        .then(resp => resp.json())
+        .then((nodes) => {
+          transaction(() => {
+            this.data.nodes = nodes
+            this.data.loadingNodes = false
+          })
         })
-      })
-      .catch(error => console.log(error))
-  }
-
-  toggleNodeExpanded(node) {
-    action(node.expanded = !node.expanded)
+        .catch(error => console.log(error))
+    },
+    toggleNodeExpanded(node) {
+      action(node.expanded = !node.expanded)
+    }
   }
 
 }

@@ -42,7 +42,7 @@ const Strukturbaum = observer(
       const { store } = this.context
       const onClick = (event) => {
         event.stopPropagation()
-        store.toggleNodeExpanded(item)
+        store.actions.toggleNodeExpanded(item)
       }
 
       const props = { key: keyPrefix }
