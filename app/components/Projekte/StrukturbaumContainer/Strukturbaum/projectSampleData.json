@@ -12,7 +12,7 @@
         "type": "dataset",
         "name": "Abies alba Mill. (Weiss-Tanne)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/900",
@@ -20,7 +20,7 @@
         "type": "dataset",
         "name": "Aceras anthropophorum (L.) W. T. Aiton (Ohnsporn)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/1700",
@@ -28,7 +28,7 @@
         "type": "dataset",
         "name": "Achillea millefolium L. s.l.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/2000",
@@ -36,7 +36,7 @@
         "type": "dataset",
         "name": "Achillea nobilis L. (Edle Schafgarbe)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/2200",
@@ -44,7 +44,7 @@
         "type": "dataset",
         "name": "Achillea ptarmica L. (Sumpf-Schafgarbe)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/5100",
@@ -52,7 +52,7 @@
         "type": "dataset",
         "name": "Acorus calamus L. (Kalmus)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/5800",
@@ -60,7 +60,7 @@
         "type": "dataset",
         "name": "Adonis aestivalis L. (Sommer-Blutströpfchen)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/6100",
@@ -68,7 +68,7 @@
         "type": "dataset",
         "name": "Adonis flammea Jacq. (Scharlachtrotes Blutströpfchen)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/7400",
@@ -76,7 +76,7 @@
         "type": "dataset",
         "name": "Agrimonia eupatoria L. (Gemeiner Odermennig)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/7600",
@@ -84,7 +84,7 @@
         "type": "dataset",
         "name": "Agrimonia procera Wallr. (Wohlriechender Odermennig)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/8200",
@@ -92,7 +92,7 @@
         "type": "dataset",
         "name": "Agrostemma githago L. (Kornrade)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/10100",
@@ -100,7 +100,7 @@
         "type": "dataset",
         "name": "Ajuga chamaepitys (L.) Schreb. (Gelber Günsel)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/21600",
@@ -108,7 +108,7 @@
         "type": "dataset",
         "name": "Aldrovanda vesiculosa L. (Aldrovande)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/21700",
@@ -116,7 +116,7 @@
         "type": "dataset",
         "name": "Alisma gramineum Lej. (Grasartiger Froschlöffel)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/22200",
@@ -124,7 +124,7 @@
         "type": "dataset",
         "name": "Allium angulosum L. (Kantiger Lauch)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/22400",
@@ -132,7 +132,7 @@
         "type": "dataset",
         "name": "Allium carinatum L. s.str. (Gekielter Lauch)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/23100",
@@ -140,7 +140,7 @@
         "type": "dataset",
         "name": "Allium lusitanicum Lam. (Berg-Lauch)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/23200",
@@ -148,7 +148,7 @@
         "type": "dataset",
         "name": "Allium montanum F. W. Schmidt",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/23600",
@@ -156,7 +156,7 @@
         "type": "dataset",
         "name": "Allium oleraceum L. (Gemüse-Lauch)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/24000",
@@ -164,7 +164,7 @@
         "type": "dataset",
         "name": "Allium rotundum L. (Kugeliger Lauch)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/24300",
@@ -172,7 +172,7 @@
         "type": "dataset",
         "name": "Allium scorodoprasum L. (Schlangen-Lauch)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/24500",
@@ -180,7 +180,7 @@
         "type": "dataset",
         "name": "Allium sphaerocephalon L. (Kugelköpfiger Lauch)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/24700",
@@ -188,7 +188,7 @@
         "type": "dataset",
         "name": "Allium suaveolens Jacq. (Wohlriechender Lauch)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/26800",
@@ -196,7 +196,7 @@
         "type": "dataset",
         "name": "Alyssum alyssoides (L.) L. (Gemeines Steinkraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/27000",
@@ -204,7 +204,7 @@
         "type": "dataset",
         "name": "Alyssum calycinum L.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/27200",
@@ -212,7 +212,7 @@
         "type": "dataset",
         "name": "Alyssum montanum L. (Berg-Steinkraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/29300",
@@ -220,7 +220,7 @@
         "type": "dataset",
         "name": "Amelanchier ovalis Medik. (Felsenmispel)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/29600",
@@ -228,7 +228,7 @@
         "type": "dataset",
         "name": "Anacamptis pyramidalis (L.) Rich. (Spitzorchis)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/29900",
@@ -236,7 +236,7 @@
         "type": "dataset",
         "name": "Anagallis foemina Mill. (Blauer Gauchheil)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/30000",
@@ -244,7 +244,7 @@
         "type": "dataset",
         "name": "Anagallis minima (L.) E. H. L. Krause (Kleinling)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/30300",
@@ -252,7 +252,7 @@
         "type": "dataset",
         "name": "Anchusa arvensis (L.) M. Bieb. (Krummhals)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/31000",
@@ -260,7 +260,7 @@
         "type": "dataset",
         "name": "Andromeda polifolia L. (Rosmarinheide)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/33800",
@@ -268,7 +268,7 @@
         "type": "dataset",
         "name": "Anemone sylvestris L. (Hügel-Windröschen)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/35100",
@@ -276,7 +276,7 @@
         "type": "dataset",
         "name": "Anthericum liliago L. (Astlose Graslilie)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/35200",
@@ -284,7 +284,7 @@
         "type": "dataset",
         "name": "Anthericum ramosum L. (Ästige Graslilie)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/36700",
@@ -292,7 +292,7 @@
         "type": "dataset",
         "name": "Anthyllis vulgaris (W. D. J. Koch) A. Kern.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/36790",
@@ -300,7 +300,7 @@
         "type": "dataset",
         "name": "Anthyllis vulneraria L. s.l.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/1001040",
@@ -308,7 +308,7 @@
         "type": "dataset",
         "name": "Aquilegia",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/38900",
@@ -316,7 +316,7 @@
         "type": "dataset",
         "name": "Aquilegia atrata W. D. J. Koch (Dunkle Akelei)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/39100",
@@ -324,7 +324,7 @@
         "type": "dataset",
         "name": "Aquilegia vulgaris L. (Gemeine Akelei)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/39400",
@@ -332,7 +332,7 @@
         "type": "dataset",
         "name": "Arabis alpina L. s.str. (Alpen-Gänsekresse)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/42100",
@@ -340,7 +340,7 @@
         "type": "dataset",
         "name": "Arabis turrita L. (Turm-Gänsekresse)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/44000",
@@ -348,7 +348,7 @@
         "type": "dataset",
         "name": "Arenaria leptoclados (Rchb.) Guss. (Zartes Sandkraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/44600",
@@ -356,7 +356,7 @@
         "type": "dataset",
         "name": "Aristolochia clematitis L. (Gewöhnliche Osterluzei)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/45100",
@@ -364,7 +364,7 @@
         "type": "dataset",
         "name": "Armeria alpina var. purpurea (W. D. J. Koch) E. Baumann (Purpur-Grasnelke)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/45700",
@@ -372,7 +372,7 @@
         "type": "dataset",
         "name": "Arnica montana L. (Arnika)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/46700",
@@ -380,7 +380,7 @@
         "type": "dataset",
         "name": "Artemisia campestris L. s.l.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/47600",
@@ -388,7 +388,7 @@
         "type": "dataset",
         "name": "Artemisia pontica L. (Pontischer Wermut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/49300",
@@ -396,7 +396,7 @@
         "type": "dataset",
         "name": "Asperula arvensis L. (Acker-Waldmeister)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/49400",
@@ -404,7 +404,7 @@
         "type": "dataset",
         "name": "Asperula cynanchica L. (Hügel-Waldmeister)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/49700",
@@ -412,7 +412,7 @@
         "type": "dataset",
         "name": "Asperula tinctoria L. (Färber-Waldmeister)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/51900",
@@ -420,7 +420,7 @@
         "type": "dataset",
         "name": "Aster amellus L. (Berg-Aster)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/52200",
@@ -428,7 +428,7 @@
         "type": "dataset",
         "name": "Aster linosyris (L.) Bernh. (Goldschopf-Aster)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/53500",
@@ -436,7 +436,7 @@
         "type": "dataset",
         "name": "Astragalus cicer L. (Kichererbsen-Tragant)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/58000",
@@ -444,7 +444,7 @@
         "type": "dataset",
         "name": "Ballota nigra L. s.str. (Schwarznessel)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/58100",
@@ -452,7 +452,7 @@
         "type": "dataset",
         "name": "Ballota nigra subsp. foetida (Vis.) Hayek",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/58150",
@@ -460,7 +460,7 @@
         "type": "dataset",
         "name": "Ballota nigra subsp. meridionalis (Bég.) Bég. (Stinkender Gottvergess)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/60000",
@@ -468,7 +468,7 @@
         "type": "dataset",
         "name": "Betonica officinalis aggr.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/60800",
@@ -476,7 +476,7 @@
         "type": "dataset",
         "name": "Bidens cernua L. (Nickender Zweizahn)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/61200",
@@ -484,7 +484,7 @@
         "type": "dataset",
         "name": "Bidens radiata Thuill. (Strahlender Zweizahn)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/61600",
@@ -492,7 +492,7 @@
         "type": "dataset",
         "name": "Bifora radians M. Bieb. (Strahlen-Hohlsame)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/62300",
@@ -500,7 +500,7 @@
         "type": "dataset",
         "name": "Blackstonia acuminata (W. D. J. Koch & Ziz) Domin (Spätblühender Bitterling)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/62400",
@@ -508,7 +508,7 @@
         "type": "dataset",
         "name": "Blackstonia perfoliata (L.) Huds. (Gewöhnlicher Bitterling)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/63100",
@@ -516,7 +516,7 @@
         "type": "dataset",
         "name": "Bothriochloa ischaemum (L.) Keng (Gemeines Bartgras)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/65200",
@@ -524,7 +524,7 @@
         "type": "dataset",
         "name": "Briza media L. (Zittergras)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/65700",
@@ -532,7 +532,7 @@
         "type": "dataset",
         "name": "Bromus erectus Huds. s.str. (Aufrechte Trespe)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/65900",
@@ -540,7 +540,7 @@
         "type": "dataset",
         "name": "Bromus grossus DC. (Dickährige Trespe)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/67600",
@@ -548,7 +548,7 @@
         "type": "dataset",
         "name": "Bryonia dioica Jacq. (Zweihäusige Zaunrübe)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/67900",
@@ -556,7 +556,7 @@
         "type": "dataset",
         "name": "Buglossoides arvensis (L.) I. M. Johnst. (Acker-Steinsame)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/68000",
@@ -564,7 +564,7 @@
         "type": "dataset",
         "name": "Buglossoides purpurocaerulea (L.) I. M. Johnst. (Blauer Steinsame)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/68300",
@@ -572,7 +572,7 @@
         "type": "dataset",
         "name": "Bunias orientalis L. (Östliches Zackenschötchen)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/68600",
@@ -580,7 +580,7 @@
         "type": "dataset",
         "name": "Buphthalmum salicifolium L. (Weidenblättriges Rindsauge)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/69600",
@@ -588,7 +588,7 @@
         "type": "dataset",
         "name": "Bupleurum longifolium L. (Langblättriges Hasenohr)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/70200",
@@ -596,7 +596,7 @@
         "type": "dataset",
         "name": "Bupleurum rotundifolium L. (Rundblättriges Hasenohr)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/70400",
@@ -604,7 +604,7 @@
         "type": "dataset",
         "name": "Butomus umbellatus L. (Schwanenblume)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/72400",
@@ -612,7 +612,7 @@
         "type": "dataset",
         "name": "Calendula arvensis L. (Acker-Ringelblume)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/75100",
@@ -620,7 +620,7 @@
         "type": "dataset",
         "name": "Campanula cervicaria L. (Borstige Glockenblume)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/75800",
@@ -628,7 +628,7 @@
         "type": "dataset",
         "name": "Campanula glomerata L. s.str. (Knäuelblütige Glockenblume)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/76200",
@@ -636,7 +636,7 @@
         "type": "dataset",
         "name": "Campanula patula L. s.l.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/76500",
@@ -644,7 +644,7 @@
         "type": "dataset",
         "name": "Campanula persicifolia L. (Pfirsichblättrige Glockenblume)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/76800",
@@ -652,7 +652,7 @@
         "type": "dataset",
         "name": "Campanula rapunculoides L. (Ausläufertreibende Glockenblume)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/76900",
@@ -660,7 +660,7 @@
         "type": "dataset",
         "name": "Campanula rapunculus L. (Rapunzel-Glockenblume)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/77100",
@@ -668,7 +668,7 @@
         "type": "dataset",
         "name": "Campanula rotundifolia L. (Rundblättrige Glockenblume)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/78550",
@@ -676,7 +676,7 @@
         "type": "dataset",
         "name": "Cardamine dentata Schult. (Sumpf-Schaumkraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/79400",
@@ -684,7 +684,7 @@
         "type": "dataset",
         "name": "Cardamine palustris (Wimm. & Grab.) Peterm.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/80600",
@@ -692,7 +692,7 @@
         "type": "dataset",
         "name": "Cardamine udicola Jord. (Moor-Schaumkraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/81500",
@@ -700,7 +700,7 @@
         "type": "dataset",
         "name": "Carduus crispus L. (Krause Distel)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/81600",
@@ -708,7 +708,7 @@
         "type": "dataset",
         "name": "Carduus defloratus L. s.str. (Langstielige Distel)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/84000",
@@ -716,7 +716,7 @@
         "type": "dataset",
         "name": "Carex bohemica Schreb. (Böhmische Segge)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/85100",
@@ -724,7 +724,7 @@
         "type": "dataset",
         "name": "Carex chordorrhiza L. f. (Fadenwurzelige Segge)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/87500",
@@ -732,7 +732,7 @@
         "type": "dataset",
         "name": "Carex flacca Schreb. (Schlaffe Segge)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/88400",
@@ -740,7 +740,7 @@
         "type": "dataset",
         "name": "Carex hartmanii Cajander (Hartmans Segge)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/88500",
@@ -748,7 +748,7 @@
         "type": "dataset",
         "name": "Carex heleonastes L. f. (Torf-Segge)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/89600",
@@ -756,7 +756,7 @@
         "type": "dataset",
         "name": "Carex limosa L. (Schlamm-Segge)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/92700",
@@ -764,7 +764,7 @@
         "type": "dataset",
         "name": "Carex praecox Schreb. s.str. (Frühzeitige Segge)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/92900",
@@ -772,7 +772,7 @@
         "type": "dataset",
         "name": "Carex pseudocyperus L. (Cypergras-Segge)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/93500",
@@ -780,7 +780,7 @@
         "type": "dataset",
         "name": "Carex riparia Curtis (Ufer-Segge)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/96200",
@@ -788,7 +788,7 @@
         "type": "dataset",
         "name": "Carlina biebersteinii Hornem. s.str. (Aufrechte Eberwurz)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/96300",
@@ -796,7 +796,7 @@
         "type": "dataset",
         "name": "Carlina simplex Waldst. & Kit.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/96500",
@@ -804,7 +804,7 @@
         "type": "dataset",
         "name": "Carlina vulgaris L. (Gemeine Eberwurz)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/97300",
@@ -812,7 +812,7 @@
         "type": "dataset",
         "name": "Catabrosa aquatica (L.) P. Beauv. (Quellgras)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/97700",
@@ -820,7 +820,7 @@
         "type": "dataset",
         "name": "Caucalis platycarpos L. (Möhren-Haftdolde)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/98200",
@@ -828,7 +828,7 @@
         "type": "dataset",
         "name": "Centaurea angustifolia Schrank",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/98800",
@@ -836,7 +836,7 @@
         "type": "dataset",
         "name": "Centaurea jacea L. s.str. (Gemeine Flockenblume)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/99100",
@@ -844,7 +844,7 @@
         "type": "dataset",
         "name": "Centaurea maculosa Lam.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/99300",
@@ -852,7 +852,7 @@
         "type": "dataset",
         "name": "Centaurea nemoralis Jord. (Schwarze Flockenblume)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/100200",
@@ -860,7 +860,7 @@
         "type": "dataset",
         "name": "Centaurea scabiosa subsp. grinensis (Reut.) Nyman (Zartblättrige Flockenblume)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/100650",
@@ -868,7 +868,7 @@
         "type": "dataset",
         "name": "Centaurea stoebe L. (Rheinische Flockenblume)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/100700",
@@ -876,7 +876,7 @@
         "type": "dataset",
         "name": "Centaurea stoebe sensu Aeschimann & Burdet",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/101200",
@@ -884,7 +884,7 @@
         "type": "dataset",
         "name": "Centaurium erythraea Rafn (Gemeines Tausendgüldenkraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/101800",
@@ -892,7 +892,7 @@
         "type": "dataset",
         "name": "Cephalanthera damasonium (Mill.) Druce (Weissliches Waldvögelein)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/101900",
@@ -900,7 +900,7 @@
         "type": "dataset",
         "name": "Cephalanthera longifolia (L.) Fritsch (Langblättriges Waldvögelein)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/102000",
@@ -908,7 +908,7 @@
         "type": "dataset",
         "name": "Cephalanthera rubra (L.) Rich. (Rotes Waldvögelein)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/110400",
@@ -916,7 +916,7 @@
         "type": "dataset",
         "name": "Chondrilla juncea L. (Ruten-Knorpelsalat)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/111200",
@@ -924,7 +924,7 @@
         "type": "dataset",
         "name": "Chrysanthemum corymbosum L.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/112100",
@@ -932,7 +932,7 @@
         "type": "dataset",
         "name": "Chrysanthemum segetum L.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/113200",
@@ -940,7 +940,7 @@
         "type": "dataset",
         "name": "Cichorium intybus L. (Wegwarte)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/113700",
@@ -948,7 +948,7 @@
         "type": "dataset",
         "name": "Cirsium acaule Scop. (Stengellose Kratzdistel)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/114900",
@@ -956,7 +956,7 @@
         "type": "dataset",
         "name": "Cirsium palustre (L.) Scop. (Sumpf-Kratzdistel)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/115400",
@@ -964,7 +964,7 @@
         "type": "dataset",
         "name": "Cirsium tuberosum (L.) All. (Knollige Kratzdistel)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/118700",
@@ -972,7 +972,7 @@
         "type": "dataset",
         "name": "Consolida regalis Gray (Acker-Rittersporn)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/120000",
@@ -980,7 +980,7 @@
         "type": "dataset",
         "name": "Coronilla coronata L. (Berg-Kronwicke)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/120100",
@@ -988,7 +988,7 @@
         "type": "dataset",
         "name": "Coronilla emerus L.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/121800",
@@ -996,7 +996,7 @@
         "type": "dataset",
         "name": "Cotoneaster integerrimus Medik. (Gewöhnliche Steinmispel)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/122000",
@@ -1004,7 +1004,7 @@
         "type": "dataset",
         "name": "Cotoneaster tomentosus Lindl. (Filzige Steinmispel)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/122100",
@@ -1012,7 +1012,7 @@
         "type": "dataset",
         "name": "Crassula rubens (L.) L.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/122900",
@@ -1020,7 +1020,7 @@
         "type": "dataset",
         "name": "Crepis alpestris (Jacq.) Tausch (Alpen-Pippau)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/123600",
@@ -1028,7 +1028,7 @@
         "type": "dataset",
         "name": "Crepis foetida L. (Stinkender Pippau)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/124500",
@@ -1036,7 +1036,7 @@
         "type": "dataset",
         "name": "Crepis praemorsa (L.) Walther (Trauben-Pippau)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/125400",
@@ -1044,7 +1044,7 @@
         "type": "dataset",
         "name": "Crepis tectorum L. (Dach-Pippau)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/129700",
@@ -1052,7 +1052,7 @@
         "type": "dataset",
         "name": "Cyperus flavescens L. (Gelbliches Cypergras)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/129800",
@@ -1060,7 +1060,7 @@
         "type": "dataset",
         "name": "Cyperus fuscus L. (Schwarzbraunes Cypergras)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/130400",
@@ -1068,7 +1068,7 @@
         "type": "dataset",
         "name": "Cypripedium calceolus L. (Frauenschuh)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/131300",
@@ -1076,7 +1076,7 @@
         "type": "dataset",
         "name": "Cytisus nigricans L. (Schwarzwerdender Geissklee)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/132250",
@@ -1084,7 +1084,7 @@
         "type": "dataset",
         "name": "Dactylorhiza fuchsii (Druce) Soó",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/132300",
@@ -1092,7 +1092,7 @@
         "type": "dataset",
         "name": "Dactylorhiza incarnata (L.) Soó s.l.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/132350",
@@ -1100,7 +1100,7 @@
         "type": "dataset",
         "name": "Dactylorhiza incarnata (L.) Soó s.str. (Fleischrotes Knabenkraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/132360",
@@ -1108,7 +1108,7 @@
         "type": "dataset",
         "name": "Dactylorhiza incarnata subsp. ochroleuca (Boll) P. F. Hunt & Summerh.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/132700",
@@ -1116,7 +1116,7 @@
         "type": "dataset",
         "name": "Dactylorhiza majalis (Rchb.) P. F. Hunt & Summerh. (Breitblättriges Knabenkraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/132800",
@@ -1124,7 +1124,7 @@
         "type": "dataset",
         "name": "Dactylorhiza sambucina (L.) Soó (Holunder-Knabenkraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/133400",
@@ -1132,7 +1132,7 @@
         "type": "dataset",
         "name": "Daphne cneorum L. (Flaumiger Seidelbast)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/135000",
@@ -1140,7 +1140,7 @@
         "type": "dataset",
         "name": "Deschampsia littoralis (Gaudin) Reut. (Strand-Schmiele)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/135100",
@@ -1148,7 +1148,7 @@
         "type": "dataset",
         "name": "Deschampsia rhenana Gremli",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/135300",
@@ -1156,7 +1156,7 @@
         "type": "dataset",
         "name": "Dianthus armeria L. (Rauhe Nelke)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/135500",
@@ -1164,7 +1164,7 @@
         "type": "dataset",
         "name": "Dianthus carthusianorum L. s.l.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/136100",
@@ -1172,7 +1172,7 @@
         "type": "dataset",
         "name": "Dianthus gratianopolitanus Vill. (Grenobler Nelke)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/136700",
@@ -1180,7 +1180,7 @@
         "type": "dataset",
         "name": "Dianthus seguieri Vill. (Séguiers Nelke)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/136800",
@@ -1188,7 +1188,7 @@
         "type": "dataset",
         "name": "Dianthus superbus L. (Pracht-Nelke)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/137000",
@@ -1196,7 +1196,7 @@
         "type": "dataset",
         "name": "Dictamnus albus L. (Diptam)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/137100",
@@ -1204,7 +1204,7 @@
         "type": "dataset",
         "name": "Digitalis grandiflora Mill. (Blassgelber Fingerhut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/137300",
@@ -1212,7 +1212,7 @@
         "type": "dataset",
         "name": "Digitalis lutea L. (Gelber Fingerhut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/139400",
@@ -1220,7 +1220,7 @@
         "type": "dataset",
         "name": "Dipsacus pilosus L. (Behaarte Karde)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/141200",
@@ -1228,7 +1228,7 @@
         "type": "dataset",
         "name": "Draba muralis L. (Mauer-Hungerblümchen)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/142100",
@@ -1236,7 +1236,7 @@
         "type": "dataset",
         "name": "Drosera intermedia Hayne (Mittlerer Sonnentau)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/144500",
@@ -1244,7 +1244,7 @@
         "type": "dataset",
         "name": "Echium vulgare L. (Natterkopf)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/145600",
@@ -1252,7 +1252,7 @@
         "type": "dataset",
         "name": "Eleocharis ovata (Roth) Roem. & Schult. (Eiförmiges Sumpfried)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/148000",
@@ -1260,7 +1260,7 @@
         "type": "dataset",
         "name": "Epilobium dodonaei Vill. (Dodonaeus&#39; Weidenröschen)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/149500",
@@ -1268,7 +1268,7 @@
         "type": "dataset",
         "name": "Epipactis atropurpurea auct.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/149600",
@@ -1276,7 +1276,7 @@
         "type": "dataset",
         "name": "Epipactis atrorubens Besser (Braunrote Sumpfwurz)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/150200",
@@ -1284,7 +1284,7 @@
         "type": "dataset",
         "name": "Epipactis muelleri aggr.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/150150",
@@ -1292,7 +1292,7 @@
         "type": "dataset",
         "name": "Epipactis muelleri Godfery (Muellers Sumpfwurz)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/150300",
@@ -1300,7 +1300,7 @@
         "type": "dataset",
         "name": "Epipactis palustris (L.) Crantz (Gemeine Sumpfwurz)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/150450",
@@ -1308,7 +1308,7 @@
         "type": "dataset",
         "name": "Epipactis rhodanensis Gévaudan & Robatsch",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/150500",
@@ -1316,7 +1316,7 @@
         "type": "dataset",
         "name": "Epipogium aphyllum Sw. (Widerbart)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/151300",
@@ -1324,7 +1324,7 @@
         "type": "dataset",
         "name": "Equisetum ramosissimum Desf. (Ästiger Schachtelhalm)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/155200",
@@ -1332,7 +1332,7 @@
         "type": "dataset",
         "name": "Eriophorum angustifolium Honck. (Schmalblättriges Wollgras)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/155300",
@@ -1340,7 +1340,7 @@
         "type": "dataset",
         "name": "Eriophorum gracile Roth (Schlankes Wollgras)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/155600",
@@ -1348,7 +1348,7 @@
         "type": "dataset",
         "name": "Eriophorum vaginatum L. (Scheiden-Wollgras)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/157300",
@@ -1356,7 +1356,7 @@
         "type": "dataset",
         "name": "Eryngium campestre L. (Feld-Mannstreu)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/159300",
@@ -1364,7 +1364,7 @@
         "type": "dataset",
         "name": "Eupatorium cannabinum L. (Wasserdost)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/161250",
@@ -1372,7 +1372,7 @@
         "type": "dataset",
         "name": "Euphorbia seguieriana Neck. s.l.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/163600",
@@ -1380,7 +1380,7 @@
         "type": "dataset",
         "name": "Euphrasia rostkoviana auct. helv.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/164000",
@@ -1388,7 +1388,7 @@
         "type": "dataset",
         "name": "Euphrasia stricta J. F. Lehm. (Heide-Augentrost)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/165100",
@@ -1396,7 +1396,7 @@
         "type": "dataset",
         "name": "Falcaria vulgaris Bernh. (Sicheldolde)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/168700",
@@ -1404,7 +1404,7 @@
         "type": "dataset",
         "name": "Festuca ovina auct.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/172300",
@@ -1412,7 +1412,7 @@
         "type": "dataset",
         "name": "Filago arvensis L. (Acker-Fadenkraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/172700",
@@ -1420,7 +1420,7 @@
         "type": "dataset",
         "name": "Filago minima (Sm.) Pers. (Kleines Fadenkraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/172800",
@@ -1428,7 +1428,7 @@
         "type": "dataset",
         "name": "Filago pyramidata L. (Spatelblättriges Fadenkraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/172900",
@@ -1436,7 +1436,7 @@
         "type": "dataset",
         "name": "Filago vulgaris Lam. (Gewöhnliches Fadenkraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/173200",
@@ -1444,7 +1444,7 @@
         "type": "dataset",
         "name": "Filipendula vulgaris Moench (Knollige Spierstaude)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/173700",
@@ -1452,7 +1452,7 @@
         "type": "dataset",
         "name": "Fragaria moschata Duchesne (Moschus-Erdbeere)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/175400",
@@ -1460,7 +1460,7 @@
         "type": "dataset",
         "name": "Fumaria vaillantii Loisel. (Vaillants Erdrauch)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/175900",
@@ -1468,7 +1468,7 @@
         "type": "dataset",
         "name": "Gagea pratensis (Pers.) Dumort. (Wiesen-Gelbstern)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/176100",
@@ -1476,7 +1476,7 @@
         "type": "dataset",
         "name": "Gagea villosa (M. Bieb.) Sweet (Acker-Gelbstern)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/176400",
@@ -1484,7 +1484,7 @@
         "type": "dataset",
         "name": "Galeopsis angustifolia Hoffm. (Schmalblättriger Hohlzahn)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/178300",
@@ -1492,7 +1492,7 @@
         "type": "dataset",
         "name": "Galium glaucum L. (Blaugrüner Waldmeister)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/180300",
@@ -1500,7 +1500,7 @@
         "type": "dataset",
         "name": "Galium spurium L. (Falsches Kletten-Labkraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/180900",
@@ -1508,7 +1508,7 @@
         "type": "dataset",
         "name": "Galium verum L. s.l.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/181900",
@@ -1516,7 +1516,7 @@
         "type": "dataset",
         "name": "Genista sagittalis L. (Flügelginster)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/182100",
@@ -1524,7 +1524,7 @@
         "type": "dataset",
         "name": "Genista tinctoria L. (Färber-Ginster)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/182700",
@@ -1532,7 +1532,7 @@
         "type": "dataset",
         "name": "Gentiana asclepiadea L. (Schwalbenwurz-Enzian)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/183400",
@@ -1540,7 +1540,7 @@
         "type": "dataset",
         "name": "Gentiana ciliata L. (Gefranster Enzian)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/183600",
@@ -1548,7 +1548,7 @@
         "type": "dataset",
         "name": "Gentiana cruciata L. (Kreuzblättriger Enzian)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/183800",
@@ -1556,7 +1556,7 @@
         "type": "dataset",
         "name": "Gentiana germanica Willd. (Deutscher Enzian)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/184600",
@@ -1564,7 +1564,7 @@
         "type": "dataset",
         "name": "Gentiana pneumonanthe L. (Lungen-Enzian)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/1001057",
@@ -1572,7 +1572,7 @@
         "type": "dataset",
         "name": "Gentiana sp.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/189100",
@@ -1580,7 +1580,7 @@
         "type": "dataset",
         "name": "Geranium sanguineum L. (Blutroter Storchschnabel)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/189800",
@@ -1588,7 +1588,7 @@
         "type": "dataset",
         "name": "Gladiolus communis L. (Garten-Gladiole)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/190100",
@@ -1596,7 +1596,7 @@
         "type": "dataset",
         "name": "Gladiolus palustris Gaudin (Sumpf-Gladiole)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/191300",
@@ -1604,7 +1604,7 @@
         "type": "dataset",
         "name": "Globularia punctata Lapeyr.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/192300",
@@ -1612,7 +1612,7 @@
         "type": "dataset",
         "name": "Gnaphalium luteoalbum L. (Gelblichweisses Ruhrkraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/192800",
@@ -1620,7 +1620,7 @@
         "type": "dataset",
         "name": "Goodyera repens (L.) R. Br. (Moosorchis)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/193000",
@@ -1628,7 +1628,7 @@
         "type": "dataset",
         "name": "Gratiola officinalis L. (Gnadenkraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/193200",
@@ -1636,7 +1636,7 @@
         "type": "dataset",
         "name": "Gymnadenia conopsea (L.) R. Br. (Langspornige Handwurz)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/193300",
@@ -1644,7 +1644,7 @@
         "type": "dataset",
         "name": "Gymnadenia odoratissima (L.) Rich. (Wohlriechende Handwurz)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/193900",
@@ -1652,7 +1652,7 @@
         "type": "dataset",
         "name": "Hammarbya paludosa (L.) Kuntze (Weichwurz)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/194900",
@@ -1660,7 +1660,7 @@
         "type": "dataset",
         "name": "Helianthemum nummularium (L.) Mill. s.str. (Gemeines Sonnenröschen)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/195200",
@@ -1668,7 +1668,7 @@
         "type": "dataset",
         "name": "Helianthemum nummularium subsp. obscurum (Celak.) Holub (Ovalblättriges Sonnenröschen)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/195400",
@@ -1676,7 +1676,7 @@
         "type": "dataset",
         "name": "Helianthemum ovatum (Viv.) Dunal",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/196700",
@@ -1684,7 +1684,7 @@
         "type": "dataset",
         "name": "Helictotrichon pratense (L.) Besser (Echter Wiesenhafer)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/197200",
@@ -1692,7 +1692,7 @@
         "type": "dataset",
         "name": "Heliotropium europaeum L. (Sonnenwende)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/197300",
@@ -1700,7 +1700,7 @@
         "type": "dataset",
         "name": "Helleborus foetidus L. (Stinkende Nieswurz)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/199100",
@@ -1708,7 +1708,7 @@
         "type": "dataset",
         "name": "Herminium monorchis (L.) R. Br. (Einorchis)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/200400",
@@ -1716,7 +1716,7 @@
         "type": "dataset",
         "name": "Hieracium bauhinii Schult. (Bauhins Habichtskraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/201000",
@@ -1724,7 +1724,7 @@
         "type": "dataset",
         "name": "Hieracium cymosum L. (Trugdoldiges Habichtskraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/201800",
@@ -1732,7 +1732,7 @@
         "type": "dataset",
         "name": "Hieracium humile Jacq. (Niedriges Habichtskraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/204300",
@@ -1740,7 +1740,7 @@
         "type": "dataset",
         "name": "Hieracium sabaudum L.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/1002363",
@@ -1748,7 +1748,7 @@
         "type": "dataset",
         "name": "Hieracium zizianum",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/206100",
@@ -1756,7 +1756,7 @@
         "type": "dataset",
         "name": "Hierochloë odorata (L.) P. Beauv. (Duftendes Mariengras)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/206200",
@@ -1764,7 +1764,7 @@
         "type": "dataset",
         "name": "Himantoglossum hircinum (L.) Spreng. (Riemenzunge)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/206300",
@@ -1772,7 +1772,7 @@
         "type": "dataset",
         "name": "Hippocrepis comosa L. (Hufeisenklee)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/206400",
@@ -1780,7 +1780,7 @@
         "type": "dataset",
         "name": "Hippocrepis emerus (L.) Lassen (Strauchwicke)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/207200",
@@ -1788,7 +1788,7 @@
         "type": "dataset",
         "name": "Holosteum umbellatum L. (Spurre)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/210600",
@@ -1796,7 +1796,7 @@
         "type": "dataset",
         "name": "Hypericum humifusum L. (Niederliegendes Johanniskraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/211300",
@@ -1804,7 +1804,7 @@
         "type": "dataset",
         "name": "Hypericum pulchrum L. (Schönes Johanniskraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/212000",
@@ -1812,7 +1812,7 @@
         "type": "dataset",
         "name": "Hypochaeris maculata L. (Geflecktes Ferkelkraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/212400",
@@ -1820,7 +1820,7 @@
         "type": "dataset",
         "name": "Hyssopus officinalis L. (Yosp)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/214000",
@@ -1828,7 +1828,7 @@
         "type": "dataset",
         "name": "Inula britannica L. (Wiesen-Alant)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/214100",
@@ -1836,7 +1836,7 @@
         "type": "dataset",
         "name": "Inula conyzae (Griess.) Meikle (Dürrwurz)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/214500",
@@ -1844,7 +1844,7 @@
         "type": "dataset",
         "name": "Inula helvetica Weber (Schweizerischer Alant)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/214600",
@@ -1852,7 +1852,7 @@
         "type": "dataset",
         "name": "Inula hirta L. (Rauher Alant)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/214800",
@@ -1860,7 +1860,7 @@
         "type": "dataset",
         "name": "Inula salicina L. (Weiden-Alant)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/215300",
@@ -1868,7 +1868,7 @@
         "type": "dataset",
         "name": "Iris lutescens Lam. (Gelblichgrüne Schwertlilie)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/215400",
@@ -1876,7 +1876,7 @@
         "type": "dataset",
         "name": "Iris pallida Lam. (Blasse Schwertlilie)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/215600",
@@ -1884,7 +1884,7 @@
         "type": "dataset",
         "name": "Iris sibirica L. (Sibirische Schwertlilie)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/216000",
@@ -1892,7 +1892,7 @@
         "type": "dataset",
         "name": "Iris x sambucina L. (Holunder-Schwertlilie)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/216200",
@@ -1900,7 +1900,7 @@
         "type": "dataset",
         "name": "Isatis tinctoria L. (Färber-Waid)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/216300",
@@ -1908,7 +1908,7 @@
         "type": "dataset",
         "name": "Isolepis setacea (L.) R. Br. (Moorried)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/216900",
@@ -1916,7 +1916,7 @@
         "type": "dataset",
         "name": "Jasione montana L. (Berg-Jasione)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/1002455",
@@ -1924,7 +1924,7 @@
         "type": "dataset",
         "name": "Juniperus communis aggr.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/221200",
@@ -1932,7 +1932,7 @@
         "type": "dataset",
         "name": "Kickxia elatine (L.) Dumort. (Pfeilblättriges Schlangenmaul)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/221400",
@@ -1940,7 +1940,7 @@
         "type": "dataset",
         "name": "Knautia arvensis (L.) Coult. (Feld-Witwenblume)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/223400",
@@ -1948,7 +1948,7 @@
         "type": "dataset",
         "name": "Koeleria gracilis Pers.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/223905",
@@ -1956,7 +1956,7 @@
         "type": "dataset",
         "name": "Koeleria pyramidata aggr.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/224400",
@@ -1964,7 +1964,7 @@
         "type": "dataset",
         "name": "Lactuca perennis L. (Blauer Lattich)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/227700",
@@ -1972,7 +1972,7 @@
         "type": "dataset",
         "name": "Laserpitium latifolium L. (Breitblättriges Laserkraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/228000",
@@ -1980,7 +1980,7 @@
         "type": "dataset",
         "name": "Laserpitium prutenicum L. (Preussisches Laserkraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/228900",
@@ -1988,7 +1988,7 @@
         "type": "dataset",
         "name": "Lathyrus aphaca L. (Ranken-Platterbse)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/229300",
@@ -1996,7 +1996,7 @@
         "type": "dataset",
         "name": "Lathyrus heterophyllus L. (Verschiedenblättrige Platterbse)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/230000",
@@ -2004,7 +2004,7 @@
         "type": "dataset",
         "name": "Lathyrus niger (L.) Bernh. (Dunkle Platterbse)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/230100",
@@ -2012,7 +2012,7 @@
         "type": "dataset",
         "name": "Lathyrus nissolia L. (Gras-Platterbse)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/230300",
@@ -2020,7 +2020,7 @@
         "type": "dataset",
         "name": "Lathyrus palustris L. (Sumpf-Platterbse)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/230400",
@@ -2028,7 +2028,7 @@
         "type": "dataset",
         "name": "Lathyrus pratensis L. (Wiesen-Platterbse)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/230800",
@@ -2036,7 +2036,7 @@
         "type": "dataset",
         "name": "Lathyrus sylvestris L. (Wald-Platterbse)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/230900",
@@ -2044,7 +2044,7 @@
         "type": "dataset",
         "name": "Lathyrus tuberosus L. (Knollige Platterbse)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/231900",
@@ -2052,7 +2052,7 @@
         "type": "dataset",
         "name": "Legousia hybrida (L.) Delarbre (Kleiner Venusspiegel)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/232000",
@@ -2060,7 +2060,7 @@
         "type": "dataset",
         "name": "Legousia speculum-veneris (L.) Chaix (Gemeiner Venusspiegel)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/233100",
@@ -2068,7 +2068,7 @@
         "type": "dataset",
         "name": "Leontodon hispidus L. s.str. (Gemeiner Löwenzahn)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/234700",
@@ -2076,7 +2076,7 @@
         "type": "dataset",
         "name": "Leonurus cardiaca L. (Löwenschwanz)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/236200",
@@ -2084,7 +2084,7 @@
         "type": "dataset",
         "name": "Leucanthemum adustum (W. D. J. Koch) Gremli (Berg-Margerite)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/238400",
@@ -2092,7 +2092,7 @@
         "type": "dataset",
         "name": "Lilium croceum Chaix",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/238600",
@@ -2100,7 +2100,7 @@
         "type": "dataset",
         "name": "Limodorum abortivum (L.) Sw. (Dingel)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/239500",
@@ -2108,7 +2108,7 @@
         "type": "dataset",
         "name": "Linaria genistifolia (L.) Mill. s.l.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/240900",
@@ -2116,7 +2116,7 @@
         "type": "dataset",
         "name": "Linum austriacum L. (Österreichischer Lein)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/241100",
@@ -2124,7 +2124,7 @@
         "type": "dataset",
         "name": "Linum catharticum L. (Purgier-Lein)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/241500",
@@ -2132,7 +2132,7 @@
         "type": "dataset",
         "name": "Linum tenuifolium L. (Feinblättriger Lein)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/241800",
@@ -2140,7 +2140,7 @@
         "type": "dataset",
         "name": "Liparis loeselii (L.) Rich. (Zwiebelorchis)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/242000",
@@ -2148,7 +2148,7 @@
         "type": "dataset",
         "name": "Listera ovata (L.) R. Br. (Grosses Zweiblatt)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/242400",
@@ -2156,7 +2156,7 @@
         "type": "dataset",
         "name": "Littorella uniflora (L.) Asch. (Strandling)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/244500",
@@ -2164,7 +2164,7 @@
         "type": "dataset",
         "name": "Lotus corniculatus subsp. hirsutus (W. D. J. Koch) Rothm.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/244800",
@@ -2172,7 +2172,7 @@
         "type": "dataset",
         "name": "Lotus maritimus L. (Spargelerbse)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/251700",
@@ -2180,7 +2180,7 @@
         "type": "dataset",
         "name": "Lysimachia thyrsiflora L. (Strauss-Gilbweiderich)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/253100",
@@ -2188,7 +2188,7 @@
         "type": "dataset",
         "name": "Malva alcea L. (Sigmarswurz)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/253500",
@@ -2196,7 +2196,7 @@
         "type": "dataset",
         "name": "Malva sylvestris L. (Wilde Malve)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/253900",
@@ -2204,7 +2204,7 @@
         "type": "dataset",
         "name": "Marsilea quadrifolia L. (Kleefarn)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/254300",
@@ -2212,7 +2212,7 @@
         "type": "dataset",
         "name": "Matricaria recutita L.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/255100",
@@ -2220,7 +2220,7 @@
         "type": "dataset",
         "name": "Medicago falcata L. (Sichelklee)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/255300",
@@ -2228,7 +2228,7 @@
         "type": "dataset",
         "name": "Medicago lupulina L. (Hopfenklee)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/255400",
@@ -2236,7 +2236,7 @@
         "type": "dataset",
         "name": "Medicago minima (L.) L. (Zwerg-Schneckenklee)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/256000",
@@ -2244,7 +2244,7 @@
         "type": "dataset",
         "name": "Medicago sativa L. (Luzerne)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/256200",
@@ -2252,7 +2252,7 @@
         "type": "dataset",
         "name": "Melampyrum arvense L. (Acker-Wachtelweizen)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/256300",
@@ -2260,7 +2260,7 @@
         "type": "dataset",
         "name": "Melampyrum cristatum L. (Kamm-Wachtelweizen)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/256800",
@@ -2268,7 +2268,7 @@
         "type": "dataset",
         "name": "Melica ciliata L. (Gewimpertes Perlgras)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/257000",
@@ -2276,7 +2276,7 @@
         "type": "dataset",
         "name": "Melica transsilvanica Schur (Siebenbürgisches Perlgras)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/261100",
@@ -2284,7 +2284,7 @@
         "type": "dataset",
         "name": "Minuartia hybrida (Vill.) Schischk. (Zarte Miere)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/262300",
@@ -2292,7 +2292,7 @@
         "type": "dataset",
         "name": "Misopates orontium (L.) Raf. (Feldlöwenmaul)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/263300",
@@ -2300,7 +2300,7 @@
         "type": "dataset",
         "name": "Molinia arundinacea Schrank (Strand-Pfeifengras)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/263400",
@@ -2308,7 +2308,7 @@
         "type": "dataset",
         "name": "Molinia caerulea (L.) Moench (Blaues Pfeifengras)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/264000",
@@ -2316,7 +2316,7 @@
         "type": "dataset",
         "name": "Monotropa hypopitys aggr.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/265200",
@@ -2324,7 +2324,7 @@
         "type": "dataset",
         "name": "Muscari botryoides (L.) Mill. (Hellblaue Bisamhyazinthe)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/265300",
@@ -2332,7 +2332,7 @@
         "type": "dataset",
         "name": "Muscari comosum (L.) Mill. (Schopfige Bisamhyazinthe)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/266200",
@@ -2340,7 +2340,7 @@
         "type": "dataset",
         "name": "Myosotis discolor Pers. (Farbwechselndes Vergissmeinnicht)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/266700",
@@ -2348,7 +2348,7 @@
         "type": "dataset",
         "name": "Myosotis rehsteineri Wartm. (Bodensee-Vergissmeinnicht)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/267400",
@@ -2356,7 +2356,7 @@
         "type": "dataset",
         "name": "Myosurus minimus L. (Mäuseschwanz)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/267500",
@@ -2364,7 +2364,7 @@
         "type": "dataset",
         "name": "Myricaria germanica (L.) Desv. (Tamariske)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/268000",
@@ -2372,7 +2372,7 @@
         "type": "dataset",
         "name": "Myrrhis odorata (L.) Scop. (Süssdolde)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/270100",
@@ -2380,7 +2380,7 @@
         "type": "dataset",
         "name": "Neottia nidus-avis (L.) Rich. (Nestwurz)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/270700",
@@ -2388,7 +2388,7 @@
         "type": "dataset",
         "name": "Neslia paniculata (L.) Desv. s.str. (Kugelfrüchtiges Ackernüsschen)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/271300",
@@ -2396,7 +2396,7 @@
         "type": "dataset",
         "name": "Nigella arvensis L. (Acker-Schwarzkümmel)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/272400",
@@ -2404,7 +2404,7 @@
         "type": "dataset",
         "name": "Nuphar pumila (Timm) DC. (Kleine Teichrose)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/273000",
@@ -2412,7 +2412,7 @@
         "type": "dataset",
         "name": "Odontites luteus (L.) Clairv. (Gelber Zahntrost)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/273150",
@@ -2420,7 +2420,7 @@
         "type": "dataset",
         "name": "Odontites vernus (Bellardi) Dumort. (Roter Zahntrost)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/273300",
@@ -2428,7 +2428,7 @@
         "type": "dataset",
         "name": "Odontites vernus subsp. serotinus Corb.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/273600",
@@ -2436,7 +2436,7 @@
         "type": "dataset",
         "name": "Oenanthe aquatica (L.) Poir. (Wasserfenchel)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/273700",
@@ -2444,7 +2444,7 @@
         "type": "dataset",
         "name": "Oenanthe fistulosa L. (Röhrige Rebendolde)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/273900",
@@ -2452,7 +2452,7 @@
         "type": "dataset",
         "name": "Oenanthe lachenalii C. C. Gmel. (Lachenals Rebendolde)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/275600",
@@ -2460,7 +2460,7 @@
         "type": "dataset",
         "name": "Onobrychis viciifolia Scop. (Saat-Esparsette)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/276300",
@@ -2468,7 +2468,7 @@
         "type": "dataset",
         "name": "Ononis repens L. (Kriechende Hauhechel)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/276600",
@@ -2476,7 +2476,7 @@
         "type": "dataset",
         "name": "Ononis spinosa L. s.l.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/278000",
@@ -2484,7 +2484,7 @@
         "type": "dataset",
         "name": "Ophrys apifera Huds. s.str.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/1001216",
@@ -2492,7 +2492,7 @@
         "type": "dataset",
         "name": "Ophrys apifera subsp. bicolor E. Nelson (1962)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/278100",
@@ -2500,7 +2500,7 @@
         "type": "dataset",
         "name": "Ophrys apifera subsp. botteronii (Chodat) Hegi",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/278300",
@@ -2508,7 +2508,7 @@
         "type": "dataset",
         "name": "Ophrys araneola Rchb. (Spinnen-Ragwurz)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/278900",
@@ -2516,7 +2516,7 @@
         "type": "dataset",
         "name": "Ophrys holosericea (Burm. f.) Greuter s.str. (Hummel-Ragwurz)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/279000",
@@ -2524,7 +2524,7 @@
         "type": "dataset",
         "name": "Ophrys holosericea subsp. elatior (R. Engel & P. Quentin) H. Baumann & Künkele (Kleinblütige Hummel-",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/279100",
@@ -2532,7 +2532,7 @@
         "type": "dataset",
         "name": "Ophrys insectifera L. (Fliegen-Ragwurz)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/1001076",
@@ -2540,7 +2540,7 @@
         "type": "dataset",
         "name": "Ophrys sp.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/279300",
@@ -2548,7 +2548,7 @@
         "type": "dataset",
         "name": "Ophrys sphegodes aggr.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/279200",
@@ -2556,7 +2556,7 @@
         "type": "dataset",
         "name": "Ophrys sphegodes Mill. (Spinnen-Ragwurz)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/1001016",
@@ -2564,7 +2564,7 @@
         "type": "dataset",
         "name": "Orchidaceae",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/280000",
@@ -2572,7 +2572,7 @@
         "type": "dataset",
         "name": "Orchis coriophora L. (Wanzen-Orchis)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/280200",
@@ -2580,7 +2580,7 @@
         "type": "dataset",
         "name": "Orchis fuchsii Druce",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/280900",
@@ -2588,7 +2588,7 @@
         "type": "dataset",
         "name": "Orchis mascula (L.) L. s.l.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/280950",
@@ -2596,7 +2596,7 @@
         "type": "dataset",
         "name": "Orchis mascula (L.) L. s.str. (Stattliche Orchis)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/281000",
@@ -2604,7 +2604,7 @@
         "type": "dataset",
         "name": "Orchis militaris L. (Helm-Orchis)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/281100",
@@ -2612,7 +2612,7 @@
         "type": "dataset",
         "name": "Orchis morio L. (Kleine Orchis)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/281200",
@@ -2620,7 +2620,7 @@
         "type": "dataset",
         "name": "Orchis pallens L. (Blasse Orchis)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/281300",
@@ -2628,7 +2628,7 @@
         "type": "dataset",
         "name": "Orchis palustris Jacq. (Sumpf-Orchis)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/281600",
@@ -2636,7 +2636,7 @@
         "type": "dataset",
         "name": "Orchis purpurea Huds. (Braunrote Orchis)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/281800",
@@ -2644,7 +2644,7 @@
         "type": "dataset",
         "name": "Orchis simia Lam. (Affen-Orchis)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/281900",
@@ -2652,7 +2652,7 @@
         "type": "dataset",
         "name": "Orchis spitzelii W. D. J. Koch (Spitzels Orchis)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/282200",
@@ -2660,7 +2660,7 @@
         "type": "dataset",
         "name": "Orchis ustulata L. (Schwärzliche Orchis)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/1001150",
@@ -2668,7 +2668,7 @@
         "type": "dataset",
         "name": "Orchis ustulata subsp. aestivalis (Kümpel) Kümpel & Mrkvicka",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/282600",
@@ -2676,7 +2676,7 @@
         "type": "dataset",
         "name": "Origanum vulgare L. (Dost)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/282700",
@@ -2684,7 +2684,7 @@
         "type": "dataset",
         "name": "Orlaya grandiflora (L.) Hoffm. (Breitsame)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/283200",
@@ -2692,7 +2692,7 @@
         "type": "dataset",
         "name": "Ornithogalum nutans L. (Nickender Milchstern)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/283900",
@@ -2700,7 +2700,7 @@
         "type": "dataset",
         "name": "Ornithopus perpusillus L. (Krallenklee)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/284000",
@@ -2708,7 +2708,7 @@
         "type": "dataset",
         "name": "Orobanche alba Willd. (Quendel-Sommerwurz)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/284200",
@@ -2716,7 +2716,7 @@
         "type": "dataset",
         "name": "Orobanche alsatica Kirschl. s.l.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/284400",
@@ -2724,7 +2724,7 @@
         "type": "dataset",
         "name": "Orobanche arenaria Borkh. (Sand-Sommerwurz)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/284500",
@@ -2732,7 +2732,7 @@
         "type": "dataset",
         "name": "Orobanche artemisiae-campestris Gaudin (Beifuss-Sommerwurz)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/284600",
@@ -2740,7 +2740,7 @@
         "type": "dataset",
         "name": "Orobanche bartlingii Griseb.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/284700",
@@ -2748,7 +2748,7 @@
         "type": "dataset",
         "name": "Orobanche caryophyllacea Sm. (Labkraut-Sommerwurz)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/284900",
@@ -2756,7 +2756,7 @@
         "type": "dataset",
         "name": "Orobanche elatior Sutton (Grosse Sommerwurz)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/285100",
@@ -2764,7 +2764,7 @@
         "type": "dataset",
         "name": "Orobanche gracilis Sm. (Schlanke Sommerwurz)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/285200",
@@ -2772,7 +2772,7 @@
         "type": "dataset",
         "name": "Orobanche hederae Duby (Efeu-Sommerwurz)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/285300",
@@ -2780,7 +2780,7 @@
         "type": "dataset",
         "name": "Orobanche laevis L.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/285700",
@@ -2788,7 +2788,7 @@
         "type": "dataset",
         "name": "Orobanche lutea Baumg. (Gelbe Sommerwurz)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/286000",
@@ -2796,7 +2796,7 @@
         "type": "dataset",
         "name": "Orobanche picridis F. W. Schultz (Bitterkraut-Sommerwurz)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/286100",
@@ -2804,7 +2804,7 @@
         "type": "dataset",
         "name": "Orobanche purpurea Jacq. (Violette Sommerwurz)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/286300",
@@ -2812,7 +2812,7 @@
         "type": "dataset",
         "name": "Orobanche rapum-genistae Thuill. (Ginster-Würger)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/286400",
@@ -2820,7 +2820,7 @@
         "type": "dataset",
         "name": "Orobanche reticulata Wallr. (Distel-Sommerwurz)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/286600",
@@ -2828,7 +2828,7 @@
         "type": "dataset",
         "name": "Orobanche teucrii Holandre (Gamander-Sommerwurz)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/289600",
@@ -2836,7 +2836,7 @@
         "type": "dataset",
         "name": "Oxytropis pilosa (L.) DC. (Zottiger Spitzkiel)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/1002868",
@@ -2844,7 +2844,7 @@
         "type": "dataset",
         "name": "Pachysandra terminalis",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/290800",
@@ -2852,7 +2852,7 @@
         "type": "dataset",
         "name": "Papaver argemone L. (Sand-Mohn)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/291100",
@@ -2860,7 +2860,7 @@
         "type": "dataset",
         "name": "Papaver dubium L. s.str. (Hügel-Mohn)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/291200",
@@ -2868,7 +2868,7 @@
         "type": "dataset",
         "name": "Papaver dubium subsp. lecoqii (Lamotte) Syme (Lecoq&#39;s Mohn)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/295300",
@@ -2876,7 +2876,7 @@
         "type": "dataset",
         "name": "Pedicularis sylvatica L. (Waldmoor-Läusekraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/295600",
@@ -2884,7 +2884,7 @@
         "type": "dataset",
         "name": "Peplis portula L.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/296200",
@@ -2892,7 +2892,7 @@
         "type": "dataset",
         "name": "Petrorhagia prolifera (L.) P. W. Ball & Heywood (Sprossende Felsennelke)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/296900",
@@ -2900,7 +2900,7 @@
         "type": "dataset",
         "name": "Peucedanum cervaria (L.) Lapeyr. (Hirschwurz)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/297100",
@@ -2908,7 +2908,7 @@
         "type": "dataset",
         "name": "Peucedanum oreoselinum (L.) Moench (Berg-Haarstrang)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/299800",
@@ -2916,7 +2916,7 @@
         "type": "dataset",
         "name": "Phleum paniculatum Huds. (Rispiges Lieschgras)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/299900",
@@ -2924,7 +2924,7 @@
         "type": "dataset",
         "name": "Phleum phleoides (L.) H. Karst. (Glanz-Lieschgras)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/301800",
@@ -2932,7 +2932,7 @@
         "type": "dataset",
         "name": "Phyteuma orbiculare L. (Rundköpfige Rapunzel)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/303100",
@@ -2940,7 +2940,7 @@
         "type": "dataset",
         "name": "Picris hieracioides L. s.l.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/304200",
@@ -2948,7 +2948,7 @@
         "type": "dataset",
         "name": "Pimpinella saxifraga auct.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/307100",
@@ -2956,7 +2956,7 @@
         "type": "dataset",
         "name": "Plantago arenaria Waldst. & Kit. (Sand-Wegerich)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/308100",
@@ -2964,7 +2964,7 @@
         "type": "dataset",
         "name": "Plantago media L. (Mittlerer Wegerich)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/308400",
@@ -2972,7 +2972,7 @@
         "type": "dataset",
         "name": "Platanthera bifolia (L.) Rich. (Weisses Breitkölbchen)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/308500",
@@ -2980,7 +2980,7 @@
         "type": "dataset",
         "name": "Platanthera chlorantha (Custer) Rchb. (Grünliches Breitkölbchen)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/1001078",
@@ -2988,7 +2988,7 @@
         "type": "dataset",
         "name": "Platanthera sp.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/308900",
@@ -2996,7 +2996,7 @@
         "type": "dataset",
         "name": "Pleurospermum austriacum (L.) Hoffm. (Rippensame)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/312200",
@@ -3004,7 +3004,7 @@
         "type": "dataset",
         "name": "Polycnemum majus A. Braun (Grosses Knorpelkraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/312800",
@@ -3012,7 +3012,7 @@
         "type": "dataset",
         "name": "Polygala comosa Schkuhr (Schopfige Kreuzblume)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/313200",
@@ -3020,7 +3020,7 @@
         "type": "dataset",
         "name": "Polygala vulgaris L. s.str. (Gemeine Kreuzblume)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/318300",
@@ -3028,7 +3028,7 @@
         "type": "dataset",
         "name": "Potamogeton coloratus Hornem. (Gefärbtes Laichkraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/320700",
@@ -3036,7 +3036,7 @@
         "type": "dataset",
         "name": "Potentilla alba L. (Weisses Fingerkraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/321100",
@@ -3044,7 +3044,7 @@
         "type": "dataset",
         "name": "Potentilla argentea L. (Silber-Fingerkraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/322800",
@@ -3052,7 +3052,7 @@
         "type": "dataset",
         "name": "Potentilla heptaphylla L. (Rötliches Fingerkraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/322900",
@@ -3060,7 +3060,7 @@
         "type": "dataset",
         "name": "Potentilla inclinata Vill. (Graues Fingerkraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/323100",
@@ -3068,7 +3068,7 @@
         "type": "dataset",
         "name": "Potentilla leucopolitana P. J. Müll. (Weissenburger Fingerkraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/323800",
@@ -3076,7 +3076,7 @@
         "type": "dataset",
         "name": "Potentilla palustris (L.) Scop. (Blutauge)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/324100",
@@ -3084,7 +3084,7 @@
         "type": "dataset",
         "name": "Potentilla praecox F. W. Schultz (Frühzeitiges Fingerkraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/324400",
@@ -3092,7 +3092,7 @@
         "type": "dataset",
         "name": "Potentilla recta L. (Hohes Fingerkraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/324600",
@@ -3100,7 +3100,7 @@
         "type": "dataset",
         "name": "Potentilla rupestris L. (Felsen-Fingerkraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/324800",
@@ -3108,7 +3108,7 @@
         "type": "dataset",
         "name": "Potentilla supina L. (Niederliegendes Fingerkraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/327200",
@@ -3116,7 +3116,7 @@
         "type": "dataset",
         "name": "Primula veris L. s.str. (Frühlings-Schlüsselblume)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/327900",
@@ -3124,7 +3124,7 @@
         "type": "dataset",
         "name": "Prunella grandiflora (L.) Scholler (Grossblütige Brunelle)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/328000",
@@ -3132,7 +3132,7 @@
         "type": "dataset",
         "name": "Prunella laciniata (L.) L. (Weisse Brunelle)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/328700",
@@ -3140,7 +3140,7 @@
         "type": "dataset",
         "name": "Prunus cerasus L. s.str. (Baumweichsel)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/329600",
@@ -3148,7 +3148,7 @@
         "type": "dataset",
         "name": "Prunus padus L. s.l.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/329900",
@@ -3156,7 +3156,7 @@
         "type": "dataset",
         "name": "Prunus padus subsp. petraea (Tausch) Domin (Transsilvanische Traubenkirsche)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/334200",
@@ -3164,7 +3164,7 @@
         "type": "dataset",
         "name": "Pulsatilla vulgaris Mill. (Gewöhnliche Küchenschelle)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/335900",
@@ -3172,7 +3172,7 @@
         "type": "dataset",
         "name": "Quercus petraea Liebl. (Trauben-Eiche)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/336900",
@@ -3180,7 +3180,7 @@
         "type": "dataset",
         "name": "Ranunculus aquatilis L. (Gemeiner Wasser-Hahnenfuss)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/337100",
@@ -3188,7 +3188,7 @@
         "type": "dataset",
         "name": "Ranunculus arvensis L. (Acker-Hahnenfuss)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/337700",
@@ -3196,7 +3196,7 @@
         "type": "dataset",
         "name": "Ranunculus bulbosus L. (Knolliger Hahnenfuss)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/341000",
@@ -3204,7 +3204,7 @@
         "type": "dataset",
         "name": "Ranunculus reptans L. (Wurzelnder Sumpf-Hahnenfuss)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/343500",
@@ -3212,7 +3212,7 @@
         "type": "dataset",
         "name": "Rhamnus cathartica L. (Gemeiner Kreuzdorn)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/343700",
@@ -3220,7 +3220,7 @@
         "type": "dataset",
         "name": "Rhamnus saxatilis Jacq. (Felsen-Kreuzdorn)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/344800",
@@ -3228,7 +3228,7 @@
         "type": "dataset",
         "name": "Rhinanthus minor L. (Kleiner Klappertopf)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/345900",
@@ -3236,7 +3236,7 @@
         "type": "dataset",
         "name": "Rhynchospora fusca (L.) W. T. Aiton (Rotbraunes Schnabelried)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/346400",
@@ -3244,7 +3244,7 @@
         "type": "dataset",
         "name": "Ribes uva-crispa L. (Stachelbeere)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/346700",
@@ -3252,7 +3252,7 @@
         "type": "dataset",
         "name": "Rorippa austriaca (Crantz) Besser (Österreichische Sumpfkresse)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/347400",
@@ -3260,7 +3260,7 @@
         "type": "dataset",
         "name": "Rosa abietina H. Christ (Tannen-Rose)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/347500",
@@ -3268,7 +3268,7 @@
         "type": "dataset",
         "name": "Rosa agrestis Savi (Hohe Hecken-Rose)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/348300",
@@ -3276,7 +3276,7 @@
         "type": "dataset",
         "name": "Rosa corymbifera Borkh. (Busch-Rose)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/348500",
@@ -3284,7 +3284,7 @@
         "type": "dataset",
         "name": "Rosa elliptica Tausch (Duft-Rose)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/348600",
@@ -3292,7 +3292,7 @@
         "type": "dataset",
         "name": "Rosa gallica L. (Essig-Rose)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/348800",
@@ -3300,7 +3300,7 @@
         "type": "dataset",
         "name": "Rosa jundzillii Besser (Jundzills Rose)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/348900",
@@ -3308,7 +3308,7 @@
         "type": "dataset",
         "name": "Rosa majalis Herrm. (Zimt-Rose)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/349000",
@@ -3316,7 +3316,7 @@
         "type": "dataset",
         "name": "Rosa micrantha Sm. (Kleinblütige Rose)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/349900",
@@ -3324,7 +3324,7 @@
         "type": "dataset",
         "name": "Rosa rubiginosa L. (Wein-Rose)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/1001017",
@@ -3332,7 +3332,7 @@
         "type": "dataset",
         "name": "Rosa sp.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/350200",
@@ -3340,7 +3340,7 @@
         "type": "dataset",
         "name": "Rosa spinosissima L. (Reichstachlige Rose)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/350300",
@@ -3348,7 +3348,7 @@
         "type": "dataset",
         "name": "Rosa stylosa Desv. (Säulengrifflige Rose)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/350600",
@@ -3356,7 +3356,7 @@
         "type": "dataset",
         "name": "Rosa tomentosa Sm. (Filzige Rose)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/350900",
@@ -3364,7 +3364,7 @@
         "type": "dataset",
         "name": "Rosa vosagiaca auct.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/359600",
@@ -3372,7 +3372,7 @@
         "type": "dataset",
         "name": "Rumex aquaticus L. (Wasser-Ampfer)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/360000",
@@ -3380,7 +3380,7 @@
         "type": "dataset",
         "name": "Rumex hydrolapathum Huds. (Riesen-Ampfer)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/360200",
@@ -3388,7 +3388,7 @@
         "type": "dataset",
         "name": "Rumex maritimus L. (Strand-Ampfer)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/362700",
@@ -3396,7 +3396,7 @@
         "type": "dataset",
         "name": "Sagittaria sagittifolia L. (Gewöhnliches Pfeilkraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/367300",
@@ -3404,7 +3404,7 @@
         "type": "dataset",
         "name": "Salvia glutinosa L. (Klebrige Salbei)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/367600",
@@ -3412,7 +3412,7 @@
         "type": "dataset",
         "name": "Salvia pratensis L. (Wiesen-Salbei)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/368000",
@@ -3420,7 +3420,7 @@
         "type": "dataset",
         "name": "Salvia verticillata L. (Quirlige Salbei)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/368500",
@@ -3428,7 +3428,7 @@
         "type": "dataset",
         "name": "Samolus valerandi L. (Bunge)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/368700",
@@ -3436,7 +3436,7 @@
         "type": "dataset",
         "name": "Sanguisorba minor Scop. s.str. (Kleiner Wiesenknopf)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/369000",
@@ -3444,7 +3444,7 @@
         "type": "dataset",
         "name": "Sanguisorba officinalis L. (Grosser Wiesenknopf)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/369700",
@@ -3452,7 +3452,7 @@
         "type": "dataset",
         "name": "Satureja acinos (L.) Scheele",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/373400",
@@ -3460,7 +3460,7 @@
         "type": "dataset",
         "name": "Saxifraga granulata L. (Knöllchen-Steinbrech)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/376400",
@@ -3468,7 +3468,7 @@
         "type": "dataset",
         "name": "Scabiosa canescens Waldst. & Kit. (Graue Skabiose)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/376600",
@@ -3476,7 +3476,7 @@
         "type": "dataset",
         "name": "Scabiosa columbaria L. s.str. (Gemeine Skabiose)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/377200",
@@ -3484,7 +3484,7 @@
         "type": "dataset",
         "name": "Scabiosa ochroleuca L. (Gelbe Skabiose)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/377900",
@@ -3492,7 +3492,7 @@
         "type": "dataset",
         "name": "Scandix pecten-veneris L. (Venuskamm)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/378000",
@@ -3500,7 +3500,7 @@
         "type": "dataset",
         "name": "Scheuchzeria palustris L. (Blumenbinse)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/378300",
@@ -3508,7 +3508,7 @@
         "type": "dataset",
         "name": "Schoenoplectus mucronatus (L.) Palla (Stachliges Seeried)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/378800",
@@ -3516,7 +3516,7 @@
         "type": "dataset",
         "name": "Schoenoplectus triqueter (L.) Palla (Dreikantiges Seeried)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/379800",
@@ -3524,7 +3524,7 @@
         "type": "dataset",
         "name": "Scleranthus annuus L. s.str. (Einjähriger Knäuel)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/381000",
@@ -3532,7 +3532,7 @@
         "type": "dataset",
         "name": "Scorzonera austriaca Willd. (Österreichische Schwarzwurzel)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/381200",
@@ -3540,7 +3540,7 @@
         "type": "dataset",
         "name": "Scorzonera humilis L. (Kleine Schwarzwurzel)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/381900",
@@ -3548,7 +3548,7 @@
         "type": "dataset",
         "name": "Scrophularia canina L. (Hunds-Braunwurz)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/383000",
@@ -3556,7 +3556,7 @@
         "type": "dataset",
         "name": "Securigera varia (L.) Lassen (Bunte Kronwicke)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/383100",
@@ -3564,7 +3564,7 @@
         "type": "dataset",
         "name": "Sedum acre L. (Scharfer Mauerpfeffer)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/383200",
@@ -3572,7 +3572,7 @@
         "type": "dataset",
         "name": "Sedum album L. (Weisser Mauerpfeffer)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/385100",
@@ -3580,7 +3580,7 @@
         "type": "dataset",
         "name": "Sedum rubens L. (Rötlicher Mauerpfeffer)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/385205",
@@ -3588,7 +3588,7 @@
         "type": "dataset",
         "name": "Sedum rupestre aggr. sensu Heitz",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/385900",
@@ -3596,7 +3596,7 @@
         "type": "dataset",
         "name": "Sedum telephium subsp. maximum (L.) Kirschl. (Grosse Fetthenne)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/388800",
@@ -3604,7 +3604,7 @@
         "type": "dataset",
         "name": "Senecio helenitis (L.) Schinz & Thell.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/391000",
@@ -3612,7 +3612,7 @@
         "type": "dataset",
         "name": "Serratula tinctoria L. s.str. (Färber-Scharte)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/391300",
@@ -3620,7 +3620,7 @@
         "type": "dataset",
         "name": "Seseli annuum L. s.str. (Hügel-Sesel)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/391700",
@@ -3628,7 +3628,7 @@
         "type": "dataset",
         "name": "Seseli libanotis (L.) W. D. J. Koch (Hirschheil)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/394200",
@@ -3636,7 +3636,7 @@
         "type": "dataset",
         "name": "Silaum silaus (L.) Schinz & Thell. (Rosskümmel)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/1001217",
@@ -3644,7 +3644,7 @@
         "type": "dataset",
         "name": "Silene linicola C. C. Gmel. (Flachs-Lichtnelke)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/396000",
@@ -3652,7 +3652,7 @@
         "type": "dataset",
         "name": "Silene noctiflora L. (Ackernelke)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/396100",
@@ -3660,7 +3660,7 @@
         "type": "dataset",
         "name": "Silene nutans L. s.str. (Nickendes Leimkraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/396200",
@@ -3668,7 +3668,7 @@
         "type": "dataset",
         "name": "Silene nutans subsp. livida (Willd.) Jeanm. & Bocquet",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/396300",
@@ -3676,7 +3676,7 @@
         "type": "dataset",
         "name": "Silene otites (L.) Wibel (Öhrchen-Leimkraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/397200",
@@ -3684,7 +3684,7 @@
         "type": "dataset",
         "name": "Silene viscaria (L.) Borkh. (Gewöhnliche Pechnelke)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/397295",
@@ -3692,7 +3692,7 @@
         "type": "dataset",
         "name": "Silene vulgaris (Moench) Garcke s.l.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/403700",
@@ -3700,7 +3700,7 @@
         "type": "dataset",
         "name": "Sparganium minimum Wallr.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/403800",
@@ -3708,7 +3708,7 @@
         "type": "dataset",
         "name": "Sparganium natans L. (Kleiner Igelkolben)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/405000",
@@ -3716,7 +3716,7 @@
         "type": "dataset",
         "name": "Spiranthes aestivalis (Poir.) Rich. (Sommer-Wendelähre)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/405100",
@@ -3724,7 +3724,7 @@
         "type": "dataset",
         "name": "Spiranthes spiralis (L.) Chevall. (Herbst-Wendelähre)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/405500",
@@ -3732,7 +3732,7 @@
         "type": "dataset",
         "name": "Stachys annua (L.) L. (Einjähriger Ziest)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/406600",
@@ -3740,7 +3740,7 @@
         "type": "dataset",
         "name": "Stachys recta L. s.str. (Aufrechter Ziest)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/407000",
@@ -3748,7 +3748,7 @@
         "type": "dataset",
         "name": "Staphylea pinnata L. (Pimpernuss)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/409000",
@@ -3756,7 +3756,7 @@
         "type": "dataset",
         "name": "Stipa capillata L. (Haar-Pfriemengras)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/409500",
@@ -3764,7 +3764,7 @@
         "type": "dataset",
         "name": "Stipa pennata L. (Federgras)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/410100",
@@ -3772,7 +3772,7 @@
         "type": "dataset",
         "name": "Succisa pratensis Moench (Abbisskraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/413300",
@@ -3780,7 +3780,7 @@
         "type": "dataset",
         "name": "Taraxacum palustre (Lyons) Symons",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/414200",
@@ -3788,7 +3788,7 @@
         "type": "dataset",
         "name": "Tephroseris helenitis (L.) B. Nord. (Spatelblättriges Kreuzkraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/414300",
@@ -3796,7 +3796,7 @@
         "type": "dataset",
         "name": "Tephroseris integrifolia (L.) Holub (Ganzblättriges Kreuzkraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/414900",
@@ -3804,7 +3804,7 @@
         "type": "dataset",
         "name": "Teucrium botrys L. (Trauben-Gamander)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/415000",
@@ -3812,7 +3812,7 @@
         "type": "dataset",
         "name": "Teucrium chamaedrys L. (Edel-Gamander)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/415100",
@@ -3820,7 +3820,7 @@
         "type": "dataset",
         "name": "Teucrium montanum L. (Berg-Gamander)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/415200",
@@ -3828,7 +3828,7 @@
         "type": "dataset",
         "name": "Teucrium scordium L. (Lauch-Gamander)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/416200",
@@ -3836,7 +3836,7 @@
         "type": "dataset",
         "name": "Thalictrum minus L. s.str. (Kleine Wiesenraute)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/416800",
@@ -3844,7 +3844,7 @@
         "type": "dataset",
         "name": "Thalictrum simplex subsp. galioides (Pers.) Korsh.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/417300",
@@ -3852,7 +3852,7 @@
         "type": "dataset",
         "name": "Thesium bavarum Schrank (Bayrischer Bergflachs)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/417600",
@@ -3860,7 +3860,7 @@
         "type": "dataset",
         "name": "Thesium linophyllon L. (Leinblättriger Bergflachs)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/417800",
@@ -3868,7 +3868,7 @@
         "type": "dataset",
         "name": "Thesium rostratum Mert. & W. D. J. Koch (Schnabelfrüchtiger Bergflachs)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/419800",
@@ -3876,7 +3876,7 @@
         "type": "dataset",
         "name": "Thymelaea passerina (L.) Coss. & Germ. (Vogelkopf)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/421000",
@@ -3884,7 +3884,7 @@
         "type": "dataset",
         "name": "Thymus pulegioides L. s.str. (Arznei-Thymian)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/421200",
@@ -3892,7 +3892,7 @@
         "type": "dataset",
         "name": "Thymus serpyllum aggr. auct. helv.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/1001198",
@@ -3900,7 +3900,7 @@
         "type": "dataset",
         "name": "Thymus sp.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/422600",
@@ -3908,7 +3908,7 @@
         "type": "dataset",
         "name": "Tragopogon dubius Scop. (Grosser Bocksbart)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/423000",
@@ -3916,7 +3916,7 @@
         "type": "dataset",
         "name": "Tragopogon pratensis L. s.str. (Wiesen-Bocksbart)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/423300",
@@ -3924,7 +3924,7 @@
         "type": "dataset",
         "name": "Tragopogon pratensis subsp. orientalis (L.) Celak. (Östlicher Bocksbart)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/423500",
@@ -3932,7 +3932,7 @@
         "type": "dataset",
         "name": "Trapa natans L. (Wassernuss)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/424400",
@@ -3940,7 +3940,7 @@
         "type": "dataset",
         "name": "Trifolium alpestre L. (Hügel-Klee)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/424700",
@@ -3948,7 +3948,7 @@
         "type": "dataset",
         "name": "Trifolium arvense L. (Hasen-Klee)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/424800",
@@ -3956,7 +3956,7 @@
         "type": "dataset",
         "name": "Trifolium aureum Pollich (Gold-Klee)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/425000",
@@ -3964,7 +3964,7 @@
         "type": "dataset",
         "name": "Trifolium campestre Schreb. (Gelber Acker-Klee)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/426000",
@@ -3972,7 +3972,7 @@
         "type": "dataset",
         "name": "Trifolium medium L. (Mittlerer Klee)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/426300",
@@ -3980,7 +3980,7 @@
         "type": "dataset",
         "name": "Trifolium montanum L. (Berg-Klee)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/426600",
@@ -3988,7 +3988,7 @@
         "type": "dataset",
         "name": "Trifolium ochroleucon Huds. (Gelblicher Klee)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/426895",
@@ -3996,7 +3996,7 @@
         "type": "dataset",
         "name": "Trifolium pratense L. s.l.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/427500",
@@ -4004,7 +4004,7 @@
         "type": "dataset",
         "name": "Trifolium rubens L. (Purpur-Klee)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/427900",
@@ -4012,7 +4012,7 @@
         "type": "dataset",
         "name": "Trifolium striatum L. (Gestreifter Klee)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/428800",
@@ -4020,7 +4020,7 @@
         "type": "dataset",
         "name": "Tripleurospermum perforatum (Mérat) Laínz",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/431400",
@@ -4028,7 +4028,7 @@
         "type": "dataset",
         "name": "Tulipa sylvestris L. s.str. (Weinberg-Tulpe)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/432300",
@@ -4036,7 +4036,7 @@
         "type": "dataset",
         "name": "Typha minima Hoppe (Kleiner Rohrkolben)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/432400",
@@ -4044,7 +4044,7 @@
         "type": "dataset",
         "name": "Typha shuttleworthii W. D. J. Koch & Sond. (Shuttleworths Rohrkolben)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/433800",
@@ -4052,7 +4052,7 @@
         "type": "dataset",
         "name": "Utricularia intermedia Hayne (Mittlerer Wasserschlauch)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/434900",
@@ -4060,7 +4060,7 @@
         "type": "dataset",
         "name": "Vaccinium oxycoccos L. (Gemeine Moosbeere)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/437300",
@@ -4068,7 +4068,7 @@
         "type": "dataset",
         "name": "Valerianella dentata (L.) Pollich (Gezähnter Ackersalat)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/437600",
@@ -4076,7 +4076,7 @@
         "type": "dataset",
         "name": "Valerianella rimosa Bastard (Gefurchter Ackersalat)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/438400",
@@ -4084,7 +4084,7 @@
         "type": "dataset",
         "name": "Verbascum blattaria L. (Schabenkraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/439000",
@@ -4092,7 +4092,7 @@
         "type": "dataset",
         "name": "Verbascum lychnitis L. (Lampen-Wollkraut)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/442900",
@@ -4100,7 +4100,7 @@
         "type": "dataset",
         "name": "Veronica praecox All. (Frühblühender Ehrenpreis)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/443000",
@@ -4108,7 +4108,7 @@
         "type": "dataset",
         "name": "Veronica prostrata L. s.str. (Niederliegender Ehrenpreis)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/443100",
@@ -4116,7 +4116,7 @@
         "type": "dataset",
         "name": "Veronica prostrata subsp. scheereri J.-P. Brandt (Scheerers Ehrenpreis)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/443600",
@@ -4124,7 +4124,7 @@
         "type": "dataset",
         "name": "Veronica spicata L.",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/443900",
@@ -4132,7 +4132,7 @@
         "type": "dataset",
         "name": "Veronica teucrium L. (Gamanderartiger Ehrenpreis)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/444000",
@@ -4140,7 +4140,7 @@
         "type": "dataset",
         "name": "Veronica triphyllos L. (Dreiteiliger Ehrenpreis)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/445200",
@@ -4148,7 +4148,7 @@
         "type": "dataset",
         "name": "Vicia cracca subsp. tenuifolia (Roth) Bonnier & Layens (Schmalblättrige Vogel-Wicke)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/446600",
@@ -4156,7 +4156,7 @@
         "type": "dataset",
         "name": "Vicia pannonica Crantz (Ungarische Wicke)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/449600",
@@ -4164,7 +4164,7 @@
         "type": "dataset",
         "name": "Viola canina subsp. schultzii (Billot) Rouy & Foucaud (Schultz&#39; Veilchen)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/449800",
@@ -4172,7 +4172,7 @@
         "type": "dataset",
         "name": "Viola collina Besser (Hügel-Veilchen)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/450200",
@@ -4180,7 +4180,7 @@
         "type": "dataset",
         "name": "Viola elatior Fr. (Hohes Veilchen)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/450300",
@@ -4188,7 +4188,7 @@
         "type": "dataset",
         "name": "Viola hirta L. (Rauhhaariges Veilchen)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/451100",
@@ -4196,7 +4196,7 @@
         "type": "dataset",
         "name": "Viola palustris L. (Sumpf-Veilchen)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/451200",
@@ -4204,7 +4204,7 @@
         "type": "dataset",
         "name": "Viola persicifolia Schreb. (Moor-Veilchen)",
         "expanded": false,
-        "children": []
+        "children": [0]
       },
       {
         "nodeId": "ap/451400",
@@ -4212,7 +4212,7 @@
         "type": "dataset",
         "name": "Viola pumila Chaix (Niedriges Veilchen)",
         "expanded": false,
-        "children": []
+        "children": [0]
       }
     ]
   }

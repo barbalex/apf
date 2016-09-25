@@ -26,13 +26,13 @@ function renderItem(item, keyPrefix) {
 
   if (item.expanded) {
     props.onClick = onClick
-    itemText = `[-] ${item.name}`
+    itemText = `- ${item.name}`
     children = item.children.map((child, index) =>
       renderItem(child, `${child.nodeId}-child-${index}`)
     )
   } else if (item.children.length) {
     props.onClick = onClick
-    itemText = `[+] ${item.name}`
+    itemText = `+ ${item.name}`
   } else {
     itemText = `    ${item.name}`
   }
