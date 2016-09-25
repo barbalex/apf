@@ -17,6 +17,7 @@ class Store extends singleton {
     this.actions.loadNodes = this.actions.loadNodes.bind(this)
     this.actions.toggleNodeExpanded = this.actions.toggleNodeExpanded.bind(this)
   }
+
   data = observable({
     nodes: [],
     loadingNodes: false,
@@ -25,6 +26,7 @@ class Store extends singleton {
     map: null,
     user: null,
   })
+
   ui = observable({
     windowWidth: $(window).width(),
     windowHeight: $(window).height(),
