@@ -42,12 +42,7 @@ const Strukturbaum = observer(
       const { store } = this.context
       const onClick = (event) => {
         event.stopPropagation()
-        console.log('item.expanded:', item.expanded)
-        // item.expanded = !item.expanded
         store.toggleNodeExpanded(item)
-        // ListRef.forceUpdate()
-        console.log('item.expanded:', item.expanded)
-        console.log('store:', store)
       }
 
       const props = { key: keyPrefix }
@@ -93,25 +88,24 @@ const Strukturbaum = observer(
       const { store } = this.context
       if (store.data.loadingNodes) {
         return <div>lade Daten...</div>
-      } else {
-        const nodes = store.data.nodes
-        const rowHeight = nodes[0].expanded ? (nodes[0].children.length * 24) : 24
-        return (
-          <AutoSizer>
-            {({ height, width }) => (
-              <List
-                height={height}
-                rowCount={nodes.length}
-                rowHeight={rowHeight}
-                rowRenderer={this.rowRenderer}
-                width={width}
-                className={styles.container}
-                ref={(ref) => { ListRef = ref }}
-              />
-            )}
-          </AutoSizer>
-        )
       }
+      const nodes = store.data.nodes
+      const rowHeight = nodes[0].expanded ? (nodes[0].children.length * 24) : 24
+      return (
+        <AutoSizer>
+          {({ height, width }) => (
+            <List
+              height={height}
+              rowCount={nodes.length}
+              rowHeight={rowHeight}
+              rowRenderer={this.rowRenderer}
+              width={width}
+              className={styles.container}
+              ref={(ref) => { ListRef = ref }}
+            />
+          )}
+        </AutoSizer>
+      )
     }
   }
 )
