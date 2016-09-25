@@ -25,10 +25,11 @@ const StrukturbaumContainer = observer(
 
     render() {
       const { store } = this.context
+      const activeTab = store.ui.projekte.strukturbaum.activeTab
       return (
         <div className={styles.strukturbaum}>
           <Tabs
-            value={store.ui.projekte.strukturbaum.activeTab}
+            value={activeTab}
             onChange={this.onClickTab}
           >
             <Tab
@@ -36,15 +37,21 @@ const StrukturbaumContainer = observer(
               value="strukturbaum"
               className={styles.strukturbaumTab}
             >
-              <Strukturbaum />
             </Tab>
             <Tab
               label="Filter"
               value="filter"
             >
-              <Filter />
             </Tab>
           </Tabs>
+          {
+            activeTab === 'strukturbaum'
+            && <Strukturbaum />
+          }
+          {
+            activeTab === 'filter'
+            && <Filter />
+          }
         </div>
       )
     }

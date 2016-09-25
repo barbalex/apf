@@ -8,7 +8,8 @@
 
 import React, { Component } from 'react'
 import { observer } from 'mobx-react'
-import { AutoSizer, List } from 'react-virtualized'
+import { AutoSizer, List, ScrollSync } from 'react-virtualized'
+import { Scrollbars } from 'react-custom-scrollbars'
 import projectSampleData from './projectSampleData.json'
 import styles from './styles.css'
 
@@ -71,14 +72,30 @@ const Strukturbaum = observer(
     render() {  // eslint-disable-line class-methods-use-this
       const rowHeight = data[0].expanded ? (data[0].children.length * 24) : 24
       return (
-        <List
-          height={600}
-          rowCount={data.length}
-          rowHeight={rowHeight}
-          rowRenderer={rowRenderer}
-          width={600}
-          className={styles.container}
-        />
+        <Scrollbars>
+          <ScrollSync>
+            {
+              ({ clientHeight, clientWidth, onScroll, scrollHeight, scrollLeft, scrollTop, scrollWidth }) => {
+                const x = scrollLeft / (scrollWidth - clientWidth)
+                const y = scrollTop / (scrollHeight - clientHeight)
+                return (
+                  <AutoSizer>
+                    {({ height, width }) => (
+                      <List
+                        height={height}
+                        rowCount={data.length}
+                        rowHeight={rowHeight}
+                        rowRenderer={rowRenderer}
+                        width={width}
+                        className={styles.container}
+                      />
+                    )}
+                  </AutoSizer>
+                )
+              }
+            }
+          </ScrollSync>
+        </Scrollbars>
       )
     }
   }

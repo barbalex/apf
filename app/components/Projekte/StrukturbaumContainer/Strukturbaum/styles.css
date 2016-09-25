@@ -5,4 +5,5 @@
 .item {
   line-height: 1em;
   font-size: 1em;
+  white-space: nowrap;
 }

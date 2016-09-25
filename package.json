@@ -134,7 +134,6 @@
       "prefer-template": 2,
       "react/jsx-filename-extension": 0,
       "react/jsx-no-target-blank": 0,
-      "react/require-extension": 0,
       "react/self-closing-comp": 0,
       "require-yield": 0,
       "semi": 0
@@ -198,6 +197,7 @@
     "mobx-react": "3.5.6",
     "react": "15.3.2",
     "react-addons-shallow-compare": "15.3.2",
+    "react-custom-scrollbars": "^4.0.0",
     "react-dom": "15.3.2",
     "react-helmet": "3.1.0",
     "react-router": "2.8.1",
