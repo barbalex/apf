@@ -14,7 +14,7 @@ import apiBaseUrl from './modules/apiBaseUrl'
 class Store extends singleton {
   constructor() {
     super()
-    this.actions.loadNodes = this.actions.loadNodes.bind(this)
+    this.actions.fetchNodes = this.actions.fetchNodes.bind(this)
     this.actions.toggleNodeExpanded = this.actions.toggleNodeExpanded.bind(this)
   }
 
@@ -49,11 +49,12 @@ class Store extends singleton {
   })
 
   actions = {
-    loadNodes(table, id = null, folder = null, levels = '') {
+    fetchNodes(table, id = null, folder = null, levels = '') {
       this.data.loadingNodes = true
       fetch(`${apiBaseUrl}/node?table=${table}&id=${id}$folder=${folder}&levels=${levels}`)
         .then(resp => resp.json())
         .then((nodes) => {
+          console.log('nodes:', nodes)
           transaction(() => {
             this.data.nodes = nodes
             this.data.loadingNodes = false
