@@ -72,30 +72,18 @@ const Strukturbaum = observer(
     render() {  // eslint-disable-line class-methods-use-this
       const rowHeight = data[0].expanded ? (data[0].children.length * 24) : 24
       return (
-        <Scrollbars>
-          <ScrollSync>
-            {
-              ({ clientHeight, clientWidth, onScroll, scrollHeight, scrollLeft, scrollTop, scrollWidth }) => {
-                const x = scrollLeft / (scrollWidth - clientWidth)
-                const y = scrollTop / (scrollHeight - clientHeight)
-                return (
-                  <AutoSizer>
-                    {({ height, width }) => (
-                      <List
-                        height={height}
-                        rowCount={data.length}
-                        rowHeight={rowHeight}
-                        rowRenderer={rowRenderer}
-                        width={width}
-                        className={styles.container}
-                      />
-                    )}
-                  </AutoSizer>
-                )
-              }
-            }
-          </ScrollSync>
-        </Scrollbars>
+        <AutoSizer>
+          {({ height, width }) => (
+            <List
+              height={height}
+              rowCount={data.length}
+              rowHeight={rowHeight}
+              rowRenderer={rowRenderer}
+              width={width}
+              className={styles.container}
+            />
+          )}
+        </AutoSizer>
       )
     }
   }
