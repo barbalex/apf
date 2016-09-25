@@ -201,7 +201,6 @@
     "react-dom": "15.3.2",
     "react-helmet": "3.1.0",
     "react-router": "2.8.1",
-    "react-router-redux": "4.0.6",
     "react-router-scroll": "0.3.2",
     "react-tap-event-plugin": "1.0.0",
     "react-virtualized": "8.0.9",
