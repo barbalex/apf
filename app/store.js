@@ -5,7 +5,7 @@
  */
 
 // import { observable } from 'mobx-react'  // reason for HORRIBLE webpack error????
-import { observable, action } from 'mobx'
+import { observable, action, transaction } from 'mobx'
 import $ from 'jquery'
 import singleton from 'singleton'
 
@@ -47,11 +47,13 @@ class Store extends singleton {
 
   loadNodes(table, id = null, folder = null, levels = '') {
     this.data.loadingNodes = true
-    fetch(`${apiBaseUrl}/node?table=projekt&id=1&levels=all`)
+    fetch(`${apiBaseUrl}/node?table=${table}&id=${id}$folder=${folder}&levels=${levels}`)
       .then(resp => resp.json())
       .then((nodes) => {
-        this.data.nodes = nodes
-        this.data.loadingNodes = false
+        transaction(() => {
+          this.data.nodes = nodes
+          this.data.loadingNodes = false
+        })
       })
       .catch(error => console.log(error))
   }
