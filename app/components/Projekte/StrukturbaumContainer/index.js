@@ -20,7 +20,7 @@ const StrukturbaumContainer = observer(
 
     componentDidMount() {
       // load node
-      // TODO: depending on path
+      // TODO: make this depend on path
       const { store } = this.context
       const table = 'projekt'
       const id = 1
