@@ -44,7 +44,8 @@ const Strukturbaum = observer(
         event.stopPropagation()
         if (!item.expanded) {
           // fetch data
-          //store.actions.
+          console.log('item:', item)
+          store.actions.fetchNodes(item.table, item.id, item.folder, '')
         }
         store.actions.toggleNodeExpanded(item)
       }
