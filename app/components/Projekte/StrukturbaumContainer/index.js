@@ -11,31 +11,29 @@ import styles from './styles.css'
 import Filter from './Filter'
 import Strukturbaum from './Strukturbaum'
 
-const StrukturbaumContainer = observer(
+const StrukturbaumContainer = observer(['store'],
   class StrukturbaumContainer extends Component { // eslint-disable-line react/prefer-stateless-function
     static contextTypes = {
       router: React.PropTypes.object.isRequired,
-      store: React.PropTypes.object.isRequired,
     }
 
     componentDidMount() {
       // load node
       // TODO: make this depend on path
-      const { store } = this.context
+      const { store } = this.props
       const table = 'projekt'
       const id = 1
       const folder = null
-      const levels = 'all'
-      store.actions.fetchNodes(table, id, folder, levels)
+      store.actions.fetchAllNodes(table, id, folder)
     }
 
     onClickTab = (value) => {
-      const { store } = this.context
+      const { store } = this.props
       store.ui.projekte.strukturbaum.activeTab = value
     }
 
     render() {
-      const { store } = this.context
+      const { store } = this.props
       const activeTab = store.ui.projekte.strukturbaum.activeTab
       return (
         <div className={styles.strukturbaum}>

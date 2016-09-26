@@ -9,94 +9,88 @@
 
 import React, { Component } from 'react'
 import { observer } from 'mobx-react'
+import { extendObservable } from 'mobx'
 import { AutoSizer, List } from 'react-virtualized'
 import styles from './styles.css'
 
-let ListRef  // eslint-disable-line no-unused-vars
-
-const Strukturbaum = observer(
+const Strukturbaum = observer(['store'],
   class Strukturbaum extends Component { // eslint-disable-line react/prefer-stateless-function
-    constructor() {
-      super()
-      this.rowRenderer = this.rowRenderer.bind(this)
-      this.renderItem = this.renderItem.bind(this)
-    }
-
     static contextTypes = {
       router: React.PropTypes.object.isRequired,
-      store: React.PropTypes.object.isRequired,
-    }
-
-    rowRenderer({ key, index }) {
-      const { store } = this.context
-      return (
-        <div
-          key={key}
-        >
-          {this.renderItem(store.data.nodes[index], index)}
-        </div>
-      )
-    }
-
-    renderItem(item, keyPrefix) {
-      const { store } = this.context
-      const onClick = (event) => {
-        event.stopPropagation()
-        if (!item.expanded) {
-          // fetch data
-          console.log('item:', item)
-          store.actions.fetchNodes(item.table, item.id, item.folder, '')
-        }
-        store.actions.toggleNodeExpanded(item)
-      }
-
-      const props = { key: keyPrefix }
-      let children = []
-      let itemText
-
-      if (item.expanded) {
-        props.onClick = onClick
-        // itemText = `&#709; ${item.name}`
-        itemText = `${String.fromCharCode(709)} ${item.name}`
-        children = item.children.map((child, index) =>
-          this.renderItem(child, `${child.nodeId}-child-${index}`)
-        )
-      } else if (item.children.length) {
-        props.onClick = onClick
-        itemText = `> ${item.name}`
-      } else {
-        itemText = `- ${item.name}`
-      }
-
-      children.unshift(
-        <div
-          className={styles.item}
-          key={`${item.nodeId}-child`}
-          style={{ cursor: item.children && item.children.length ? 'pointer' : 'auto' }}
-        >
-          {itemText}
-        </div>
-      )
-
-      return (
-        <ul
-          key={item.nodeId}
-          onClick={props.onClick}
-        >
-          <li>
-            {children}
-          </li>
-        </ul>
-      )
     }
 
     render() {  // eslint-disable-line class-methods-use-this
-      const { store } = this.context
-      if (store.data.loadingNodes) {
+      const { store } = this.props
+      let ListRef
+      if (
+        !store
+        || !store.data
+        || !store.data.nodes
+        || (store.data.nodes.length && store.data.nodes.length === 0)
+        || (store.data.nodes[0] && store.data.nodes[0].nodeId === 'none')
+      ) {
         return <div>lade Daten...</div>
       }
       const nodes = store.data.nodes
       const rowHeight = nodes[0].expanded ? ((nodes[0].children.length + 1) * 22.87) : 1 * 22.87
+
+      const rowRenderer = ({ key, index }) =>
+        <div
+          key={key}
+        >
+          {renderItem(store.data.nodes[index], index)}
+        </div>
+
+      const renderItem = (item, keyPrefix) => {
+        const onClick = (event) => {
+          event.stopPropagation()
+          store.actions.toggleNodeExpanded(item)
+          console.log('item.children:', item.children)
+          if (item.expanded) {
+            // fetch data
+            store.actions.fetchNodes(item, ListRef)
+          }
+        }
+
+        const props = { key: keyPrefix }
+        let children = []
+        let itemText
+
+        if (item.expanded) {
+          props.onClick = onClick
+          // itemText = `&#709; ${item.name}`
+          itemText = `${String.fromCharCode(709)} ${item.name}`
+          children = item.children.map(child =>
+            renderItem(child, `${child.nodeId}`)
+          )
+        } else if (item.children.length) {
+          props.onClick = onClick
+          itemText = `> ${item.name}`
+        } else {
+          itemText = `- ${item.name}`
+        }
+
+        children.unshift(
+          <div
+            className={styles.item}
+            key={`${item.nodeId}-child`}
+            style={{ cursor: item.children && item.children.length ? 'pointer' : 'auto' }}
+          >
+            {itemText}
+          </div>
+        )
+
+        return (
+          <ul
+            key={item.nodeId}
+            onClick={props.onClick}
+          >
+            <li>
+              {children}
+            </li>
+          </ul>
+        )
+      }
       return (
         <AutoSizer>
           {({ height, width }) => (
@@ -104,7 +98,7 @@ const Strukturbaum = observer(
               height={height}
               rowCount={nodes.length}
               rowHeight={rowHeight}
-              rowRenderer={this.rowRenderer}
+              rowRenderer={rowRenderer}
               width={width}
               className={styles.container}
               ref={(ref) => { ListRef = ref }}

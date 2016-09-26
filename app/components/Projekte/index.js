@@ -14,15 +14,16 @@ import StrukturbaumContainer from './StrukturbaumContainer'
 import Daten from './Daten'
 import Karte from './Karte'
 
-const Projekte = observer(
+const Projekte = observer(['store'],
   class Projekte extends React.Component { // eslint-disable-line react/prefer-stateless-function
     static contextTypes = {
       router: React.PropTypes.object.isRequired,
-      store: React.PropTypes.object.isRequired,
     }
 
     render() {
-      const { router, store } = this.context
+      const { store } = this.props
+      console.log('this.props:', this.props)
+      const { router } = this.context
       return (
         <div className={styles.container}>
           <Helmet

@@ -3,24 +3,31 @@
  * because the store can be used outside react components, eg. routes.js
  * from: http://stackoverflow.com/questions/35850871/how-to-connect-state-to-props-with-mobx-js-observer-when-use-es6-class/36164488#36164488
  */
-
+/* eslint-disable no-console*/
 // import { observable } from 'mobx-react'  // reason for HORRIBLE webpack error????
-import { observable, action, transaction } from 'mobx'
+import { observable, extendObservable, action, transaction } from 'mobx'
 import $ from 'jquery'
 import singleton from 'singleton'
 
 import apiBaseUrl from './modules/apiBaseUrl'
+import findNodeInTree from './modules/findNodeInTree'
 
 class Store extends singleton {
   constructor() {
     super()
     this.actions.fetchNodes = this.actions.fetchNodes.bind(this)
+    this.actions.fetchAllNodes = this.actions.fetchAllNodes.bind(this)
     this.actions.toggleNodeExpanded = this.actions.toggleNodeExpanded.bind(this)
   }
 
   data = observable({
-    nodes: [],
-    loadingNodes: false,
+    nodes: [{
+      nodeId: 'none',
+      name: 'lade Daten...',
+      expanded: false,
+      children: [],
+    }],
+    loadingAllNodes: false,
     nodes2: [],
     activeDataset: null,
     map: null,
@@ -49,19 +56,38 @@ class Store extends singleton {
   })
 
   actions = {
-    fetchNodes(table, id = null, folder = null, levels = '') {
-      this.data.loadingNodes = true
-      fetch(`${apiBaseUrl}/node?table=${table}&id=${id}&folder=${folder}&levels=${levels}`)
+    fetchAllNodes(table, id = null, folder = null) {
+      this.data.loadingAllNodes = true
+      fetch(`${apiBaseUrl}/node?table=${table}&id=${id}&folder=${folder}&levels=all`)
         .then(resp => resp.json())
         .then((nodes) => {
           transaction(() => {
-            this.data.nodes = nodes
-            this.data.loadingNodes = false
+            this.data.nodes.replace(nodes)
+            this.data.loadingAllNodes = false
           })
-          // console.log('nodes:', this.data.nodes.toJS())
         })
         .catch(error => console.log('error fetching nodes:', error))
     },
+
+    fetchNodes(item, ref) {
+      const activeNode = findNodeInTree(this.data.nodes, item.path)
+      if (activeNode) {
+        fetch(`${apiBaseUrl}/node?table=${item.table}&id=${item.id}&folder=${item.folder ? item.folder : null}`)
+          .then(resp => resp.json())
+          .then((nodes) => {
+            transaction(() => {
+              activeNode.children.replace(nodes)
+            })
+            console.log('activeNode after adding child nodes:', activeNode)
+            ref.forceUpdate()
+          })
+          .catch(error => console.log('error fetching nodes:', error))
+      } else {
+        // TODO
+        console.log('no active node found')
+      }
+    },
+
     toggleNodeExpanded(node) {
       action(node.expanded = !node.expanded)
     },
