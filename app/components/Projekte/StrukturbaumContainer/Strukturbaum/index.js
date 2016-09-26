@@ -5,14 +5,14 @@
  * https://github.com/bvaughn/react-virtualized/blob/master/playground/tree.js
  *
  */
-/* eslint-disable no-console */
+/* eslint-disable no-console, jsx-a11y/no-static-element-interactions */
 
 import React, { Component } from 'react'
 import { observer } from 'mobx-react'
 import { AutoSizer, List } from 'react-virtualized'
 import styles from './styles.css'
 
-let ListRef
+let ListRef  // eslint-disable-line no-unused-vars
 
 const Strukturbaum = observer(
   class Strukturbaum extends Component { // eslint-disable-line react/prefer-stateless-function
@@ -56,15 +56,16 @@ const Strukturbaum = observer(
 
       if (item.expanded) {
         props.onClick = onClick
-        itemText = `- ${item.name}`
+        // itemText = `&#709; ${item.name}`
+        itemText = `${String.fromCharCode(709)} ${item.name}`
         children = item.children.map((child, index) =>
           this.renderItem(child, `${child.nodeId}-child-${index}`)
         )
       } else if (item.children.length) {
         props.onClick = onClick
-        itemText = `+ ${item.name}`
+        itemText = `> ${item.name}`
       } else {
-        itemText = `    ${item.name}`
+        itemText = `- ${item.name}`
       }
 
       children.unshift(
