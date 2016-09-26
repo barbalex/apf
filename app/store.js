@@ -51,20 +51,20 @@ class Store extends singleton {
   actions = {
     fetchNodes(table, id = null, folder = null, levels = '') {
       this.data.loadingNodes = true
-      fetch(`${apiBaseUrl}/node?table=${table}&id=${id}$folder=${folder}&levels=${levels}`)
+      fetch(`${apiBaseUrl}/node?table=${table}&id=${id}&folder=${folder}&levels=${levels}`)
         .then(resp => resp.json())
         .then((nodes) => {
-          console.log('nodes:', nodes)
           transaction(() => {
             this.data.nodes = nodes
             this.data.loadingNodes = false
           })
+          // console.log('nodes:', this.data.nodes.toJS())
         })
-        .catch(error => console.log(error))
+        .catch(error => console.log('error fetching nodes:', error))
     },
     toggleNodeExpanded(node) {
       action(node.expanded = !node.expanded)
-    }
+    },
   }
 
 }
