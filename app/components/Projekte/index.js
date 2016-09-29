@@ -85,4 +85,4 @@ Projekte.propTypes = {
   store: PropTypes.object,
 }
 
-export default inject('store')(observer(Projekte)
+export default inject('store')(observer(Projekte))
