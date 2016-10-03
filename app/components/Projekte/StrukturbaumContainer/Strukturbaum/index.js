@@ -28,7 +28,15 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
       || (store.data.nodes.length && store.data.nodes.length === 0)
       || (store.data.nodes[0] && store.data.nodes[0].nodeId === 'none')
     ) {
-      return <div>lade Daten...</div>
+      return (
+        <div className={styles.container}>
+          <ul>
+            <li className={styles.item}>
+              lade Daten...
+            </li>
+          </ul>
+        </div>
+      )
     }
     const nodes = store.data.nodes
     // const rowHeight = nodes[0].expanded ? ((nodes[0].children.length + 1) * 22.87) : 1 * 22.87
@@ -61,7 +69,6 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
 
       if (item.expanded) {
         props.onClick = onClick
-        // itemText = `&#709; ${item.name}`
         itemText = `${String.fromCharCode(709)} ${item.name}`
         children = item.children.map(child =>
           renderItem(child, `${child.nodeId}`)
