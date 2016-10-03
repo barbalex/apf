@@ -3,14 +3,13 @@
  * because the store can be used outside react components, eg. routes.js
  * from: http://stackoverflow.com/questions/35850871/how-to-connect-state-to-props-with-mobx-js-observer-when-use-es6-class/36164488#36164488
  */
-/* eslint-disable no-console */
+/* eslint-disable no-console, no-param-reassign */
 
 import { observable, action, transaction } from 'mobx'
 import $ from 'jquery'
 import singleton from 'singleton'
 
 import apiBaseUrl from './modules/apiBaseUrl'
-import findNodeInTree from './modules/findNodeInTree'
 
 class Store extends singleton {
   constructor() {
@@ -24,7 +23,7 @@ class Store extends singleton {
   data = observable({
     nodes: [{
       nodeId: 'none',
-      name: 'lade Daten...',
+      name: 'this seems to be needed for mobx',
       expanded: false,
       children: [],
     }],
