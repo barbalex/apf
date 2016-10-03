@@ -47,7 +47,7 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
       const onClick = (event) => {
         event.stopPropagation()
         if (!item.expanded) {
-          store.actions.fetchNodes(item, ListRef)
+          store.actions.fetchNodes(item)
         } else {
           store.actions.toggleNodeExpanded(item)
         }

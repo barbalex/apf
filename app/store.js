@@ -69,8 +69,9 @@ class Store extends singleton {
         .catch(error => console.log('error fetching nodes:', error))
     },
 
-    fetchNodes(item, ref) {
+    fetchNodes(item) {
       const activeNode = findNodeInTree(this.data.nodes, item.path)
+      console.log('store: activeNode:', activeNode)
       if (activeNode) {
         transaction(() => {
           activeNode.children.replace([{
@@ -81,7 +82,6 @@ class Store extends singleton {
           }])
           activeNode.expanded = true
         })
-        ref.forceUpdate()
         fetch(`${apiBaseUrl}/node?table=${item.table}&id=${item.id}&folder=${item.folder ? item.folder : null}`)
           .then(resp => resp.json())
           .then((nodes) => {
@@ -89,13 +89,13 @@ class Store extends singleton {
               activeNode.children.replace(nodes)
               activeNode.expanded = true
             })
-            console.log('activeNode after adding child nodes:', activeNode)
-            ref.forceUpdate()
           })
           .catch(error => console.log('error fetching nodes:', error))
       } else {
         // TODO
-        console.log('no active node found')
+        console.log('store: no active node found for item:', item)
+        console.log('store: item.path:', item.path)
+        console.log('store: nodes:', this.data.nodes)
       }
     },
 
