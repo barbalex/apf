@@ -100,6 +100,7 @@ class Store extends singleton {
     },
 
     toggleNodeExpanded(node) {
+      // TODO: gives an error
       action(node.expanded = !node.expanded)
     },
   }
