@@ -105,22 +105,24 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
     }
 
     return (
-      <AutoSizer>
-        {({ height, width }) => (
-          <List
-            height={height}
-            rowCount={nodes.length}
-            rowHeight={rowHeight}
-            rowRenderer={rowRenderer}
-            width={width}
-            className={styles.container}
-          />
-        )}
+      <div>
+        <AutoSizer>
+          {({ height, width }) => (
+            <List
+              height={height}
+              rowCount={nodes.length}
+              rowHeight={rowHeight}
+              rowRenderer={rowRenderer}
+              width={width}
+              className={styles.container}
+            />
+          )}
+        </AutoSizer>
         {
           to
           && <Redirect to={to} />
         }
-      </AutoSizer>
+      </div>
     )
   }
 }

@@ -71,7 +71,10 @@ class Store extends singleton {
             this.data.loadingAllNodes = false
           })
           // TODO: set project node as active node
-          const activeNode = findNodeInTree(path)
+          const activeNode = findNodeInTree(this.data.nodes, path)
+          console.log('store: activeNode:', activeNode)
+          console.log('store: path:', path)
+          console.log('store: this.data.nodes:', this.data.nodes)
           if (activeNode) this.data.activeNode = activeNode
         })
         .catch(error => console.log('error fetching nodes:', error))
