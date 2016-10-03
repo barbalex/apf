@@ -119,7 +119,7 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
           )}
         </AutoSizer>
         {
-          to
+          !!to
           && <Redirect to={to} />
         }
       </div>
