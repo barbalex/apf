@@ -21,7 +21,6 @@ const Projekte = class Projekte extends React.Component { // eslint-disable-line
 
   render() {
     const { store } = this.props
-    console.log('this.props:', this.props)
     const { router } = this.context
     return (
       <div className={styles.container}>
