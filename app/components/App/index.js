@@ -34,6 +34,7 @@ export default class App extends React.Component { // eslint-disable-line react/
   componentWillMount() {
     // TODO: check if logged in
     /* see: http://stackoverflow.com/questions/35850871/how-to-connect-state-to-props-with-mobx-js-observer-when-use-es6-class/36164488#36164488 */
+    console.log('this is first load')
   }
 
   render() {
