@@ -5,7 +5,7 @@
  */
 /* eslint-disable no-console*/
 // import { observable } from 'mobx-react'  // reason for HORRIBLE webpack error????
-import { observable, extendObservable, action, transaction } from 'mobx'
+import mobx, { observable, extendObservable, action, transaction } from 'mobx'
 import $ from 'jquery'
 import singleton from 'singleton'
 
@@ -72,11 +72,22 @@ class Store extends singleton {
     fetchNodes(item, ref) {
       const activeNode = findNodeInTree(this.data.nodes, item.path)
       if (activeNode) {
+        transaction(() => {
+          activeNode.children.replace([{
+            nodeId: `${item.nodeId}0`,
+            name: 'lade Daten...',
+            expanded: false,
+            children: [],
+          }])
+          activeNode.expanded = true
+        })
+        ref.forceUpdate()
         fetch(`${apiBaseUrl}/node?table=${item.table}&id=${item.id}&folder=${item.folder ? item.folder : null}`)
           .then(resp => resp.json())
           .then((nodes) => {
             transaction(() => {
               activeNode.children.replace(nodes)
+              activeNode.expanded = true
             })
             console.log('activeNode after adding child nodes:', activeNode)
             ref.forceUpdate()
