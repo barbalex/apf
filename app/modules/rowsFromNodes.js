@@ -4,7 +4,9 @@ const countRows = (nodes) => {
   }
   let rows = nodes.length
   nodes.forEach((n) => {
-    rows += countRows(n.children)
+    if (n.expanded) {
+      rows += countRows(n.children)
+    }
   })
   return rows
 }
