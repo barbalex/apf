@@ -7,7 +7,8 @@
 
 const findNode = (nodes, pathPassed) => {
   const path = pathPassed.slice(0)
-  const node = nodes.find(n => n.nodeId === path.shift())
+  const nodeId = path.shift()
+  const node = nodes.find(n => n.nodeId === nodeId)
   if (path.length > 0) {
     return findNode(node.children, path)
   }
