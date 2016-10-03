@@ -17,17 +17,25 @@ import 'script!jquery'
 // Import all the third party stuff
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Router, Route, IndexRedirect, browserHistory } from 'react-router'
+import { BrowserRouter, Match } from 'react-router'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin()
 
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
+import DevTools from 'mobx-react-devtools'
+import { Provider } from 'mobx-react'
+import store from './store'
+import AppBar from './components/AppBar'
+import styles from './app.css'
+
 // Import the CSS reset, which HtmlWebpackPlugin transfers to the build folder
 import 'sanitize.css/sanitize.css'
 
 // import components
-import App from './components/App'
 import Projekte from './components/Projekte'
 import Exporte from './components/Exporte'
 import Benutzer from './components/Benutzer'
@@ -35,33 +43,33 @@ import Benutzer from './components/Benutzer'
 // TODO: redirect to login if not logged in
 /* see: http://stackoverflow.com/questions/35850871/how-to-connect-state-to-props-with-mobx-js-observer-when-use-es6-class/36164488#36164488 */
 
+const theme = Object.assign({}, darkBaseTheme, {
+  appBar: {
+    height: 51,
+  },
+})
+
 ReactDOM.render(
-  <Router history={browserHistory}>
-    <Route
-      path="/"
-      component={App}
-    >
-      <IndexRedirect
-        to="/Projekte"
-      />
-      <Route
-        path="Projekte"
-        component={Projekte}
-      />
-      <Route
-        path="Projekte/{projId}"
-        component={Projekte}
-      />
-      <Route
-        path="Exporte"
-        component={Exporte}
-      />
-      <Route
-        path="Benutzer"
-        component={Benutzer}
-      />
-    </Route>
-  </Router>,
+  <BrowserRouter>
+    <Provider store={store}>
+      <MuiThemeProvider
+        muiTheme={getMuiTheme(theme)}
+        className={styles.content}
+      >
+        <div
+          className={styles.content}
+        >
+          <DevTools />
+          <Match pattern="*" component={AppBar} />
+          <Match exactly pattern="/" component={Projekte} />
+          <Match pattern="/Projekte" component={Projekte} />
+          <Match pattern="/Projekte/{projId}" component={Projekte} />
+          <Match pattern="/Exporte" component={Exporte} />
+          <Match pattern="/Benutzer" component={Benutzer} />
+        </div>
+      </MuiThemeProvider>
+    </Provider>
+  </BrowserRouter>,
   document.getElementById('app')
 )
 
