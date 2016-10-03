@@ -10,6 +10,7 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import { AutoSizer, List } from 'react-virtualized'
+import rowsFromNodes from '../../../../modules/rowsFromNodes'
 import styles from './styles.css'
 
 const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-line react/prefer-stateless-function
@@ -30,7 +31,10 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
       return <div>lade Daten...</div>
     }
     const nodes = store.data.nodes
-    const rowHeight = nodes[0].expanded ? ((nodes[0].children.length + 1) * 22.87) : 1 * 22.87
+    // const rowHeight = nodes[0].expanded ? ((nodes[0].children.length + 1) * 22.87) : 1 * 22.87
+    const nrOfRows = rowsFromNodes(nodes)
+    console.log('nrOfRows:', nrOfRows)
+    const rowHeight = nrOfRows * 22.87
 
     const rowRenderer = ({ key, index }) =>
       <div
@@ -42,12 +46,10 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
     const renderItem = (item, keyPrefix) => {
       const onClick = (event) => {
         event.stopPropagation()
-        const expanded = item.expanded
-        store.actions.toggleNodeExpanded(item)
-        console.log('item.children:', item.children)
-        if (!expanded) {
-          // fetch data
+        if (!item.expanded) {
           store.actions.fetchNodes(item, ListRef)
+        } else {
+          store.actions.toggleNodeExpanded(item)
         }
       }
 
