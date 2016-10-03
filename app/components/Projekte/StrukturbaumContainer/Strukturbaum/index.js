@@ -39,9 +39,7 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
       )
     }
     const nodes = store.data.nodes
-    // const rowHeight = nodes[0].expanded ? ((nodes[0].children.length + 1) * 22.87) : 1 * 22.87
     const nrOfRows = rowsFromNodes(nodes)
-    console.log('nrOfRows:', nrOfRows)
     const rowHeight = nrOfRows * 22.87
 
     const rowRenderer = ({ key, index }) =>

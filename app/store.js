@@ -71,7 +71,6 @@ class Store extends singleton {
 
     fetchNodes(item) {
       const activeNode = findNodeInTree(this.data.nodes, item.path)
-      console.log('store: activeNode:', activeNode)
       if (activeNode) {
         transaction(() => {
           activeNode.children.replace([{
@@ -94,8 +93,6 @@ class Store extends singleton {
       } else {
         // TODO
         console.log('store: no active node found for item:', item)
-        console.log('store: item.path:', item.path)
-        console.log('store: nodes:', this.data.nodes)
       }
     },
 
