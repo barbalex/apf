@@ -15,13 +15,8 @@ import Daten from './Daten'
 import Karte from './Karte'
 
 const Projekte = class Projekte extends React.Component { // eslint-disable-line react/prefer-stateless-function
-  static contextTypes = {
-    router: React.PropTypes.object.isRequired,
-  }
-
   render() {
-    const { store } = this.props
-    const { router } = this.context
+    const { store, location } = this.props
     return (
       <div className={styles.container}>
         <Helmet
@@ -64,7 +59,7 @@ const Projekte = class Projekte extends React.Component { // eslint-disable-line
         <div className={styles.content} >
           {
             store.ui.projekte.strukturbaum.visible
-            && <StrukturbaumContainer />
+            && <StrukturbaumContainer location={location} />
           }
           {
             store.ui.projekte.daten.visible

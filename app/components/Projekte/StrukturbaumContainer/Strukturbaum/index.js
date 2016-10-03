@@ -10,6 +10,7 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import { AutoSizer, List } from 'react-virtualized'
+import { Redirect } from 'react-router'
 import rowsFromNodes from '../../../../modules/rowsFromNodes'
 import styles from './styles.css'
 
@@ -19,7 +20,8 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
   }
 
   render() {  // eslint-disable-line class-methods-use-this
-    const { store } = this.props
+    const { store, location } = this.props
+    console.log('location:', location)
     if (
       !store
       || !store.data
@@ -52,8 +54,10 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
       const onClick = (event) => {
         event.stopPropagation()
         if (node.expanded) {
+          // TODO: redirect to parent
           store.toggleNodeExpanded(node)
         } else {
+          // TODO: redirect to child
           store.openNode(node)
         }
       }

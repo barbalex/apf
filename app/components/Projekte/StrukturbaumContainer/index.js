@@ -12,10 +12,6 @@ import Filter from './Filter'
 import Strukturbaum from './Strukturbaum'
 
 const StrukturbaumContainer = class StrukturbaumContainer extends Component { // eslint-disable-line react/prefer-stateless-function
-  static contextTypes = {
-    router: React.PropTypes.object.isRequired,
-  }
-
   componentDidMount() {
     // load node
     // TODO: make this depend on path
@@ -32,7 +28,7 @@ const StrukturbaumContainer = class StrukturbaumContainer extends Component { //
   }
 
   render() {
-    const { store } = this.props
+    const { store, location } = this.props
     const activeTab = store.ui.projekte.strukturbaum.activeTab
     return (
       <div className={styles.strukturbaum}>
@@ -55,7 +51,7 @@ const StrukturbaumContainer = class StrukturbaumContainer extends Component { //
         <div className={styles.tabsContent}>
           {
             activeTab === 'strukturbaum'
-            && <Strukturbaum />
+            && <Strukturbaum location={location} />
           }
           {
             activeTab === 'filter'
