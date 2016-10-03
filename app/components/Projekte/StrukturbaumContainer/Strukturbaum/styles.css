@@ -10,7 +10,7 @@
   padding: 0 0 0 1em;
 }
 
-.item {
+.node {
   height: 1.6em;
   display: flex;
   flex-direction: column;

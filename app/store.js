@@ -74,28 +74,26 @@ class Store extends singleton {
 
   openNode = action(
     'openNode',
-    (item) => {
-      if (item) {
-        // const activeNode = findNodeInTree(this.data.nodes, item.path)
-        const activeNode = item
+    (node) => {
+      if (node) {
         // only show 'lade Daten...' if not yet loaded
         if (
-          activeNode.children
-          && activeNode.children.length === 1
-          && activeNode.children[0] === 0
+          node.children
+          && node.children.length === 1
+          && node.children[0] === 0
         ) {
           transaction(() => {
-            activeNode.children.replace([{
-              nodeId: `${item.nodeId}0`,
+            node.children.replace([{
+              nodeId: `${node.nodeId}0`,
               name: 'lade Daten...',
               expanded: false,
               children: [],
             }])
-            activeNode.expanded = true
-            this.fetchNodeChildren(item)
+            node.expanded = true
+            this.fetchNodeChildren(node)
           })
         } else {
-          activeNode.expanded = true
+          node.expanded = true
         }
       }
     }
@@ -103,14 +101,12 @@ class Store extends singleton {
 
   fetchNodeChildren = action(
     'fetchNodeChildren',
-    (item) => {
-      // const activeNode = findNodeInTree(this.data.nodes, item.path)
-      const activeNode = item
-      fetch(`${apiBaseUrl}/node?table=${item.table}&id=${item.id}&folder=${item.folder ? item.folder : null}`)
+    (node) => {
+      fetch(`${apiBaseUrl}/node?table=${node.table}&id=${node.id}&folder=${node.folder ? node.folder : null}`)
         .then(resp => resp.json())
         .then((nodes) => {
           transaction(() => {
-            activeNode.children.replace(nodes)
+            node.children.replace(nodes)
           })
         })
     }
@@ -119,9 +115,7 @@ class Store extends singleton {
   toggleNodeExpanded = action(
     'toggleNodeExpanded',
     (node) => {
-      // TODO: gives an error
-      const activeNode = node
-      activeNode.expanded = !activeNode.expanded
+      node.expanded = !node.expanded
     }
   )
 }

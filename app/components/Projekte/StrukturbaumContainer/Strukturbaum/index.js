@@ -30,7 +30,7 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
       return (
         <div className={styles.container}>
           <ul>
-            <li className={styles.item}>
+            <li className={styles.node}>
               lade Daten...
             </li>
           </ul>
@@ -45,16 +45,16 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
       <div
         key={key}
       >
-        {renderItem(store.data.nodes[index], index)}
+        {renderNode(store.data.nodes[index], index)}
       </div>
 
-    const renderItem = (item, keyPrefix) => {
+    const renderNode = (node, keyPrefix) => {
       const onClick = (event) => {
         event.stopPropagation()
-        if (item.expanded) {
-          store.toggleNodeExpanded(item)
+        if (node.expanded) {
+          store.toggleNodeExpanded(node)
         } else {
-          store.openNode(item)
+          store.openNode(node)
         }
       }
 
@@ -62,24 +62,24 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
       let children = []
       let itemText
 
-      if (item.expanded) {
+      if (node.expanded) {
         props.onClick = onClick
-        itemText = `${String.fromCharCode(709)} ${item.name}`
-        children = item.children.map(child =>
-          renderItem(child, `${child.nodeId}`)
+        itemText = `${String.fromCharCode(709)} ${node.name}`
+        children = node.children.map(child =>
+          renderNode(child, `${child.nodeId}`)
         )
-      } else if (item.children.length) {
+      } else if (node.children.length) {
         props.onClick = onClick
-        itemText = `> ${item.name}`
+        itemText = `> ${node.name}`
       } else {
-        itemText = `- ${item.name}`
+        itemText = `- ${node.name}`
       }
 
       children.unshift(
         <div
-          className={styles.item}
-          key={`${item.nodeId}-child`}
-          style={{ cursor: item.children && item.children.length ? 'pointer' : 'auto' }}
+          className={styles.node}
+          key={`${node.nodeId}-child`}
+          style={{ cursor: node.children && node.children.length ? 'pointer' : 'auto' }}
         >
           {itemText}
         </div>
@@ -87,7 +87,7 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
 
       return (
         <ul
-          key={item.nodeId}
+          key={node.nodeId}
           onClick={props.onClick}
         >
           <li>
