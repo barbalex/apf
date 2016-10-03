@@ -17,7 +17,7 @@ import 'script!jquery'
 // Import all the third party stuff
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter, Match } from 'react-router'
+import { BrowserRouter, Match, Redirect } from 'react-router'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
@@ -61,7 +61,11 @@ ReactDOM.render(
         >
           <DevTools />
           <Match pattern="*" component={AppBar} />
-          <Match exactly pattern="/" component={Projekte} />
+          <Match
+            exactly
+            pattern="/"
+            render={() => <Redirect to="/Projekte" />}
+          />
           <Match pattern="/Projekte" component={Projekte} />
           <Match pattern="/Projekte/{projId}" component={Projekte} />
           <Match pattern="/Exporte" component={Exporte} />
