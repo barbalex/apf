@@ -29,7 +29,7 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
     ) {
       return (
         <div className={styles.container}>
-          <ul>
+          <ul className={styles.topUl}>
             <li className={styles.node}>
               lade Daten...
             </li>
@@ -89,6 +89,7 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
         <ul
           key={node.nodeId}
           onClick={props.onClick}
+          className={styles.topUl}
         >
           <li>
             {children}
