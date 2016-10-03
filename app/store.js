@@ -72,21 +72,29 @@ class Store extends singleton {
     fetchNodes(item) {
       const activeNode = findNodeInTree(this.data.nodes, item.path)
       if (activeNode) {
-        transaction(() => {
-          activeNode.children.replace([{
-            nodeId: `${item.nodeId}0`,
-            name: 'lade Daten...',
-            expanded: false,
-            children: [],
-          }])
+        // only show 'lade Daten...' if not yet loaded
+        if (
+          activeNode.children
+          && activeNode.children.length === 1
+          && activeNode.children[0] === 0
+        ) {
+          transaction(() => {
+            activeNode.children.replace([{
+              nodeId: `${item.nodeId}0`,
+              name: 'lade Daten...',
+              expanded: false,
+              children: [],
+            }])
+            activeNode.expanded = true
+          })
+        } else {
           activeNode.expanded = true
-        })
+        }
         fetch(`${apiBaseUrl}/node?table=${item.table}&id=${item.id}&folder=${item.folder ? item.folder : null}`)
           .then(resp => resp.json())
           .then((nodes) => {
             transaction(() => {
               activeNode.children.replace(nodes)
-              activeNode.expanded = true
             })
           })
           .catch(error => console.log('error fetching nodes:', error))

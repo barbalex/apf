@@ -20,7 +20,6 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
 
   render() {  // eslint-disable-line class-methods-use-this
     const { store } = this.props
-    let ListRef
     if (
       !store
       || !store.data
@@ -52,12 +51,11 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
     const renderItem = (item, keyPrefix) => {
       const onClick = (event) => {
         event.stopPropagation()
-        if (!item.expanded) {
-          store.actions.fetchNodes(item)
+        console.log('item.children:', item.children)
+        if (item.expanded) {
+          item.expanded = false
         } else {
-          item.expanded = !item.expanded
-          // unfortunately this gives an error:
-          // store.actions.toggleNodeExpanded(item)
+          store.actions.fetchNodes(item)
         }
       }
 
@@ -109,7 +107,6 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
             rowRenderer={rowRenderer}
             width={width}
             className={styles.container}
-            ref={(ref) => { ListRef = ref }}
           />
         )}
       </AutoSizer>
