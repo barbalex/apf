@@ -49,6 +49,10 @@ ReactDOM.render(
         component={Projekte}
       />
       <Route
+        path="Projekte/{projId}"
+        component={Projekte}
+      />
+      <Route
         path="Exporte"
         component={Exporte}
       />
