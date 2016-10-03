@@ -15,9 +15,10 @@ import findNodeInTree from './modules/findNodeInTree'
 class Store extends singleton {
   constructor() {
     super()
-    this.actions.fetchNodes = this.actions.fetchNodes.bind(this)
-    this.actions.fetchAllNodes = this.actions.fetchAllNodes.bind(this)
-    this.actions.toggleNodeExpanded = this.actions.toggleNodeExpanded.bind(this)
+    this.fetchNodeChildren = this.fetchNodeChildren.bind(this)
+    this.openNode = this.openNode.bind(this)
+    this.fetchAllNodes = this.fetchAllNodes.bind(this)
+    this.toggleNodeExpanded = this.toggleNodeExpanded.bind(this)
   }
 
   data = observable({
@@ -55,8 +56,9 @@ class Store extends singleton {
     },
   })
 
-  actions = {
-    fetchAllNodes(table, id = null, folder = null) {
+  fetchAllNodes = action(
+    'fetchAllNodes',
+    (table, id = null, folder = null) => {
       this.data.loadingAllNodes = true
       fetch(`${apiBaseUrl}/node?table=${table}&id=${id}&folder=${folder}&levels=all`)
         .then(resp => resp.json())
@@ -67,11 +69,15 @@ class Store extends singleton {
           })
         })
         .catch(error => console.log('error fetching nodes:', error))
-    },
+    }
+  )
 
-    fetchNodes(item) {
-      const activeNode = findNodeInTree(this.data.nodes, item.path)
-      if (activeNode) {
+  openNode = action(
+    'openNode',
+    (item) => {
+      if (item) {
+        // const activeNode = findNodeInTree(this.data.nodes, item.path)
+        const activeNode = item
         // only show 'lade Daten...' if not yet loaded
         if (
           activeNode.children
@@ -86,30 +92,38 @@ class Store extends singleton {
               children: [],
             }])
             activeNode.expanded = true
+            this.fetchNodeChildren(item)
           })
         } else {
           activeNode.expanded = true
         }
-        fetch(`${apiBaseUrl}/node?table=${item.table}&id=${item.id}&folder=${item.folder ? item.folder : null}`)
-          .then(resp => resp.json())
-          .then((nodes) => {
-            transaction(() => {
-              activeNode.children.replace(nodes)
-            })
-          })
-          .catch(error => console.log('error fetching nodes:', error))
-      } else {
-        // TODO
-        console.log('store: no active node found for item:', item)
       }
-    },
+    }
+  )
 
-    toggleNodeExpanded(node) {
+  fetchNodeChildren = action(
+    'fetchNodeChildren',
+    (item) => {
+      // const activeNode = findNodeInTree(this.data.nodes, item.path)
+      const activeNode = item
+      fetch(`${apiBaseUrl}/node?table=${item.table}&id=${item.id}&folder=${item.folder ? item.folder : null}`)
+        .then(resp => resp.json())
+        .then((nodes) => {
+          transaction(() => {
+            activeNode.children.replace(nodes)
+          })
+        })
+    }
+  )
+
+  toggleNodeExpanded = action(
+    'toggleNodeExpanded',
+    (node) => {
       // TODO: gives an error
-      action(node.expanded = !node.expanded)
-    },
-  }
-
+      const activeNode = node
+      activeNode.expanded = !activeNode.expanded
+    }
+  )
 }
 
 export default Store.get()

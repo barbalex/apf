@@ -23,7 +23,7 @@ const StrukturbaumContainer = class StrukturbaumContainer extends Component { //
     const table = 'projekt'
     const id = 1
     const folder = null
-    store.actions.fetchAllNodes(table, id, folder)
+    store.fetchAllNodes(table, id, folder)
   }
 
   onClickTab = (value) => {
