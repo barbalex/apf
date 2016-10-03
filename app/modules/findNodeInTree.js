@@ -7,8 +7,8 @@
 
 const findNode = (nodes, pathPassed) => {
   const path = pathPassed.slice(0)
-  const nodeId = path.shift()
-  const node = nodes.find(n => n.nodeId === nodeId)
+  const el = path.shift()
+  const node = nodes.find(n => n.nodeId === `${el.table}/${el.id}`)
   if (path.length > 0) {
     return findNode(node.children, path)
   }

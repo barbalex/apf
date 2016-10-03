@@ -11,17 +11,14 @@ import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import { AutoSizer, List } from 'react-virtualized'
 import { Redirect } from 'react-router'
+
+import urlFromNode from '../../../../modules/urlFromNode'
 import rowsFromNodes from '../../../../modules/rowsFromNodes'
 import styles from './styles.css'
 
 const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-line react/prefer-stateless-function
-  static contextTypes = {
-    router: React.PropTypes.object.isRequired,
-  }
-
   render() {  // eslint-disable-line class-methods-use-this
     const { store, location } = this.props
-    console.log('location:', location)
     if (
       !store
       || !store.data
@@ -54,10 +51,8 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
       const onClick = (event) => {
         event.stopPropagation()
         if (node.expanded) {
-          // TODO: redirect to parent
           store.toggleNodeExpanded(node)
         } else {
-          // TODO: redirect to child
           store.openNode(node)
         }
       }
@@ -101,6 +96,14 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
         </ul>
       )
     }
+
+    const activeNode = store.data.activeNode
+    let to = null
+    if (activeNode) {
+      to = urlFromNode(activeNode)
+      console.log('redirect to:', to)
+    }
+
     return (
       <AutoSizer>
         {({ height, width }) => (
@@ -113,6 +116,10 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
             className={styles.container}
           />
         )}
+        {
+          to
+          && <Redirect to={to} />
+        }
       </AutoSizer>
     )
   }

@@ -17,9 +17,10 @@ const StrukturbaumContainer = class StrukturbaumContainer extends Component { //
     // TODO: make this depend on path
     const { store } = this.props
     const table = 'projekt'
-    const id = 1
+    const id = null
     const folder = null
-    store.fetchAllNodes(table, id, folder)
+    const path = [{ table, id, folder }]
+    store.fetchAllNodes(path)
   }
 
   onClickTab = (value) => {

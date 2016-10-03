@@ -9,6 +9,7 @@ import { observable, action, transaction } from 'mobx'
 import $ from 'jquery'
 import singleton from 'singleton'
 
+import findNodeInTree from './modules/findNodeInTree'
 import apiBaseUrl from './modules/apiBaseUrl'
 
 class Store extends singleton {
@@ -29,6 +30,7 @@ class Store extends singleton {
     }],
     loadingAllNodes: false,
     nodes2: [],
+    activeNode: null,
     activeDataset: null,
     map: null,
     user: null,
@@ -57,7 +59,9 @@ class Store extends singleton {
 
   fetchAllNodes = action(
     'fetchAllNodes',
-    (table, id = null, folder = null) => {
+    (path) => {
+      const lastPathElement = path[path.length - 1]
+      const { table, id, folder } = lastPathElement
       this.data.loadingAllNodes = true
       fetch(`${apiBaseUrl}/node?table=${table}&id=${id}&folder=${folder}&levels=all`)
         .then(resp => resp.json())
@@ -66,6 +70,9 @@ class Store extends singleton {
             this.data.nodes.replace(nodes)
             this.data.loadingAllNodes = false
           })
+          // TODO: set project node as active node
+          const activeNode = findNodeInTree(path)
+          if (activeNode) this.data.activeNode = activeNode
         })
         .catch(error => console.log('error fetching nodes:', error))
     }
