@@ -19,7 +19,7 @@ import Karte from './Karte'
 
 const Projekte = class Projekte extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { store, location } = this.props
+    const { store, location, params } = this.props
     const activeNode = store.data.activeNode
     let to = null
     if (activeNode) {
@@ -29,6 +29,8 @@ const Projekte = class Projekte extends React.Component { // eslint-disable-line
       to = '/Projekte'
     }
     const doRedirect = to && location.pathname !== to
+
+    console.log('Projekte: params:', params)
 
     return (
       <div className={styles.container}>
