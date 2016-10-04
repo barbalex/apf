@@ -5,7 +5,7 @@
  */
 /* eslint-disable no-console, no-param-reassign */
 
-import { observable, action, transaction } from 'mobx'
+import { observable, action, transaction, reaction } from 'mobx'
 import $ from 'jquery'
 import singleton from 'singleton'
 
@@ -150,6 +150,15 @@ class Store extends singleton {
         .catch((error) => {
           throw error
         })
+  )
+
+  const keepActiveNodeDatasetUpToDate = reaction(
+    () => this.data.activeNode,
+    this.fetchActiveNodeDataset({
+      table: this.data.activeNode.table,
+      field: 'TODO: get id-field of this table',
+      value: this.data.activeNode.id
+    })
   )
 }
 
