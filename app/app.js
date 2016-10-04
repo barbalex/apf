@@ -54,14 +54,6 @@ const theme = Object.assign({}, darkBaseTheme, {
 window.app = {}
 window.app.store = store
 
-// load node
-// TODO: make this depend on path
-const table = 'projekt'
-const id = null
-const folder = null
-const path = [{ table, id, folder }]
-store.fetchAllNodes(path)
-
 // TODO: on initial load
 // get params and set values:
 // - activeNode
@@ -76,10 +68,33 @@ ReactDOM.render(
         <div className={styles.content} >
           <DevTools />
           <Match pattern="*" component={AppBar} />
-          <Match exactly pattern="/" render={() => <Redirect to="/Projekte" />} />
-          <Match pattern="/Projekte" component={ProjekteRedirector} />
-          <Match exactly pattern="/Projekte" component={Projekte} />
-          <Match exactly pattern="/Projekte/:ProjId" component={Projekte} />
+          <Match
+            exactly
+            pattern="/"
+            render={() =>
+              <Redirect to="/Projekte" />
+            }
+          />
+          <Match
+            pattern="/Projekte"
+            component={ProjekteRedirector}
+          />
+          <Match
+            exactly
+            pattern="/Projekte"
+            render={() => {
+              store.fetchAllNodes([{ table: 'projekt', id: null, folder: null }])
+              return <Projekte />
+            }}
+          />
+          <Match
+            exactly
+            pattern="/Projekte/:ProjId"
+            render={(data) => {
+              store.fetchAllNodes([{ table: 'projekt', id: data.params.ProjId, folder: null }])
+              return <Projekte />
+            }}
+          />
           <Match exactly pattern="/Projekte/:ProjId/Arten" component={Projekte} />
           <Match exactly pattern="/Projekte/:ProjId/Arten/:ApArtId" component={Projekte} />
           <Match exactly pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Berichte" component={Projekte} />

@@ -19,6 +19,11 @@ const Projekte = class Projekte extends React.Component { // eslint-disable-line
   render() {
     const { store, location, params } = this.props
 
+    console.log('Projekte: location:', location)
+    console.log('Projekte: params:', params)
+
+    // TODO: if params, call data
+
     return (
       <div className={styles.container}>
         <Helmet

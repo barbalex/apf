@@ -12,7 +12,7 @@ import getUrlForNode from '../modules/getUrlForNode'
 
 const Projekte = class Projekte extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { store, location } = this.props
+    const { store, location, params } = this.props
     const activeNode = store.data.activeNode
     let to = null
     if (activeNode) {
@@ -22,6 +22,8 @@ const Projekte = class Projekte extends React.Component { // eslint-disable-line
       to = '/Projekte'
     }
     console.log('ProjekteRedirector: activeNode:', activeNode)
+    console.log('ProjekteRedirector: location:', location)
+    console.log('ProjekteRedirector: params:', params)
     console.log('ProjekteRedirector: location.pathname:', location.pathname)
     console.log('ProjekteRedirector: to:', to)
     const doRedirect = activeNode && to && location.pathname !== to
