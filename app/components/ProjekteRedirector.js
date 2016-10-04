@@ -22,14 +22,10 @@ const Projekte = class Projekte extends React.Component { // eslint-disable-line
     }
     const doRedirect = activeNode && to && location.pathname !== to
 
-    return (
-      <div>
-        {
-          doRedirect
-          && <Redirect to={to} />
-        }
-      </div>
-    )
+    if (doRedirect) {
+      return <Redirect to={to} />
+    }
+    return null
   }
 }
 
