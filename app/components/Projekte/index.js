@@ -17,12 +17,7 @@ import Karte from './Karte'
 
 const Projekte = class Projekte extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { store, location, params } = this.props
-
-    console.log('Projekte: location:', location)
-    console.log('Projekte: params:', params)
-
-    // TODO: if params, call data
+    const { store } = this.props
 
     return (
       <div className={styles.container}>

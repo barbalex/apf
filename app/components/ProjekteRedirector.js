@@ -1,6 +1,7 @@
 /*
  *
- * Projekte
+ * ProjekteRedirector
+ * changes url when node state changes
  *
  */
 
@@ -10,9 +11,9 @@ import { Redirect } from 'react-router'
 
 import getUrlForNode from '../modules/getUrlForNode'
 
-const Projekte = class Projekte extends React.Component { // eslint-disable-line react/prefer-stateless-function
+const ProjekteRedirector = class ProjekteRedirector extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { store, location, params } = this.props
+    const { store, location } = this.props
     const activeNode = store.data.activeNode
     let to = null
     if (activeNode) {
@@ -29,8 +30,9 @@ const Projekte = class Projekte extends React.Component { // eslint-disable-line
   }
 }
 
-Projekte.propTypes = {
+ProjekteRedirector.propTypes = {
   store: PropTypes.object,
+  location: PropTypes.object,
 }
 
-export default inject('store')(observer(Projekte))
+export default inject('store')(observer(ProjekteRedirector))
