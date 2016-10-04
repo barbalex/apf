@@ -17,17 +17,10 @@ const Projekte = class Projekte extends React.Component { // eslint-disable-line
     let to = null
     if (activeNode) {
       to = getUrlForNode(activeNode)
-      console.log('ProjekteRedirector: redirect to:', to)
     } else {
       to = '/Projekte'
     }
-    console.log('ProjekteRedirector: activeNode:', activeNode)
-    console.log('ProjekteRedirector: location:', location)
-    console.log('ProjekteRedirector: params:', params)
-    console.log('ProjekteRedirector: location.pathname:', location.pathname)
-    console.log('ProjekteRedirector: to:', to)
     const doRedirect = activeNode && to && location.pathname !== to
-    console.log('ProjekteRedirector: doRedirect:', doRedirect)
 
     return (
       <div>
