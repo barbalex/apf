@@ -17,8 +17,8 @@ class Store extends singleton {
     super()
     this.fetchNodeChildren = this.fetchNodeChildren.bind(this)
     this.openNode = this.openNode.bind(this)
+    this.closeNode = this.closeNode.bind(this)
     this.fetchAllNodes = this.fetchAllNodes.bind(this)
-    this.toggleNodeExpanded = this.toggleNodeExpanded.bind(this)
   }
 
   data = observable({
@@ -125,15 +125,16 @@ class Store extends singleton {
   closeNode = action(
     'closeNode',
     (node) => {
-      node.expanded = false
-      console.log('node:', node)
-    }
-  )
-
-  toggleNodeExpanded = action(
-    'toggleNodeExpanded',
-    (node) => {
-      node.expanded = !node.expanded
+      let newActiveNode = null
+      const path = node.path
+      path.slice(0)
+      if (path.length > 0) {
+        newActiveNode = getNodeByPath(this.data.nodes, path)
+      }
+      transaction(() => {
+        node.expanded = false
+        this.data.activeNode = newActiveNode
+      })
     }
   )
 }

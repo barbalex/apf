@@ -18,31 +18,24 @@ import Daten from './Daten'
 import Karte from './Karte'
 
 const Projekte = class Projekte extends React.Component { // eslint-disable-line react/prefer-stateless-function
-  componentDidMount() {
-    // load node
-    // TODO: make this depend on path
-    const { store } = this.props
-    const table = 'projekt'
-    const id = null
-    const folder = null
-    const path = [{ table, id, folder }]
-    store.fetchAllNodes(path)
-  }
-
   render() {
     const { store, location, params } = this.props
-
-    console.log('Projekte: params:', params)
 
     const activeNode = store.data.activeNode
     let to = null
     if (activeNode) {
       to = getUrlForNode(activeNode)
       console.log('redirect to:', to)
+    } else {
+      to = '/Projekte'
     }
 
     return (
       <div className={styles.container}>
+        {
+          !!to
+          && <Redirect to={to} />
+        }
         <Helmet
           title="AP Flora: Projekte"
           meta={[
@@ -81,10 +74,6 @@ const Projekte = class Projekte extends React.Component { // eslint-disable-line
           />
         </Toolbar>
         <div className={styles.content} >
-          {
-            !!to
-            && <Redirect to={to} />
-          }
           {
             store.ui.projekte.strukturbaum.visible
             && <StrukturbaumContainer location={location} />

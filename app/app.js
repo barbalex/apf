@@ -53,6 +53,14 @@ const theme = Object.assign({}, darkBaseTheme, {
 window.app = {}
 window.app.store = store
 
+// load node
+// TODO: make this depend on path
+const table = 'projekt'
+const id = null
+const folder = null
+const path = [{ table, id, folder }]
+store.fetchAllNodes(path)
+
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>
