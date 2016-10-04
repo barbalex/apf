@@ -12,6 +12,13 @@ import singleton from 'singleton'
 import getNodeByPath from './modules/getNodeByPath'
 import apiBaseUrl from './modules/apiBaseUrl'
 
+const noneNode = {
+  nodeId: 'none',
+  name: 'this seems to be needed for mobx',
+  expanded: false,
+  children: [],
+}
+
 class Store extends singleton {
   constructor() {
     super()
@@ -22,12 +29,7 @@ class Store extends singleton {
   }
 
   data = observable({
-    nodes: [{
-      nodeId: 'none',
-      name: 'this seems to be needed for mobx',
-      expanded: false,
-      children: [],
-    }],
+    nodes: [noneNode],
     loadingAllNodes: false,
     nodes2: [],
     activeNode: null,
@@ -125,12 +127,9 @@ class Store extends singleton {
   closeNode = action(
     'closeNode',
     (node) => {
-      let newActiveNode = null
-      const path = node.path
-      path.slice(0)
-      if (path.length > 0) {
-        newActiveNode = getNodeByPath(this.data.nodes, path)
-      }
+      const path = node.path.slice(0)
+      path.pop()
+      const newActiveNode = getNodeByPath(this.data.nodes, path)
       transaction(() => {
         node.expanded = false
         this.data.activeNode = newActiveNode

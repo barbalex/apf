@@ -54,7 +54,7 @@ ReactDOM.render(
       muiTheme={getMuiTheme(theme)}
       className={styles.content}
     >
-      <div className={styles.content} >
+      <div>
         <DevTools />
         <Router />
       </div>

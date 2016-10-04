@@ -21,7 +21,7 @@ const ProjekteRedirector = class ProjekteRedirector extends React.Component { //
     } else {
       to = '/Projekte'
     }
-    const doRedirect = activeNode && to && location.pathname !== to
+    const doRedirect = to && location.pathname !== to
 
     if (doRedirect) {
       return <Redirect to={to} />
