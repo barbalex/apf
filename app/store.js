@@ -9,7 +9,7 @@ import { observable, action, transaction } from 'mobx'
 import $ from 'jquery'
 import singleton from 'singleton'
 
-import findNodeInTree from './modules/findNodeInTree'
+import getNodeByPath from './modules/getNodeByPath'
 import apiBaseUrl from './modules/apiBaseUrl'
 
 class Store extends singleton {
@@ -71,7 +71,7 @@ class Store extends singleton {
             this.data.loadingAllNodes = false
           })
           // TODO: set project node as active node
-          const activeNode = findNodeInTree(this.data.nodes, path)
+          const activeNode = getNodeByPath(this.data.nodes, path)
           if (activeNode) this.data.activeNode = activeNode
         })
         .catch(error => console.log('error fetching nodes:', error))
@@ -119,6 +119,14 @@ class Store extends singleton {
             node.children.replace(nodes)
           })
         })
+    }
+  )
+
+  closeNode = action(
+    'closeNode',
+    (node) => {
+      node.expanded = false
+      console.log('node:', node)
     }
   )
 

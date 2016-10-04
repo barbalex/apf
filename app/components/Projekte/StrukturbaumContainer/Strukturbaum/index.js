@@ -12,7 +12,7 @@ import { observer, inject } from 'mobx-react'
 import { AutoSizer, List } from 'react-virtualized'
 import { Redirect } from 'react-router'
 
-import rowsFromNodes from '../../../../modules/rowsFromNodes'
+import getNrOfNodeRows from '../../../../modules/getNrOfNodeRows'
 import styles from './styles.css'
 
 const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-line react/prefer-stateless-function
@@ -36,7 +36,7 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
       )
     }
     const nodes = store.data.nodes
-    const nrOfRows = rowsFromNodes(nodes)
+    const nrOfRows = getNrOfNodeRows(nodes)
     const rowHeight = nrOfRows * 22.87
 
     const rowRenderer = ({ key, index }) =>
@@ -50,7 +50,7 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
       const onClick = (event) => {
         event.stopPropagation()
         if (node.expanded) {
-          store.toggleNodeExpanded(node)
+          store.closeNode(node)
         } else {
           store.openNode(node)
         }

@@ -11,7 +11,7 @@ import Helmet from 'react-helmet'
 import { Toolbar } from 'material-ui/Toolbar'
 import FlatButton from 'material-ui/FlatButton'
 
-import urlFromNode from '../../modules/urlFromNode'
+import getUrlForNode from '../../modules/getUrlForNode'
 import styles from './styles.css'
 import StrukturbaumContainer from './StrukturbaumContainer'
 import Daten from './Daten'
@@ -30,21 +30,19 @@ const Projekte = class Projekte extends React.Component { // eslint-disable-line
   }
 
   render() {
-    const { store, location } = this.props
+    const { store, location, params } = this.props
+
+    console.log('Projekte: params:', params)
 
     const activeNode = store.data.activeNode
     let to = null
     if (activeNode) {
-      to = urlFromNode(activeNode)
+      to = getUrlForNode(activeNode)
       console.log('redirect to:', to)
     }
 
     return (
       <div className={styles.container}>
-        {
-          !!to
-          && <Redirect to={to} />
-        }
         <Helmet
           title="AP Flora: Projekte"
           meta={[
@@ -83,6 +81,10 @@ const Projekte = class Projekte extends React.Component { // eslint-disable-line
           />
         </Toolbar>
         <div className={styles.content} >
+          {
+            !!to
+            && <Redirect to={to} />
+          }
           {
             store.ui.projekte.strukturbaum.visible
             && <StrukturbaumContainer location={location} />
