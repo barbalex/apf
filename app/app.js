@@ -1,9 +1,11 @@
 /**
  * app.js
  *
- * This is the entry file for the application, only setup and boilerplate
- * code.
+ * This is the entry file for the application.
+ * Contains setup, boilerplate and routing
+ *
  */
+
 import 'babel-polyfill'
 
 /* eslint-disable import/no-unresolved */
@@ -37,9 +39,11 @@ import 'sanitize.css/sanitize.css'
 
 // import components
 import Projekte from './components/Projekte'
-import ProjekteRedirector from './components/ProjekteRedirector.js'
+import ProjekteRedirector from './components/ProjekteRedirector'
 import Exporte from './components/Exporte'
 import Benutzer from './components/Benutzer'
+
+import storeIsNew from './modules/storeIsNew'
 
 // TODO: redirect to login if not logged in
 /* see: http://stackoverflow.com/questions/35850871/how-to-connect-state-to-props-with-mobx-js-observer-when-use-es6-class/36164488#36164488 */
@@ -53,10 +57,6 @@ const theme = Object.assign({}, darkBaseTheme, {
 // make store accessible in dev
 window.app = {}
 window.app.store = store
-
-// TODO: on initial load
-// get params and set values:
-// - activeNode
 
 ReactDOM.render(
   <BrowserRouter>
@@ -83,57 +83,265 @@ ReactDOM.render(
             exactly
             pattern="/Projekte"
             render={() => {
-              store.fetchAllNodes([{ table: 'projekt', id: null, folder: null }])
+              if (storeIsNew(store)) {
+                store.fetchAllNodes([{ table: 'projekt', id: null, folder: null }])
+              }
               return <Projekte />
             }}
           />
           <Match
             exactly
             pattern="/Projekte/:ProjId"
-            render={(data) => {
-              store.fetchAllNodes([{ table: 'projekt', id: data.params.ProjId, folder: null }])
+            render={({ params }) => {
+              if (storeIsNew(store)) {
+                store.fetchAllNodes([{ table: 'projekt', id: params.ProjId, folder: null }])
+              }
               return <Projekte />
             }}
           />
-          <Match exactly pattern="/Projekte/:ProjId/Arten" component={Projekte} />
-          <Match exactly pattern="/Projekte/:ProjId/Arten/:ApArtId" component={Projekte} />
-          <Match exactly pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Berichte" component={Projekte} />
-          <Match exactly pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Berichte/:JBerId" component={Projekte} />
-          <Match exactly pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Berichte-Übersicht" component={Projekte} />
-          <Match exactly pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Berichte-Übersicht/:JbuJahr" component={Projekte} />
-          <Match exactly pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Erfolgskriterien" component={Projekte} />
-          <Match exactly pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Erfolgskriterien/:ErfkritId" component={Projekte} />
-          <Match exactly pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Ziele" component={Projekte} />
-          <Match exactly pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Ziele/:ZielId" component={Projekte} />
-          <Match exactly pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Ziele/:ZielId/Berichte" component={Projekte} />
-          <Match exactly pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Ziele/:ZielId/Berichte/{ZielBerId}" component={Projekte} />
-          <Match exactly pattern="/Projekte/:ProjId/Arten/:ApArtId/Berichte" component={Projekte} />
-          <Match exactly pattern="/Projekte/:ProjId/Arten/:ApArtId/Berichte/:BerId" component={Projekte} />
-          <Match exactly pattern="/Projekte/:ProjId/Arten/:ApArtId/Idealbiotop" component={Projekte} />
-          <Match exactly pattern="/Projekte/:ProjId/Arten/:ApArtId/Assoziierte-Arten" component={Projekte} />
-          <Match exactly pattern="/Projekte/:ProjId/Arten/:ApArtId/Assoziierte-Arten/:AaSisfNr" component={Projekte} />
-          <Match exactly pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen" component={Projekte} />
-          <Match exactly pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId" component={Projekte} />
-          <Match exactly pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Kontroll-Berichte" component={Projekte} />
-          <Match exactly pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Kontroll-Berichte/:PopBerId" component={Projekte} />
-          <Match exactly pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Massnahmen-Berichte" component={Projekte} />
-          <Match exactly pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Massnahmen-Berichte/:PopMassnBerId" component={Projekte} />
-          <Match exactly pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen" component={Projekte} />
-          <Match exactly pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen/:TPopId" component={Projekte} />
-          <Match exactly pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen/:TPopId/Kontroll-Berichte" component={Projekte} />
-          <Match exactly pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen/:TPopId/Kontroll-Berichte/:TPopBerId" component={Projekte} />
-          <Match exactly pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen/:TPopId/Massnahmen" component={Projekte} />
-          <Match exactly pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen/:TPopId/Massnahmen/:TPopMassnId" component={Projekte} />
-          <Match exactly pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen/:TPopId/Massnahmen-Berichte" component={Projekte} />
-          <Match exactly pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen/:TPopId/Massnahmen-Berichte/:TPopMassnBerId" component={Projekte} />
-          <Match exactly pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen/:TPopId/Beobachtungs-Zuordnungen" component={Projekte} />
-          <Match exactly pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen/:TPopId/Beobachtungs-Zuordnungen/:BeobId" component={Projekte} />
-          <Match exactly pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen/:TPopId/Kontrollen" component={Projekte} />
-          <Match exactly pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen/:TPopId/Kontrollen/:TPopKontrId" component={Projekte} />
-          <Match exactly pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen/:TPopId/Kontrollen/:TPopKontrId/Zählungen" component={Projekte} />
-          <Match exactly pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen/:TPopId/Kontrollen/:TPopKontrId/Zählungen/:TPopKontrZaehlId" component={Projekte} />
-          <Match pattern="/Exporte" component={Exporte} />
-          <Match pattern="/Benutzer" component={Benutzer} />
+          <Match
+            exactly
+            pattern="/Projekte/:ProjId/Arten"
+            render={({ params }) => {
+              if (storeIsNew(store)) {
+                store.fetchAllNodes([{ table: 'projekt', id: params.ProjId, folder: null }])
+              }
+              return <Projekte />
+            }}
+          />
+          <Match
+            exactly
+            pattern="/Projekte/:ProjId/Arten/:ApArtId"
+            render={({ params }) => {
+              if (storeIsNew(store)) {
+                store.fetchAllNodes([{ table: 'ap', id: params.ApArtId, folder: null }])
+              }
+              return <Projekte />
+            }}
+          />
+          <Match
+            exactly
+            pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Berichte"
+            render={({ params }) => {
+              if (storeIsNew(store)) {
+                store.fetchAllNodes([{ table: 'ap', id: params.ApArtId, folder: 'AP-Berichte' }])
+              }
+              return <Projekte />
+            }}
+          />
+          <Match
+            exactly
+            pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Berichte/:JBerId"
+            render={({ params }) => {
+              if (storeIsNew(store)) {
+                store.fetchAllNodes([{ table: 'apber', id: params.JBerId, folder: null }])
+              }
+              return <Projekte />
+            }}
+          />
+          <Match
+            exactly
+            pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Berichte-Übersicht"
+            render={({ params }) => {
+              if (storeIsNew(store)) {
+                store.fetchAllNodes([{ table: 'ap', id: params.ApArtId, folder: 'AP-Berichte-Übersicht' }])
+              }
+              return <Projekte />
+            }}
+          />
+          <Match
+            exactly
+            pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Berichte-Übersicht/:JbuJahr"
+            render={({ params }) => {
+              if (storeIsNew(store)) {
+                store.fetchAllNodes([{ table: 'apberuebersicht', id: params.ApArtId, folder: null }])
+              }
+              return <Projekte />
+            }}
+          />
+          <Match
+            exactly
+            pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Erfolgskriterien"
+            render={({ params }) => {
+              if (storeIsNew(store)) {
+                store.fetchAllNodes([{ table: 'ap', id: params.ApArtId, folder: 'AP-Erfolgskriterien' }])
+              }
+              return <Projekte />
+            }}
+          />
+          <Match
+            exactly
+            pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Erfolgskriterien/:ErfkritId"
+            render={({ params }) => {
+              if (storeIsNew(store)) {
+                store.fetchAllNodes([{ table: 'erfkrit', id: params.ErfkritId, folder: null }])
+              }
+              return <Projekte />
+            }}
+          />
+          <Match
+            exactly
+            pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Ziele"
+            render={({ params }) => {
+              if (storeIsNew(store)) {
+                store.fetchAllNodes([{ table: 'ap', id: params.ApArtId, folder: 'AP-Ziele' }])
+              }
+              return <Projekte />
+            }}
+          />
+          <Match
+            exactly
+            pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Ziele/:ZielId"
+            render={({ params }) => {
+              if (storeIsNew(store)) {
+                store.fetchAllNodes([{ table: 'ziel', id: params.ZielId, folder: null }])
+              }
+              return <Projekte />
+            }}
+          />
+          <Match
+            exactly
+            pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Ziele/:ZielId/Berichte"
+            component={Projekte}
+          />
+          <Match
+            exactly
+            pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Ziele/:ZielId/Berichte/{ZielBerId}"
+            component={Projekte}
+          />
+          <Match
+            exactly
+            pattern="/Projekte/:ProjId/Arten/:ApArtId/Berichte"
+            component={Projekte}
+          />
+          <Match
+            exactly
+            pattern="/Projekte/:ProjId/Arten/:ApArtId/Berichte/:BerId"
+            component={Projekte}
+          />
+          <Match
+            exactly
+            pattern="/Projekte/:ProjId/Arten/:ApArtId/Idealbiotop"
+            component={Projekte}
+          />
+          <Match
+            exactly
+            pattern="/Projekte/:ProjId/Arten/:ApArtId/Assoziierte-Arten"
+            component={Projekte}
+          />
+          <Match
+            exactly
+            pattern="/Projekte/:ProjId/Arten/:ApArtId/Assoziierte-Arten/:AaSisfNr"
+            component={Projekte}
+          />
+          <Match
+            exactly
+            pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen"
+            component={Projekte}
+          />
+          <Match
+            exactly
+            pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId"
+            component={Projekte}
+          />
+          <Match
+            exactly
+            pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Kontroll-Berichte"
+            component={Projekte}
+          />
+          <Match
+            exactly
+            pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Kontroll-Berichte/:PopBerId"
+            component={Projekte}
+          />
+          <Match
+            exactly
+            pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Massnahmen-Berichte"
+            component={Projekte}
+          />
+          <Match
+            exactly
+            pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Massnahmen-Berichte/:PopMassnBerId"
+            component={Projekte}
+          />
+          <Match
+            exactly
+            pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen"
+            component={Projekte}
+          />
+          <Match
+            exactly
+            pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen/:TPopId"
+            component={Projekte}
+          />
+          <Match
+            exactly
+            pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen/:TPopId/Kontroll-Berichte"
+            component={Projekte}
+          />
+          <Match
+            exactly
+            pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen/:TPopId/Kontroll-Berichte/:TPopBerId"
+            component={Projekte}
+          />
+          <Match
+            exactly
+            pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen/:TPopId/Massnahmen"
+            component={Projekte}
+          />
+          <Match
+            exactly
+            pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen/:TPopId/Massnahmen/:TPopMassnId"
+            component={Projekte}
+          />
+          <Match
+            exactly
+            pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen/:TPopId/Massnahmen-Berichte"
+            component={Projekte}
+          />
+          <Match
+            exactly
+            pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen/:TPopId/Massnahmen-Berichte/:TPopMassnBerId"
+            component={Projekte}
+          />
+          <Match
+            exactly
+            pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen/:TPopId/Beobachtungs-Zuordnungen"
+            component={Projekte}
+          />
+          <Match
+            exactly
+            pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen/:TPopId/Beobachtungs-Zuordnungen/:BeobId"
+            component={Projekte}
+          />
+          <Match
+            exactly
+            pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen/:TPopId/Kontrollen"
+            component={Projekte}
+          />
+          <Match
+            exactly
+            pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen/:TPopId/Kontrollen/:TPopKontrId"
+            component={Projekte}
+          />
+          <Match
+            exactly
+            pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen/:TPopId/Kontrollen/:TPopKontrId/Zählungen"
+            component={Projekte}
+          />
+          <Match
+            exactly
+            pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen/:TPopId/Kontrollen/:TPopKontrId/Zählungen/:TPopKontrZaehlId"
+            component={Projekte}
+          />
+          <Match
+            pattern="/Exporte"
+            component={Exporte}
+          />
+          <Match
+            pattern="/Benutzer"
+            component={Benutzer}
+          />
         </div>
       </MuiThemeProvider>
     </Provider>
