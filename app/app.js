@@ -40,16 +40,6 @@ import Projekte from './components/Projekte'
 import Exporte from './components/Exporte'
 import Benutzer from './components/Benutzer'
 
-import getUrlForNode from './modules/getUrlForNode'
-const activeNode = store.data.activeNode
-let to = null
-if (activeNode) {
-  to = getUrlForNode(activeNode)
-  console.log('redirect to:', to)
-} else {
-  to = '/Projekte'
-}
-
 // TODO: redirect to login if not logged in
 /* see: http://stackoverflow.com/questions/35850871/how-to-connect-state-to-props-with-mobx-js-observer-when-use-es6-class/36164488#36164488 */
 
@@ -82,7 +72,6 @@ ReactDOM.render(
           <DevTools />
           <Match pattern="*" component={AppBar} />
           <Match exactly pattern="/" render={() => <Redirect to="/Projekte" />} />
-          <Match pattern="/Projekte" render={() => <Redirect to={to} />} />
           <Match pattern="/Projekte" component={Projekte} />
           {/*
             <Match exactly pattern="/Projekte" component={Projekte} />
