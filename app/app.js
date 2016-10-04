@@ -49,6 +49,10 @@ const theme = Object.assign({}, darkBaseTheme, {
   },
 })
 
+// make store accessible in dev
+window.app = {}
+window.app.store = store
+
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>
