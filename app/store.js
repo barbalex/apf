@@ -11,6 +11,7 @@ import singleton from 'singleton'
 
 import getNodeByPath from './modules/getNodeByPath'
 import apiBaseUrl from './modules/apiBaseUrl'
+import fetchDataset from './modules/fetchDataset'
 
 const noneNode = {
   nodeId: 'none',
@@ -31,7 +32,7 @@ class Store extends singleton {
   data = observable({
     nodes: [noneNode],
     loadingAllNodes: false,
-    nodes2: [],
+    nodes2: [noneNode],
     activeNode: null,
     activeDataset: null,
     map: null,
@@ -135,6 +136,20 @@ class Store extends singleton {
         this.data.activeNode = newActiveNode
       })
     }
+  )
+
+  fetchActiveNodeDataset = action(
+    'fetchActiveNodeDataset',
+    ({ table, field, value }) =>
+      fetchDataset({ table, field, value })
+        .then((dataset) => {
+          transaction(() => {
+            this.data.activeDataset = dataset
+          })
+        })
+        .catch((error) => {
+          throw error
+        })
   )
 }
 
