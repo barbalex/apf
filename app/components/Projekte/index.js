@@ -6,9 +6,12 @@
 
 import React, { PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
+import { Redirect } from 'react-router'
 import Helmet from 'react-helmet'
 import { Toolbar } from 'material-ui/Toolbar'
 import FlatButton from 'material-ui/FlatButton'
+
+import urlFromNode from '../../modules/urlFromNode'
 import styles from './styles.css'
 import StrukturbaumContainer from './StrukturbaumContainer'
 import Daten from './Daten'
@@ -17,8 +20,20 @@ import Karte from './Karte'
 const Projekte = class Projekte extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     const { store, location } = this.props
+
+    const activeNode = store.data.activeNode
+    let to = null
+    if (activeNode) {
+      to = urlFromNode(activeNode)
+      console.log('redirect to:', to)
+    }
+
     return (
       <div className={styles.container}>
+        {
+          !!to
+          && <Redirect to={to} />
+        }
         <Helmet
           title="AP Flora: Projekte"
           meta={[

@@ -12,7 +12,6 @@ import { observer, inject } from 'mobx-react'
 import { AutoSizer, List } from 'react-virtualized'
 import { Redirect } from 'react-router'
 
-import urlFromNode from '../../../../modules/urlFromNode'
 import rowsFromNodes from '../../../../modules/rowsFromNodes'
 import styles from './styles.css'
 
@@ -97,32 +96,19 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
       )
     }
 
-    const activeNode = store.data.activeNode
-    let to = null
-    if (activeNode) {
-      to = urlFromNode(activeNode)
-      console.log('redirect to:', to)
-    }
-
     return (
-      <div>
-        <AutoSizer>
-          {({ height, width }) => (
-            <List
-              height={height}
-              rowCount={nodes.length}
-              rowHeight={rowHeight}
-              rowRenderer={rowRenderer}
-              width={width}
-              className={styles.container}
-            />
-          )}
-        </AutoSizer>
-        {
-          !!to
-          && <Redirect to={to} />
-        }
-      </div>
+      <AutoSizer>
+        {({ height, width }) => (
+          <List
+            height={height}
+            rowCount={nodes.length}
+            rowHeight={rowHeight}
+            rowRenderer={rowRenderer}
+            width={width}
+            className={styles.container}
+          />
+        )}
+      </AutoSizer>
     )
   }
 }
