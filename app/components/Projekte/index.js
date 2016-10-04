@@ -18,6 +18,17 @@ import Daten from './Daten'
 import Karte from './Karte'
 
 const Projekte = class Projekte extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  componentDidMount() {
+    // load node
+    // TODO: make this depend on path
+    const { store } = this.props
+    const table = 'projekt'
+    const id = null
+    const folder = null
+    const path = [{ table, id, folder }]
+    store.fetchAllNodes(path)
+  }
+
   render() {
     const { store, location } = this.props
 

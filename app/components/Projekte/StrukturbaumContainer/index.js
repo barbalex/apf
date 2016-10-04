@@ -12,16 +12,6 @@ import Filter from './Filter'
 import Strukturbaum from './Strukturbaum'
 
 const StrukturbaumContainer = class StrukturbaumContainer extends Component { // eslint-disable-line react/prefer-stateless-function
-  componentDidMount() {
-    // load node
-    // TODO: make this depend on path
-    const { store } = this.props
-    const table = 'projekt'
-    const id = null
-    const folder = null
-    const path = [{ table, id, folder }]
-    store.fetchAllNodes(path)
-  }
 
   onClickTab = (value) => {
     const { store } = this.props
