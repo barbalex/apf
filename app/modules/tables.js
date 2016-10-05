@@ -178,7 +178,7 @@ export default [
     form: 'tpopmassnber',
     initiiereFunktion: 'initiiereTPopMassnBer',
     treeTyp: 'tpopmassnber',
-  },,
+  },
   {
     database: 'apflora',
     tabelleInDb: 'beobzuordnung',
