@@ -48,9 +48,9 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
     const renderNode = (node, keyPrefix) => {
       const onClick = (event) => {
         event.stopPropagation()
-        console.log('Strukturbaum: node:', node)
-        console.log('Strukturbaum: event:', event)
-        console.log('Strukturbaum: event.target:', event.target)
+        // console.log('Strukturbaum: node:', node)
+        // console.log('Strukturbaum: event:', event)
+        // console.log('Strukturbaum: event.target:', event.target)
         if (node.children && node.expanded) {
           store.closeNode(node)
         } else if (node.children) {
