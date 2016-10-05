@@ -1,23 +1,32 @@
 /*
  *
- * Formulare
+ * Daten
  *
  */
 
-import React from 'react'
+import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import styles from './styles.css'
 
-const Formulare = class Formulare extends React.Component { // eslint-disable-line react/prefer-stateless-function
+const Daten = class Daten extends Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     const { store } = this.props
     return (
       <div className={styles.container}>
-        <h4>Daten</h4>
-        <pre>{JSON.stringify(store.data.activeDataset, null, 2)}</pre>
+        <p>Daten</p>
+        <pre>
+          {
+            store.data.activeDataset
+            && JSON.stringify(store.data.activeDataset, null, 2)
+          }
+        </pre>
       </div>
     )
   }
 }
 
-export default inject('store')(observer(Formulare))
+Daten.propTypes = {
+  store: PropTypes.object,
+}
+
+export default inject('store')(observer(Daten))
