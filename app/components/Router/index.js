@@ -9,7 +9,7 @@
 /* eslint-disable no-unused-expressions */
 
 // Import all the third party stuff
-import React, { Component, PropTypes } from 'react'
+import React, { PropTypes } from 'react'
 import { BrowserRouter, Match, Redirect } from 'react-router'
 import { observer, inject } from 'mobx-react'
 
