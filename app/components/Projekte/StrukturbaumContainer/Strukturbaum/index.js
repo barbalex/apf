@@ -48,10 +48,12 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
     const renderNode = (node, keyPrefix) => {
       const onClick = (event) => {
         event.stopPropagation()
-        if (node.expanded) {
+        if (node.children && node.expanded) {
           store.closeNode(node)
-        } else {
+        } else if (node.children) {
           store.openNode(node)
+        } else {
+          console.log('should set this node active:', node)
         }
       }
 
@@ -65,7 +67,7 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
         children = node.children.map(child =>
           renderNode(child, child.nodeId)
         )
-      } else if (node.children.length) {
+      } else if (node.children && node.children.length) {
         props.onClick = onClick
         symbol = '>'
       } else {
@@ -76,7 +78,6 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
         <div
           className={styles.node}
           key={`${node.nodeId}-child`}
-          style={{ cursor: node.children && node.children.length ? 'pointer' : 'auto' }}
         >
           <span className={node.expanded ? styles.symbolExpanded : styles.symbol}>
             {symbol}

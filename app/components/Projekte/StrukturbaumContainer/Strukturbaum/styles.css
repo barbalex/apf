@@ -21,6 +21,11 @@
   white-space: nowrap;
   user-select: none;
   font-size: 1.1em;
+  cursor: pointer;
+}
+
+.node:hover {
+  color: #b3d4fc;
 }
 
 .symbol {
