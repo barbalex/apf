@@ -35,6 +35,12 @@
 .symbolExpanded {
   composes: symbol;
   padding-top: .2em;
+  font-weight: 900;
+}
+
+.nodeExpanded {
+  composes: node;
+  font-weight: 900;
 }
 
 .text {
