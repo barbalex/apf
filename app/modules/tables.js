@@ -189,4 +189,14 @@ export default [
     initiiereFunktion: '',
     treeTyp: 'drei verschiedene!',
   },
+  {
+    database: 'apflora',
+    tabelleInDb: 'projekt',
+    tabelleIdFeld: 'ProjId',
+    mutWannFeld: 'MutWann',
+    mutWerFeld: 'MutWer',
+    form: 'projekt',
+    initiiereFunktion: '',
+    treeTyp: 'projekt',
+  },
 ]
