@@ -145,7 +145,9 @@ class Store extends singleton {
     ({ table, field, value }) =>
       fetchDataset({ table, field, value })
         .then((dataset) => {
-          this.data.activeDataset = dataset
+          transaction(() => {
+            this.data.activeDataset = dataset
+          })
         })
         .catch((error) => {
           throw error
@@ -155,7 +157,6 @@ class Store extends singleton {
   keepActiveNodeDatasetUpToDate = reaction(
     () => this.data.activeNode,
     (activeNode) => {
-      console.log('activeNode:', activeNode)
       if (!activeNode || !activeNode.table) {
         this.data.activeDataset = null
       } else {

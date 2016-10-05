@@ -6,6 +6,8 @@
  *
  */
 
+/* eslint-disable no-unused-expressions */
+
 // Import all the third party stuff
 import React, { Component, PropTypes } from 'react'
 import { BrowserRouter, Match, Redirect } from 'react-router'
@@ -22,15 +24,16 @@ import styles from './styles.css'
 import storeIsNew from '../../modules/storeIsNew'
 
 // TODO: redirect to login if not logged in
-/* see: http://stackoverflow.com/questions/35850871/how-to-connect-state-to-props-with-mobx-js-observer-when-use-es6-class/36164488#36164488 */
+// see: http://stackoverflow.com/questions/35850871/how-to-connect-state-to-props-with-mobx-js-observer-when-use-es6-class/36164488#36164488
+// see: https://react-router.now.sh/auth-workflow
 
 const Router = class Router extends Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     const { store } = this.props
+    const newStore = storeIsNew(store)
     return (
       <BrowserRouter>
         <div className={styles.content}>
-          <Match pattern="*" component={AppBar} />
           <Match
             exactly
             pattern="/"
@@ -38,17 +41,16 @@ const Router = class Router extends Component { // eslint-disable-line react/pre
               <Redirect to="/Projekte" />
             }
           />
-          <Match
-            pattern="/Projekte"
-            component={ProjekteRedirector}
-          />
+          <Match pattern="*" component={AppBar} />
+          {
+            !newStore
+            && <Match pattern="/Projekte" component={ProjekteRedirector} />
+          }
           <Match
             exactly
             pattern="/Projekte"
             render={() => {
-              if (storeIsNew(store)) {
-                store.fetchAllNodes([{ table: 'projekt', id: null, folder: null }])
-              }
+              newStore && store.fetchAllNodes([{ table: 'projekt', id: null, folder: null }])
               return <Projekte />
             }}
           />
@@ -56,9 +58,7 @@ const Router = class Router extends Component { // eslint-disable-line react/pre
             exactly
             pattern="/Projekte/:ProjId"
             render={({ params }) => {
-              if (storeIsNew(store)) {
-                store.fetchAllNodes([{ table: 'projekt', id: params.ProjId, folder: null }])
-              }
+              newStore && store.fetchAllNodes([{ table: 'projekt', id: params.ProjId, folder: null }])
               return <Projekte />
             }}
           />
@@ -66,9 +66,7 @@ const Router = class Router extends Component { // eslint-disable-line react/pre
             exactly
             pattern="/Projekte/:ProjId/Arten"
             render={({ params }) => {
-              if (storeIsNew(store)) {
-                store.fetchAllNodes([{ table: 'projekt', id: params.ProjId, folder: null }])
-              }
+              newStore && store.fetchAllNodes([{ table: 'projekt', id: params.ProjId, folder: null }])
               return <Projekte />
             }}
           />
@@ -76,9 +74,7 @@ const Router = class Router extends Component { // eslint-disable-line react/pre
             exactly
             pattern="/Projekte/:ProjId/Arten/:ApArtId"
             render={({ params }) => {
-              if (storeIsNew(store)) {
-                store.fetchAllNodes([{ table: 'ap', id: params.ApArtId, folder: null }])
-              }
+              newStore && store.fetchAllNodes([{ table: 'ap', id: params.ApArtId, folder: null }])
               return <Projekte />
             }}
           />
@@ -86,9 +82,7 @@ const Router = class Router extends Component { // eslint-disable-line react/pre
             exactly
             pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Berichte"
             render={({ params }) => {
-              if (storeIsNew(store)) {
-                store.fetchAllNodes([{ table: 'ap', id: params.ApArtId, folder: 'AP-Berichte' }])
-              }
+              newStore && store.fetchAllNodes([{ table: 'ap', id: params.ApArtId, folder: 'AP-Berichte' }])
               return <Projekte />
             }}
           />
@@ -96,9 +90,7 @@ const Router = class Router extends Component { // eslint-disable-line react/pre
             exactly
             pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Berichte/:JBerId"
             render={({ params }) => {
-              if (storeIsNew(store)) {
-                store.fetchAllNodes([{ table: 'apber', id: params.JBerId, folder: null }])
-              }
+              newStore && store.fetchAllNodes([{ table: 'apber', id: params.JBerId, folder: null }])
               return <Projekte />
             }}
           />
@@ -106,9 +98,7 @@ const Router = class Router extends Component { // eslint-disable-line react/pre
             exactly
             pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Berichte-Übersicht"
             render={({ params }) => {
-              if (storeIsNew(store)) {
-                store.fetchAllNodes([{ table: 'ap', id: params.ApArtId, folder: 'AP-Berichte-Übersicht' }])
-              }
+              newStore && store.fetchAllNodes([{ table: 'ap', id: params.ApArtId, folder: 'AP-Berichte-Übersicht' }])
               return <Projekte />
             }}
           />
@@ -116,9 +106,7 @@ const Router = class Router extends Component { // eslint-disable-line react/pre
             exactly
             pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Berichte-Übersicht/:JbuJahr"
             render={({ params }) => {
-              if (storeIsNew(store)) {
-                store.fetchAllNodes([{ table: 'apberuebersicht', id: params.ApArtId, folder: null }])
-              }
+              newStore && store.fetchAllNodes([{ table: 'apberuebersicht', id: params.ApArtId, folder: null }])
               return <Projekte />
             }}
           />
@@ -126,9 +114,7 @@ const Router = class Router extends Component { // eslint-disable-line react/pre
             exactly
             pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Erfolgskriterien"
             render={({ params }) => {
-              if (storeIsNew(store)) {
-                store.fetchAllNodes([{ table: 'ap', id: params.ApArtId, folder: 'AP-Erfolgskriterien' }])
-              }
+              newStore && store.fetchAllNodes([{ table: 'ap', id: params.ApArtId, folder: 'AP-Erfolgskriterien' }])
               return <Projekte />
             }}
           />
@@ -136,9 +122,7 @@ const Router = class Router extends Component { // eslint-disable-line react/pre
             exactly
             pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Erfolgskriterien/:ErfkritId"
             render={({ params }) => {
-              if (storeIsNew(store)) {
-                store.fetchAllNodes([{ table: 'erfkrit', id: params.ErfkritId, folder: null }])
-              }
+              newStore && store.fetchAllNodes([{ table: 'erfkrit', id: params.ErfkritId, folder: null }])
               return <Projekte />
             }}
           />
@@ -146,9 +130,7 @@ const Router = class Router extends Component { // eslint-disable-line react/pre
             exactly
             pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Ziele"
             render={({ params }) => {
-              if (storeIsNew(store)) {
-                store.fetchAllNodes([{ table: 'ap', id: params.ApArtId, folder: 'AP-Ziele' }])
-              }
+              newStore && store.fetchAllNodes([{ table: 'ap', id: params.ApArtId, folder: 'AP-Ziele' }])
               return <Projekte />
             }}
           />
@@ -156,9 +138,7 @@ const Router = class Router extends Component { // eslint-disable-line react/pre
             exactly
             pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Ziele/:ZielId"
             render={({ params }) => {
-              if (storeIsNew(store)) {
-                store.fetchAllNodes([{ table: 'ziel', id: params.ZielId, folder: null }])
-              }
+              newStore && store.fetchAllNodes([{ table: 'ziel', id: params.ZielId, folder: null }])
               return <Projekte />
             }}
           />
