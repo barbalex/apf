@@ -48,6 +48,9 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
     const renderNode = (node, keyPrefix) => {
       const onClick = (event) => {
         event.stopPropagation()
+        console.log('Strukturbaum: node:', node)
+        console.log('Strukturbaum: event:', event)
+        console.log('Strukturbaum: event.target:', event.target)
         if (node.children && node.expanded) {
           store.closeNode(node)
         } else if (node.children) {
@@ -58,25 +61,26 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
       }
 
       const props = { key: keyPrefix }
-      let children = []
+      const nodeHasChildren = node.children && node.children.length
+      let childNodes = []
       let symbol
 
-      if (node.expanded) {
+      if (nodeHasChildren && node.expanded) {
         props.onClick = onClick
         symbol = String.fromCharCode(709)
-        children = node.children.map(child =>
+        childNodes = node.children.map(child =>
           renderNode(child, child.nodeId)
         )
-      } else if (node.children && node.children.length) {
+      } else if (nodeHasChildren) {
         props.onClick = onClick
         symbol = '>'
       } else {
         symbol = '-'
       }
 
-      children.unshift(
+      childNodes.unshift(
         <div
-          className={styles.node}
+          className={node.expanded ? styles.nodeExpanded : styles.node}
           key={`${node.nodeId}-child`}
         >
           <span className={node.expanded ? styles.symbolExpanded : styles.symbol}>
@@ -95,7 +99,7 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
           className={node.path && node.path.length && node.path.length === 1 ? styles.topUl : null}
         >
           <li>
-            {children}
+            {childNodes}
           </li>
         </ul>
       )
