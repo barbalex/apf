@@ -5,9 +5,10 @@
  */
 
 import React from 'react'
+import { observer, inject } from 'mobx-react'
 import styles from './styles.css'
 
-export default class Formulare extends React.Component { // eslint-disable-line react/prefer-stateless-function
+const Formulare = class Formulare extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
       <div className={styles.container}>
@@ -16,3 +17,5 @@ export default class Formulare extends React.Component { // eslint-disable-line 
     )
   }
 }
+
+export default inject('store')(observer(Formulare))

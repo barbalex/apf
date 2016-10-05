@@ -5,14 +5,10 @@
  */
 
 import React from 'react'
+import { observer, inject } from 'mobx-react'
 import styles from './styles.css'
 
-export default class Karte extends React.Component { // eslint-disable-line react/prefer-stateless-function
-  static contextTypes = {
-    router: React.PropTypes.object.isRequired,
-    store: React.PropTypes.object.isRequired,
-  }
-
+const Karte = class Karte extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
       <div className={styles.container}>
@@ -21,3 +17,5 @@ export default class Karte extends React.Component { // eslint-disable-line reac
     )
   }
 }
+
+export default inject('store')(observer(Karte))
