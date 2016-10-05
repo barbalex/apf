@@ -14,6 +14,7 @@ import getUrlForNode from '../modules/getUrlForNode'
 const ProjekteRedirector = ({ store, location }) => {
   const activeNode = store.data.activeNode
   let to = null
+  console.log('ProjekteRedirector, activeNode:', activeNode)
   if (activeNode) {
     to = getUrlForNode(activeNode)
   } else {
