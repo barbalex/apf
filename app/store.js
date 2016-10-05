@@ -87,6 +87,10 @@ class Store extends singleton {
     'openNode',
     (node) => {
       if (node) {
+        transaction(() => {
+          node.expanded = true
+          this.data.activeNode = node
+        })
         // only show 'lade Daten...' if not yet loaded
         if (
           node.children
@@ -100,14 +104,7 @@ class Store extends singleton {
               expanded: false,
               children: [],
             }])
-            node.expanded = true
             this.fetchNodeChildren(node)
-            this.data.activeNode = node
-          })
-        } else {
-          transaction(() => {
-            node.expanded = true
-            this.data.activeNode = node
           })
         }
       }
