@@ -58,19 +58,19 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
 
       const props = { key: keyPrefix }
       let children = []
-      let itemText
+      let symbol
 
       if (node.expanded) {
         props.onClick = onClick
-        itemText = `${String.fromCharCode(709)} ${node.name}`
+        symbol = String.fromCharCode(709)
         children = node.children.map(child =>
-          renderNode(child, `${child.nodeId}`)
+          renderNode(child, child.nodeId)
         )
       } else if (node.children.length) {
         props.onClick = onClick
-        itemText = `> ${node.name}`
+        symbol = '>'
       } else {
-        itemText = `- ${node.name}`
+        symbol = '-'
       }
 
       children.unshift(
@@ -79,7 +79,12 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
           key={`${node.nodeId}-child`}
           style={{ cursor: node.children && node.children.length ? 'pointer' : 'auto' }}
         >
-          {itemText}
+          <span className={node.expanded ? styles.symbolExpanded : styles.symbol}>
+            {symbol}
+          </span>
+          <span className={styles.text}>
+            {node.name}
+          </span>
         </div>
       )
 
@@ -87,7 +92,7 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
         <ul
           key={node.nodeId}
           onClick={props.onClick}
-          className={styles.topUl}
+          className={node.path && node.path.length && node.path.length === 1 ? styles.topUl : null}
         >
           <li>
             {children}

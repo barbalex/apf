@@ -11,15 +11,27 @@
 .container ul {
   margin: 0;
   list-style: none;
-  padding: 0 0 0 1em;
+  padding: 0 0 0 1.1em;
 }
 
 .node {
   height: 1.6em;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
   white-space: nowrap;
   user-select: none;
   font-size: 1.1em;
+}
+
+.symbol {
+  margin-right: 0;
+}
+
+.symbolExpanded {
+  composes: symbol;
+  padding-top: .2em;
+}
+
+.text {
+  padding-left: .5em;
 }
