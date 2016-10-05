@@ -12,6 +12,7 @@ import singleton from 'singleton'
 import getNodeByPath from './modules/getNodeByPath'
 import apiBaseUrl from './modules/apiBaseUrl'
 import fetchDataset from './modules/fetchDataset'
+import tables from './modules/tables'
 
 const noneNode = {
   nodeId: 'none',
@@ -156,8 +157,8 @@ class Store extends singleton {
     () => this.data.activeNode,
     this.fetchActiveNodeDataset({
       table: this.data.activeNode.table,
-      field: 'TODO: get id-field of this table',
-      value: this.data.activeNode.id
+      field: tables.find(t => { t.tabelleInDb === this.data.activeNode.table }).tabelleIdFeld,
+      value: this.data.activeNode.id,
     })
   )
 }
