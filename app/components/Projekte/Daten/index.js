@@ -10,9 +10,11 @@ import styles from './styles.css'
 
 const Formulare = class Formulare extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
+    const { store } = this.props
     return (
       <div className={styles.container}>
-        Daten
+        <h4>Daten</h4>
+        <pre>{JSON.stringify(store.data.activeDataset, null, 2)}</pre>
       </div>
     )
   }
