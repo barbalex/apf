@@ -145,9 +145,7 @@ class Store extends singleton {
     ({ table, field, value }) =>
       fetchDataset({ table, field, value })
         .then((dataset) => {
-          transaction(() => {
-            this.data.activeDataset = dataset
-          })
+          this.data.activeDataset = dataset
         })
         .catch((error) => {
           throw error
@@ -157,21 +155,18 @@ class Store extends singleton {
   keepActiveNodeDatasetUpToDate = reaction(
     () => this.data.activeNode,
     (activeNode) => {
-      // console.table(tables)
       console.log('activeNode:', activeNode)
       if (!activeNode || !activeNode.table) {
         this.data.activeDataset = null
       } else {
-        const table = tables.find(t => t.tabelleInDb && t.tabelleInDb === activeNode.table)
-        console.log('table:', table)
-        if (!table) {
+        const myTable = tables.find(t => t.tabelleInDb && t.tabelleInDb === activeNode.table)
+        if (!myTable) {
           throw new Error(`Table ${activeNode.table} not found in 'modules/table'`)
         }
-        this.fetchActiveNodeDataset({
-          table: activeNode.table,
-          field: table.tabelleIdFeld,
-          value: activeNode.id,
-        })
+        const table = activeNode.table
+        const field = myTable.tabelleIdFeld
+        const value = activeNode.id
+        this.fetchActiveNodeDataset({ table, field, value })
       }
     }
   )
