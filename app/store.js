@@ -14,11 +14,16 @@ import apiBaseUrl from './modules/apiBaseUrl'
 import fetchDataset from './modules/fetchDataset'
 import tables from './modules/tables'
 
-const noneNode = {
+const noNode = {
   nodeId: 'none',
   name: 'this seems to be needed for mobx',
   expanded: false,
   children: [],
+}
+
+const noDataset = {
+  table: null,
+  row: null,
 }
 
 class Store extends singleton {
@@ -32,11 +37,11 @@ class Store extends singleton {
   }
 
   data = observable({
-    nodes: [noneNode],
+    nodes: [noNode],
     loadingAllNodes: false,
-    nodes2: [noneNode],
+    nodes2: [noNode],
     activeNode: null,
-    activeDataset: null,
+    activeDataset: noDataset,
     map: null,
     user: null,
   })
@@ -77,7 +82,9 @@ class Store extends singleton {
           })
           // TODO: set project node as active node
           const activeNode = getNodeByPath(this.data.nodes, path)
-          if (activeNode) this.data.activeNode = activeNode
+          if (activeNode && activeNode !== this.data.activeNode) {
+            this.data.activeNode = activeNode
+          }
         })
         .catch(error => console.log('error fetching nodes:', error))
     }
@@ -89,7 +96,9 @@ class Store extends singleton {
       if (node) {
         transaction(() => {
           node.expanded = true
-          this.data.activeNode = node
+          if (this.data.activeNode !== node) {
+            this.data.activeNode = node
+          }
         })
         // only show 'lade Daten...' if not yet loaded
         if (
@@ -114,6 +123,7 @@ class Store extends singleton {
   fetchNodeChildren = action(
     'fetchNodeChildren',
     (node) => {
+      console.log('store, fetchNodeChildren: node clicked:', node)
       fetch(`${apiBaseUrl}/node?table=${node.table}&id=${node.id}&folder=${node.folder ? node.folder : null}`)
         .then(resp => resp.json())
         .then((nodes) => {
@@ -132,7 +142,9 @@ class Store extends singleton {
       const newActiveNode = getNodeByPath(this.data.nodes, path)
       transaction(() => {
         node.expanded = false
-        this.data.activeNode = newActiveNode
+        if (this.data.activeNode !== newActiveNode) {
+          this.data.activeNode = newActiveNode
+        }
       })
     }
   )
@@ -143,7 +155,8 @@ class Store extends singleton {
       fetchDataset({ table, field, value })
         .then((dataset) => {
           transaction(() => {
-            this.data.activeDataset = dataset
+            this.data.activeDataset.row = dataset
+            this.data.activeDataset.table = table
           })
         })
         .catch((error) => {
@@ -155,7 +168,7 @@ class Store extends singleton {
     () => this.data.activeNode,
     (activeNode) => {
       if (!activeNode || !activeNode.table) {
-        this.data.activeDataset = null
+        this.data.activeDataset = noDataset
       } else {
         const myTable = tables.find(t => t.tabelleInDb && t.tabelleInDb === activeNode.table)
         if (!myTable) {
@@ -164,7 +177,21 @@ class Store extends singleton {
         const table = activeNode.table
         const field = myTable.tabelleIdFeld
         const value = activeNode.id
-        this.fetchActiveNodeDataset({ table, field, value })
+        const activeDataset = this.data.activeDataset
+        if (
+          activeDataset
+          && activeDataset.table
+          && activeDataset.table === table
+          && activeDataset.row
+          && activeDataset.row[field]
+          && activeDataset.row[field] === value
+        ) {
+          // active dataset has not changed
+          // maybe only activeNode.expanded has changed
+          // do nothing
+        } else {
+          this.fetchActiveNodeDataset({ table, field, value })
+        }
       }
     }
   )

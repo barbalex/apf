@@ -16,7 +16,7 @@ const Daten = class Daten extends Component { // eslint-disable-line react/prefe
         <p>Daten</p>
         <pre>
           {
-            store.data.activeDataset
+            store.data.activeDataset.row
             && JSON.stringify(store.data.activeDataset, null, 2)
           }
         </pre>
