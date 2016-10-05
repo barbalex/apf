@@ -74,6 +74,8 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
       } else if (nodeHasChildren) {
         props.onClick = onClick
         symbol = '>'
+      } else if (node.name === 'lade Daten...') {
+        symbol = ''
       } else {
         symbol = '-'
       }
