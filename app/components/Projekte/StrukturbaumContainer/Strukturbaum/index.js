@@ -10,7 +10,6 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import { AutoSizer, List } from 'react-virtualized'
-import { Redirect } from 'react-router'
 
 import getNrOfNodeRows from '../../../../modules/getNrOfNodeRows'
 import styles from './styles.css'
