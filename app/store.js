@@ -28,6 +28,7 @@ class Store extends singleton {
     this.openNode = this.openNode.bind(this)
     this.closeNode = this.closeNode.bind(this)
     this.fetchAllNodes = this.fetchAllNodes.bind(this)
+    this.keepActiveNodeDatasetUpToDate = this.keepActiveNodeDatasetUpToDate.bind(this)
   }
 
   data = observable({
@@ -153,13 +154,26 @@ class Store extends singleton {
         })
   )
 
-  const keepActiveNodeDatasetUpToDate = reaction(
+  keepActiveNodeDatasetUpToDate = reaction(
     () => this.data.activeNode,
-    this.fetchActiveNodeDataset({
-      table: this.data.activeNode.table,
-      field: tables.find(t => { t.tabelleInDb === this.data.activeNode.table }).tabelleIdFeld,
-      value: this.data.activeNode.id,
-    })
+    (activeNode) => {
+      // console.table(tables)
+      console.log('activeNode:', activeNode)
+      if (!activeNode || !activeNode.table) {
+        this.data.activeDataset = null
+      } else {
+        const table = tables.find(t => t.tabelleInDb && t.tabelleInDb === activeNode.table)
+        console.log('table:', table)
+        if (!table) {
+          throw new Error(`Table ${activeNode.table} not found in 'modules/table'`)
+        }
+        this.fetchActiveNodeDataset({
+          table: activeNode.table,
+          field: table.tabelleIdFeld,
+          value: activeNode.id,
+        })
+      }
+    }
   )
 }
 
