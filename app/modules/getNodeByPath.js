@@ -12,9 +12,12 @@ const findNode = (nodes, pathPassed) => {
     return null
   }
   const el = path.shift()
-  const node = nodes.find(n =>
-    n.nodeId === `${el.table}/${el.id}`
-  )
+  const node = nodes.find((n) => {
+    if (el.folder) {
+      return n.nodeId === `${el.table}/${el.id}/${el.folder}`
+    }
+    return n.nodeId === `${el.table}/${el.id}}`
+  })
   if (path.length > 0 && node.children) {
     return findNode(node.children, path)
   }

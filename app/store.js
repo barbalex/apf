@@ -137,14 +137,11 @@ class Store extends singleton {
   closeNode = action(
     'closeNode',
     (node) => {
-      const path = node.path.slice(0)
-      path.pop()
-      const newActiveNode = getNodeByPath(this.data.nodes, path)
       transaction(() => {
-        node.expanded = false
-        if (this.data.activeNode !== newActiveNode) {
-          this.data.activeNode = newActiveNode
+        if (this.data.activeNode !== node) {
+          this.data.activeNode = node
         }
+        node.expanded = false
       })
     }
   )
