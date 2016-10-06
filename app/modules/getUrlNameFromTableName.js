@@ -3,7 +3,7 @@ export default (table) => {
     ap: 'Arten',
     apber: 'AP-Berichte',
     apberuebersicht: 'AP-Berichte',
-    assozart: 'Assoziierte-Arten',
+    assozart: 'assoziierte-Arten',
     beob: 'Beobachtung',
     beobzuordnung: 'Beobachtungs-Zuordnungen',
     ber: 'Berichte',

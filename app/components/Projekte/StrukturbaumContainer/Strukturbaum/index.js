@@ -16,7 +16,7 @@ import styles from './styles.css'
 
 const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-line react/prefer-stateless-function
   render() {  // eslint-disable-line class-methods-use-this
-    const { store, location } = this.props
+    const { store } = this.props
     if (
       !store
       || !store.data
@@ -48,15 +48,10 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
     const renderNode = (node, keyPrefix) => {
       const onClick = (event) => {
         event.stopPropagation()
-        // console.log('Strukturbaum: node:', node)
-        // console.log('Strukturbaum: event:', event)
-        // console.log('Strukturbaum: event.target:', event.target)
         if (node.children && node.expanded) {
           store.closeNode(node)
-        } else if (node.children) {
-          store.openNode(node)
         } else {
-          console.log('should set this node active:', node)
+          store.openNode(node)
         }
       }
 
@@ -78,6 +73,7 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
         symbol = ''
       } else {
         symbol = '-'
+        props.onClick = onClick
       }
 
       childNodes.unshift(

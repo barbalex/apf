@@ -178,6 +178,26 @@ const Router = ({ store }) => {
         />
         <Match
           exactly
+          pattern="/Projekte/:ProjId/Arten/:ApArtId/nicht-beurteilte-Beobachtungen"
+          component={Projekte}
+        />
+        <Match
+          exactly
+          pattern="/Projekte/:ProjId/Arten/:ApArtId/nicht-beurteilte-Beobachtungen/:BeobId"
+          component={Projekte}
+        />
+        <Match
+          exactly
+          pattern="/Projekte/:ProjId/Arten/:ApArtId/nicht-zuzuordnende-Beobachtungen"
+          component={Projekte}
+        />
+        <Match
+          exactly
+          pattern="/Projekte/:ProjId/Arten/:ApArtId/nicht-zuzuordnende-Beobachtungen/:NO_NOTE"
+          component={Projekte}
+        />
+        <Match
+          exactly
           pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen"
           component={Projekte}
         />
