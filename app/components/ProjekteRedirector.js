@@ -9,14 +9,14 @@ import React, { PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import { Redirect } from 'react-router'
 
-import getUrlForNode from '../modules/getUrlForNode'
-
 const ProjekteRedirector = ({ store, location }) => {
   const activeNode = store.data.activeNode
   let to = null
   console.log('ProjekteRedirector, activeNode:', activeNode)
   if (activeNode) {
-    to = getUrlForNode(activeNode)
+    console.log('ProjekteRedirector, activeNode.Path:', activeNode.path)
+    to = `/${activeNode.path.join('/')}`
+    console.log('ProjekteRedirector, new Path:', to)
   } else {
     to = '/Projekte'
   }

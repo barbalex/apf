@@ -56,6 +56,7 @@ const Router = ({ store }) => {
           exactly
           pattern="/Projekte/:ProjId"
           render={({ params }) => {
+            console.log('newStore:', newStore)
             newStore && store.fetchAllNodes([{ table: 'projekt', id: params.ProjId, folder: null }])
             return <Projekte />
           }}
