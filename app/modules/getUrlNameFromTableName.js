@@ -2,7 +2,7 @@ export default (table) => {
   const names = {
     ap: 'Arten',
     apber: 'AP-Berichte',
-    apberuebersicht: 'AP-Berichte-Übersicht',
+    apberuebersicht: 'AP-Berichte',
     assozart: 'Assoziierte-Arten',
     beob: 'Beobachtung',
     beobzuordnung: 'Beobachtungs-Zuordnungen',
