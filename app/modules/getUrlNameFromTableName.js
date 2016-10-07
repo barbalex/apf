@@ -13,7 +13,7 @@ export default (table) => {
     popber: 'Kontroll-Berichte',
     popmassnber: 'Massnahmen-Berichte',
     projekt: 'Projekte',
-    tpop: 'Teilpopulationen',
+    tpop: 'Teil-Populationen',
     tpopber: 'Kontroll-Berichte',
     tpopkontr: 'Kontrollen',
     tpopkontrzaehl: 'Zählungen',

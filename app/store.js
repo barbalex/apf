@@ -93,6 +93,7 @@ class Store extends singleton {
   openNode = action(
     'openNode',
     (node) => {
+      console.log('store, openNode, node:', node)
       if (node) {
         transaction(() => {
           node.expanded = true
