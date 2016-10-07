@@ -39,6 +39,7 @@ class Store extends singleton {
   data = observable({
     nodes: [noNode],
     loadingAllNodes: false,
+    activeNodeIndex: null,
     activeNode: null,
     activeDataset: noDataset,
     nodes2: [noNode],
@@ -92,13 +93,14 @@ class Store extends singleton {
 
   openNode = action(
     'openNode',
-    (node) => {
+    (node, index) => {
       console.log('store, openNode, node:', node)
       if (node) {
         transaction(() => {
           node.expanded = true
           if (this.data.activeNode !== node) {
             this.data.activeNode = node
+            this.data.activeNodeIndex = index
           }
         })
         // only show 'lade Daten...' if not yet loaded

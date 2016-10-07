@@ -10,7 +10,6 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import { AutoSizer, List } from 'react-virtualized'
-import _ from 'underscore'
 
 import getNrOfNodeRows from '../../../../modules/getNrOfNodeRows'
 import isNodeInActiveNodePath from '../../../../modules/isNodeInActiveNodePath'
@@ -47,17 +46,17 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
         {renderNode(store.data.nodes[index], index)}
       </div>
 
-    const renderNode = (node, keyPrefix) => {
+    const renderNode = (node, index) => {
       const onClick = (event) => {
         event.stopPropagation()
         if (node.children && node.expanded) {
           store.closeNode(node)
         } else {
-          store.openNode(node)
+          store.openNode(node, index)
         }
       }
 
-      const props = { key: keyPrefix }
+      const props = { key: index }
       const nodeHasChildren = node.children && node.children.length
       let childNodes = []
       const symbolTypes = {
@@ -124,6 +123,7 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
             rowRenderer={rowRenderer}
             width={width}
             className={styles.container}
+            scrollToIndex={store.data.activeNodeIndex ? store.data.activeNodeIndex : undefined}
           />
         )}
       </AutoSizer>
