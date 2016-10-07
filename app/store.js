@@ -5,7 +5,6 @@
  */
 /* eslint-disable no-console, no-param-reassign */
 
-import ReactDom from 'react-dom'
 import { observable, action, transaction, reaction } from 'mobx'
 import $ from 'jquery'
 import singleton from 'singleton'
@@ -14,6 +13,7 @@ import getNodeByPath from './modules/getNodeByPath'
 import apiBaseUrl from './modules/apiBaseUrl'
 import fetchDataset from './modules/fetchDataset'
 import tables from './modules/tables'
+import countRowsAboveActiveNode from './modules/countRowsAboveActiveNode'
 
 const noNode = {
   nodeId: 'none',
@@ -40,8 +40,8 @@ class Store extends singleton {
   data = observable({
     nodes: [noNode],
     loadingAllNodes: false,
-    activeNodeIndex: null,
     activeNode: null,
+    nrOfRowsAboveActiveNode: 0,
     activeDataset: noDataset,
     nodes2: [noNode],
     map: null,
@@ -175,6 +175,12 @@ class Store extends singleton {
         if (!myTable) {
           throw new Error(`Table ${activeNode.table} not found in 'modules/table'`)
         }
+
+        // TODO:
+        // get dom element of active node and scrollIntoView()
+        this.data.nrOfRowsAboveActiveNode = countRowsAboveActiveNode(this.data.nodes, activeNode, this.data.nrOfRowsAboveActiveNode)
+        console.log('nrOfRowsAboveActiveNode:', this.data.nrOfRowsAboveActiveNode)
+
         const table = activeNode.table
         const field = myTable.tabelleIdFeld
         const value = activeNode.id
@@ -192,12 +198,6 @@ class Store extends singleton {
           // do nothing
         } else {
           this.fetchActiveNodeDataset({ table, field, value })
-          // TODO:
-          // get dom element of active node and scrollIntoView()
-          console.log('scrolling active Node into view:', activeNode)
-          ReactDom.findDOMNode(activeNode).scrollIntoView()
-          // OR: count number of rows above > scrollToIndex and use scrollTop property
-          // of react-virtualized list component
         }
       }
     }

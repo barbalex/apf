@@ -37,7 +37,9 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
     }
     const nodes = store.data.nodes
     const nrOfRows = getNrOfNodeRows(nodes)
-    const rowHeight = nrOfRows * 22.87
+    const rowHeight = (nrOfRows * 22.87) / nodes.length
+    const scrolltop = store.data.nrOfRowsAboveActiveNode * 22.87
+    console.log('scrolltop:', scrolltop)
 
     const rowRenderer = ({ key, index }) =>
       <div
@@ -113,6 +115,7 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
       )
     }
 
+
     return (
       <AutoSizer>
         {({ height, width }) => (
@@ -123,7 +126,7 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
             rowRenderer={rowRenderer}
             width={width}
             className={styles.container}
-            /*scrollToIndex={store.data.activeNodeIndex ? store.data.activeNodeIndex : undefined}*/
+            scrolltop={scrolltop}
           />
         )}
       </AutoSizer>
