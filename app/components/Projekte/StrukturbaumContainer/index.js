@@ -12,6 +12,13 @@ import Filter from './Filter'
 import Strukturbaum from './Strukturbaum'
 
 const StrukturbaumContainer = class StrukturbaumContainer extends Component { // eslint-disable-line react/prefer-stateless-function
+  componentDidMount() {
+    const { store } = this.props
+    store.data.treeHeight = this.tree.clientHeight
+    const treeRect = this.tree.getBoundingClientRect()
+    store.data.treeTopPosition = treeRect.top
+    store.data.treeBottomPosition = treeRect.bottom
+  }
 
   onClickTab = (value) => {
     const { store } = this.props
@@ -39,7 +46,7 @@ const StrukturbaumContainer = class StrukturbaumContainer extends Component { //
           >
           </Tab>
         </Tabs>
-        <div className={styles.tabsContent}>
+        <div className={styles.tabsContent} ref={(c) => { this.tree = c }}>
           {
             activeTab === 'strukturbaum'
             && <Strukturbaum location={location} />

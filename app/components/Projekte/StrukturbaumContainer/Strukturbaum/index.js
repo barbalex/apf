@@ -16,6 +16,7 @@ import isNodeInActiveNodePath from '../../../../modules/isNodeInActiveNodePath'
 import styles from './styles.css'
 
 const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-line react/prefer-stateless-function
+
   render() {  // eslint-disable-line class-methods-use-this
     const { store } = this.props
     if (
@@ -38,7 +39,17 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
     const nodes = store.data.nodes
     const nrOfRows = getNrOfNodeRows(nodes)
     const rowHeight = (nrOfRows * 22.87) / nodes.length
-    const scrolltop = store.data.nrOfRowsAboveActiveNode * 22.87
+    // TODO: only move if outside view
+    const treeHeightAboveActiveNode = store.data.nrOfRowsAboveActiveNode * 22.87
+    // const scrolltop = activeNodeIsTooLow ? treeHeightAboveActiveNode - 100 : undefined
+    // const scrolltop = undefined
+    const roomAboveClick = store.data.lastClickY - store.data.treeTopPosition
+    console.log('store.data.treeTopPosition:', store.data.treeTopPosition)
+    console.log('store.data.lastClickY:', store.data.lastClickY)
+    console.log('roomAboveClick:', roomAboveClick)
+    console.log('nrOfRowsAboveActiveNode:', store.data.nrOfRowsAboveActiveNode)
+    console.log('treeHeightAboveActiveNode:', treeHeightAboveActiveNode)
+    const scrolltop = treeHeightAboveActiveNode - roomAboveClick
     console.log('scrolltop:', scrolltop)
 
     const rowRenderer = ({ key, index }) =>
@@ -51,6 +62,7 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
     const renderNode = (node, index) => {
       const onClick = (event) => {
         event.stopPropagation()
+        store.data.lastClickY = event.pageY
         if (node.children && node.expanded) {
           store.closeNode(node)
         } else {
@@ -106,7 +118,7 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
         <ul
           key={node.nodeId}
           onClick={props.onClick}
-          className={node.path && node.path.length && node.path.length === 1 ? styles.topUl : null}
+          className={node.urlPath && node.urlPath.length && node.urlPath.length === 1 ? styles.topUl : null}
         >
           <li>
             {childNodes}
@@ -126,7 +138,8 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
             rowRenderer={rowRenderer}
             width={width}
             className={styles.container}
-            scrolltop={scrolltop}
+            scrollTop={scrolltop}
+            ref={(c) => { this.tree = c }}
           />
         )}
       </AutoSizer>

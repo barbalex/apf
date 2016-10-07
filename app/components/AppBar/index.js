@@ -18,9 +18,9 @@ const MyAppBar = ({ pathname }, context) =>
       >
         <Tabs
           value={pathname}
-          onChange={(path) => {
+          onChange={path =>
             context.router.transitionTo(path)
-          }}
+          }
         >
           <Tab
             label="Projekte"
