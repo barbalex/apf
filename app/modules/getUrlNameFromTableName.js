@@ -5,7 +5,7 @@ export default (table) => {
     apberuebersicht: 'AP-Berichte',
     assozart: 'assoziierte-Arten',
     beob: 'Beobachtung',
-    beobzuordnung: 'Beobachtungs-Zuordnungen',
+    beobzuordnung: 'zugeordnete-Beobachtungen',
     ber: 'Berichte',
     erfkrit: 'AP-Erfolgskriterien',
     idealbiotop: 'Idealbiotop',
@@ -22,7 +22,7 @@ export default (table) => {
     user: 'Benutzer',
     userprojekt: 'Benutzer-Projekte',
     ziel: 'AP-Ziele',
-    zielber: 'AP-Berichte',
+    zielber: 'Berichte',
   }
   const name = names[table]
   if (!name) throw new Error(`Der Tabelle ${table} konnte kein Namen zugewiesen werden`)

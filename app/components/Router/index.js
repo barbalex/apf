@@ -148,7 +148,7 @@ const Router = ({ store }) => {
         />
         <Match
           exactly
-          pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Ziele/:ZielId/Berichte/{ZielBerId}"
+          pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Ziele/:ZielId/Berichte/:ZielBerId"
           component={Projekte}
         />
         <Match

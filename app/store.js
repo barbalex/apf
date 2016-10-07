@@ -39,9 +39,9 @@ class Store extends singleton {
   data = observable({
     nodes: [noNode],
     loadingAllNodes: false,
-    nodes2: [noNode],
     activeNode: null,
     activeDataset: noDataset,
+    nodes2: [noNode],
     map: null,
     user: null,
   })
