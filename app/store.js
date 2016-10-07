@@ -5,6 +5,7 @@
  */
 /* eslint-disable no-console, no-param-reassign */
 
+import ReactDom from 'react-dom'
 import { observable, action, transaction, reaction } from 'mobx'
 import $ from 'jquery'
 import singleton from 'singleton'
@@ -94,7 +95,7 @@ class Store extends singleton {
   openNode = action(
     'openNode',
     (node, index) => {
-      console.log('store, openNode, node:', node)
+      // console.log('store, openNode, node:', node)
       if (node) {
         transaction(() => {
           node.expanded = true
@@ -126,7 +127,7 @@ class Store extends singleton {
   fetchNodeChildren = action(
     'fetchNodeChildren',
     (node) => {
-      console.log('store, fetchNodeChildren: node clicked:', node)
+      // console.log('store, fetchNodeChildren: node clicked:', node)
       fetch(`${apiBaseUrl}/node?table=${node.table}&id=${node.id}&folder=${node.folder ? node.folder : null}`)
         .then(resp => resp.json())
         .then((nodes) => {
@@ -191,6 +192,12 @@ class Store extends singleton {
           // do nothing
         } else {
           this.fetchActiveNodeDataset({ table, field, value })
+          // TODO:
+          // get dom element of active node and scrollIntoView()
+          console.log('scrolling active Node into view:', activeNode)
+          ReactDom.findDOMNode(activeNode).scrollIntoView()
+          // OR: count number of rows above > scrollToIndex and use scrollTop property
+          // of react-virtualized list component
         }
       }
     }

@@ -123,7 +123,7 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
             rowRenderer={rowRenderer}
             width={width}
             className={styles.container}
-            scrollToIndex={store.data.activeNodeIndex ? store.data.activeNodeIndex : undefined}
+            /*scrollToIndex={store.data.activeNodeIndex ? store.data.activeNodeIndex : undefined}*/
           />
         )}
       </AutoSizer>
