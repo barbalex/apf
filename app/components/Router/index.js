@@ -203,97 +203,97 @@ const Router = ({ store }) => {
         />
         <Match
           exactly
-          pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId"
+          pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:PopId"
           component={Projekte}
         />
         <Match
           exactly
-          pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Kontroll-Berichte"
+          pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:PopId/Kontroll-Berichte"
           component={Projekte}
         />
         <Match
           exactly
-          pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Kontroll-Berichte/:PopBerId"
+          pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:PopId/Kontroll-Berichte/:PopBerId"
           component={Projekte}
         />
         <Match
           exactly
-          pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Massnahmen-Berichte"
+          pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:PopId/Massnahmen-Berichte"
           component={Projekte}
         />
         <Match
           exactly
-          pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Massnahmen-Berichte/:PopMassnBerId"
+          pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:PopId/Massnahmen-Berichte/:PopMassnBerId"
           component={Projekte}
         />
         <Match
           exactly
-          pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen"
+          pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:PopId/Teilpopulationen"
           component={Projekte}
         />
         <Match
           exactly
-          pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen/:TPopId"
+          pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:PopId/Teilpopulationen/:TPopId"
           component={Projekte}
         />
         <Match
           exactly
-          pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen/:TPopId/Kontroll-Berichte"
+          pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:PopId/Teilpopulationen/:TPopId/Kontroll-Berichte"
           component={Projekte}
         />
         <Match
           exactly
-          pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen/:TPopId/Kontroll-Berichte/:TPopBerId"
+          pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:PopId/Teilpopulationen/:TPopId/Kontroll-Berichte/:TPopBerId"
           component={Projekte}
         />
         <Match
           exactly
-          pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen/:TPopId/Massnahmen"
+          pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:PopId/Teilpopulationen/:TPopId/Massnahmen"
           component={Projekte}
         />
         <Match
           exactly
-          pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen/:TPopId/Massnahmen/:TPopMassnId"
+          pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:PopId/Teilpopulationen/:TPopId/Massnahmen/:TPopMassnId"
           component={Projekte}
         />
         <Match
           exactly
-          pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen/:TPopId/Massnahmen-Berichte"
+          pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:PopId/Teilpopulationen/:TPopId/Massnahmen-Berichte"
           component={Projekte}
         />
         <Match
           exactly
-          pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen/:TPopId/Massnahmen-Berichte/:TPopMassnBerId"
+          pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:PopId/Teilpopulationen/:TPopId/Massnahmen-Berichte/:TPopMassnBerId"
           component={Projekte}
         />
         <Match
           exactly
-          pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen/:TPopId/Beobachtungs-Zuordnungen"
+          pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:PopId/Teilpopulationen/:TPopId/Beobachtungs-Zuordnungen"
           component={Projekte}
         />
         <Match
           exactly
-          pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen/:TPopId/Beobachtungs-Zuordnungen/:BeobId"
+          pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:PopId/Teilpopulationen/:TPopId/Beobachtungs-Zuordnungen/:BeobId"
           component={Projekte}
         />
         <Match
           exactly
-          pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen/:TPopId/Kontrollen"
+          pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:PopId/Teilpopulationen/:TPopId/Kontrollen"
           component={Projekte}
         />
         <Match
           exactly
-          pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen/:TPopId/Kontrollen/:TPopKontrId"
+          pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:PopId/Teilpopulationen/:TPopId/Kontrollen/:TPopKontrId"
           component={Projekte}
         />
         <Match
           exactly
-          pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen/:TPopId/Kontrollen/:TPopKontrId/Zählungen"
+          pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:PopId/Teilpopulationen/:TPopId/Kontrollen/:TPopKontrId/Zählungen"
           component={Projekte}
         />
         <Match
           exactly
-          pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:ProjId/Teilpopulationen/:TPopId/Kontrollen/:TPopKontrId/Zählungen/:TPopKontrZaehlId"
+          pattern="/Projekte/:ProjId/Arten/:ApArtId/Populationen/:PopId/Teilpopulationen/:TPopId/Kontrollen/:TPopKontrId/Zählungen/:TPopKontrZaehlId"
           component={Projekte}
         />
         <Match

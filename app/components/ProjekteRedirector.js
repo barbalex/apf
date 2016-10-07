@@ -12,11 +12,8 @@ import { Redirect } from 'react-router'
 const ProjekteRedirector = ({ store, location }) => {
   const activeNode = store.data.activeNode
   let to = null
-  console.log('ProjekteRedirector, activeNode:', activeNode)
   if (activeNode) {
-    console.log('ProjekteRedirector, activeNode.Path:', activeNode.path)
     to = `/${activeNode.path.join('/')}`
-    console.log('ProjekteRedirector, new Path:', to)
   } else {
     to = '/Projekte'
   }
