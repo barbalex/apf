@@ -10,8 +10,10 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import { AutoSizer, List } from 'react-virtualized'
+import _ from 'underscore'
 
 import getNrOfNodeRows from '../../../../modules/getNrOfNodeRows'
+import isNodeInActiveNodePath from '../../../../modules/isNodeInActiveNodePath'
 import styles from './styles.css'
 
 const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-line react/prefer-stateless-function
@@ -58,30 +60,39 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
       const props = { key: keyPrefix }
       const nodeHasChildren = node.children && node.children.length
       let childNodes = []
+      const symbolTypes = {
+        open: `${String.fromCharCode(709)}`,
+        closed: '>',
+        hasNoChildren: '-',
+        loadingData: '',
+      }
       let symbol
+      let symbolClassName = 'symbol'
+      const nodeIsInActiveNodePath = isNodeInActiveNodePath(node, store.data.activeNode)
 
       if (nodeHasChildren && node.expanded) {
         props.onClick = onClick
-        symbol = String.fromCharCode(709)
+        symbol = symbolTypes.open
+        symbolClassName = nodeIsInActiveNodePath ? 'symbolOpenInActiveNodePath' : 'symbolOpen'
         childNodes = node.children.map(child =>
           renderNode(child, child.nodeId)
         )
       } else if (nodeHasChildren) {
         props.onClick = onClick
-        symbol = '>'
+        symbol = symbolTypes.closed
       } else if (node.name === 'lade Daten...') {
-        symbol = ''
+        symbol = symbolTypes.loadingData
       } else {
-        symbol = '-'
+        symbol = symbolTypes.hasNoChildren
         props.onClick = onClick
       }
 
       childNodes.unshift(
         <div
-          className={node.expanded ? styles.nodeExpanded : styles.node}
+          className={nodeIsInActiveNodePath ? styles.nodeIsInActiveNodePath : styles.node}
           key={`${node.nodeId}-child`}
         >
-          <span className={node.expanded ? styles.symbolExpanded : styles.symbol}>
+          <span className={styles[symbolClassName]}>
             {symbol}
           </span>
           <span className={styles.text}>
