@@ -48,7 +48,7 @@ const Router = ({ store }) => {
           exactly
           pattern="/Projekte"
           render={() => {
-            newStore && store.fetchAllNodes([{ table: 'projekt', id: null, folder: null }])
+            newStore && store.fetchAllNodes({ table: 'projekt', id: null, folder: null })
             return <Projekte />
           }}
         />
@@ -56,7 +56,7 @@ const Router = ({ store }) => {
           exactly
           pattern="/Projekte/:ProjId"
           render={({ params }) => {
-            newStore && store.fetchAllNodes([{ table: 'projekt', id: params.ProjId, folder: null }])
+            newStore && store.fetchAllNodes({ table: 'projekt', id: params.ProjId, folder: null })
             return <Projekte />
           }}
         />
@@ -64,7 +64,7 @@ const Router = ({ store }) => {
           exactly
           pattern="/Projekte/:ProjId/AP-Berichte"
           render={({ params }) => {
-            newStore && store.fetchAllNodes([{ table: 'projekt', id: params.ProjId, folder: 'apberuebersicht' }])
+            newStore && store.fetchAllNodes({ table: 'projekt', id: params.ProjId, folder: 'apberuebersicht' })
             return <Projekte />
           }}
         />
@@ -72,7 +72,7 @@ const Router = ({ store }) => {
           exactly
           pattern="/Projekte/:ProjId/AP-Berichte/:JbuJahr"
           render={({ params }) => {
-            newStore && store.fetchAllNodes([{ table: 'apberuebersicht', id: params.JbuJahr, folder: null }])
+            newStore && store.fetchAllNodes({ table: 'apberuebersicht', id: params.JbuJahr, folder: null })
             return <Projekte />
           }}
         />
@@ -80,7 +80,7 @@ const Router = ({ store }) => {
           exactly
           pattern="/Projekte/:ProjId/Arten"
           render={({ params }) => {
-            newStore && store.fetchAllNodes([{ table: 'projekt', id: params.ProjId, folder: 'ap' }])
+            newStore && store.fetchAllNodes({ table: 'projekt', id: params.ProjId, folder: 'ap' })
             return <Projekte />
           }}
         />
@@ -88,7 +88,7 @@ const Router = ({ store }) => {
           exactly
           pattern="/Projekte/:ProjId/Arten/:ApArtId"
           render={({ params }) => {
-            newStore && store.fetchAllNodes([{ table: 'ap', id: params.ApArtId, folder: null }])
+            newStore && store.fetchAllNodes({ table: 'ap', id: params.ApArtId, folder: null })
             return <Projekte />
           }}
         />
@@ -96,7 +96,7 @@ const Router = ({ store }) => {
           exactly
           pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Berichte"
           render={({ params }) => {
-            newStore && store.fetchAllNodes([{ table: 'ap', id: params.ApArtId, folder: 'apber' }])
+            newStore && store.fetchAllNodes({ table: 'ap', id: params.ApArtId, folder: 'apber' })
             return <Projekte />
           }}
         />
@@ -104,7 +104,7 @@ const Router = ({ store }) => {
           exactly
           pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Berichte/:JBerId"
           render={({ params }) => {
-            newStore && store.fetchAllNodes([{ table: 'apber', id: params.JBerId, folder: null }])
+            newStore && store.fetchAllNodes({ table: 'apber', id: params.JBerId, folder: null })
             return <Projekte />
           }}
         />
@@ -112,7 +112,7 @@ const Router = ({ store }) => {
           exactly
           pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Erfolgskriterien"
           render={({ params }) => {
-            newStore && store.fetchAllNodes([{ table: 'ap', id: params.ApArtId, folder: 'erfkrit' }])
+            newStore && store.fetchAllNodes({ table: 'ap', id: params.ApArtId, folder: 'erfkrit' })
             return <Projekte />
           }}
         />
@@ -120,7 +120,7 @@ const Router = ({ store }) => {
           exactly
           pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Erfolgskriterien/:ErfkritId"
           render={({ params }) => {
-            newStore && store.fetchAllNodes([{ table: 'erfkrit', id: params.ErfkritId, folder: null }])
+            newStore && store.fetchAllNodes({ table: 'erfkrit', id: params.ErfkritId, folder: null })
             return <Projekte />
           }}
         />
@@ -128,7 +128,7 @@ const Router = ({ store }) => {
           exactly
           pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Ziele"
           render={({ params }) => {
-            newStore && store.fetchAllNodes([{ table: 'ap', id: params.ApArtId, folder: 'ziel' }])
+            newStore && store.fetchAllNodes({ table: 'ap', id: params.ApArtId, folder: 'ziel' })
             return <Projekte />
           }}
         />
@@ -136,7 +136,7 @@ const Router = ({ store }) => {
           exactly
           pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Ziele/:ZielId"
           render={({ params }) => {
-            newStore && store.fetchAllNodes([{ table: 'ziel', id: params.ZielId, folder: null }])
+            newStore && store.fetchAllNodes({ table: 'ziel', id: params.ZielId, folder: null })
             return <Projekte />
           }}
         />

@@ -74,9 +74,7 @@ class Store extends singleton {
 
   fetchAllNodes = action(
     'fetchAllNodes',
-    (path) => {
-      const lastPathElement = path[path.length - 1]
-      const { table, id, folder } = lastPathElement
+    ({ table, id, folder }) => {
       this.data.loadingAllNodes = true
       fetch(`${apiBaseUrl}/node?table=${table}&id=${id}&folder=${folder}&levels=all`)
         .then(resp => resp.json())
@@ -86,7 +84,7 @@ class Store extends singleton {
             this.data.loadingAllNodes = false
           })
           // TODO: set project node as active node
-          const activeNode = getNodeByPath(this.data.nodes, path)
+          const activeNode = getNodeByPath(this.data.nodes, [{ table, id, folder }])
           if (activeNode && activeNode !== this.data.activeNode) {
             this.data.activeNode = activeNode
           }
