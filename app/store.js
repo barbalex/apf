@@ -42,10 +42,8 @@ class Store extends singleton {
     loadingAllNodes: false,
     activeNode: null,
     lastClickY: 0,
-    activeNodeTopPosition: 0,
     nrOfRowsAboveActiveNode: 0,
     treeTopPosition: 0,
-    treeBottomPosition: 0,
     treeHeight: 0,
     activeDataset: noDataset,
     nodes2: [noNode],
@@ -181,10 +179,7 @@ class Store extends singleton {
           throw new Error(`Table ${activeNode.table} not found in 'modules/table'`)
         }
 
-        // TODO:
-        // get dom element of active node and scrollIntoView()
         this.data.nrOfRowsAboveActiveNode = countRowsAboveActiveNode(this.data.nodes, activeNode, this.data.nrOfRowsAboveActiveNode)
-        console.log('nrOfRowsAboveActiveNode:', this.data.nrOfRowsAboveActiveNode)
 
         const table = activeNode.table
         const field = myTable.tabelleIdFeld

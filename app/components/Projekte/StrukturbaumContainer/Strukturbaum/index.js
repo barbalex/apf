@@ -36,21 +36,16 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
         </div>
       )
     }
+
+    // calculate scrolltop
+    // without this if a folder low in the tree is opened,
+    // it always gets scrolled down out of sight
     const nodes = store.data.nodes
     const nrOfRows = getNrOfNodeRows(nodes)
     const rowHeight = (nrOfRows * 22.87) / nodes.length
-    // TODO: only move if outside view
     const treeHeightAboveActiveNode = store.data.nrOfRowsAboveActiveNode * 22.87
-    // const scrolltop = activeNodeIsTooLow ? treeHeightAboveActiveNode - 100 : undefined
-    // const scrolltop = undefined
     const roomAboveClick = store.data.lastClickY - store.data.treeTopPosition
-    console.log('store.data.treeTopPosition:', store.data.treeTopPosition)
-    console.log('store.data.lastClickY:', store.data.lastClickY)
-    console.log('roomAboveClick:', roomAboveClick)
-    console.log('nrOfRowsAboveActiveNode:', store.data.nrOfRowsAboveActiveNode)
-    console.log('treeHeightAboveActiveNode:', treeHeightAboveActiveNode)
     const scrolltop = treeHeightAboveActiveNode - roomAboveClick
-    console.log('scrolltop:', scrolltop)
 
     const rowRenderer = ({ key, index }) =>
       <div

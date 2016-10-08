@@ -17,7 +17,6 @@ const StrukturbaumContainer = class StrukturbaumContainer extends Component { //
     store.data.treeHeight = this.tree.clientHeight
     const treeRect = this.tree.getBoundingClientRect()
     store.data.treeTopPosition = treeRect.top
-    store.data.treeBottomPosition = treeRect.bottom
   }
 
   onClickTab = (value) => {

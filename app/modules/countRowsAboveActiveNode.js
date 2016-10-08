@@ -1,3 +1,13 @@
+/**
+ * idea:
+ * use nodeIdPath
+ * 1 level: find index of element with nodeId
+ * add expanded children of previous elements
+ * next level: find index of element with nodeId
+ * add expanded children of previous elements
+ * ...
+ */
+
 import { findIndex } from 'lodash'
 
 let globalCounter
@@ -9,21 +19,27 @@ const addExpandedChildren = (node) => {
   }
 }
 
-const findActiveNodeInNodes = (nodes, activeNode, localCounter) => {
+const findActiveNodeInNodes = (nodes, nodeIdPathPassed) => {
   if (!nodes) return
-  const activeNodesIndex = findIndex(nodes, n => n.nodeId === activeNode.nodeId)
+  const nodeIdPath = nodeIdPathPassed.slice(0)
+  const nodeId = nodeIdPath.shift()
+  const activeNodesIndex = findIndex(nodes, n => n.nodeId === nodeId)
+  const activeNode = nodes[activeNodesIndex]
   if (activeNodesIndex > -1) {
-    globalCounter += localCounter + activeNodesIndex + 1
+    globalCounter += activeNodesIndex + 1
     for (let i = 0; i < activeNodesIndex; i += 1) {
       addExpandedChildren(nodes[i])
     }
-    return
-  }
-  nodes.forEach((node, index) => {
-    if (node.children && node.children.length > 0 && node.expanded) {
-      findActiveNodeInNodes(node.children, activeNode, localCounter + index + 1)
+    if (nodeIdPath.length > 0) {
+      if (activeNode.children && activeNode.children.length > 0 && activeNode.expanded) {
+        findActiveNodeInNodes(activeNode.children, nodeIdPath)
+      } else {
+        console.log('Error: nodeIdPath not yet empty but no more children')
+      }
     }
-  })
+  } else {
+    console.log('error: nodeId from nodeIdPath not found')
+  }
 }
 
 export default (nodes, activeNode, previousCount) => {
@@ -32,9 +48,8 @@ export default (nodes, activeNode, previousCount) => {
   if (!nodes.length) return previousCount
   if (!activeNode) return previousCount
   globalCounter = 0
-  const localCounter = 0
-  console.log('activeNode.urlPath:', activeNode.urlPath)
-  findActiveNodeInNodes(nodes, activeNode, localCounter)
+  const nodeIdPath = activeNode.nodeIdPath.slice(0)
+  findActiveNodeInNodes(nodes, nodeIdPath)
   // seems like this is always one too much
   if (globalCounter > 1) return globalCounter - 1
   return previousCount
