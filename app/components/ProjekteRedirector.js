@@ -14,8 +14,6 @@ const ProjekteRedirector = ({ store, location }) => {
   let to = null
   if (activeNode) {
     to = `/${activeNode.urlPath.join('/')}`
-  } else {
-    to = '/Projekte'
   }
   const doRedirect = to && location.pathname !== to
 
