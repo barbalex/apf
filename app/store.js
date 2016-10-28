@@ -129,7 +129,7 @@ class Store extends singleton {
     'fetchNodeChildren',
     (node) => {
       // console.log('store, fetchNodeChildren: node clicked:', node)
-      fetch(`${apiBaseUrl}/node?table=${node.table}&id=${node.id}&folder=${node.folder ? node.folder : null}`)
+      fetch(`${apiBaseUrl}/node?table=${node.table}&id=${node.id}&folder=${node.folder ? node.folder : ''}`)
         .then(resp => resp.json())
         .then((nodes) => {
           transaction(() => {
