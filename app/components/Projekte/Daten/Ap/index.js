@@ -31,6 +31,18 @@ const Pop = class Pop extends Component { // eslint-disable-line react/prefer-st
       label: '',
       id: null,
     })
+    const ApArtId = (
+      store.data.activeDataset
+      && store.data.activeDataset.row
+      && store.data.activeDataset.row.ApArtId ?
+      store.data.activeDataset.row.ApArtId :
+      null
+    )
+    console.log('store:', store)
+    console.log('store.data:', store.data)
+    console.log('store.data.activeDataset:', store.data.activeDataset)
+    console.log('store.data.activeDataset.row:', store.data.activeDataset.row)
+    console.log('ApArtId:', ApArtId)
     return (
       <div className={styles.container}>
         <SelectField
@@ -38,7 +50,7 @@ const Pop = class Pop extends Component { // eslint-disable-line react/prefer-st
           fullWidth
           floatingLabelText="Art"
           maxHeight={20}
-          value={store.data.activeDataset.ApArtId}
+          value={ApArtId}
           onChange={(element) => {
             console.log('element:', element)
           }}
