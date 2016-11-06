@@ -8,8 +8,7 @@ import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import mobX from 'mobx'
 import styles from './styles.css'
-import SelectField from 'material-ui/SelectField'
-import MenuItem from 'material-ui/MenuItem'
+import AutoComplete from 'material-ui/AutoComplete'
 
 const Pop = class Pop extends Component { // eslint-disable-line react/prefer-stateless-function
   /*
@@ -27,10 +26,6 @@ const Pop = class Pop extends Component { // eslint-disable-line react/prefer-st
   render() {
     const { store } = this.props
     const aeEigenschaften = mobX.toJS(store.data.aeEigenschaften)
-    aeEigenschaften.unshift({
-      label: '',
-      id: null,
-    })
     const ApArtId = (
       store.data.activeDataset
       && store.data.activeDataset.row
@@ -38,29 +33,29 @@ const Pop = class Pop extends Component { // eslint-disable-line react/prefer-st
       store.data.activeDataset.row.ApArtId :
       null
     )
-    console.log('store:', store)
-    console.log('store.data:', store.data)
-    console.log('store.data.activeDataset:', store.data.activeDataset)
-    console.log('store.data.activeDataset.row:', store.data.activeDataset.row)
-    console.log('ApArtId:', ApArtId)
+    let searchText = ''
+    if (ApArtId && aeEigenschaften.length > 0) {
+      searchText = aeEigenschaften.find(e => e.id === ApArtId).label
+    }
     return (
       <div className={styles.container}>
-        <SelectField
+        <AutoComplete
           hintText={store.data.aeEigenschaftenLoading.length === 0 ? 'lade Daten...' : ''}
           fullWidth
           floatingLabelText="Art"
-          maxHeight={20}
-          value={ApArtId}
-          onChange={(element) => {
+          openOnFocus
+          dataSource={aeEigenschaften}
+          dataSourceConfig={{
+            value: 'id',
+            text: 'label',
+          }}
+          searchText={searchText}
+          filter={AutoComplete.caseInsensitiveFilter}
+          maxSearchResults={20}
+          onNewRequest={(element) => {
             console.log('element:', element)
           }}
-        >
-          {
-            aeEigenschaften.map((e, index) =>
-              <MenuItem value={e.id} primaryText={e.label} key={index} />
-            )
-          }
-        </SelectField>
+        />
       </div>
     )
   }
