@@ -53,6 +53,7 @@ class Store extends singleton {
     map: null,
     user: null,
     aeEigenschaften: null,
+    aeEigenschaftenLoading: false,
     aeLr: null,
     aeFloraStatus: null,
     apStatus: null,
@@ -95,6 +96,25 @@ class Store extends singleton {
     },
   })
 
+  fetchAeEigenschaften = action(
+    'fetchAeEigenschaften',
+    () => {
+      // only fetch if not yet fetched
+      if (this.data.aeEigenschaften === null) {
+        this.data.aeEigenschaftenLoading = true
+        fetch(`${apiBaseUrl}/artliste`)
+          .then(resp => resp.json())
+          .then((aeEigenschaften) => {
+            transaction(() => {
+              this.data.aeEigenschaften = aeEigenschaften
+              this.data.aeEigenschaftenLoading = false
+            })
+          })
+          .catch(error => console.log('error fetching aeEigenschaften:', error))
+      }
+    }
+  )
+
   fetchAllNodes = action(
     'fetchAllNodes',
     ({ table, id, folder }) => {
@@ -106,7 +126,7 @@ class Store extends singleton {
             this.data.nodes.replace(nodes)
             this.data.loadingAllNodes = false
           })
-          // TODO: set project node as active node
+          // set project node as active node
           const activeNode = getNodeByPath(this.data.nodes, [{ table, id, folder }])
           if (activeNode && activeNode !== this.data.activeNode) {
             this.data.activeNode = activeNode
