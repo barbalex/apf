@@ -7,6 +7,7 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import styles from './styles.css'
+import Ap from './Ap'
 import Pop from './Pop'
 
 const Daten = class Daten extends Component { // eslint-disable-line react/prefer-stateless-function
@@ -20,6 +21,8 @@ const Daten = class Daten extends Component { // eslint-disable-line react/prefe
       return <div></div>
     }
     switch (store.data.activeDataset.table) {
+      case 'ap':
+        return <Ap />
       case 'pop':
         return <Pop />
       default:
