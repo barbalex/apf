@@ -55,7 +55,7 @@ class Store extends singleton {
     aeEigenschaften: null,
     aeLr: null,
     aeFloraStatus: null,
-    apBearbstand: null,
+    apStatus: null,
     apErfbeurtkrit: null,
     apErfkrit: null,
     apUmsetzung: null,
@@ -70,6 +70,8 @@ class Store extends singleton {
     tpopmassnErfbeurt: null,
     tpopmassnTyp: null,
     zielTyp: null,
+    adresse: null,
+    gemeinde: null,
   })
 
   ui = observable({
@@ -117,7 +119,6 @@ class Store extends singleton {
   openNode = action(
     'openNode',
     (node, index) => {
-      // console.log('store, openNode, node:', node)
       if (node) {
         transaction(() => {
           node.expanded = true
