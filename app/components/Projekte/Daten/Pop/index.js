@@ -36,6 +36,7 @@ const Pop = class Pop extends Component { // eslint-disable-line react/prefer-st
           dataSourceConfig={{ id: 'id', label: 'label' }}
           fullWidth
           floatingLabelText="Art"
+          maxSearchResults={20}
         />
       </div>
     )
