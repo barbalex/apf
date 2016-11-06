@@ -6,7 +6,7 @@
 
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
-import mobX from 'mobX'
+import mobX from 'mobx'
 import styles from './styles.css'
 import AutoComplete from 'material-ui/AutoComplete'
 
