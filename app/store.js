@@ -52,7 +52,7 @@ class Store extends singleton {
     nodes2: [noNode],
     map: null,
     user: null,
-    aeEigenschaften: null,
+    aeEigenschaften: [],
     aeEigenschaftenLoading: false,
     aeLr: null,
     aeFloraStatus: null,
@@ -100,7 +100,7 @@ class Store extends singleton {
     'fetchAeEigenschaften',
     () => {
       // only fetch if not yet fetched
-      if (this.data.aeEigenschaften === null) {
+      if (this.data.aeEigenschaften.length === 0) {
         this.data.aeEigenschaftenLoading = true
         fetch(`${apiBaseUrl}/artliste`)
           .then(resp => resp.json())

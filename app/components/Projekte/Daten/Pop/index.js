@@ -6,6 +6,7 @@
 
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
+import mobX from 'mobX'
 import styles from './styles.css'
 import AutoComplete from 'material-ui/AutoComplete'
 
@@ -24,11 +25,14 @@ const Pop = class Pop extends Component { // eslint-disable-line react/prefer-st
 
   render() {
     const { store } = this.props
+    const aeEigenschaften = mobX.toJS(store.data.aeEigenschaften).map(e => e.label)
+    console.log('typeof aeEigenschaften:', typeof aeEigenschaften)
+    console.log('aeEigenschaften:', aeEigenschaften)
     return (
-      <div>
+      <div className={styles.container}>
         <AutoComplete
-          hintText={store.data.aeEigenschaftenLoading ? 'lade Daten...' : ''}
-          dataSource={store.data.aeEigenschaften ? store.data.aeEigenschaften : []}
+          hintText={store.data.aeEigenschaftenLoading.length === 0 ? 'lade Daten...' : ''}
+          dataSource={aeEigenschaften}
           dataSourceConfig={{ id: 'id', label: 'label' }}
           fullWidth
           floatingLabelText="Art"
