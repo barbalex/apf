@@ -52,7 +52,6 @@ ReactDOM.render(
   <Provider store={store}>
     <MuiThemeProvider
       muiTheme={getMuiTheme(theme)}
-      className={styles.content}
     >
       <div>
         <DevTools />

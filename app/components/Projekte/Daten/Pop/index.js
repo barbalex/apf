@@ -17,26 +17,33 @@ const Pop = class Pop extends Component { // eslint-disable-line react/prefer-st
   }
 
   componentDidMount() {
-    // TODO: fetch dropdown data
+    // fetch dropdown data
     const { store } = this.props
-    console.log('Pop: componentDidMount')
     store.fetchAeEigenschaften()
   }
 
   render() {
     const { store } = this.props
-    const aeEigenschaften = mobX.toJS(store.data.aeEigenschaften).map(e => e.label)
-    console.log('typeof aeEigenschaften:', typeof aeEigenschaften)
-    console.log('aeEigenschaften:', aeEigenschaften)
+    const aeEigenschaften = mobX.toJS(store.data.aeEigenschaften)
     return (
       <div className={styles.container}>
         <AutoComplete
           hintText={store.data.aeEigenschaftenLoading.length === 0 ? 'lade Daten...' : ''}
           dataSource={aeEigenschaften}
-          dataSourceConfig={{ id: 'id', label: 'label' }}
+          dataSourceConfig={{
+            value: 'id',
+            text: 'label',
+          }}
           fullWidth
           floatingLabelText="Art"
           maxSearchResults={20}
+          listStyle={{
+            borderStyle: 'none',
+          }}
+          filter={AutoComplete.caseInsensitiveFilter}
+          onNewRequest={(element) => {
+            console.log('element:', element)
+          }}
         />
       </div>
     )
