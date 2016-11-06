@@ -37,6 +37,9 @@ class Store extends singleton {
     this.keepActiveNodeDatasetUpToDate = this.keepActiveNodeDatasetUpToDate.bind(this)
   }
 
+  // TODO:
+  // - moove lastClickY to ui
+  // - moove treeTopPosition to ui
   data = observable({
     nodes: [noNode],
     loadingAllNodes: false,
@@ -49,6 +52,24 @@ class Store extends singleton {
     nodes2: [noNode],
     map: null,
     user: null,
+    aeEigenschaften: null,
+    aeLr: null,
+    aeFloraStatus: null,
+    apBearbstand: null,
+    apErfbeurtkrit: null,
+    apErfkrit: null,
+    apUmsetzung: null,
+    popEntwicklung: null,
+    popStatus: null,
+    tpopApberrelevant: null,
+    tpopEntwicklung: null,
+    tpopkontrIdbiotopuebereinst: null,
+    tpopkontrTyp: null,
+    tpopkontrzaehlEinheit: null,
+    tpopkontrzaehlMethode: null,
+    tpopmassnErfbeurt: null,
+    tpopmassnTyp: null,
+    zielTyp: null,
   })
 
   ui = observable({
