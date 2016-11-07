@@ -34,7 +34,7 @@ const Pop = class Pop extends Component { // eslint-disable-line react/prefer-st
     return (
       <div className={styles.container}>
         <SelectField
-          hintText={store.data.aeEigenschaftenLoading.length === 0 ? 'lade Daten...' : ''}
+          hintText={store.data.aeEigenschaftenLoading ? 'lade Daten...' : ''}
           fullWidth
           floatingLabelText="Art"
           maxHeight={20}

@@ -55,8 +55,10 @@ class Store extends singleton {
     aeEigenschaften: [],
     aeEigenschaftenLoading: false,
     aeLr: null,
-    aeFloraStatus: null,
-    apStatus: null,
+    aeFloraStatus: [],
+    aeFloraStatusLoading: false,
+    apStatus: [],
+    apStatusLoading: null,
     apErfbeurtkrit: null,
     apErfkrit: null,
     apUmsetzung: null,
@@ -111,6 +113,25 @@ class Store extends singleton {
             })
           })
           .catch(error => console.log('error fetching aeEigenschaften:', error))
+      }
+    }
+  )
+
+  fetchApStatus = action(
+    'fetchApStatus',
+    () => {
+      // only fetch if not yet fetched
+      if (this.data.apStatus.length === 0) {
+        this.data.apStatusLoading = true
+        fetch(`${apiBaseUrl}/apStatus`)
+          .then(resp => resp.json())
+          .then((apStatus) => {
+            transaction(() => {
+              this.data.apStatus = apStatus
+              this.data.apStatusLoading = false
+            })
+          })
+          .catch(error => console.log('error fetching apStatus:', error))
       }
     }
   )
