@@ -2,8 +2,9 @@
   border-color: white;
   border-width: 1px;
   border-style: solid;
-  display: flex;
-  align-items: stretch;
-  flex-direction: column;
   flex-grow: 1;
+}
+
+.map {
+  height: 100%;
 }

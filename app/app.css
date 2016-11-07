@@ -1,6 +1,7 @@
 /**
  * global styles
  */
+/*@import '../node_modules/leaflet/dist/leaflet.css';*/
 
 html,
 body {
@@ -27,4 +28,9 @@ body.fontLoaded {
 
 :global(#app) > div {
   height: 100%;
+}
+
+.leaflet-container {
+  height: 400px;
+  width: 100%;
 }
