@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import mobX from 'mobx'
-import AutoComplete from 'material-ui/AutoComplete'
+import AutoComplete from '../../../shared/Autocomplete'
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton'
 import TextField from 'material-ui/TextField'
 import Popover from 'material-ui/Popover'
@@ -19,6 +19,7 @@ const Pop = class Pop extends Component { // eslint-disable-line react/prefer-st
       apUmsetzungLabelPopupOpen: false,
       apUmsetzungLabelPopupAnchorEl: null,
     }
+    this.updateProperty = this.updateProperty.bind(this)
   }
 
   componentDidMount() {
@@ -28,6 +29,13 @@ const Pop = class Pop extends Component { // eslint-disable-line react/prefer-st
     store.fetchApStatus()
     store.fetchApUmsetzung()
     store.fetchAdresse()
+  }
+
+  updateProperty(key, value) {
+    const { store } = this.props
+    // TODO: make this an action
+    // that also updates the database
+    store.data.activeDataset.row[key] = value
   }
 
   render() {
@@ -61,21 +69,11 @@ const Pop = class Pop extends Component { // eslint-disable-line react/prefer-st
     return (
       <div className={styles.container}>
         <AutoComplete
-          hintText={store.data.aeEigenschaftenLoading ? `lade Daten...` : ``}
-          fullWidth
-          floatingLabelText="Art"
-          openOnFocus
+          label="Art"
+          fieldName="ApArtId"
+          value={ApArtId}
           dataSource={aeEigenschaften}
-          dataSourceConfig={{
-            value: `id`,
-            text: `label`,
-          }}
-          searchText={searchText}
-          filter={AutoComplete.caseInsensitiveFilter}
-          maxSearchResults={20}
-          onNewRequest={(element) => {
-            console.log(`element clicked:`, element)
-          }}
+          onChange={this.updateProperty}
         />
         <div className={styles.fieldContainer}>
           <div
