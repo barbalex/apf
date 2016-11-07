@@ -7,6 +7,7 @@ import Popover from 'material-ui/Popover'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 import AutoComplete from '../../../shared/Autocomplete'
+import LabelWithPopover from '../../../shared/LabelWithPopover'
 import styles from './styles.css'
 
 const Pop = class Pop extends Component { // eslint-disable-line react/prefer-stateless-function
@@ -14,8 +15,6 @@ const Pop = class Pop extends Component { // eslint-disable-line react/prefer-st
   constructor() {
     super()
     this.state = {
-      apStatusLabelPopupOpen: false,
-      apStatusLabelPopupAncherEl: null,
       apUmsetzungLabelPopupOpen: false,
       apUmsetzungLabelPopupAnchorEl: null,
     }
@@ -41,7 +40,6 @@ const Pop = class Pop extends Component { // eslint-disable-line react/prefer-st
   render() {
     const { store } = this.props
     const {
-      apStatusLabelPopupOpen,
       apUmsetzungLabelPopupOpen,
     } = this.state
     const aeEigenschaften = mobX.toJS(store.data.aeEigenschaften)
@@ -74,53 +72,27 @@ const Pop = class Pop extends Component { // eslint-disable-line react/prefer-st
           onChange={this.updateProperty}
         />
         <div className={styles.fieldContainer}>
-          <div
-            className={styles.labelWithPopover}
-            onClick={(event) => {
-              event.preventDefault()
-              this.setState({
-                apStatusLabelPopupOpen: !apStatusLabelPopupOpen,
-                apStatusLabelPopupAncherEl: event.currentTarget,
-              })
-            }}
-          >
-            Aktionsplan
-            <Popover
-              open={apStatusLabelPopupOpen}
-              anchorEl={this.state.apStatusLabelPopupAncherEl}
-              anchorOrigin={{ horizontal: `left`, vertical: `top` }}
-              targetOrigin={{ horizontal: `left`, vertical: `bottom` }}
-              animated
-              autoCloseWhenOffScreen
-              canAutoPosition
-              onRequestClose={() => {
-                this.setState({ apStatusLabelPopupOpen: false })
-              }}
-              style={{
-                borderRadius: `4px`,
-              }}
-            >
-              <div className={styles.labelPopoverTitleRow}>
-                Legende
+          <LabelWithPopover label="Aktionsplan">
+            <div className={styles.labelPopoverTitleRow}>
+              Legende
+            </div>
+            <div className={styles.labelPopoverContentRow}>
+              <div className={styles.labelPopoverRowColumnLeft}>
+                keiner:
               </div>
-              <div className={styles.labelPopoverContentRow}>
-                <div className={styles.labelPopoverRowColumnLeft}>
-                  keiner:
-                </div>
-                <div className={styles.labelPopoverRowColumnRight}>
-                  kein Aktionsplan vorgesehen
-                </div>
+              <div className={styles.labelPopoverRowColumnRight}>
+                kein Aktionsplan vorgesehen
               </div>
-              <div className={styles.labelPopoverContentRow}>
-                <div className={styles.labelPopoverRowColumnLeft}>
-                  erstellt:
-                </div>
-                <div className={styles.labelPopoverRowColumnRight}>
-                  Aktionsplan fertig, auf der Webseite der FNS
-                </div>
+            </div>
+            <div className={styles.labelPopoverContentRow}>
+              <div className={styles.labelPopoverRowColumnLeft}>
+                erstellt:
               </div>
-            </Popover>
-          </div>
+              <div className={styles.labelPopoverRowColumnRight}>
+                Aktionsplan fertig, auf der Webseite der FNS
+              </div>
+            </div>
+          </LabelWithPopover>
           <RadioButtonGroup
             name="ApStatus"
             valueSelected={store.data.activeDataset.row.ApStatus}
@@ -148,53 +120,27 @@ const Pop = class Pop extends Component { // eslint-disable-line react/prefer-st
           value={store.data.activeDataset.row.ApJahr || ``}
         />
         <div className={styles.fieldContainer}>
-          <div
-            className={styles.labelWithPopover}
-            onClick={(event) => {
-              event.preventDefault()
-              this.setState({
-                apUmsetzungLabelPopupOpen: !apUmsetzungLabelPopupOpen,
-                apUmsetzungLabelPopupAncherEl: event.currentTarget,
-              })
-            }}
-          >
-            Stand Umsetzung
-            <Popover
-              open={apUmsetzungLabelPopupOpen}
-              anchorEl={this.state.apUmsetzungLabelPopupAncherEl}
-              anchorOrigin={{ horizontal: `left`, vertical: `top` }}
-              targetOrigin={{ horizontal: `left`, vertical: `bottom` }}
-              animated
-              autoCloseWhenOffScreen
-              canAutoPosition
-              onRequestClose={() => {
-                this.setState({ apUmsetzungLabelPopupOpen: false })
-              }}
-              style={{
-                borderRadius: `4px`,
-              }}
-            >
-              <div className={styles.labelPopoverTitleRow}>
-                Legende
+          <LabelWithPopover label="Stand Umsetzung">
+            <div className={styles.labelPopoverTitleRow}>
+              Legende
+            </div>
+            <div className={styles.labelPopoverContentRow}>
+              <div className={styles.labelPopoverRowColumnLeft}>
+                noch keine<br />Umsetzung:
               </div>
-              <div className={styles.labelPopoverContentRow}>
-                <div className={styles.labelPopoverRowColumnLeft}>
-                  noch keine<br />Umsetzung:
-                </div>
-                <div className={styles.labelPopoverRowColumnRight}>
-                  noch keine Massnahmen ausgeführt
-                </div>
+              <div className={styles.labelPopoverRowColumnRight}>
+                noch keine Massnahmen ausgeführt
               </div>
-              <div className={styles.labelPopoverContentRow}>
-                <div className={styles.labelPopoverRowColumnLeft}>
-                  in Umsetzung:
-                </div>
-                <div className={styles.labelPopoverRowColumnRight}>
-                  bereits Massnahmen ausgeführt (auch wenn AP noch nicht erstellt)
-                </div>
+            </div>
+            <div className={styles.labelPopoverContentRow}>
+              <div className={styles.labelPopoverRowColumnLeft}>
+                in Umsetzung:
               </div>
-            </Popover>
-          </div>
+              <div className={styles.labelPopoverRowColumnRight}>
+                bereits Massnahmen ausgeführt (auch wenn AP noch nicht erstellt)
+              </div>
+            </div>
+          </LabelWithPopover>
           <RadioButtonGroup
             name="ApUmsetzung"
             valueSelected={store.data.activeDataset.row.ApUmsetzung}

@@ -1,13 +1,18 @@
-.container {
-  width: 100%;
-  padding-left: 10px;
-  padding-right: 10px;
-  overflow-x: auto;
+.label {
+  margin-top: 10px;
+  cursor: text;
+  font-size: 12px;
+  pointer-events: none;
+  color: rgba(255, 255, 255, 0.498039);
+  user-select: none;
+  padding-bottom: 8px;
 }
 
-.fieldContainer {
-  display: flex;
-  flex-direction: column;
+.labelWithPopover {
+  composes: label;
+  cursor: pointer;
+  pointer-events: auto;
+  text-decoration: underline;
 }
 
 .labelPopoverRow {

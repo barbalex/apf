@@ -1,14 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { observer } from 'mobx-react'
 import AutoComplete from 'material-ui/AutoComplete'
-import styles from './styles.css'
 
 const Autocomplete = class Autocomplete extends Component { // eslint-disable-line react/prefer-stateless-function
-
-  constructor() {
-    super()
-
-  }
 
   render() {
     const {
@@ -37,9 +31,8 @@ const Autocomplete = class Autocomplete extends Component { // eslint-disable-li
         searchText={searchText}
         filter={AutoComplete.caseInsensitiveFilter}
         maxSearchResults={20}
-        onNewRequest={(value) => {
-          console.log(`value clicked:`, value.id)
-          onChange(fieldName, value.id)
+        onNewRequest={(val) => {
+          onChange(fieldName, val.id)
         }}
       />
     )
