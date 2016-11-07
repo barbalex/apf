@@ -13,6 +13,8 @@ module.exports = {
     "linebreak-style": 0,
     "react/jsx-sort-props": 0,
     "react/jsx-no-bind": 0,
+    "react/forbid-prop-types": 0,
+    "react/js-filename-extension": 0,
     "comma-dangle": 0,
     "no-use-before-define": 0,
     "consistent-return": 0,
