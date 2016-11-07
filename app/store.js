@@ -61,7 +61,8 @@ class Store extends singleton {
     apStatusLoading: null,
     apErfbeurtkrit: null,
     apErfkrit: null,
-    apUmsetzung: null,
+    apUmsetzung: [],
+    apUmsetzungLoading: false,
     popEntwicklung: null,
     popStatus: null,
     tpopApberrelevant: null,
@@ -132,6 +133,25 @@ class Store extends singleton {
             })
           })
           .catch(error => console.log('error fetching apStatus:', error))
+      }
+    }
+  )
+
+  fetchApUmsetzung = action(
+    'fetchApUmsetzung',
+    () => {
+      // only fetch if not yet fetched
+      if (this.data.apUmsetzung.length === 0) {
+        this.data.apUmsetzungLoading = true
+        fetch(`${apiBaseUrl}/apUmsetzung`)
+          .then(resp => resp.json())
+          .then((apUmsetzung) => {
+            transaction(() => {
+              this.data.apUmsetzung = apUmsetzung
+              this.data.apUmsetzungLoading = false
+            })
+          })
+          .catch(error => console.log('error fetching apUmsetzung:', error))
       }
     }
   )

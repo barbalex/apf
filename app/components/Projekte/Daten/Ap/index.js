@@ -10,6 +10,7 @@ import mobX from 'mobx'
 import styles from './styles.css'
 import AutoComplete from 'material-ui/AutoComplete'
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton'
+import TextField from 'material-ui/TextField'
 
 const Pop = class Pop extends Component { // eslint-disable-line react/prefer-stateless-function
   /*
@@ -23,12 +24,14 @@ const Pop = class Pop extends Component { // eslint-disable-line react/prefer-st
     const { store } = this.props
     store.fetchAeEigenschaften()
     store.fetchApStatus()
+    store.fetchApUmsetzung()
   }
 
   render() {
     const { store } = this.props
     const aeEigenschaften = mobX.toJS(store.data.aeEigenschaften)
     const apStati = mobX.toJS(store.data.apStatus)
+    const apUmsetzungen = mobX.toJS(store.data.apUmsetzung)
     const ApArtId = (
       store.data.activeDataset
       && store.data.activeDataset.row
@@ -75,6 +78,36 @@ const Pop = class Pop extends Component { // eslint-disable-line react/prefer-st
           >
             {
               apStati.map((e, index) =>
+                <RadioButton
+                  value={e.DomainCode}
+                  label={e.DomainTxt}
+                  key={index}
+                />
+              )
+            }
+          </RadioButtonGroup>
+        </div>
+        <TextField
+          floatingLabelText="Start im Jahr"
+          type="number"
+          value={store.data.activeDataset.row.ApJahr}
+        />
+        <div className={styles.fieldContainer}>
+          <div className={styles.label}>
+            Stand Umsetzung
+          </div>
+          <RadioButtonGroup
+            name="ApUmsetzung"
+            valueSelected={store.data.activeDataset.row.ApUmsetzung}
+            floatingLabelText="test"
+            onChange={(event, value) => {
+              // TODO: if clicked element is active value
+              // set null
+              console.log('value clicked:', value)
+            }}
+          >
+            {
+              apUmsetzungen.map((e, index) =>
                 <RadioButton
                   value={e.DomainCode}
                   label={e.DomainTxt}
