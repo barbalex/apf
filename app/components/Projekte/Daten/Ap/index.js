@@ -11,13 +11,18 @@ import styles from './styles.css'
 import AutoComplete from 'material-ui/AutoComplete'
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton'
 import TextField from 'material-ui/TextField'
+import Popover from 'material-ui/Popover'
 
 const Pop = class Pop extends Component { // eslint-disable-line react/prefer-stateless-function
-  /*
+
   constructor() {
     super()
-    // this.activeForm = this.activeForm.bind(this);
-  }*/
+    this.state = {
+      apStatusLabelPopupOpen: false,
+      apStatusLabelPopupAncherEl: null,
+      apUmsetzungLabelPopupOpen: false,
+    }
+  }
 
   componentDidMount() {
     // fetch dropdown data
@@ -29,6 +34,10 @@ const Pop = class Pop extends Component { // eslint-disable-line react/prefer-st
 
   render() {
     const { store } = this.props
+    const {
+      apStatusLabelPopupOpen,
+      apUmsetzungLabelPopupOpen,
+    } = this.state
     const aeEigenschaften = mobX.toJS(store.data.aeEigenschaften)
     const apStati = mobX.toJS(store.data.apStatus)
     const apUmsetzungen = mobX.toJS(store.data.apUmsetzung)
@@ -63,8 +72,52 @@ const Pop = class Pop extends Component { // eslint-disable-line react/prefer-st
           }}
         />
         <div className={styles.fieldContainer}>
-          <div className={styles.label}>
+          <div
+            className={styles.labelWithPopover}
+            onClick={(event) => {
+              event.preventDefault()
+              this.setState({
+                apStatusLabelPopupOpen: !apStatusLabelPopupOpen,
+                apStatusLabelPopupAncherEl: event.currentTarget,
+              })
+            }}
+          >
             Aktionsplan
+            <Popover
+              open={apStatusLabelPopupOpen}
+              anchorEl={this.state.apStatusLabelPopupAncherEl}
+              anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
+              targetOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+              animated
+              autoCloseWhenOffScreen
+              canAutoPosition
+              onRequestClose={() => {
+                this.setState({ apStatusLabelPopupOpen: false })
+              }}
+              style={{
+                borderRadius: '4px',
+              }}
+            >
+              <div className={styles.labelPopoverTitleRow}>
+                Legende
+              </div>
+              <div className={styles.labelPopoverContentRow}>
+                <div className={styles.labelPopoverRowColumnLeft}>
+                  keiner:
+                </div>
+                <div className={styles.labelPopoverRowColumnRight}>
+                  kein Aktionsplan vorgesehen
+                </div>
+              </div>
+              <div className={styles.labelPopoverContentRow}>
+                <div className={styles.labelPopoverRowColumnLeft}>
+                  erstellt:
+                </div>
+                <div className={styles.labelPopoverRowColumnRight}>
+                  Aktionsplan fertig, auf der Webseite der FNS
+                </div>
+              </div>
+            </Popover>
           </div>
           <RadioButtonGroup
             name="ApStatus"
