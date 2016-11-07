@@ -52,8 +52,11 @@ const Pop = class Pop extends Component { // eslint-disable-line react/prefer-st
       null
     )
     let searchText = ``
+    let artwert = ``
     if (ApArtId && aeEigenschaften.length > 0) {
-      searchText = aeEigenschaften.find(e => e.id === ApArtId).label
+      const aeEigenschaftenRow = aeEigenschaften.find(e => e.id === ApArtId)
+      searchText = aeEigenschaftenRow.label
+      artwert = aeEigenschaftenRow.artwert
     }
     return (
       <div className={styles.container}>
@@ -231,6 +234,14 @@ const Pop = class Pop extends Component { // eslint-disable-line react/prefer-st
             )
           }
         </SelectField>
+        <div className={styles.fieldContainer}>
+          <TextField
+            floatingLabelText="Artwert"
+            type="number"
+            value={artwert || ``}
+            disabled
+          />
+        </div>
       </div>
     )
   }
