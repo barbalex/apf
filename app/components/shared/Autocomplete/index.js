@@ -40,12 +40,15 @@ const Autocomplete = class Autocomplete extends Component { // eslint-disable-li
 }
 
 Autocomplete.propTypes = {
-  label: PropTypes.string,
-  fieldName: PropTypes.string,
-  value: PropTypes.number,
-  dataSource: PropTypes.array,
-  dataSourceConfig: PropTypes.object,
-  onChange: PropTypes.func,
+  label: PropTypes.string.isRequired,
+  fieldName: PropTypes.string.isRequired,
+  value: PropTypes.number.isRequired,
+  dataSource: PropTypes.arrayOf(PropTypes.object).isRequired,
+  dataSourceConfig: PropTypes.shape({
+    value: PropTypes.number,
+    text: PropTypes.string,
+  }),
+  onChange: PropTypes.func.isRequired,
 }
 
 export default observer(Autocomplete)
