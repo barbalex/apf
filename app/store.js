@@ -74,7 +74,8 @@ class Store extends singleton {
     tpopmassnErfbeurt: null,
     tpopmassnTyp: null,
     zielTyp: null,
-    adresse: null,
+    adresse: [],
+    adresseLoading: false,
     gemeinde: null,
   })
 
@@ -152,6 +153,25 @@ class Store extends singleton {
             })
           })
           .catch(error => console.log('error fetching apUmsetzung:', error))
+      }
+    }
+  )
+
+  fetchAdresse = action(
+    'fetchAdresse',
+    () => {
+      // only fetch if not yet fetched
+      if (this.data.adresse.length === 0) {
+        this.data.adresseLoading = true
+        fetch(`${apiBaseUrl}/adressen`)
+          .then(resp => resp.json())
+          .then((adresse) => {
+            transaction(() => {
+              this.data.adresse = adresse
+              this.data.adresseLoading = false
+            })
+          })
+          .catch(error => console.log('error fetching adresse:', error))
       }
     }
   )
