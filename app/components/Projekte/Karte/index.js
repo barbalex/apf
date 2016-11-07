@@ -6,7 +6,7 @@
 
 import React from 'react'
 import { observer, inject } from 'mobx-react'
-import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
+import { Map, TileLayer } from 'react-leaflet'
 import styles from './styles.css'
 
 const Karte = class Karte extends React.Component { // eslint-disable-line react/prefer-stateless-function
