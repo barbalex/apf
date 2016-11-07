@@ -67,11 +67,10 @@ const Pop = class Pop extends Component { // eslint-disable-line react/prefer-st
             name="ApStatus"
             valueSelected={store.data.activeDataset.row.ApStatus}
             floatingLabelText="test"
-            onChange={(e, v) => {
+            onChange={(event, value) => {
               // TODO: if clicked element is active value
               // set null
-              console.log('e clicked:', e)
-              console.log('v clicked:', v)
+              console.log('value clicked:', value)
             }}
           >
             {
