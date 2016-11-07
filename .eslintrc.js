@@ -14,7 +14,7 @@ module.exports = {
     "react/jsx-sort-props": 0,
     "react/jsx-no-bind": 0,
     "react/forbid-prop-types": 0,
-    "react/js-filename-extension": 0,
+    "react/jsx-filename-extension": 0,
     "comma-dangle": 0,
     "no-use-before-define": 0,
     "consistent-return": 0,
@@ -33,6 +33,6 @@ module.exports = {
       }
     ],
     "no-param-reassign": ["error", { "props": false }],
-    "no-static-element-interactions": 0
+    "jsx-a11y/no-static-element-interactions": 0
   }
 }

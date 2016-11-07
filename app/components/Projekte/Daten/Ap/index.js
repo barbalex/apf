@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import mobX from 'mobx'
-import AutoComplete from '../../../shared/Autocomplete'
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton'
 import TextField from 'material-ui/TextField'
 import Popover from 'material-ui/Popover'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
+import AutoComplete from '../../../shared/Autocomplete'
 import styles from './styles.css'
 
 const Pop = class Pop extends Component { // eslint-disable-line react/prefer-stateless-function
@@ -59,11 +59,9 @@ const Pop = class Pop extends Component { // eslint-disable-line react/prefer-st
       store.data.activeDataset.row.ApArtId :
       null
     )
-    let searchText = ``
     let artwert = ``
     if (ApArtId && aeEigenschaften.length > 0) {
       const aeEigenschaftenRow = aeEigenschaften.find(e => e.id === ApArtId)
-      searchText = aeEigenschaftenRow.label
       artwert = aeEigenschaftenRow.artwert
     }
     return (
