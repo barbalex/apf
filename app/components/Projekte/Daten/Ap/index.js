@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import mobX from 'mobx'
-import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton'
 import TextField from 'material-ui/TextField'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
@@ -11,7 +10,7 @@ import LabelWithPopover from '../../../shared/LabelWithPopover'
 import updatePropertyHOC from '../../../shared/updatePropertyHOC'
 import styles from './styles.css'
 
-const Pop = class Pop extends Component { // eslint-disable-line react/prefer-stateless-function
+const Ap = class Ap extends Component { // eslint-disable-line react/prefer-stateless-function
 
   /*
   constructor() {
@@ -149,9 +148,9 @@ const Pop = class Pop extends Component { // eslint-disable-line react/prefer-st
   }
 }
 
-Pop.propTypes = {
+Ap.propTypes = {
   store: PropTypes.object,
   updateProperty: PropTypes.func,
 }
 
-export default inject(`store`)(updatePropertyHOC(observer(Pop)))
+export default inject(`store`)(updatePropertyHOC(observer(Ap)))
