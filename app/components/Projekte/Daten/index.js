@@ -18,7 +18,7 @@ const Daten = class Daten extends Component { // eslint-disable-line react/prefe
   activeForm() {
     const { store } = this.props
     if (!store.data.activeDataset || !store.data.activeDataset.table) {
-      return <div></div>
+      return <div />
     }
     switch (store.data.activeDataset.table) {
       case 'ap':
