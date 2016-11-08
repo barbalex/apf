@@ -1,13 +1,12 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import mobX from 'mobx'
-import TextField from 'material-ui/TextField'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 import AutoComplete from '../../../shared/Autocomplete'
 import RadioButtonGroup from '../../../shared/RadioButtonGroup'
 import LabelWithPopover from '../../../shared/LabelWithPopover'
-import MyTextField from '../../../shared/TextField'
+import TextField from '../../../shared/TextField'
 import updatePropertyHOC from '../../../shared/updatePropertyHOC'
 import styles from './styles.css'
 
@@ -87,7 +86,7 @@ const Ap = class Ap extends Component { // eslint-disable-line react/prefer-stat
             updateProperty={updateProperty}
           />
         </div>
-        <MyTextField
+        <TextField
           label="Start im Jahr"
           fieldName="ApJahr"
           value={store.data.activeDataset.row.ApJahr}
@@ -139,10 +138,12 @@ const Ap = class Ap extends Component { // eslint-disable-line react/prefer-stat
         </SelectField>
         <div className={styles.fieldContainer}>
           <TextField
-            floatingLabelText="Artwert"
+            label="Artwert"
+            fieldName="ApJahr"
+            value={artwert}
             type="number"
-            value={artwert || ``}
             disabled
+            updateProperty={updateProperty}
           />
         </div>
       </div>

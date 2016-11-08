@@ -13,15 +13,17 @@ const MyTextField = class MyTextField extends Component { // eslint-disable-line
     const {
       label,
       fieldName,
-      value,
+      value = ``,
       type = `text`,
       updateProperty,
+      disabled = false,
     } = this.props
     return (
       <TextField
         floatingLabelText={label}
         type={type}
         value={value}
+        disabled={disabled}
         onChange={(event, val) =>
           updateProperty(fieldName, val)
         }
@@ -33,12 +35,10 @@ const MyTextField = class MyTextField extends Component { // eslint-disable-line
 MyTextField.propTypes = {
   label: PropTypes.string.isRequired,
   fieldName: PropTypes.string.isRequired,
-  value: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ]).isRequired,
+  value: PropTypes.any,
   type: PropTypes.string,
-  updateProperty: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
+  updateProperty: PropTypes.func,
 }
 
 export default observer(MyTextField)

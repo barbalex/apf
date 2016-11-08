@@ -42,7 +42,7 @@ const Autocomplete = class Autocomplete extends Component { // eslint-disable-li
 Autocomplete.propTypes = {
   label: PropTypes.string.isRequired,
   fieldName: PropTypes.string.isRequired,
-  value: PropTypes.number.isRequired,
+  value: PropTypes.number,
   dataSource: PropTypes.arrayOf(PropTypes.object).isRequired,
   dataSourceConfig: PropTypes.shape({
     value: PropTypes.number,

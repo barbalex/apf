@@ -36,7 +36,7 @@ const MyRadioButtonGroup = class MyRadioButtonGroup extends Component { // eslin
 
 MyRadioButtonGroup.propTypes = {
   fieldName: PropTypes.string.isRequired,
-  value: PropTypes.number.isRequired,
+  value: PropTypes.number,
   dataSource: PropTypes.arrayOf(PropTypes.object).isRequired,
   updateProperty: PropTypes.func.isRequired,
 }
