@@ -4,7 +4,12 @@ import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton'
 
 const MyRadioButtonGroup = class MyRadioButtonGroup extends Component { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { fieldName, value, dataSource, updateProperty } = this.props
+    const {
+      fieldName,
+      value = ``,
+      dataSource,
+      updateProperty,
+    } = this.props
     return (
       <RadioButtonGroup
         name={fieldName}

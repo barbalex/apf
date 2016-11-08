@@ -5,8 +5,9 @@ import TextField from 'material-ui/TextField'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 import AutoComplete from '../../../shared/Autocomplete'
-import MyRadioButtonGroup from '../../../shared/RadioButtonGroup'
+import RadioButtonGroup from '../../../shared/RadioButtonGroup'
 import LabelWithPopover from '../../../shared/LabelWithPopover'
+import MyTextField from '../../../shared/TextField'
 import updatePropertyHOC from '../../../shared/updatePropertyHOC'
 import styles from './styles.css'
 
@@ -15,7 +16,6 @@ const Ap = class Ap extends Component { // eslint-disable-line react/prefer-stat
   /*
   constructor() {
     super()
-    // this.updateProperty = this.updateProperty.bind(this)
   }*/
 
   componentDidMount() {
@@ -80,17 +80,19 @@ const Ap = class Ap extends Component { // eslint-disable-line react/prefer-stat
               </div>
             </div>
           </LabelWithPopover>
-          <MyRadioButtonGroup
+          <RadioButtonGroup
             fieldName="ApStatus"
             value={store.data.activeDataset.row.ApStatus}
             dataSource={apStati}
             updateProperty={updateProperty}
           />
         </div>
-        <TextField
-          floatingLabelText="Start im Jahr"
+        <MyTextField
+          label="Start im Jahr"
+          fieldName="ApJahr"
+          value={store.data.activeDataset.row.ApJahr}
           type="number"
-          value={store.data.activeDataset.row.ApJahr || ``}
+          updateProperty={updateProperty}
         />
         <div className={styles.fieldContainer}>
           <LabelWithPopover label="Stand Umsetzung">
@@ -114,7 +116,7 @@ const Ap = class Ap extends Component { // eslint-disable-line react/prefer-stat
               </div>
             </div>
           </LabelWithPopover>
-          <MyRadioButtonGroup
+          <RadioButtonGroup
             fieldName="ApUmsetzung"
             value={store.data.activeDataset.row.ApUmsetzung}
             dataSource={apUmsetzungen}
