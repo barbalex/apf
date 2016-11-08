@@ -1,12 +1,11 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import mobX from 'mobx'
-import SelectField from 'material-ui/SelectField'
-import MenuItem from 'material-ui/MenuItem'
 import AutoComplete from '../../../shared/Autocomplete'
 import RadioButtonGroup from '../../../shared/RadioButtonGroup'
 import LabelWithPopover from '../../../shared/LabelWithPopover'
 import TextField from '../../../shared/TextField'
+import SelectField from '../../../shared/SelectField'
 import updatePropertyHOC from '../../../shared/updatePropertyHOC'
 import styles from './styles.css'
 
@@ -123,19 +122,15 @@ const Ap = class Ap extends Component { // eslint-disable-line react/prefer-stat
           />
         </div>
         <SelectField
-          floatingLabelText="Verantwortlich"
-          value={store.data.activeDataset.row.ApBearb || ``}
+          label="Verantwortlich"
+          fieldName="ApBearb"
+          value={store.data.activeDataset.row.ApBearb}
+          dataSource={adressen}
+          valueProp="id"
+          labelProp="AdrName"
+          updateProperty={updateProperty}
           autoWidth
-          onChange={(e, value) => {
-            console.log(`value clicked:`, value)
-          }}
-        >
-          {
-            adressen.map((e, index) =>
-              <MenuItem value={e.id} primaryText={e.AdrName} key={index} />
-            )
-          }
-        </SelectField>
+        />
         <div className={styles.fieldContainer}>
           <TextField
             label="Artwert"
@@ -143,7 +138,6 @@ const Ap = class Ap extends Component { // eslint-disable-line react/prefer-stat
             value={artwert}
             type="number"
             disabled
-            updateProperty={updateProperty}
           />
         </div>
       </div>
