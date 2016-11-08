@@ -14,7 +14,7 @@ const Autocomplete = class Autocomplete extends Component { // eslint-disable-li
         value: `id`,
         text: `label`,
       },
-      onChange,
+      updateProperty,
     } = this.props
     let searchText = ``
     if (value && dataSource.length > 0) {
@@ -32,7 +32,7 @@ const Autocomplete = class Autocomplete extends Component { // eslint-disable-li
         filter={AutoComplete.caseInsensitiveFilter}
         maxSearchResults={20}
         onNewRequest={(val) => {
-          onChange(fieldName, val.id)
+          updateProperty(fieldName, val.id)
         }}
       />
     )
@@ -48,7 +48,7 @@ Autocomplete.propTypes = {
     value: PropTypes.number,
     text: PropTypes.string,
   }),
-  onChange: PropTypes.func.isRequired,
+  updateProperty: PropTypes.func.isRequired,
 }
 
 export default observer(Autocomplete)

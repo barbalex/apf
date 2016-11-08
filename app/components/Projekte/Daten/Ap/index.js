@@ -6,6 +6,7 @@ import TextField from 'material-ui/TextField'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 import AutoComplete from '../../../shared/Autocomplete'
+import MyRadioButtonGroup from '../../../shared/RadioButtonGroup'
 import LabelWithPopover from '../../../shared/LabelWithPopover'
 import updatePropertyHOC from '../../../shared/updatePropertyHOC'
 import styles from './styles.css'
@@ -56,7 +57,7 @@ const Pop = class Pop extends Component { // eslint-disable-line react/prefer-st
           fieldName="ApArtId"
           value={ApArtId}
           dataSource={aeEigenschaften}
-          onChange={updateProperty}
+          updateProperty={updateProperty}
         />
         <div className={styles.fieldContainer}>
           <LabelWithPopover label="Aktionsplan">
@@ -80,26 +81,12 @@ const Pop = class Pop extends Component { // eslint-disable-line react/prefer-st
               </div>
             </div>
           </LabelWithPopover>
-          <RadioButtonGroup
-            name="ApStatus"
-            valueSelected={store.data.activeDataset.row.ApStatus}
-            floatingLabelText="test"
-            onChange={(event, value) => {
-              // TODO: if clicked element is active value
-              // set null
-              console.log(`value clicked:`, value)
-            }}
-          >
-            {
-              apStati.map((e, index) =>
-                <RadioButton
-                  value={e.DomainCode}
-                  label={e.DomainTxt}
-                  key={index}
-                />
-              )
-            }
-          </RadioButtonGroup>
+          <MyRadioButtonGroup
+            fieldName="ApStatus"
+            value={store.data.activeDataset.row.ApStatus}
+            dataSource={apStati}
+            updateProperty={updateProperty}
+          />
         </div>
         <TextField
           floatingLabelText="Start im Jahr"
