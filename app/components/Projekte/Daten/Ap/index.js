@@ -115,26 +115,12 @@ const Pop = class Pop extends Component { // eslint-disable-line react/prefer-st
               </div>
             </div>
           </LabelWithPopover>
-          <RadioButtonGroup
-            name="ApUmsetzung"
-            valueSelected={store.data.activeDataset.row.ApUmsetzung}
-            floatingLabelText="test"
-            onChange={(event, value) => {
-              // TODO: if clicked element is active value
-              // set null
-              console.log(`value clicked:`, value)
-            }}
-          >
-            {
-              apUmsetzungen.map((e, index) =>
-                <RadioButton
-                  value={e.DomainCode}
-                  label={e.DomainTxt}
-                  key={index}
-                />
-              )
-            }
-          </RadioButtonGroup>
+          <MyRadioButtonGroup
+            fieldName="ApUmsetzung"
+            value={store.data.activeDataset.row.ApUmsetzung}
+            dataSource={apUmsetzungen}
+            updateProperty={updateProperty}
+          />
         </div>
         <SelectField
           floatingLabelText="Verantwortlich"
