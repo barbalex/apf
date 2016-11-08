@@ -7,15 +7,16 @@ import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 import AutoComplete from '../../../shared/Autocomplete'
 import LabelWithPopover from '../../../shared/LabelWithPopover'
-// import UpdatePropertyHOC from '../../../shared/UpdatePropertyHOC'
+import updatePropertyHOC from '../../../shared/updatePropertyHOC'
 import styles from './styles.css'
 
 const Pop = class Pop extends Component { // eslint-disable-line react/prefer-stateless-function
 
+  /*
   constructor() {
     super()
-    this.updateProperty = this.updateProperty.bind(this)
-  }
+    // this.updateProperty = this.updateProperty.bind(this)
+  }*/
 
   componentDidMount() {
     // fetch dropdown data
@@ -26,15 +27,8 @@ const Pop = class Pop extends Component { // eslint-disable-line react/prefer-st
     store.fetchAdresse()
   }
 
-  updateProperty(key, value) {
-    const { store } = this.props
-    // TODO: make this an action
-    // that also updates the database
-    store.data.activeDataset.row[key] = value
-  }
-
   render() {
-    const { store } = this.props
+    const { store, updateProperty } = this.props
     const aeEigenschaften = mobX.toJS(store.data.aeEigenschaften)
     const apStati = mobX.toJS(store.data.apStatus)
     const apUmsetzungen = mobX.toJS(store.data.apUmsetzung)
@@ -62,7 +56,7 @@ const Pop = class Pop extends Component { // eslint-disable-line react/prefer-st
           fieldName="ApArtId"
           value={ApArtId}
           dataSource={aeEigenschaften}
-          onChange={this.updateProperty}
+          onChange={updateProperty}
         />
         <div className={styles.fieldContainer}>
           <LabelWithPopover label="Aktionsplan">
@@ -184,6 +178,7 @@ const Pop = class Pop extends Component { // eslint-disable-line react/prefer-st
 
 Pop.propTypes = {
   store: PropTypes.object,
+  updateProperty: PropTypes.func,
 }
 
-export default inject(`store`)(observer(Pop))
+export default inject(`store`)(updatePropertyHOC(observer(Pop)))
