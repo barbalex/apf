@@ -86,6 +86,9 @@
       "mocha": true,
       "es6": true
     },
+    "globals": {
+      "fetch": true
+    },
     "plugins": [
       "react",
       "jsx-a11y"
@@ -107,6 +110,7 @@
         2,
         "always-multiline"
       ],
+      "consistent-return": 0,
       "import/imports-first": 0,
       "import/newline-after-import": 0,
       "import/no-extraneous-dependencies": 0,
@@ -127,18 +131,35 @@
       "jsx-a11y/mouse-events-have-key-events": 2,
       "jsx-a11y/role-has-required-aria-props": 2,
       "jsx-a11y/role-supports-aria-props": 2,
-      "max-len": 0,
+      "linebreak-style": 0,
+      "max-len": [
+        "error",
+        120,
+        2,
+        {
+          "ignoreUrls": true,
+          "ignoreStrings": true,
+          "ignoreTemplateLiterals": true,
+          "ignoreTrailingComments": true
+        }
+      ],
       "newline-per-chained-call": 0,
       "no-console": 1,
+      "no-param-reassign": ["error", { "props": false }],
       "no-use-before-define": 0,
       "prefer-template": 2,
+      "quotes": [1, "backtick"],
       "react/forbid-prop-types": 0,
+      "jsx-a11y/no-static-element-interactions": 0,
       "react/jsx-filename-extension": 0,
+      "react/jsx-no-bind": 0,
       "react/jsx-no-target-blank": 0,
+      "react/jsx-sort-props": 0,
       "react/no-unused-prop-types": 0,
+      "react/require-extension": 0,
       "react/self-closing-comp": 0,
       "require-yield": 0,
-      "semi": 0
+      "semi": [2, "never"]
     },
     "settings": {
       "import/resolver": {
