@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react'
-import set from 'lodash/set'
 
 const updatePropertyHOC = function updatePropertyHOC(MyComponent) {
   const Form = class Form extends Component {
@@ -10,8 +9,7 @@ const updatePropertyHOC = function updatePropertyHOC(MyComponent) {
 
     updateProperty(key, value) {
       const { store } = this.props
-      // this.props[formDataProp] = value
-      set(store, `data.activeDataset.row.${key}`, value)
+      store.data.activeDataset.row[key] = value
     }
 
     render() {
