@@ -3,21 +3,17 @@ import { observer, inject } from 'mobx-react'
 import mobX from 'mobx'
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton'
 import TextField from 'material-ui/TextField'
-import Popover from 'material-ui/Popover'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 import AutoComplete from '../../../shared/Autocomplete'
 import LabelWithPopover from '../../../shared/LabelWithPopover'
+// import UpdatePropertyHOC from '../../../shared/UpdatePropertyHOC'
 import styles from './styles.css'
 
 const Pop = class Pop extends Component { // eslint-disable-line react/prefer-stateless-function
 
   constructor() {
     super()
-    this.state = {
-      apUmsetzungLabelPopupOpen: false,
-      apUmsetzungLabelPopupAnchorEl: null,
-    }
     this.updateProperty = this.updateProperty.bind(this)
   }
 
@@ -39,9 +35,6 @@ const Pop = class Pop extends Component { // eslint-disable-line react/prefer-st
 
   render() {
     const { store } = this.props
-    const {
-      apUmsetzungLabelPopupOpen,
-    } = this.state
     const aeEigenschaften = mobX.toJS(store.data.aeEigenschaften)
     const apStati = mobX.toJS(store.data.apStatus)
     const apUmsetzungen = mobX.toJS(store.data.apUmsetzung)
