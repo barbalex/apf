@@ -13,7 +13,7 @@ const MyRadioButtonGroup = class MyRadioButtonGroup extends Component { // eslin
     return (
       <RadioButtonGroup
         name={fieldName}
-        valueSelected={value || undefined}
+        valueSelected={value || ``}
         onChange={(event, valuePassed) => {
           // if clicked element is active value: set null
           const val = valuePassed === value ? null : valuePassed

@@ -24,7 +24,7 @@ const Projekte = class Projekte extends React.Component { // eslint-disable-line
         <Helmet
           title="AP Flora: Projekte"
           meta={[
-            { name: 'description', content: 'Description of Projekte' },
+            { name: `description`, content: `Description of Projekte` },
           ]}
         />
         <Toolbar className={styles.toolbar} >
@@ -61,15 +61,15 @@ const Projekte = class Projekte extends React.Component { // eslint-disable-line
         <div className={styles.content} >
           {
             store.ui.projekte.strukturbaum.visible
-            && <StrukturbaumContainer location={location} />
+              && <StrukturbaumContainer location={location} />
           }
           {
             store.ui.projekte.daten.visible
-            && <Daten />
+              && <Daten />
           }
           {
             store.ui.projekte.karte.visible
-            && <Karte />
+              && <Karte />
           }
         </div>
       </div>
@@ -81,4 +81,4 @@ Projekte.propTypes = {
   store: PropTypes.object,
 }
 
-export default inject('store')(observer(Projekte))
+export default inject(`store`)(observer(Projekte))

@@ -13,13 +13,12 @@ const MySelectField = class MySelectField extends Component { // eslint-disable-
       valueProp,
       labelProp,
       updateProperty,
-      autoWidth,
     } = this.props
     return (
       <SelectField
         floatingLabelText={label}
-        value={value || undefined}
-        autoWidth={autoWidth || false}
+        value={value || ``}
+        fullWidth
         onChange={(event, key, payload) =>
           updateProperty(fieldName, payload)
         }
@@ -42,7 +41,6 @@ MySelectField.propTypes = {
   valueProp: PropTypes.string.isRequired,
   labelProp: PropTypes.string.isRequired,
   updateProperty: PropTypes.func.isRequired,
-  autoWidth: PropTypes.bool
 }
 
 export default observer(MySelectField)

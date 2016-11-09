@@ -23,8 +23,9 @@ const MyTextField = class MyTextField extends Component { // eslint-disable-line
       <TextField
         floatingLabelText={label}
         type={type || `text`}
-        value={value || undefined}
+        value={value || ``}
         disabled={disabled || false}
+        fullWidth
         onChange={(event, val) =>
           updateProperty(fieldName, val)
         }

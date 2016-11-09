@@ -129,7 +129,6 @@ const Ap = class Ap extends Component { // eslint-disable-line react/prefer-stat
           valueProp="id"
           labelProp="AdrName"
           updateProperty={updateProperty}
-          autoWidth
         />
         <div className={styles.fieldContainer}>
           <TextField

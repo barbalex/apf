@@ -22,7 +22,11 @@ const Daten = class Daten extends Component { // eslint-disable-line react/prefe
     }
     switch (store.data.activeDataset.table) {
       case 'ap':
-        return <Ap />
+        return (
+          <div className={styles.container}>
+            <Ap />
+          </div>
+        )
       case 'pop':
         return <Pop />
       default:
