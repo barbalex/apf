@@ -8,18 +8,18 @@ const MySelectField = class MySelectField extends Component { // eslint-disable-
     const {
       label,
       fieldName,
-      value = ``,
+      value,
       dataSource,
       valueProp,
       labelProp,
       updateProperty,
-      autoWidth = false,
+      autoWidth,
     } = this.props
     return (
       <SelectField
         floatingLabelText={label}
-        value={value}
-        autoWidth={autoWidth}
+        value={value || undefined}
+        autoWidth={autoWidth || false}
         onChange={(event, key, payload) =>
           updateProperty(fieldName, payload)
         }

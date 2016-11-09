@@ -8,7 +8,7 @@ const MyAutocomplete = class MyAutocomplete extends Component { // eslint-disabl
     const {
       label,
       fieldName,
-      value = ``,
+      value,
       dataSource,
       dataSourceConfig = {
         value: `id`,
