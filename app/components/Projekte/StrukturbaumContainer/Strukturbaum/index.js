@@ -24,7 +24,7 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
       || !store.data
       || !store.data.nodes
       || (store.data.nodes.length && store.data.nodes.length === 0)
-      || (store.data.nodes[0] && store.data.nodes[0].nodeId === 'none')
+      || (store.data.nodes[0] && store.data.nodes[0].nodeId === `none`)
     ) {
       return (
         <div className={styles.container}>
@@ -71,25 +71,25 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
       let childNodes = []
       const symbolTypes = {
         open: `${String.fromCharCode(709)}`,
-        closed: '>',
-        hasNoChildren: '-',
-        loadingData: '',
+        closed: `>`,
+        hasNoChildren: `-`,
+        loadingData: ``,
       }
       let symbol
-      let symbolClassName = 'symbol'
+      let symbolClassName = `symbol`
       const nodeIsInActiveNodePath = isNodeInActiveNodePath(node, store.data.activeNode)
 
       if (nodeHasChildren && node.expanded) {
         props.onClick = onClick
         symbol = symbolTypes.open
-        symbolClassName = nodeIsInActiveNodePath ? 'symbolOpenInActiveNodePath' : 'symbolOpen'
+        symbolClassName = nodeIsInActiveNodePath ? `symbolOpenInActiveNodePath` : `symbolOpen`
         childNodes = node.children.map(child =>
           renderNode(child, child.nodeId)
         )
       } else if (nodeHasChildren) {
         props.onClick = onClick
         symbol = symbolTypes.closed
-      } else if (node.name === 'lade Daten...') {
+      } else if (node.name === `lade Daten...`) {
         symbol = symbolTypes.loadingData
       } else {
         symbol = symbolTypes.hasNoChildren
@@ -114,7 +114,11 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
         <ul
           key={node.nodeId}
           onClick={props.onClick}
-          className={node.urlPath && node.urlPath.length && node.urlPath.length === 1 ? styles.topUl : null}
+          className={
+            node.urlPath && node.urlPath.length && node.urlPath.length === 1 ?
+            styles.topUl :
+            null
+          }
         >
           <li>
             {childNodes}
@@ -147,4 +151,4 @@ Strukturbaum.propTypes = {
   store: PropTypes.object,
 }
 
-export default inject('store')(observer(Strukturbaum))
+export default inject(`store`)(observer(Strukturbaum))
