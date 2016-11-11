@@ -1,7 +1,7 @@
 /*
  *
  * Karte
- * swisstopo wms: http://wms.geo.admin.ch/?REQUEST=GetCapabilities&SERVICE=WMS&VERSION=1.0.0&lang=de
+ * swisstopo wmts: https://wmts10.geo.admin.ch/EPSG/3857/1.0.0/WMTSCapabilities.xml
  *
  */
 
@@ -17,12 +17,12 @@ import styles from './styles.css'
 const Karte = class Karte extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     const position = [47.295, 8.58]
-    console.log(`Karte: Proj4leaflet:`, Proj4leaflet)
+    // this does not work
+    // see issue on proj4js: https://github.com/proj4js/proj4js/issues/214
     const crs = (
       `EPSG:21781`,
       `+proj=somerc +lat_0=46.95240555555556 +lon_0=7.439583333333333 +k_0=1 +x_0=600000 +y_0=200000 +ellps=bessel +towgs84=674.374,15.056,405.346,0,0,0,0 +units=m +no_defs `
     )
-    console.log(`Karte: proj4:`, window.proj4)
     return (
       <div className={styles.container}>
         <Map
@@ -36,23 +36,26 @@ const Karte = class Karte extends React.Component { // eslint-disable-line react
         >
           <TileLayer
             url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
-            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          />
-          <Marker
-            position={position}
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>'
           />
           <ScaleControl />
           <LayersControl>
             <LayersControl.BaseLayer name="OpenStreetMap.Mapnik">
               <TileLayer
                 url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
-                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>'
               />
             </LayersControl.BaseLayer>
             <LayersControl.BaseLayer name="OpenStreetMap.BlackAndWhite">
               <TileLayer
-                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>'
                 url="http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
+              />
+            </LayersControl.BaseLayer>
+            <LayersControl.BaseLayer name="swisstopo.pixelkarte">
+              <TileLayer
+                url="http://wmts10.geo.admin.ch/1.0.0/ch.swisstopo.pixelkarte-farbe/default/current/3857/{z}/{x}/{y}.jpeg"
+                attribution='&copy; <a href="http://swisstopo.ch">Swisstopo</a>'
               />
             </LayersControl.BaseLayer>
             <LayersControl.Overlay name="Marker with popup">
