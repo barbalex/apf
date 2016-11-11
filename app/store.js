@@ -8,6 +8,7 @@
 import { observable, action, transaction, reaction } from 'mobx'
 import $ from 'jquery'
 import singleton from 'singleton'
+import axios from 'axios'
 
 import getNodeByPath from './modules/getNodeByPath'
 import apiBaseUrl from './modules/apiBaseUrl'
@@ -16,8 +17,8 @@ import tables from './modules/tables'
 import countRowsAboveActiveNode from './modules/countRowsAboveActiveNode'
 
 const noNode = {
-  nodeId: 'none',
-  name: 'this seems to be needed for mobx',
+  nodeId: `none`,
+  name: `this seems to be needed for mobx`,
   expanded: false,
   children: [],
 }
@@ -85,7 +86,7 @@ class Store extends singleton {
     projekte: {
       strukturbaum: {
         visible: true,
-        activeTab: 'strukturbaum',
+        activeTab: `strukturbaum`,
       },
       strukturbaum2: {
         visible: false,
@@ -101,88 +102,83 @@ class Store extends singleton {
   })
 
   fetchAeEigenschaften = action(
-    'fetchAeEigenschaften',
+    `fetchAeEigenschaften`,
     () => {
       // only fetch if not yet fetched
       if (this.data.aeEigenschaften.length === 0) {
         this.data.aeEigenschaftenLoading = true
-        fetch(`${apiBaseUrl}/artliste`)
-          .then(resp => resp.json())
-          .then((aeEigenschaften) => {
+        axios.get(`${apiBaseUrl}/artliste`)
+          .then(({ data: aeEigenschaften }) => {
             transaction(() => {
               this.data.aeEigenschaften = aeEigenschaften
               this.data.aeEigenschaftenLoading = false
             })
           })
-          .catch(error => console.log('error fetching aeEigenschaften:', error))
+          .catch(error => console.log(`error fetching aeEigenschaften:`, error))
       }
     }
   )
 
   fetchApStatus = action(
-    'fetchApStatus',
+    `fetchApStatus`,
     () => {
       // only fetch if not yet fetched
       if (this.data.apStatus.length === 0) {
         this.data.apStatusLoading = true
-        fetch(`${apiBaseUrl}/apStatus`)
-          .then(resp => resp.json())
-          .then((apStatus) => {
+        axios.get(`${apiBaseUrl}/apStatus`)
+          .then(({ data: apStatus }) => {
             transaction(() => {
               this.data.apStatus = apStatus
               this.data.apStatusLoading = false
             })
           })
-          .catch(error => console.log('error fetching apStatus:', error))
+          .catch(error => console.log(`error fetching apStatus:`, error))
       }
     }
   )
 
   fetchApUmsetzung = action(
-    'fetchApUmsetzung',
+    `fetchApUmsetzung`,
     () => {
       // only fetch if not yet fetched
       if (this.data.apUmsetzung.length === 0) {
         this.data.apUmsetzungLoading = true
-        fetch(`${apiBaseUrl}/apUmsetzung`)
-          .then(resp => resp.json())
-          .then((apUmsetzung) => {
+        axios.get(`${apiBaseUrl}/apUmsetzung`)
+          .then(({ data: apUmsetzung }) => {
             transaction(() => {
               this.data.apUmsetzung = apUmsetzung
               this.data.apUmsetzungLoading = false
             })
           })
-          .catch(error => console.log('error fetching apUmsetzung:', error))
+          .catch(error => console.log(`error fetching apUmsetzung:`, error))
       }
     }
   )
 
   fetchAdresse = action(
-    'fetchAdresse',
+    `fetchAdresse`,
     () => {
       // only fetch if not yet fetched
       if (this.data.adresse.length === 0) {
         this.data.adresseLoading = true
-        fetch(`${apiBaseUrl}/adressen`)
-          .then(resp => resp.json())
-          .then((adresse) => {
+        axios.get(`${apiBaseUrl}/adressen`)
+          .then(({ data: adresse }) => {
             transaction(() => {
               this.data.adresse = adresse
               this.data.adresseLoading = false
             })
           })
-          .catch(error => console.log('error fetching adresse:', error))
+          .catch(error => console.log(`error fetching adresse:`, error))
       }
     }
   )
 
   fetchAllNodes = action(
-    'fetchAllNodes',
+    `fetchAllNodes`,
     ({ table, id, folder }) => {
       this.data.loadingAllNodes = true
-      fetch(`${apiBaseUrl}/node?table=${table}&id=${id}&folder=${folder}&levels=all`)
-        .then(resp => resp.json())
-        .then((nodes) => {
+      axios.get(`${apiBaseUrl}/node?table=${table}&id=${id}&folder=${folder}&levels=all`)
+        .then(({ data: nodes }) => {
           transaction(() => {
             this.data.nodes.replace(nodes)
             this.data.loadingAllNodes = false
@@ -193,12 +189,12 @@ class Store extends singleton {
             this.data.activeNode = activeNode
           }
         })
-        .catch(error => console.log('error fetching nodes:', error))
+        .catch(error => console.log(`error fetching nodes:`, error))
     }
   )
 
   openNode = action(
-    'openNode',
+    `openNode`,
     (node, index) => {
       if (node) {
         transaction(() => {
@@ -208,7 +204,7 @@ class Store extends singleton {
             this.data.activeNodeIndex = index
           }
         })
-        // only show 'lade Daten...' if not yet loaded
+        // only show `lade Daten...` if not yet loaded
         if (
           node.children
           && node.children.length === 1
@@ -217,7 +213,7 @@ class Store extends singleton {
           transaction(() => {
             node.children.replace([{
               nodeId: `${node.nodeId}0`,
-              name: 'lade Daten...',
+              name: `lade Daten...`,
               expanded: false,
               children: [],
             }])
@@ -229,12 +225,10 @@ class Store extends singleton {
   )
 
   fetchNodeChildren = action(
-    'fetchNodeChildren',
+    `fetchNodeChildren`,
     (node) => {
-      // console.log('store, fetchNodeChildren: node clicked:', node)
-      fetch(`${apiBaseUrl}/node?table=${node.table}&id=${node.id}&folder=${node.folder ? node.folder : ''}`)
-        .then(resp => resp.json())
-        .then((nodes) => {
+      axios.get(`${apiBaseUrl}/node?table=${node.table}&id=${node.id}&folder=${node.folder ? node.folder : ``}`)
+        .then(({ data: nodes }) => {
           transaction(() => {
             node.children.replace(nodes)
           })
@@ -243,7 +237,7 @@ class Store extends singleton {
   )
 
   closeNode = action(
-    'closeNode',
+    `closeNode`,
     (node) => {
       transaction(() => {
         if (this.data.activeNode !== node) {
@@ -255,7 +249,7 @@ class Store extends singleton {
   )
 
   fetchActiveNodeDataset = action(
-    'fetchActiveNodeDataset',
+    `fetchActiveNodeDataset`,
     ({ table, field, value }) =>
       fetchDataset({ table, field, value })
         .then((dataset) => {
@@ -280,7 +274,11 @@ class Store extends singleton {
           throw new Error(`Table ${activeNode.table} not found in 'modules/table'`)
         }
 
-        this.data.nrOfRowsAboveActiveNode = countRowsAboveActiveNode(this.data.nodes, activeNode, this.data.nrOfRowsAboveActiveNode)
+        this.data.nrOfRowsAboveActiveNode = countRowsAboveActiveNode(
+          this.data.nodes,
+          activeNode,
+          this.data.nrOfRowsAboveActiveNode
+        )
 
         const table = activeNode.table
         const field = myTable.tabelleIdFeld

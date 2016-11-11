@@ -86,9 +86,6 @@
       "mocha": true,
       "es6": true
     },
-    "globals": {
-      "fetch": true
-    },
     "plugins": [
       "react",
       "jsx-a11y"
@@ -243,8 +240,7 @@
     "sanitize.css": "4.1.0",
     "script-loader": "0.7.0",
     "singleton": "1.0.0",
-    "warning": "3.0.0",
-    "whatwg-fetch": "1.0.0"
+    "warning": "3.0.0"
   },
   "devDependencies": {
     "babel-cli": "6.18.0",
