@@ -6,7 +6,6 @@ import RadioButtonGroup from '../../../shared/RadioButtonGroup'
 import LabelWithPopover from '../../../shared/LabelWithPopover'
 import TextField from '../../../shared/TextField'
 import SelectField from '../../../shared/SelectField'
-import updatePropertyHOC from '../../../shared/updatePropertyHOC'
 import styles from './styles.css'
 
 const Ap = class Ap extends Component { // eslint-disable-line react/prefer-stateless-function
@@ -26,7 +25,7 @@ const Ap = class Ap extends Component { // eslint-disable-line react/prefer-stat
   }
 
   render() {
-    const { store, updateProperty } = this.props
+    const { store } = this.props
     const aeEigenschaften = mobX.toJS(store.data.aeEigenschaften)
     const apStati = mobX.toJS(store.data.apStatus)
     const apUmsetzungen = mobX.toJS(store.data.apUmsetzung)
@@ -54,7 +53,7 @@ const Ap = class Ap extends Component { // eslint-disable-line react/prefer-stat
           fieldName="ApArtId"
           value={ApArtId}
           dataSource={aeEigenschaften}
-          updateProperty={updateProperty}
+          updateProperty={store.updateProperty}
         />
         <div className={styles.fieldContainer}>
           <LabelWithPopover label="Aktionsplan">
@@ -82,7 +81,7 @@ const Ap = class Ap extends Component { // eslint-disable-line react/prefer-stat
             fieldName="ApStatus"
             value={store.data.activeDataset.row.ApStatus}
             dataSource={apStati}
-            updateProperty={updateProperty}
+            updateProperty={store.updateProperty}
           />
         </div>
         <TextField
@@ -90,7 +89,7 @@ const Ap = class Ap extends Component { // eslint-disable-line react/prefer-stat
           fieldName="ApJahr"
           value={store.data.activeDataset.row.ApJahr}
           type="number"
-          updateProperty={updateProperty}
+          updateProperty={store.updateProperty}
         />
         <div className={styles.fieldContainer}>
           <LabelWithPopover label="Stand Umsetzung">
@@ -118,7 +117,7 @@ const Ap = class Ap extends Component { // eslint-disable-line react/prefer-stat
             fieldName="ApUmsetzung"
             value={store.data.activeDataset.row.ApUmsetzung}
             dataSource={apUmsetzungen}
-            updateProperty={updateProperty}
+            updateProperty={store.updateProperty}
           />
         </div>
         <SelectField
@@ -128,7 +127,7 @@ const Ap = class Ap extends Component { // eslint-disable-line react/prefer-stat
           dataSource={adressen}
           valueProp="id"
           labelProp="AdrName"
-          updateProperty={updateProperty}
+          updateProperty={store.updateProperty}
         />
         <div className={styles.fieldContainer}>
           <TextField
@@ -146,7 +145,6 @@ const Ap = class Ap extends Component { // eslint-disable-line react/prefer-stat
 
 Ap.propTypes = {
   store: PropTypes.object,
-  updateProperty: PropTypes.func,
 }
 
-export default inject(`store`)(updatePropertyHOC(observer(Ap)))
+export default inject(`store`)(observer(Ap))
