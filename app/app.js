@@ -8,13 +8,11 @@
 
 import 'babel-polyfill'
 
-/* eslint-disable import/no-unresolved */
+/* eslint-disable import/no-webpack-loader-syntax, import/extensions */
 // Load the manifest.json file and the .htaccess file
 import '!file?name=[name].[ext]!./manifest.json'
 import 'file?name=[name].[ext]!./.htaccess'
-/* eslint-enable import/no-unresolved */
-
-// import 'script!jquery'
+/* eslint-enable import/no-webpack-loader-syntax, import/extensions */
 
 // Import all the third party stuff
 import React from 'react'
@@ -26,13 +24,13 @@ import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import DevTools from 'mobx-react-devtools'
 import { Provider } from 'mobx-react'
-import store from './store'
-import styles from './app.css'  // eslint-disable-line no-unused-vars
 
 // Import the CSS reset, which HtmlWebpackPlugin transfers to the build folder
 import 'sanitize.css/sanitize.css'
 
 // import components
+import store from './store'
+import styles from './app.css'  // eslint-disable-line no-unused-vars
 import Router from './components/Router'
 
 // Needed for onTouchTap
@@ -60,11 +58,11 @@ ReactDOM.render(
       </div>
     </MuiThemeProvider>
   </Provider>,
-  document.getElementById('app')
+  document.getElementById(`app`)
 )
 
 // Install ServiceWorker and AppCache in the end since
 // it's not most important operation and if main code fails,
 // we do not want it installed
-import { install } from 'offline-plugin/runtime'
+import { install } from 'offline-plugin/runtime'  // eslint-disable-line import/first
 install()
