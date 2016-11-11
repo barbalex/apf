@@ -14,15 +14,12 @@ import '!file?name=[name].[ext]!./manifest.json'
 import 'file?name=[name].[ext]!./.htaccess'
 /* eslint-enable import/no-unresolved */
 
-import 'script!jquery'
+// import 'script!jquery'
 
 // Import all the third party stuff
 import React from 'react'
 import ReactDOM from 'react-dom'
 import injectTapEventPlugin from 'react-tap-event-plugin'
-// Needed for onTouchTap
-// http://stackoverflow.com/a/34015469/988941
-injectTapEventPlugin()
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
@@ -30,13 +27,17 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import DevTools from 'mobx-react-devtools'
 import { Provider } from 'mobx-react'
 import store from './store'
-import styles from './app.css'
+import styles from './app.css'  // eslint-disable-line no-unused-vars
 
 // Import the CSS reset, which HtmlWebpackPlugin transfers to the build folder
 import 'sanitize.css/sanitize.css'
 
 // import components
 import Router from './components/Router'
+
+// Needed for onTouchTap
+// http://stackoverflow.com/a/34015469/988941
+injectTapEventPlugin()
 
 const theme = Object.assign({}, darkBaseTheme, {
   appBar: {
