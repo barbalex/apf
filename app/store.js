@@ -5,7 +5,7 @@
  */
 /* eslint-disable no-console, no-param-reassign */
 
-import { observable, action, transaction, reaction } from 'mobx'
+import { observable, action, transaction, reaction, toJS } from 'mobx'
 import $ from 'jquery'
 import singleton from 'singleton'
 import axios from 'axios'
@@ -100,6 +100,33 @@ class Store extends singleton {
       },
     },
   })
+
+  updateProperty = action(
+    `updateProperty`,
+    (key, value) => {
+      const { table, row } = this.data.activeDataset
+      if (!key || !table || !row) {
+        return console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
+      }
+      const tabelle = tables.find(t => t.tabelleInDb === table && t.database === `apflora`)
+      const tabelleIdFeld = tabelle ? tabelle.tabelleIdFeld : undefined
+      if (!tabelleIdFeld) {
+        return console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
+      }
+      const tabelleId = row[tabelleIdFeld] ? row[tabelleIdFeld] : undefined
+      if (!tabelleId) {
+        return console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
+      }
+      const { user } = this.data
+      const oldValue = row[key]
+      row[key] = value
+      axios.put(`${apiBaseUrl}/update/apflora/tabelle=${table}/tabelleIdFeld=${tabelleIdFeld}/tabelleId=${tabelleId}/feld=${key}/wert=${value}/user=${user}`)
+        .catch(() => {
+          row[key] = oldValue
+          console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
+        })
+    }
+  )
 
   fetchAeEigenschaften = action(
     `fetchAeEigenschaften`,

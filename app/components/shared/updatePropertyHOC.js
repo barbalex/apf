@@ -9,7 +9,7 @@ const updatePropertyHOC = function updatePropertyHOC(MyComponent) {
 
     updateProperty(key, value) {
       const { store } = this.props
-      store.data.activeDataset.row[key] = value
+      store.updateProperty(key, value)
     }
 
     render() {
