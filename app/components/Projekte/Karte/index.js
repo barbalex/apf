@@ -14,6 +14,9 @@ import Leaflet from 'leaflet'
 // import Proj4leaflet from 'proj4leaflet'
 import styles from './styles.css'
 
+import OsmColorLayer from './layers/OsmColor'
+import OsmBwLayer from './layers/OsmBw'
+
 const Karte = class Karte extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     const position = [47.295, 8.58]
@@ -34,23 +37,14 @@ const Karte = class Karte extends React.Component { // eslint-disable-line react
             console.log(`Lat, Lon : ` + e.latlng.lat + `, ` + e.latlng.lng)
           }}
         >
-          <TileLayer
-            url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
-            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>'
-          />
+          <OsmColorLayer />
           <ScaleControl />
           <LayersControl>
-            <LayersControl.BaseLayer name="OpenStreetMap.Mapnik">
-              <TileLayer
-                url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
-                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>'
-              />
+            <LayersControl.BaseLayer name="OpenStreetMap farbig">
+              <OsmColorLayer />
             </LayersControl.BaseLayer>
-            <LayersControl.BaseLayer name="OpenStreetMap.BlackAndWhite">
-              <TileLayer
-                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>'
-                url="http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
-              />
+            <LayersControl.BaseLayer name="OpenStreetMap grau">
+              <OsmBwLayer />
             </LayersControl.BaseLayer>
             <LayersControl.BaseLayer name="swisstopo.pixelkarte">
               <TileLayer
