@@ -44,6 +44,8 @@ class Store extends singleton {
   data = observable({
     nodes: [noNode],
     loadingAllNodes: false,
+    fields: [],
+    fieldsLoading: false,
     activeNode: null,
     lastClickY: 0,
     nrOfRowsAboveActiveNode: 0,
@@ -101,6 +103,24 @@ class Store extends singleton {
     },
   })
 
+  fetchFields = action(
+    `fetchFields`,
+    () => {
+      // only fetch if not yet fetched
+      if (this.data.fields.length === 0 && !this.data.fieldsLoading) {
+        this.data.aeEigenschaftenLoading = true
+        axios.get(`${apiBaseUrl}/felder`)
+          .then(({ data: fields }) => {
+            transaction(() => {
+              this.data.fields = fields
+              this.data.fieldsLoading = false
+            })
+          })
+          .catch(error => console.log(`error fetching aeEigenschaften:`, error))
+      }
+    }
+  )
+
   updateProperty = action(
     `updateProperty`,
     (key, value) => {
@@ -132,7 +152,7 @@ class Store extends singleton {
     `fetchAeEigenschaften`,
     () => {
       // only fetch if not yet fetched
-      if (this.data.aeEigenschaften.length === 0) {
+      if (this.data.aeEigenschaften.length === 0 && !this.data.aeEigenschaftenLoading) {
         this.data.aeEigenschaftenLoading = true
         axios.get(`${apiBaseUrl}/artliste`)
           .then(({ data: aeEigenschaften }) => {
@@ -150,7 +170,7 @@ class Store extends singleton {
     `fetchApStatus`,
     () => {
       // only fetch if not yet fetched
-      if (this.data.apStatus.length === 0) {
+      if (this.data.apStatus.length === 0 && !this.data.apStatusLoading) {
         this.data.apStatusLoading = true
         axios.get(`${apiBaseUrl}/apStatus`)
           .then(({ data: apStatus }) => {
@@ -168,7 +188,7 @@ class Store extends singleton {
     `fetchApUmsetzung`,
     () => {
       // only fetch if not yet fetched
-      if (this.data.apUmsetzung.length === 0) {
+      if (this.data.apUmsetzung.length === 0 && !this.data.apUmsetzungLoading) {
         this.data.apUmsetzungLoading = true
         axios.get(`${apiBaseUrl}/apUmsetzung`)
           .then(({ data: apUmsetzung }) => {
@@ -186,7 +206,7 @@ class Store extends singleton {
     `fetchAdresse`,
     () => {
       // only fetch if not yet fetched
-      if (this.data.adresse.length === 0) {
+      if (this.data.adresse.length === 0 && !this.data.adresseLoading) {
         this.data.adresseLoading = true
         axios.get(`${apiBaseUrl}/adressen`)
           .then(({ data: adresse }) => {

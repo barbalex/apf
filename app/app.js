@@ -47,6 +47,8 @@ const theme = Object.assign({}, darkBaseTheme, {
 window.app = {}
 window.app.store = store
 
+store.fetchFields()
+
 ReactDOM.render(
   <Provider store={store}>
     <MuiThemeProvider
