@@ -5,7 +5,7 @@
  */
 /* eslint-disable no-console, no-param-reassign */
 
-import { observable, action, transaction, reaction, toJS } from 'mobx'
+import { observable, action, transaction, reaction } from 'mobx'
 import $ from 'jquery'
 import singleton from 'singleton'
 import axios from 'axios'
