@@ -16,6 +16,7 @@ import styles from './styles.css'
 
 import OsmColorLayer from './layers/OsmColor'
 import OsmBwLayer from './layers/OsmBw'
+import SwissTopoPixelFarbeLayer from './layers/SwissTopoPixelFarbe'
 
 const Karte = class Karte extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
@@ -47,10 +48,7 @@ const Karte = class Karte extends React.Component { // eslint-disable-line react
               <OsmBwLayer />
             </LayersControl.BaseLayer>
             <LayersControl.BaseLayer name="swisstopo.pixelkarte">
-              <TileLayer
-                url="http://wmts10.geo.admin.ch/1.0.0/ch.swisstopo.pixelkarte-farbe/default/current/3857/{z}/{x}/{y}.jpeg"
-                attribution='&copy; <a href="http://swisstopo.ch">Swisstopo</a>'
-              />
+              <SwissTopoPixelFarbeLayer />
             </LayersControl.BaseLayer>
             <LayersControl.Overlay name="Marker with popup">
               <Marker position={[51.51, -0.06]}>
