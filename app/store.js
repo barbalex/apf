@@ -26,21 +26,30 @@ const noNode = {
 const noDataset = {
   table: null,
   row: null,
+  valid: null,
 }
 
 class Store extends singleton {
   constructor() {
     super()
-    this.fetchNodeChildren = this.fetchNodeChildren.bind(this)
-    this.openNode = this.openNode.bind(this)
-    this.closeNode = this.closeNode.bind(this)
+    this.updateProperty = this.updateProperty.bind(this)
+    this.fetchAeEigenschaften = this.fetchAeEigenschaften.bind(this)
+    this.fetchApStatus = this.fetchApStatus.bind(this)
+    this.fetchApUmsetzung = this.fetchApUmsetzung.bind(this)
+    this.fetchAdresse = this.fetchAdresse.bind(this)
     this.fetchAllNodes = this.fetchAllNodes.bind(this)
+    this.openNode = this.openNode.bind(this)
+    this.fetchNodeChildren = this.fetchNodeChildren.bind(this)
+    this.closeNode = this.closeNode.bind(this)
+    this.fetchActiveNodeDataset = this.fetchActiveNodeDataset.bind(this)
     this.keepActiveNodeDatasetUpToDate = this.keepActiveNodeDatasetUpToDate.bind(this)
   }
 
   // TODO:
   // - moove lastClickY to ui
   // - moove treeTopPosition to ui
+  // @observable
+  @observable test = "test"
   data = observable({
     nodes: [noNode],
     loadingAllNodes: false,
