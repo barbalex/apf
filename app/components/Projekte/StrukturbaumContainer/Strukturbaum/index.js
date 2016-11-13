@@ -44,7 +44,7 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
     const nrOfRows = getNrOfNodeRows(nodes)
     const rowHeight = (nrOfRows * 23) / nodes.length
     const treeHeightAboveActiveNode = store.data.nrOfRowsAboveActiveNode * 23
-    const roomAboveClick = store.data.lastClickY - store.data.treeTopPosition
+    const roomAboveClick = store.ui.lastClickY - store.data.treeTopPosition
     // correcting by 10px seems to keep the tree from jumping
     const scrolltop = (treeHeightAboveActiveNode - roomAboveClick) + 10
 
@@ -58,7 +58,7 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
     const renderNode = (node, index) => {
       const onClick = (event) => {
         event.stopPropagation()
-        store.data.lastClickY = event.pageY
+        store.ui.lastClickY = event.pageY
         if (node.children && node.expanded) {
           store.closeNode(node)
         } else {

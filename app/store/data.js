@@ -14,7 +14,6 @@ const noDataset = {
 }
 
 // TODO:
-// - moove lastClickY to ui
 // - moove treeTopPosition to ui
 
 class Data {
@@ -23,7 +22,6 @@ class Data {
   @observable fields = []
   @observable fieldsLoading = false
   @observable activeNode = null
-  @observable lastClickY = 0
   @observable nrOfRowsAboveActiveNode = 0
   @observable treeTopPosition = 0
   @observable treeHeight = 0
