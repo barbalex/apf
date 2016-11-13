@@ -5,6 +5,7 @@ class Ui {
   @observable windowWidth = $(window).width()
   @observable windowHeight = $(window).height()
   @observable lastClickY = 0
+  @observable treeTopPosition = 0
   @observable projekte = {
     strukturbaum: {
       visible: true,

@@ -13,9 +13,6 @@ const noDataset = {
   valid: null,
 }
 
-// TODO:
-// - moove treeTopPosition to ui
-
 class Data {
   @observable nodes = [noNode]
   @observable loadingAllNodes = false
@@ -23,7 +20,6 @@ class Data {
   @observable fieldsLoading = false
   @observable activeNode = null
   @observable nrOfRowsAboveActiveNode = 0
-  @observable treeTopPosition = 0
   @observable treeHeight = 0
   @observable activeDataset = noDataset
   @observable nodes2 = [noNode]
