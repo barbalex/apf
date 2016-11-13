@@ -10,11 +10,11 @@ import $ from 'jquery'
 import singleton from 'singleton'
 import axios from 'axios'
 
-import getNodeByPath from './modules/getNodeByPath'
-import apiBaseUrl from './modules/apiBaseUrl'
-import fetchDataset from './modules/fetchDataset'
-import tables from './modules/tables'
-import countRowsAboveActiveNode from './modules/countRowsAboveActiveNode'
+import getNodeByPath from '../modules/getNodeByPath'
+import apiBaseUrl from '../modules/apiBaseUrl'
+import fetchDataset from '../modules/fetchDataset'
+import tables from '../modules/tables'
+import countRowsAboveActiveNode from '../modules/countRowsAboveActiveNode'
 
 const noNode = {
   nodeId: `none`,
@@ -30,6 +30,7 @@ const noDataset = {
 }
 
 class Store extends singleton {
+  @observable test = `test`
   constructor() {
     super()
     this.updateProperty = this.updateProperty.bind(this)
@@ -49,7 +50,8 @@ class Store extends singleton {
   // - moove lastClickY to ui
   // - moove treeTopPosition to ui
   // @observable
-  @observable test = "test"
+  @observable anotherTest = `anotherTest`
+
   data = observable({
     nodes: [noNode],
     loadingAllNodes: false,
