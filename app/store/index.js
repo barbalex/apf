@@ -14,6 +14,7 @@ import apiBaseUrl from '../modules/apiBaseUrl'
 import fetchDataset from '../modules/fetchDataset'
 import tables from '../modules/tables'
 import countRowsAboveActiveNode from '../modules/countRowsAboveActiveNode'
+import ActiveDataset from './data/activeDataset'
 
 import Data from './data'
 import Ui from './ui'
@@ -50,7 +51,7 @@ class Store extends singleton {
               this.data.fieldsLoading = false
             })
           })
-          .catch(error => console.log(`error fetching aeEigenschaften:`, error))
+          .catch(error => console.log(`error fetching fields:`, error))
       }
     }
   )
@@ -248,7 +249,7 @@ class Store extends singleton {
     () => this.data.activeNode,
     (activeNode) => {
       if (!activeNode || !activeNode.table) {
-        this.data.activeDataset = noDataset
+        this.data.activeDataset = ActiveDataset
       } else {
         const myTable = tables.find(t => t.tabelleInDb && t.tabelleInDb === activeNode.table)
         if (!myTable) {
