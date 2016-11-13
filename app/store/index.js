@@ -5,8 +5,7 @@
  */
 /* eslint-disable no-console, no-param-reassign */
 
-import { observable, action, transaction, reaction } from 'mobx'
-import $ from 'jquery'
+import { action, transaction, reaction } from 'mobx'
 import singleton from 'singleton'
 import axios from 'axios'
 
@@ -16,21 +15,10 @@ import fetchDataset from '../modules/fetchDataset'
 import tables from '../modules/tables'
 import countRowsAboveActiveNode from '../modules/countRowsAboveActiveNode'
 
-const noNode = {
-  nodeId: `none`,
-  name: `this seems to be needed for mobx`,
-  expanded: false,
-  children: [],
-}
-
-const noDataset = {
-  table: null,
-  row: null,
-  valid: null,
-}
+import Data from './data'
+import Ui from './ui'
 
 class Store extends singleton {
-  @observable test = `test`
   constructor() {
     super()
     this.updateProperty = this.updateProperty.bind(this)
@@ -46,73 +34,8 @@ class Store extends singleton {
     this.keepActiveNodeDatasetUpToDate = this.keepActiveNodeDatasetUpToDate.bind(this)
   }
 
-  // TODO:
-  // - moove lastClickY to ui
-  // - moove treeTopPosition to ui
-  // @observable
-  @observable anotherTest = `anotherTest`
-
-  data = observable({
-    nodes: [noNode],
-    loadingAllNodes: false,
-    fields: [],
-    fieldsLoading: false,
-    activeNode: null,
-    lastClickY: 0,
-    nrOfRowsAboveActiveNode: 0,
-    treeTopPosition: 0,
-    treeHeight: 0,
-    activeDataset: noDataset,
-    nodes2: [noNode],
-    map: null,
-    user: null,
-    aeEigenschaften: [],
-    aeEigenschaftenLoading: false,
-    aeLr: null,
-    aeFloraStatus: [],
-    aeFloraStatusLoading: false,
-    apStatus: [],
-    apStatusLoading: null,
-    apErfbeurtkrit: null,
-    apErfkrit: null,
-    apUmsetzung: [],
-    apUmsetzungLoading: false,
-    popEntwicklung: null,
-    popStatus: null,
-    tpopApberrelevant: null,
-    tpopEntwicklung: null,
-    tpopkontrIdbiotopuebereinst: null,
-    tpopkontrTyp: null,
-    tpopkontrzaehlEinheit: null,
-    tpopkontrzaehlMethode: null,
-    tpopmassnErfbeurt: null,
-    tpopmassnTyp: null,
-    zielTyp: null,
-    adresse: [],
-    adresseLoading: false,
-    gemeinde: null,
-  })
-
-  ui = observable({
-    windowWidth: $(window).width(),
-    windowHeight: $(window).height(),
-    projekte: {
-      strukturbaum: {
-        visible: true,
-        activeTab: `strukturbaum`,
-      },
-      strukturbaum2: {
-        visible: false,
-        strukturbaumActive: true,
-      },
-      daten: {
-        visible: true,
-      },
-      karte: {
-        visible: false,
-      },
-    },
-  })
+  data = Data
+  ui = Ui
 
   fetchFields = action(
     `fetchFields`,
