@@ -8,6 +8,7 @@
 import { action, transaction, reaction } from 'mobx'
 import singleton from 'singleton'
 import axios from 'axios'
+import objectValues from 'lodash/values'
 
 import getNodeByPath from '../modules/getNodeByPath'
 import apiBaseUrl from '../modules/apiBaseUrl'
@@ -60,9 +61,23 @@ class Store extends singleton {
     `updateProperty`,
     (key, value) => {
       const { table, row } = this.data.activeDataset
+      // ensure primary data exists
       if (!key || !table || !row) {
         return console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
       }
+      row[key] = value
+    }
+  )
+
+  updatePropertyInDb = action(
+    `updateProperty`,
+    (key, value) => {
+      const { table, row, valid } = this.data.activeDataset
+      // ensure primary data exists
+      if (!key || !table || !row) {
+        return
+      }
+      // ensure derived data exists
       const tabelle = tables.find(t => t.tabelleInDb === table && t.database === `apflora`)
       const tabelleIdFeld = tabelle ? tabelle.tabelleIdFeld : undefined
       if (!tabelleIdFeld) {
@@ -72,14 +87,19 @@ class Store extends singleton {
       if (!tabelleId) {
         return console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
       }
-      const { user } = this.data
-      const oldValue = row[key]
-      row[key] = value
-      axios.put(`${apiBaseUrl}/update/apflora/tabelle=${table}/tabelleIdFeld=${tabelleIdFeld}/tabelleId=${tabelleId}/feld=${key}/wert=${value}/user=${user}`)
-        .catch(() => {
-          row[key] = oldValue
-          console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
-        })
+      // TODO: validate
+
+      // update if no validation messages exist
+      if (objectValues(valid).join(``).length > 0) {
+        const { user } = this.data
+        const oldValue = row[key]
+        row[key] = value
+        axios.put(`${apiBaseUrl}/update/apflora/tabelle=${table}/tabelleIdFeld=${tabelleIdFeld}/tabelleId=${tabelleId}/feld=${key}/wert=${value}/user=${user}`)
+          .catch(() => {
+            row[key] = oldValue
+            console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
+          })
+      }
     }
   )
 
@@ -235,9 +255,14 @@ class Store extends singleton {
     ({ table, field, value }) =>
       fetchDataset({ table, field, value })
         .then((dataset) => {
+          const validObject = {}
+          Object.keys(dataset).forEach((k) => {
+            validObject[k] = ``
+          })
           transaction(() => {
             this.data.activeDataset.row = dataset
             this.data.activeDataset.table = table
+            this.data.activeDataset.valid = validObject
           })
         })
         .catch((error) => {

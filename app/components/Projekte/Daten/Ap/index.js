@@ -40,11 +40,12 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
       id: null,
       AdrName: ``,
     })
+    const activeDataset = store.data.activeDataset
     const ApArtId = (
-      store.data.activeDataset
-      && store.data.activeDataset.row
-      && store.data.activeDataset.row.ApArtId ?
-      store.data.activeDataset.row.ApArtId :
+      activeDataset
+      && activeDataset.row
+      && activeDataset.row.ApArtId ?
+      activeDataset.row.ApArtId :
       null
     )
     let artwert = ``
@@ -85,7 +86,7 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
           </LabelWithPopover>
           <RadioButtonGroup
             fieldName="ApStatus"
-            value={store.data.activeDataset.row.ApStatus}
+            value={activeDataset.row.ApStatus}
             dataSource={apStati}
             updateProperty={store.updateProperty}
           />
@@ -93,7 +94,8 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
         <TextField
           label="Start im Jahr"
           fieldName="ApJahr"
-          value={store.data.activeDataset.row.ApJahr}
+          value={activeDataset.row.ApJahr}
+          errorText={activeDataset.valid.ApJahr}
           type="number"
           updateProperty={store.updateProperty}
         />
@@ -121,7 +123,7 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
           </LabelWithPopover>
           <RadioButtonGroup
             fieldName="ApUmsetzung"
-            value={store.data.activeDataset.row.ApUmsetzung}
+            value={activeDataset.row.ApUmsetzung}
             dataSource={apUmsetzungen}
             updateProperty={store.updateProperty}
           />
@@ -129,7 +131,7 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
         <SelectField
           label="Verantwortlich"
           fieldName="ApBearb"
-          value={store.data.activeDataset.row.ApBearb}
+          value={activeDataset.row.ApBearb}
           dataSource={adressen}
           valueProp="id"
           labelProp="AdrName"

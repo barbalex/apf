@@ -9,6 +9,7 @@ class MyTextField extends Component { // eslint-disable-line react/prefer-statel
     label: PropTypes.string.isRequired,
     fieldName: PropTypes.string.isRequired,
     value: PropTypes.any,
+    errorText: PropTypes.string,
     type: PropTypes.string,
     disabled: PropTypes.bool,
     updateProperty: PropTypes.func,
@@ -19,6 +20,7 @@ class MyTextField extends Component { // eslint-disable-line react/prefer-statel
       label,
       fieldName,
       value,
+      errorText,
       type,
       updateProperty,
       disabled,
@@ -29,11 +31,15 @@ class MyTextField extends Component { // eslint-disable-line react/prefer-statel
         floatingLabelText={label}
         type={type || `text`}
         value={value || ``}
+        errorText={errorText || ``}
         disabled={disabled || false}
         fullWidth
         onChange={(event, val) =>
           updateProperty(fieldName, val)
         }
+        onBlur={(event, val) => {
+          console.log(`TextField: val blurred:`, event.target.value)
+        }}
       />
     )
   }
