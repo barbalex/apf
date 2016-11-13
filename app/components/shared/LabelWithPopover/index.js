@@ -3,7 +3,13 @@ import { observer } from 'mobx-react'
 import Popover from 'material-ui/Popover'
 import styles from './styles.css'
 
-const LabelWithPopover = class LabelWithPopover extends Component {
+@observer
+class LabelWithPopover extends Component {
+
+  static propTypes = {
+    label: PropTypes.string.isRequired,
+    children: PropTypes.array.isRequired,
+  }
 
   constructor() {
     super()
@@ -53,9 +59,4 @@ const LabelWithPopover = class LabelWithPopover extends Component {
   }
 }
 
-LabelWithPopover.propTypes = {
-  label: PropTypes.string.isRequired,
-  children: PropTypes.array.isRequired,
-}
-
-export default observer(LabelWithPopover)
+export default LabelWithPopover

@@ -2,7 +2,20 @@ import React, { Component, PropTypes } from 'react'
 import { observer } from 'mobx-react'
 import AutoComplete from 'material-ui/AutoComplete'
 
-const MyAutocomplete = class MyAutocomplete extends Component { // eslint-disable-line react/prefer-stateless-function
+@observer
+class MyAutocomplete extends Component { // eslint-disable-line react/prefer-stateless-function
+
+  static propTypes = {
+    label: PropTypes.string.isRequired,
+    fieldName: PropTypes.string.isRequired,
+    value: PropTypes.number,
+    dataSource: PropTypes.arrayOf(PropTypes.object).isRequired,
+    dataSourceConfig: PropTypes.shape({
+      value: PropTypes.number,
+      text: PropTypes.string,
+    }),
+    updateProperty: PropTypes.func.isRequired,
+  }
 
   render() {
     const {
@@ -39,16 +52,4 @@ const MyAutocomplete = class MyAutocomplete extends Component { // eslint-disabl
   }
 }
 
-MyAutocomplete.propTypes = {
-  label: PropTypes.string.isRequired,
-  fieldName: PropTypes.string.isRequired,
-  value: PropTypes.number,
-  dataSource: PropTypes.arrayOf(PropTypes.object).isRequired,
-  dataSourceConfig: PropTypes.shape({
-    value: PropTypes.number,
-    text: PropTypes.string,
-  }),
-  updateProperty: PropTypes.func.isRequired,
-}
-
-export default observer(MyAutocomplete)
+export default MyAutocomplete

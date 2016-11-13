@@ -11,7 +11,9 @@ import styles from './styles.css'
 import Filter from './Filter'
 import Strukturbaum from './Strukturbaum'
 
-const StrukturbaumContainer = @observer class StrukturbaumContainer extends Component { // eslint-disable-line react/prefer-stateless-function
+@inject(`store`)
+@observer
+class StrukturbaumContainer extends Component { // eslint-disable-line react/prefer-stateless-function
 
   static propTypes = {
     store: PropTypes.object,
@@ -52,11 +54,11 @@ const StrukturbaumContainer = @observer class StrukturbaumContainer extends Comp
         </Tabs>
         <div className={styles.tabsContent} ref={(c) => { this.tree = c }}>
           {
-            activeTab === 'strukturbaum'
+            activeTab === `strukturbaum`
             && <Strukturbaum location={location} />
           }
           {
-            activeTab === 'filter'
+            activeTab === `filter`
             && <Filter />
           }
         </div>
@@ -65,4 +67,4 @@ const StrukturbaumContainer = @observer class StrukturbaumContainer extends Comp
   }
 }
 
-export default inject('store')(StrukturbaumContainer)
+export default StrukturbaumContainer

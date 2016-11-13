@@ -2,12 +2,17 @@ import React, { Component, PropTypes } from 'react'
 import { observer } from 'mobx-react'
 import TextField from 'material-ui/TextField'
 
-const MyTextField = class MyTextField extends Component { // eslint-disable-line react/prefer-stateless-function
+@observer
+class MyTextField extends Component { // eslint-disable-line react/prefer-stateless-function
 
-  /*
-  constructor() {
-    super()
-  }*/
+  static propTypes = {
+    label: PropTypes.string.isRequired,
+    fieldName: PropTypes.string.isRequired,
+    value: PropTypes.any,
+    type: PropTypes.string,
+    disabled: PropTypes.bool,
+    updateProperty: PropTypes.func,
+  }
 
   render() {
     const {
@@ -34,13 +39,4 @@ const MyTextField = class MyTextField extends Component { // eslint-disable-line
   }
 }
 
-MyTextField.propTypes = {
-  label: PropTypes.string.isRequired,
-  fieldName: PropTypes.string.isRequired,
-  value: PropTypes.any,
-  type: PropTypes.string,
-  disabled: PropTypes.bool,
-  updateProperty: PropTypes.func,
-}
-
-export default observer(MyTextField)
+export default MyTextField

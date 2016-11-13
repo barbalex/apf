@@ -3,7 +3,19 @@ import { observer } from 'mobx-react'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 
-const MySelectField = class MySelectField extends Component { // eslint-disable-line react/prefer-stateless-function
+@observer
+class MySelectField extends Component { // eslint-disable-line react/prefer-stateless-function
+
+  static propTypes = {
+    label: PropTypes.string.isRequired,
+    fieldName: PropTypes.string.isRequired,
+    value: PropTypes.any,
+    dataSource: PropTypes.arrayOf(PropTypes.object).isRequired,
+    valueProp: PropTypes.string.isRequired,
+    labelProp: PropTypes.string.isRequired,
+    updateProperty: PropTypes.func.isRequired,
+  }
+
   render() {
     const {
       label,
@@ -33,14 +45,4 @@ const MySelectField = class MySelectField extends Component { // eslint-disable-
   }
 }
 
-MySelectField.propTypes = {
-  label: PropTypes.string.isRequired,
-  fieldName: PropTypes.string.isRequired,
-  value: PropTypes.any,
-  dataSource: PropTypes.arrayOf(PropTypes.object).isRequired,
-  valueProp: PropTypes.string.isRequired,
-  labelProp: PropTypes.string.isRequired,
-  updateProperty: PropTypes.func.isRequired,
-}
-
-export default observer(MySelectField)
+export default MySelectField

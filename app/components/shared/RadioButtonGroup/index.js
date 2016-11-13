@@ -2,7 +2,16 @@ import React, { Component, PropTypes } from 'react'
 import { observer } from 'mobx-react'
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton'
 
-const MyRadioButtonGroup = class MyRadioButtonGroup extends Component { // eslint-disable-line react/prefer-stateless-function
+@observer
+class MyRadioButtonGroup extends Component { // eslint-disable-line react/prefer-stateless-function
+
+  static propTypes = {
+    fieldName: PropTypes.string.isRequired,
+    value: PropTypes.number,
+    dataSource: PropTypes.arrayOf(PropTypes.object).isRequired,
+    updateProperty: PropTypes.func.isRequired,
+  }
+
   render() {
     const {
       fieldName,
@@ -35,11 +44,4 @@ const MyRadioButtonGroup = class MyRadioButtonGroup extends Component { // eslin
   }
 }
 
-MyRadioButtonGroup.propTypes = {
-  fieldName: PropTypes.string.isRequired,
-  value: PropTypes.number,
-  dataSource: PropTypes.arrayOf(PropTypes.object).isRequired,
-  updateProperty: PropTypes.func.isRequired,
-}
-
-export default observer(MyRadioButtonGroup)
+export default MyRadioButtonGroup

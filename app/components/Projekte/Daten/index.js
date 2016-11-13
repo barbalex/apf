@@ -10,14 +10,17 @@ import styles from './styles.css'
 import Ap from './Ap'
 import Pop from './Pop'
 
-const Daten = @observer class Daten extends Component { // eslint-disable-line react/prefer-stateless-function
-  constructor() {
-    super()
-    this.activeForm = this.activeForm.bind(this)
-  }
+@inject(`store`)
+@observer
+class Daten extends Component { // eslint-disable-line react/prefer-stateless-function
 
   static propTypes = {
     store: PropTypes.object,
+  }
+
+  constructor() {
+    super()
+    this.activeForm = this.activeForm.bind(this)
   }
 
   activeForm() {
@@ -26,13 +29,13 @@ const Daten = @observer class Daten extends Component { // eslint-disable-line r
       return <div />
     }
     switch (store.data.activeDataset.table) {
-      case 'ap':
+      case `ap`:
         return (
           <div className={styles.container}>
             <Ap />
           </div>
         )
-      case 'pop':
+      case `pop`:
         return <Pop />
       default:
         return (
@@ -52,4 +55,4 @@ const Daten = @observer class Daten extends Component { // eslint-disable-line r
   }
 }
 
-export default inject('store')(Daten)
+export default Daten

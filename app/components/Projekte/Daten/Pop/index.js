@@ -11,12 +11,13 @@ import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 import styles from './styles.css'
 
-const Pop = @observer class Pop extends Component { // eslint-disable-line react/prefer-stateless-function
-  /*
-  constructor() {
-    super()
-    // this.activeForm = this.activeForm.bind(this);
-  }*/
+@inject(`store`)
+@observer
+class Pop extends Component { // eslint-disable-line react/prefer-stateless-function
+
+  static propTypes = {
+    store: PropTypes.object,
+  }
 
   componentDidMount() {
     // fetch dropdown data
@@ -24,27 +25,23 @@ const Pop = @observer class Pop extends Component { // eslint-disable-line react
     store.fetchAeEigenschaften()
   }
 
-  static propTypes = {
-    store: PropTypes.object,
-  }
-
   render() {
     const { store } = this.props
     const aeEigenschaften = mobX.toJS(store.data.aeEigenschaften)
     aeEigenschaften.unshift({
-      label: '',
+      label: ``,
       id: null,
     })
     return (
       <div className={styles.container}>
         <SelectField
-          hintText={store.data.aeEigenschaftenLoading ? 'lade Daten...' : ''}
+          hintText={store.data.aeEigenschaftenLoading ? `lade Daten...` : ``}
           fullWidth
           floatingLabelText="Art"
           maxHeight={20}
           value={store.data.activeDataset.ApArtId}
           onChange={(element) => {
-            console.log('element:', element)
+            console.log(`element:`, element)
           }}
         >
           {
@@ -58,4 +55,4 @@ const Pop = @observer class Pop extends Component { // eslint-disable-line react
   }
 }
 
-export default inject('store')(Pop)
+export default Pop

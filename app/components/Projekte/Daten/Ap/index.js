@@ -8,7 +8,9 @@ import TextField from '../../../shared/TextField'
 import SelectField from '../../../shared/SelectField'
 import styles from './styles.css'
 
-const Ap = @observer class Ap extends Component { // eslint-disable-line react/prefer-stateless-function
+@inject(`store`)
+@observer
+class Ap extends Component { // eslint-disable-line react/prefer-stateless-function
 
   static propTypes = {
     store: PropTypes.object,
@@ -147,4 +149,4 @@ const Ap = @observer class Ap extends Component { // eslint-disable-line react/p
   }
 }
 
-export default inject(`store`)(Ap)
+export default Ap

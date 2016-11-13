@@ -18,7 +18,9 @@ import OsmColorLayer from './layers/OsmColor'
 import OsmBwLayer from './layers/OsmBw'
 import SwissTopoPixelFarbeLayer from './layers/SwissTopoPixelFarbe'
 
-const Karte = @observer class Karte extends React.Component { // eslint-disable-line react/prefer-stateless-function
+@inject(`store`)
+@observer
+class Karte extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     const position = [47.295, 8.58]
     // this does not work
@@ -64,4 +66,4 @@ const Karte = @observer class Karte extends React.Component { // eslint-disable-
   }
 }
 
-export default inject('store')(Karte)
+export default Karte
