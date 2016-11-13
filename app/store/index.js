@@ -42,7 +42,7 @@ class Store extends singleton {
     () => {
       // only fetch if not yet fetched
       if (this.data.fields.length === 0 && !this.data.fieldsLoading) {
-        this.data.aeEigenschaftenLoading = true
+        this.data.fieldsLoading = true
         axios.get(`${apiBaseUrl}/felder`)
           .then(({ data: fields }) => {
             transaction(() => {
