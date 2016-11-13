@@ -70,8 +70,9 @@ class Store extends singleton {
   )
 
   updatePropertyInDb = action(
-    `updateProperty`,
+    `updatePropertyInDb`,
     (key, value) => {
+      console.log(`updatePropertyInDb, key:`, key)
       const { table, row, valid } = this.data.activeDataset
       // ensure primary data exists
       if (!key || !table || !row) {
@@ -90,7 +91,9 @@ class Store extends singleton {
       // TODO: validate
 
       // update if no validation messages exist
-      if (objectValues(valid).join(``).length > 0) {
+      const combinedValidationMessages = objectValues(valid).join(``)
+      console.log(`updatePropertyInDb, combinedValidationMessages:`, combinedValidationMessages)
+      if (combinedValidationMessages.length === 0) {
         const { user } = this.data
         const oldValue = row[key]
         row[key] = value

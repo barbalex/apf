@@ -13,6 +13,7 @@ class MyTextField extends Component { // eslint-disable-line react/prefer-statel
     type: PropTypes.string,
     disabled: PropTypes.bool,
     updateProperty: PropTypes.func,
+    updatePropertyInDb: PropTypes.func,
   }
 
   render() {
@@ -23,6 +24,7 @@ class MyTextField extends Component { // eslint-disable-line react/prefer-statel
       errorText,
       type,
       updateProperty,
+      updatePropertyInDb,
       disabled,
     } = this.props
 
@@ -37,9 +39,9 @@ class MyTextField extends Component { // eslint-disable-line react/prefer-statel
         onChange={(event, val) =>
           updateProperty(fieldName, val)
         }
-        onBlur={(event, val) => {
-          console.log(`TextField: val blurred:`, event.target.value)
-        }}
+        onBlur={event =>
+          updatePropertyInDb(fieldName, event.target.value)
+        }
       />
     )
   }

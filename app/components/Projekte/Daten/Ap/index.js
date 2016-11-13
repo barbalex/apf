@@ -98,6 +98,7 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
           errorText={activeDataset.valid.ApJahr}
           type="number"
           updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
         />
         <div className={styles.fieldContainer}>
           <LabelWithPopover label="Stand Umsetzung">
