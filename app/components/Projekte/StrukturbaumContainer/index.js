@@ -11,7 +11,12 @@ import styles from './styles.css'
 import Filter from './Filter'
 import Strukturbaum from './Strukturbaum'
 
-const StrukturbaumContainer = class StrukturbaumContainer extends Component { // eslint-disable-line react/prefer-stateless-function
+const StrukturbaumContainer = @observer class StrukturbaumContainer extends Component { // eslint-disable-line react/prefer-stateless-function
+
+  static propTypes = {
+    store: PropTypes.object,
+  }
+
   componentDidMount() {
     const { store } = this.props
     store.data.treeHeight = this.tree.clientHeight
@@ -60,8 +65,4 @@ const StrukturbaumContainer = class StrukturbaumContainer extends Component { //
   }
 }
 
-StrukturbaumContainer.propTypes = {
-  store: PropTypes.object,
-}
-
-export default inject('store')(observer(StrukturbaumContainer))
+export default inject('store')(StrukturbaumContainer)

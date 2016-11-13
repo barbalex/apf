@@ -15,7 +15,11 @@ import StrukturbaumContainer from './StrukturbaumContainer'
 import Daten from './Daten'
 import Karte from './Karte'
 
-const Projekte = class Projekte extends React.Component { // eslint-disable-line react/prefer-stateless-function
+const Projekte = @observer class Projekte extends React.Component { // eslint-disable-line react/prefer-stateless-function
+
+  static propTypes = {
+    store: PropTypes.object,
+  }
   render() {
     const { store } = this.props
 
@@ -77,8 +81,4 @@ const Projekte = class Projekte extends React.Component { // eslint-disable-line
   }
 }
 
-Projekte.propTypes = {
-  store: PropTypes.object,
-}
-
-export default inject(`store`)(observer(Projekte))
+export default inject(`store`)(Projekte)

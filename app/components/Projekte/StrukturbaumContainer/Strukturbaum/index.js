@@ -15,7 +15,11 @@ import getNrOfNodeRows from '../../../../modules/getNrOfNodeRows'
 import isNodeInActiveNodePath from '../../../../modules/isNodeInActiveNodePath'
 import styles from './styles.css'
 
-const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-line react/prefer-stateless-function
+const Strukturbaum = @observer class Strukturbaum extends Component { // eslint-disable-line react/prefer-stateless-function
+
+  static propTypes = {
+    store: PropTypes.object,
+  }
 
   render() {  // eslint-disable-line class-methods-use-this
     const { store } = this.props
@@ -147,8 +151,4 @@ const Strukturbaum = class Strukturbaum extends Component { // eslint-disable-li
   }
 }
 
-Strukturbaum.propTypes = {
-  store: PropTypes.object,
-}
-
-export default inject(`store`)(observer(Strukturbaum))
+export default inject(`store`)(Strukturbaum)

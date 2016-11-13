@@ -7,7 +7,7 @@
 
 import React from 'react'
 import { observer, inject } from 'mobx-react'
-import { Map, TileLayer, Marker, Popup, ScaleControl, LayersControl } from 'react-leaflet'
+import { Map, Marker, Popup, ScaleControl, LayersControl } from 'react-leaflet'
 // import Proj4leaflet from 'proj4leaflet'
 import Leaflet from 'leaflet'
 // import Proj4 from 'proj4'
@@ -18,7 +18,7 @@ import OsmColorLayer from './layers/OsmColor'
 import OsmBwLayer from './layers/OsmBw'
 import SwissTopoPixelFarbeLayer from './layers/SwissTopoPixelFarbe'
 
-const Karte = class Karte extends React.Component { // eslint-disable-line react/prefer-stateless-function
+const Karte = @observer class Karte extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     const position = [47.295, 8.58]
     // this does not work
@@ -64,4 +64,4 @@ const Karte = class Karte extends React.Component { // eslint-disable-line react
   }
 }
 
-export default inject('store')(observer(Karte))
+export default inject('store')(Karte)

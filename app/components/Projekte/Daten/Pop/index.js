@@ -7,11 +7,11 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import mobX from 'mobx'
-import styles from './styles.css'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
+import styles from './styles.css'
 
-const Pop = class Pop extends Component { // eslint-disable-line react/prefer-stateless-function
+const Pop = @observer class Pop extends Component { // eslint-disable-line react/prefer-stateless-function
   /*
   constructor() {
     super()
@@ -22,6 +22,10 @@ const Pop = class Pop extends Component { // eslint-disable-line react/prefer-st
     // fetch dropdown data
     const { store } = this.props
     store.fetchAeEigenschaften()
+  }
+
+  static propTypes = {
+    store: PropTypes.object,
   }
 
   render() {
@@ -54,8 +58,4 @@ const Pop = class Pop extends Component { // eslint-disable-line react/prefer-st
   }
 }
 
-Pop.propTypes = {
-  store: PropTypes.object,
-}
-
-export default inject('store')(observer(Pop))
+export default inject('store')(Pop)

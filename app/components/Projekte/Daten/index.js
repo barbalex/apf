@@ -10,11 +10,16 @@ import styles from './styles.css'
 import Ap from './Ap'
 import Pop from './Pop'
 
-const Daten = class Daten extends Component { // eslint-disable-line react/prefer-stateless-function
+const Daten = @observer class Daten extends Component { // eslint-disable-line react/prefer-stateless-function
   constructor() {
     super()
     this.activeForm = this.activeForm.bind(this)
   }
+
+  static propTypes = {
+    store: PropTypes.object,
+  }
+
   activeForm() {
     const { store } = this.props
     if (!store.data.activeDataset || !store.data.activeDataset.table) {
@@ -47,8 +52,4 @@ const Daten = class Daten extends Component { // eslint-disable-line react/prefe
   }
 }
 
-Daten.propTypes = {
-  store: PropTypes.object,
-}
-
-export default inject('store')(observer(Daten))
+export default inject('store')(Daten)

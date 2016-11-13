@@ -8,7 +8,7 @@ import React, { Component } from 'react'
 import { observer } from 'mobx-react'
 import styles from './styles.css'
 
-const Filter = observer(
+const Filter = @observer
   class Filter extends Component { // eslint-disable-line react/prefer-stateless-function
     render() {
       return (
@@ -18,6 +18,5 @@ const Filter = observer(
       )
     }
   }
-)
 
 export default Filter
