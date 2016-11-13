@@ -227,6 +227,7 @@
     "intl": "1.2.5",
     "invariant": "2.2.1",
     "ip": "1.1.4",
+    "joi-browser": "^9.1.0",
     "jquery": "3.1.1",
     "leaflet": "1.0.1",
     "lodash": "4.16.6",

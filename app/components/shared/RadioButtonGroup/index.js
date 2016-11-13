@@ -9,7 +9,7 @@ class MyRadioButtonGroup extends Component { // eslint-disable-line react/prefer
     fieldName: PropTypes.string.isRequired,
     value: PropTypes.number,
     dataSource: PropTypes.arrayOf(PropTypes.object).isRequired,
-    updateProperty: PropTypes.func.isRequired,
+    updatePropertyInDb: PropTypes.func.isRequired,
   }
 
   render() {
@@ -17,7 +17,7 @@ class MyRadioButtonGroup extends Component { // eslint-disable-line react/prefer
       fieldName,
       value,
       dataSource,
-      updateProperty,
+      updatePropertyInDb,
     } = this.props
     const valueSelected = value >= 0 ? value : ``
     return (
@@ -27,7 +27,7 @@ class MyRadioButtonGroup extends Component { // eslint-disable-line react/prefer
         onChange={(event, valuePassed) => {
           // if clicked element is active value: set null
           const val = valuePassed === value ? null : valuePassed
-          updateProperty(fieldName, val)
+          updatePropertyInDb(fieldName, val)
         }}
       >
         {

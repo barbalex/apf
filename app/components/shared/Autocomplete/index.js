@@ -14,7 +14,14 @@ class MyAutocomplete extends Component { // eslint-disable-line react/prefer-sta
       value: PropTypes.number,
       text: PropTypes.string,
     }),
-    updateProperty: PropTypes.func.isRequired,
+    updatePropertyInDb: PropTypes.func.isRequired,
+  }
+
+  constructor() {
+    super()
+    this.state = {
+      artText: ``,
+    }
   }
 
   render() {
@@ -27,12 +34,19 @@ class MyAutocomplete extends Component { // eslint-disable-line react/prefer-sta
         value: `id`,
         text: `label`,
       },
-      updateProperty,
+      updatePropertyInDb,
     } = this.props
+    const { artText } = this.state
     let searchText = ``
     if (value && dataSource.length > 0) {
       searchText = dataSource.find(e => e.id === value).label
     }
+    const errorText = (
+      artText !== `` && artText !== dataSource.find(e => e.id === value).label ?
+      `Keine Art gewählt` :
+      ``
+    )
+
     return (
       <AutoComplete
         hintText={dataSource.length === 0 ? `lade Daten...` : ``}
@@ -42,11 +56,15 @@ class MyAutocomplete extends Component { // eslint-disable-line react/prefer-sta
         dataSource={dataSource}
         dataSourceConfig={dataSourceConfig}
         searchText={searchText}
+        errorText={errorText}
         filter={AutoComplete.caseInsensitiveFilter}
         maxSearchResults={20}
-        onNewRequest={(val) => {
-          updateProperty(fieldName, val.id)
+        onUpdateInput={(val) => {
+          this.setState({ artText: val })
         }}
+        onNewRequest={val =>
+          updatePropertyInDb(fieldName, val.id)
+        }
       />
     )
   }

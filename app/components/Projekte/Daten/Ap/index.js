@@ -59,8 +59,10 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
           label="Art"
           fieldName="ApArtId"
           value={ApArtId}
+          errorText={activeDataset.valid.ApArtId}
           dataSource={aeEigenschaften}
           updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
         />
         <div className={styles.fieldContainer}>
           <LabelWithPopover label="Aktionsplan">
@@ -87,6 +89,7 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
           <RadioButtonGroup
             fieldName="ApStatus"
             value={activeDataset.row.ApStatus}
+            errorText={activeDataset.valid.ApStatus}
             dataSource={apStati}
             updateProperty={store.updateProperty}
           />

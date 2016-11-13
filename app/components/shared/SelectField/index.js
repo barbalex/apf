@@ -13,7 +13,7 @@ class MySelectField extends Component { // eslint-disable-line react/prefer-stat
     dataSource: PropTypes.arrayOf(PropTypes.object).isRequired,
     valueProp: PropTypes.string.isRequired,
     labelProp: PropTypes.string.isRequired,
-    updateProperty: PropTypes.func.isRequired,
+    updatePropertyInDb: PropTypes.func.isRequired,
   }
 
   render() {
@@ -24,7 +24,7 @@ class MySelectField extends Component { // eslint-disable-line react/prefer-stat
       dataSource,
       valueProp,
       labelProp,
-      updateProperty,
+      updatePropertyInDb,
     } = this.props
     return (
       <SelectField
@@ -32,7 +32,7 @@ class MySelectField extends Component { // eslint-disable-line react/prefer-stat
         value={value || ``}
         fullWidth
         onChange={(event, key, payload) =>
-          updateProperty(fieldName, payload)
+          updatePropertyInDb(fieldName, payload)
         }
       >
         {

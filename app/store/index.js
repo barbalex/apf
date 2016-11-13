@@ -16,6 +16,7 @@ import fetchDataset from '../modules/fetchDataset'
 import tables from '../modules/tables'
 import countRowsAboveActiveNode from '../modules/countRowsAboveActiveNode'
 import ActiveDataset from './data/activeDataset'
+import validateActiveDataset from '../modules/validateActiveDataset'
 
 import Data from './data'
 import Ui from './ui'
@@ -74,10 +75,12 @@ class Store extends singleton {
     (key, value) => {
       console.log(`updatePropertyInDb, key:`, key)
       const { table, row, valid } = this.data.activeDataset
+
       // ensure primary data exists
       if (!key || !table || !row) {
         return
       }
+
       // ensure derived data exists
       const tabelle = tables.find(t => t.tabelleInDb === table && t.database === `apflora`)
       const tabelleIdFeld = tabelle ? tabelle.tabelleIdFeld : undefined
@@ -88,7 +91,9 @@ class Store extends singleton {
       if (!tabelleId) {
         return console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
       }
-      // TODO: validate
+
+      // validate using activeDataset (table, row, valid) and fields
+      validateActiveDataset(this.data.activeDataset, this.data.fields)
 
       // update if no validation messages exist
       const combinedValidationMessages = objectValues(valid).join(``)
