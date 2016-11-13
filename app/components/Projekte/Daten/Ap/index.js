@@ -91,7 +91,7 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
             value={activeDataset.row.ApStatus}
             errorText={activeDataset.valid.ApStatus}
             dataSource={apStati}
-            updateProperty={store.updateProperty}
+            updatePropertyInDb={store.updatePropertyInDb}
           />
         </div>
         <TextField
@@ -128,18 +128,20 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
           <RadioButtonGroup
             fieldName="ApUmsetzung"
             value={activeDataset.row.ApUmsetzung}
+            errorText={activeDataset.valid.ApUmsetzung}
             dataSource={apUmsetzungen}
-            updateProperty={store.updateProperty}
+            updatePropertyInDb={store.updatePropertyInDb}
           />
         </div>
         <SelectField
           label="Verantwortlich"
           fieldName="ApBearb"
           value={activeDataset.row.ApBearb}
+          errorText={activeDataset.valid.ApBearb}
           dataSource={adressen}
           valueProp="id"
           labelProp="AdrName"
-          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
         />
         <div className={styles.fieldContainer}>
           <TextField
