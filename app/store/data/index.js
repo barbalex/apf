@@ -1,16 +1,11 @@
 import { observable } from 'mobx'
+import ActiveDataset from './activeDataset'
 
 const noNode = {
   nodeId: `none`,
   name: `this seems to be needed for mobx`,
   expanded: false,
   children: [],
-}
-
-const noDataset = {
-  table: null,
-  row: null,
-  valid: null,
 }
 
 class Data {
@@ -21,7 +16,7 @@ class Data {
   @observable activeNode = null
   @observable nrOfRowsAboveActiveNode = 0
   @observable treeHeight = 0
-  @observable activeDataset = noDataset
+  activeDataset = ActiveDataset
   @observable nodes2 = [noNode]
   @observable map = null
   @observable user = null
