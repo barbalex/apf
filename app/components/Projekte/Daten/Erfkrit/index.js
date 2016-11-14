@@ -4,7 +4,6 @@ import mobX from 'mobx'
 import RadioButtonGroup from '../../../shared/RadioButtonGroup'
 import Label from '../../../shared/Label'
 import TextField from '../../../shared/TextField'
-import SelectField from '../../../shared/SelectField'
 import styles from './styles.css'
 
 @inject(`store`)
@@ -30,13 +29,24 @@ class Erfkrit extends Component { // eslint-disable-line react/prefer-stateless-
         <div className={styles.fieldContainer}>
           <Label label="Beurteilung" />
           <RadioButtonGroup
-            fieldName="ApErfkritWerte"
-            value={activeDataset.row.ApErfkritWerte}
-            errorText={activeDataset.valid.ApErfkritWerte}
+            fieldName="ErfkritErreichungsgrad"
+            value={activeDataset.row.ErfkritErreichungsgrad}
+            errorText={activeDataset.valid.ErfkritErreichungsgrad}
             dataSource={apErfkritWerte}
             updatePropertyInDb={store.updatePropertyInDb}
           />
         </div>
+        <TextField
+          label="Kriterien"
+          fieldName="ErfkritTxt"
+          value={activeDataset.row.ErfkritTxt}
+          errorText={activeDataset.valid.ErfkritTxt}
+          type="text"
+          multiLine
+          fullWidth
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
       </div>
     )
   }
