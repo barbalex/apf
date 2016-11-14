@@ -17,6 +17,7 @@ import tables from '../modules/tables'
 import countRowsAboveActiveNode from '../modules/countRowsAboveActiveNode'
 import ActiveDataset from './data/activeDataset'
 import validateActiveDataset from '../modules/validateActiveDataset'
+import getActiveApNode from '../modules/getActiveApNode'
 
 import DataStore from './data'
 import UiStore from './ui'
@@ -258,6 +259,17 @@ class Store extends singleton {
       .catch((error) => {
         throw error
       })
+
+  keepActiveNodeLabelUpToDate = reaction(
+    () => this.data.activeNode.ApArtId,
+    (ApArtId) => {
+      const { activeNode, nodes } = this.data
+      const activeApNode = getActiveApNode(ApArtId, activeNode, nodes)
+      if (activeApNode) {
+        // TODO: set all necessary values
+      }
+    }
+  )
 
   keepActiveNodeDatasetUpToDate = reaction(
     () => this.data.activeNode,

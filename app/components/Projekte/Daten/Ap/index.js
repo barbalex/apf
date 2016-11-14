@@ -6,6 +6,7 @@ import RadioButtonGroup from '../../../shared/RadioButtonGroup'
 import LabelWithPopover from '../../../shared/LabelWithPopover'
 import TextField from '../../../shared/TextField'
 import SelectField from '../../../shared/SelectField'
+import getApNodeIds from '../../../modules/getApNodeIds'
 import styles from './styles.css'
 
 @inject(`store`)
@@ -53,6 +54,8 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
       const aeEigenschaftenRow = aeEigenschaften.find(e => e.id === ApArtId)
       artwert = aeEigenschaftenRow.artwert
     }
+    const apNodeIds = getApNodeIds(store.data.activeNode, store.data.nodes)
+    const artIdsToIgnore = aeEigenschaften.filter(r => !apNodeIds.includes(r.id))
     return (
       <div className={styles.container}>
         <AutoComplete
