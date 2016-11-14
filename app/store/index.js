@@ -72,7 +72,6 @@ class Store extends singleton {
 
   @action
   updatePropertyInDb = (key, value) => {
-    console.log(`updatePropertyInDb, key:`, key)
     const { table, row, valid } = this.data.activeDataset
 
     // ensure primary data exists
@@ -96,7 +95,7 @@ class Store extends singleton {
 
     // update if no validation messages exist
     const combinedValidationMessages = objectValues(valid).join(``)
-    console.log(`updatePropertyInDb, combinedValidationMessages:`, combinedValidationMessages)
+    // console.log(`updatePropertyInDb, combinedValidationMessages:`, combinedValidationMessages)
     if (combinedValidationMessages.length === 0) {
       const { user } = this.data
       const oldValue = row[key]
@@ -268,8 +267,7 @@ class Store extends singleton {
         const { activeNode } = this.data
         if (activeNode) {
           activeNode.id = ApArtId
-          const eig = this.data.aeEigenschaften.find(e => e.id === ApArtId)
-          activeNode.name = eig ? eig.label : ``
+          activeNode.name = this.data.artname
           const newNodeId = `${activeNode.table}/${ApArtId}`
           activeNode.nodeId = newNodeId
           activeNode.nodeIdPath[3] = newNodeId

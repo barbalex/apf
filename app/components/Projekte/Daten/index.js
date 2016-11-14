@@ -7,6 +7,7 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import styles from './styles.css'
+import Projekt from './Projekt'
 import Ap from './Ap'
 import Pop from './Pop'
 
@@ -29,6 +30,12 @@ class Daten extends Component { // eslint-disable-line react/prefer-stateless-fu
       return <div />
     }
     switch (store.data.activeDataset.table) {
+      case `projekt`:
+        return (
+          <div className={styles.container}>
+            <Projekt />
+          </div>
+        )
       case `ap`:
         return (
           <div className={styles.container}>
