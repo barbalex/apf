@@ -260,6 +260,18 @@ class Store extends singleton {
         throw error
       })
 
+  keepActiveProjektNodeUpToDate = reaction(
+    () => get(this, `data.activeDataset.row.ProjName`),
+    (ProjName) => {
+      console.log(`keepActiveProjektNodeUpToDate, ProjName:`, ProjName)
+      const { activeNode } = this.data
+      console.log(`keepActiveProjektNodeUpToDate, activeNode:`, activeNode)
+      if (activeNode) {
+        activeNode.name = ProjName
+      }
+    }
+  )
+
   keepActiveApNodeUpToDate = reaction(
     () => get(this, `data.activeDataset.row.ApArtId`),
     (ApArtId) => {
