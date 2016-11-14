@@ -18,7 +18,7 @@ import tables from '../modules/tables'
 import countRowsAboveActiveNode from '../modules/countRowsAboveActiveNode'
 import ActiveDataset from './data/activeDataset'
 import validateActiveDataset from '../modules/validateActiveDataset'
-import getActiveApNode from '../modules/getActiveApNode'
+import getApNodeByApArtId from '../modules/getApNodeByApArtId'
 
 import DataStore from './data'
 import UiStore from './ui'
@@ -264,19 +264,16 @@ class Store extends singleton {
   keepActiveApNodeUpToDate = reaction(
     () => get(this, `data.activeDataset.row.ApArtId`),
     (ApArtId) => {
-      console.log(`keepActiveNodeUpToDate, ApArtId:`, ApArtId)
       if (ApArtId) {
-        const { activeNode, nodes } = this.data
-        const activeApNode = getActiveApNode(ApArtId, activeNode, nodes)
-        if (activeApNode) {
-          // TODO: set all necessary values:
-          // - id
-          // - name (aeEigenschaften.find...)
-          // - table (=ap)
-          // - nodeId: table/id
-          // - nodeIdPath: nodeIdPath[3] = nodeId
-          // urlPath: urlPath[3] = id
-          console.log(`keepActiveNodeUpToDate`)
+        const { activeNode } = this.data
+        if (activeNode) {
+          activeNode.id = ApArtId
+          const eig = this.data.aeEigenschaften.find(e => e.id === ApArtId)
+          activeNode.name = eig ? eig.label : ``
+          const newNodeId = `${activeNode.table}/${ApArtId}`
+          activeNode.nodeId = newNodeId
+          activeNode.nodeIdPath[3] = newNodeId
+          activeNode.urlPath[3] = ApArtId
         }
       }
     }
@@ -300,22 +297,22 @@ class Store extends singleton {
         )
 
         const table = activeNode.table
-        const field = myTable.tabelleIdFeld
-        const value = activeNode.id
+        const tabelleIdFeld = myTable.tabelleIdFeld
+        const id = activeNode.id
         const activeDataset = this.data.activeDataset
         if (
           activeDataset
           && activeDataset.table
           && activeDataset.table === table
           && activeDataset.row
-          && activeDataset.row[field]
-          && activeDataset.row[field] === value
+          && activeDataset.row[tabelleIdFeld]
+          && activeDataset.row[tabelleIdFeld] === id
         ) {
           // active dataset has not changed
           // maybe only activeNode.expanded has changed
           // do nothing
         } else {
-          this.fetchActiveNodeDataset({ table, field, value })
+          this.fetchActiveNodeDataset({ table, field: tabelleIdFeld, value: id })
         }
       }
     }
