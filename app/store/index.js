@@ -18,7 +18,6 @@ import tables from '../modules/tables'
 import countRowsAboveActiveNode from '../modules/countRowsAboveActiveNode'
 import ActiveDataset from './data/activeDataset'
 import validateActiveDataset from '../modules/validateActiveDataset'
-import getApNodeByApArtId from '../modules/getApNodeByApArtId'
 
 import DataStore from './data'
 import UiStore from './ui'
@@ -31,6 +30,8 @@ class Store extends singleton {
     this.fetchAeEigenschaften = this.fetchAeEigenschaften.bind(this)
     this.fetchApStatus = this.fetchApStatus.bind(this)
     this.fetchApUmsetzung = this.fetchApUmsetzung.bind(this)
+    this.fetchApErfkritWerte = this.fetchApErfkritWerte.bind(this)
+
     this.fetchAdresse = this.fetchAdresse.bind(this)
     this.fetchAllNodes = this.fetchAllNodes.bind(this)
     this.openNode = this.openNode.bind(this)
@@ -157,6 +158,22 @@ class Store extends singleton {
           })
         })
         .catch(error => console.log(`error fetching apUmsetzung:`, error))
+    }
+  }
+
+  @action
+  fetchApErfkritWerte = () => {
+    // only fetch if not yet fetched
+    if (this.data.apErfkritWerte.length === 0 && !this.data.apErfkritWerteLoading) {
+      this.data.apErfkritWerteLoading = true
+      axios.get(`${apiBaseUrl}/apErfkritWerte`)
+        .then(({ data: apErfkritWerte }) => {
+          transaction(() => {
+            this.data.apErfkritWerte = apErfkritWerte
+            this.data.apErfkritWerteLoading = false
+          })
+        })
+        .catch(error => console.log(`error fetching apErfkritWerte:`, error))
     }
   }
 

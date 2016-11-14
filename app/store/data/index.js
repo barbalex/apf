@@ -39,6 +39,8 @@ class Data {
   @observable apErfkrit = null
   @observable apUmsetzung = []
   @observable apUmsetzungLoading = false
+  @observable apErfkritWerte = []
+  @observable apErfkritWerteLoading = false
   @observable popEntwicklung = null
   @observable popStatus = null
   @observable tpopApberrelevant = null
