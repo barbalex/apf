@@ -1,4 +1,4 @@
-import { observable } from 'mobx'
+import { observable, computed, toJS } from 'mobx'
 import ActiveDataset from './activeDataset'
 
 const noNode = {
@@ -17,6 +17,14 @@ class Data {
   @observable nrOfRowsAboveActiveNode = 0
   @observable treeHeight = 0
   activeDataset = ActiveDataset
+  @computed get artname() {
+    const aeEigenschaften = toJS(this.aeEigenschaften)
+    let artname = ``
+    if (this.activeDataset.row && this.activeDataset.row.ApArtId && aeEigenschaften.length > 0) {
+      artname = aeEigenschaften.find(e => e.id === this.activeDataset.row.ApArtId).label
+    }
+    return artname
+  }
   @observable nodes2 = [noNode]
   @observable map = null
   @observable user = null

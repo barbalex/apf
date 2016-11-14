@@ -20,19 +20,18 @@ export default (activeDataset, allFields) => {
     let validDataType = true
     const field = fields.find(f => f.column_name === key)
     if (field) {
-      // TODO: validate
       const dataType = field.data_type
       switch (dataType) {
         case `integer`: {
-          validDataType = Joi.validate(value, Joi.number().integer().min(-2147483648).max(+2147483647))
+          validDataType = Joi.validate(value, Joi.number().integer().min(-2147483648).max(+2147483647).allow(null))
           break
         }
         case `smallint`: {
-          validDataType = Joi.validate(value, Joi.number().integer().min(-32768).max(+32767))
+          validDataType = Joi.validate(value, Joi.number().integer().min(-32768).max(+32767).allow(null))
           break
         }
         case `double precision`: {
-          validDataType = Joi.validate(value, Joi.number().precision(15))
+          validDataType = Joi.validate(value, Joi.number().precision(15).allow(null))
           break
         }
         case `character varying`: {
@@ -40,20 +39,20 @@ export default (activeDataset, allFields) => {
           // - if field type is varchar: check if value length complies to character_maximum_length
           const maxLen = field.character_maximum_length
           if (!validDataType.error && maxLen) {
-            validDataType = Joi.validate(value, Joi.string().max(maxLen))
+            validDataType = Joi.validate(value, Joi.string().max(maxLen).allow(null))
           }
           break
         }
         case `uuid`: {
-          validDataType = Joi.validate(value, Joi.string().guid())
+          validDataType = Joi.validate(value, Joi.string().guid().allow(null))
           break
         }
         case `date`: {
-          validDataType = Joi.validate(value, Joi.string())
+          validDataType = Joi.validate(value, Joi.string().allow(null))
           break
         }
         case `text`: {
-          validDataType = Joi.validate(value, Joi.string().allow(``))
+          validDataType = Joi.validate(value, Joi.string().allow(``).allow(null))
           break
         }
         default:

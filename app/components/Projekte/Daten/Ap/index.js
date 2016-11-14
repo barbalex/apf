@@ -59,9 +59,9 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
           label="Art"
           fieldName="ApArtId"
           value={ApArtId}
+          valueText={store.data.artname}
           errorText={activeDataset.valid.ApArtId}
           dataSource={aeEigenschaften}
-          updateProperty={store.updateProperty}
           updatePropertyInDb={store.updatePropertyInDb}
         />
         <div className={styles.fieldContainer}>

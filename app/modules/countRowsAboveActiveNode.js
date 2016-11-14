@@ -34,11 +34,11 @@ const findActiveNodeInNodes = (nodes, nodeIdPathPassed) => {
       if (activeNode.children && activeNode.children.length > 0 && activeNode.expanded) {
         findActiveNodeInNodes(activeNode.children, nodeIdPath)
       } else {
-        console.log('Error: nodeIdPath not yet empty but no more children')
+        console.log(`Error: nodeIdPath not yet empty but no more children`)  // eslint-disable-line no-console
       }
     }
   } else {
-    console.log('error: nodeId from nodeIdPath not found')
+    console.log(`error: nodeId from nodeIdPath not found`)  // eslint-disable-line no-console
   }
 }
 

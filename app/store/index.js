@@ -18,8 +18,9 @@ import countRowsAboveActiveNode from '../modules/countRowsAboveActiveNode'
 import ActiveDataset from './data/activeDataset'
 import validateActiveDataset from '../modules/validateActiveDataset'
 
-import Data from './data'
-import Ui from './ui'
+import DataStore from './data'
+import UiStore from './ui'
+import AppStore from './app'
 
 class Store extends singleton {
   constructor() {
@@ -37,246 +38,226 @@ class Store extends singleton {
     this.keepActiveNodeDatasetUpToDate = this.keepActiveNodeDatasetUpToDate.bind(this)
   }
 
-  data = Data
-  ui = Ui
+  data = DataStore
+  ui = UiStore
+  app = AppStore
 
-  fetchFields = action(
-    `fetchFields`,
-    () => {
-      // only fetch if not yet fetched
-      if (this.data.fields.length === 0 && !this.data.fieldsLoading) {
-        this.data.fieldsLoading = true
-        axios.get(`${apiBaseUrl}/felder`)
-          .then(({ data: fields }) => {
-            transaction(() => {
-              this.data.fields = fields
-              this.data.fieldsLoading = false
-            })
+  @action
+  fetchFields = () => {
+    // only fetch if not yet fetched
+    if (this.data.fields.length === 0 && !this.data.fieldsLoading) {
+      this.data.fieldsLoading = true
+      axios.get(`${apiBaseUrl}/felder`)
+        .then(({ data: fields }) => {
+          transaction(() => {
+            this.data.fields = fields
+            this.data.fieldsLoading = false
           })
-          .catch(error => console.log(`error fetching fields:`, error))
-      }
+        })
+        .catch(error => console.log(`error fetching fields:`, error))
     }
-  )
+  }
 
-  updateProperty = action(
-    `updateProperty`,
-    (key, value) => {
-      const { table, row } = this.data.activeDataset
-      // ensure primary data exists
-      if (!key || !table || !row) {
-        return console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
-      }
+  @action
+  updateProperty = (key, value) => {
+    const { table, row } = this.data.activeDataset
+    // ensure primary data exists
+    if (!key || !table || !row) {
+      return console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
+    }
+    row[key] = value
+  }
+
+  @action
+  updatePropertyInDb = (key, value) => {
+    console.log(`updatePropertyInDb, key:`, key)
+    const { table, row, valid } = this.data.activeDataset
+
+    // ensure primary data exists
+    if (!key || !table || !row) {
+      return
+    }
+
+    // ensure derived data exists
+    const tabelle = tables.find(t => t.tabelleInDb === table && t.database === `apflora`)
+    const tabelleIdFeld = tabelle ? tabelle.tabelleIdFeld : undefined
+    if (!tabelleIdFeld) {
+      return console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
+    }
+    const tabelleId = row[tabelleIdFeld] ? row[tabelleIdFeld] : undefined
+    if (!tabelleId) {
+      return console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
+    }
+
+    // validate using activeDataset (table, row, valid) and fields
+    validateActiveDataset(this.data.activeDataset, this.data.fields)
+
+    // update if no validation messages exist
+    const combinedValidationMessages = objectValues(valid).join(``)
+    console.log(`updatePropertyInDb, combinedValidationMessages:`, combinedValidationMessages)
+    if (combinedValidationMessages.length === 0) {
+      const { user } = this.data
+      const oldValue = row[key]
       row[key] = value
-    }
-  )
-
-  updatePropertyInDb = action(
-    `updatePropertyInDb`,
-    (key, value) => {
-      console.log(`updatePropertyInDb, key:`, key)
-      const { table, row, valid } = this.data.activeDataset
-
-      // ensure primary data exists
-      if (!key || !table || !row) {
-        return
-      }
-
-      // ensure derived data exists
-      const tabelle = tables.find(t => t.tabelleInDb === table && t.database === `apflora`)
-      const tabelleIdFeld = tabelle ? tabelle.tabelleIdFeld : undefined
-      if (!tabelleIdFeld) {
-        return console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
-      }
-      const tabelleId = row[tabelleIdFeld] ? row[tabelleIdFeld] : undefined
-      if (!tabelleId) {
-        return console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
-      }
-
-      // validate using activeDataset (table, row, valid) and fields
-      validateActiveDataset(this.data.activeDataset, this.data.fields)
-
-      // update if no validation messages exist
-      const combinedValidationMessages = objectValues(valid).join(``)
-      console.log(`updatePropertyInDb, combinedValidationMessages:`, combinedValidationMessages)
-      if (combinedValidationMessages.length === 0) {
-        const { user } = this.data
-        const oldValue = row[key]
-        row[key] = value
-        axios.put(`${apiBaseUrl}/update/apflora/tabelle=${table}/tabelleIdFeld=${tabelleIdFeld}/tabelleId=${tabelleId}/feld=${key}/wert=${value}/user=${user}`)
-          .catch(() => {
-            row[key] = oldValue
-            console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
-          })
-      }
-    }
-  )
-
-  fetchAeEigenschaften = action(
-    `fetchAeEigenschaften`,
-    () => {
-      // only fetch if not yet fetched
-      if (this.data.aeEigenschaften.length === 0 && !this.data.aeEigenschaftenLoading) {
-        this.data.aeEigenschaftenLoading = true
-        axios.get(`${apiBaseUrl}/artliste`)
-          .then(({ data: aeEigenschaften }) => {
-            transaction(() => {
-              this.data.aeEigenschaften = aeEigenschaften
-              this.data.aeEigenschaftenLoading = false
-            })
-          })
-          .catch(error => console.log(`error fetching aeEigenschaften:`, error))
-      }
-    }
-  )
-
-  fetchApStatus = action(
-    `fetchApStatus`,
-    () => {
-      // only fetch if not yet fetched
-      if (this.data.apStatus.length === 0 && !this.data.apStatusLoading) {
-        this.data.apStatusLoading = true
-        axios.get(`${apiBaseUrl}/apStatus`)
-          .then(({ data: apStatus }) => {
-            transaction(() => {
-              this.data.apStatus = apStatus
-              this.data.apStatusLoading = false
-            })
-          })
-          .catch(error => console.log(`error fetching apStatus:`, error))
-      }
-    }
-  )
-
-  fetchApUmsetzung = action(
-    `fetchApUmsetzung`,
-    () => {
-      // only fetch if not yet fetched
-      if (this.data.apUmsetzung.length === 0 && !this.data.apUmsetzungLoading) {
-        this.data.apUmsetzungLoading = true
-        axios.get(`${apiBaseUrl}/apUmsetzung`)
-          .then(({ data: apUmsetzung }) => {
-            transaction(() => {
-              this.data.apUmsetzung = apUmsetzung
-              this.data.apUmsetzungLoading = false
-            })
-          })
-          .catch(error => console.log(`error fetching apUmsetzung:`, error))
-      }
-    }
-  )
-
-  fetchAdresse = action(
-    `fetchAdresse`,
-    () => {
-      // only fetch if not yet fetched
-      if (this.data.adresse.length === 0 && !this.data.adresseLoading) {
-        this.data.adresseLoading = true
-        axios.get(`${apiBaseUrl}/adressen`)
-          .then(({ data: adresse }) => {
-            transaction(() => {
-              this.data.adresse = adresse
-              this.data.adresseLoading = false
-            })
-          })
-          .catch(error => console.log(`error fetching adresse:`, error))
-      }
-    }
-  )
-
-  fetchAllNodes = action(
-    `fetchAllNodes`,
-    ({ table, id, folder }) => {
-      this.data.loadingAllNodes = true
-      axios.get(`${apiBaseUrl}/node?table=${table}&id=${id}&folder=${folder}&levels=all`)
-        .then(({ data: nodes }) => {
-          transaction(() => {
-            this.data.nodes.replace(nodes)
-            this.data.loadingAllNodes = false
-          })
-          // set project node as active node
-          const activeNode = getNodeByPath(this.data.nodes, [{ table, id, folder }])
-          if (activeNode && activeNode !== this.data.activeNode) {
-            this.data.activeNode = activeNode
-          }
+      axios.put(`${apiBaseUrl}/update/apflora/tabelle=${table}/tabelleIdFeld=${tabelleIdFeld}/tabelleId=${tabelleId}/feld=${key}/wert=${value}/user=${user}`)
+        .catch((error) => {
+          row[key] = oldValue
+          this.app.errors.unshift(error)
+          setTimeout(() => {
+            this.app.errors.pop()
+          }, 1000 * 10)
+          console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
         })
-        .catch(error => console.log(`error fetching nodes:`, error))
     }
-  )
+  }
 
-  openNode = action(
-    `openNode`,
-    (node, index) => {
-      if (node) {
+  @action
+  fetchAeEigenschaften = () => {
+    // only fetch if not yet fetched
+    if (this.data.aeEigenschaften.length === 0 && !this.data.aeEigenschaftenLoading) {
+      this.data.aeEigenschaftenLoading = true
+      axios.get(`${apiBaseUrl}/artliste`)
+        .then(({ data: aeEigenschaften }) => {
+          transaction(() => {
+            this.data.aeEigenschaften = aeEigenschaften
+            this.data.aeEigenschaftenLoading = false
+          })
+        })
+        .catch(error => console.log(`error fetching aeEigenschaften:`, error))
+    }
+  }
+
+  @action
+  fetchApStatus = () => {
+    // only fetch if not yet fetched
+    if (this.data.apStatus.length === 0 && !this.data.apStatusLoading) {
+      this.data.apStatusLoading = true
+      axios.get(`${apiBaseUrl}/apStatus`)
+        .then(({ data: apStatus }) => {
+          transaction(() => {
+            this.data.apStatus = apStatus
+            this.data.apStatusLoading = false
+          })
+        })
+        .catch(error => console.log(`error fetching apStatus:`, error))
+    }
+  }
+
+  @action
+  fetchApUmsetzung = () => {
+    // only fetch if not yet fetched
+    if (this.data.apUmsetzung.length === 0 && !this.data.apUmsetzungLoading) {
+      this.data.apUmsetzungLoading = true
+      axios.get(`${apiBaseUrl}/apUmsetzung`)
+        .then(({ data: apUmsetzung }) => {
+          transaction(() => {
+            this.data.apUmsetzung = apUmsetzung
+            this.data.apUmsetzungLoading = false
+          })
+        })
+        .catch(error => console.log(`error fetching apUmsetzung:`, error))
+    }
+  }
+
+  @action
+  fetchAdresse = () => {
+    // only fetch if not yet fetched
+    if (this.data.adresse.length === 0 && !this.data.adresseLoading) {
+      this.data.adresseLoading = true
+      axios.get(`${apiBaseUrl}/adressen`)
+        .then(({ data: adresse }) => {
+          transaction(() => {
+            this.data.adresse = adresse
+            this.data.adresseLoading = false
+          })
+        })
+        .catch(error => console.log(`error fetching adresse:`, error))
+    }
+  }
+
+  @action
+  fetchAllNodes = ({ table, id, folder }) => {
+    this.data.loadingAllNodes = true
+    axios.get(`${apiBaseUrl}/node?table=${table}&id=${id}&folder=${folder}&levels=all`)
+      .then(({ data: nodes }) => {
         transaction(() => {
-          node.expanded = true
-          if (this.data.activeNode !== node) {
-            this.data.activeNode = node
-            this.data.activeNodeIndex = index
-          }
+          this.data.nodes.replace(nodes)
+          this.data.loadingAllNodes = false
         })
-        // only show `lade Daten...` if not yet loaded
-        if (
-          node.children
-          && node.children.length === 1
-          && node.children[0] === 0
-        ) {
-          transaction(() => {
-            node.children.replace([{
-              nodeId: `${node.nodeId}0`,
-              name: `lade Daten...`,
-              expanded: false,
-              children: [],
-            }])
-            this.fetchNodeChildren(node)
-          })
+        // set project node as active node
+        const activeNode = getNodeByPath(this.data.nodes, [{ table, id, folder }])
+        if (activeNode && activeNode !== this.data.activeNode) {
+          this.data.activeNode = activeNode
         }
-      }
-    }
-  )
+      })
+      .catch(error => console.log(`error fetching nodes:`, error))
+  }
 
-  fetchNodeChildren = action(
-    `fetchNodeChildren`,
-    (node) => {
-      axios.get(`${apiBaseUrl}/node?table=${node.table}&id=${node.id}&folder=${node.folder ? node.folder : ``}`)
-        .then(({ data: nodes }) => {
-          transaction(() => {
-            node.children.replace(nodes)
-          })
-        })
-    }
-  )
-
-  closeNode = action(
-    `closeNode`,
-    (node) => {
+  @action
+  openNode = (node, index) => {
+    if (node) {
       transaction(() => {
+        node.expanded = true
         if (this.data.activeNode !== node) {
           this.data.activeNode = node
+          this.data.activeNodeIndex = index
         }
-        node.expanded = false
       })
+      // only show `lade Daten...` if not yet loaded
+      if (
+        node.children
+        && node.children.length === 1
+        && node.children[0] === 0
+      ) {
+        transaction(() => {
+          node.children.replace([{
+            nodeId: `${node.nodeId}0`,
+            name: `lade Daten...`,
+            expanded: false,
+            children: [],
+          }])
+          this.fetchNodeChildren(node)
+        })
+      }
     }
-  )
+  }
 
-  fetchActiveNodeDataset = action(
-    `fetchActiveNodeDataset`,
-    ({ table, field, value }) =>
-      fetchDataset({ table, field, value })
-        .then((dataset) => {
-          const validObject = {}
-          Object.keys(dataset).forEach((k) => {
-            validObject[k] = ``
-          })
-          transaction(() => {
-            this.data.activeDataset.row = dataset
-            this.data.activeDataset.table = table
-            this.data.activeDataset.valid = validObject
-          })
+  @action
+  fetchNodeChildren = (node) => {
+    axios.get(`${apiBaseUrl}/node?table=${node.table}&id=${node.id}&folder=${node.folder ? node.folder : ``}`)
+      .then(({ data: nodes }) => {
+        transaction(() => {
+          node.children.replace(nodes)
         })
-        .catch((error) => {
-          throw error
+      })
+  }
+
+  @action
+  closeNode = (node) => {
+    transaction(() => {
+      if (this.data.activeNode !== node) {
+        this.data.activeNode = node
+      }
+      node.expanded = false
+    })
+  }
+
+  fetchActiveNodeDataset = ({ table, field, value }) =>
+    fetchDataset({ table, field, value })
+      .then((dataset) => {
+        const validObject = {}
+        Object.keys(dataset).forEach((k) => {
+          validObject[k] = ``
         })
-  )
+        transaction(() => {
+          this.data.activeDataset.row = dataset
+          this.data.activeDataset.table = table
+          this.data.activeDataset.valid = validObject
+        })
+      })
+      .catch((error) => {
+        throw error
+      })
 
   keepActiveNodeDatasetUpToDate = reaction(
     () => this.data.activeNode,
