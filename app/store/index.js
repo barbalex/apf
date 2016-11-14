@@ -9,6 +9,7 @@ import { action, transaction, reaction } from 'mobx'
 import singleton from 'singleton'
 import axios from 'axios'
 import objectValues from 'lodash/values'
+import get from 'lodash/get'
 
 import getNodeByPath from '../modules/getNodeByPath'
 import apiBaseUrl from '../modules/apiBaseUrl'
@@ -260,24 +261,23 @@ class Store extends singleton {
         throw error
       })
 
-  keepActiveNodeLabelUpToDate = reaction(
-    () => {
-      if (this.data.activeNode && this.data.activeNode.ApArtId) {
-        return this.data.activeNode.ApArtId
-      }
-      return null
-    },
+  keepActiveNodeUpToDate = reaction(
+    () => get(this, `data.activeDataset.row.ApArtId`),
     (ApArtId) => {
-      const { activeNode, nodes } = this.data
-      const activeApNode = getActiveApNode(ApArtId, activeNode, nodes)
-      if (activeApNode) {
-        // TODO: set all necessary values:
-        // - id
-        // - name (aeEigenschaften.find...)
-        // - table (=ap)
-        // - nodeId: table/id
-        // - nodeIdPath: nodeIdPath[3] = nodeId
-        // urlPath: urlPath[3] = id
+      console.log(`keepActiveNodeUpToDate, ApArtId:`, ApArtId)
+      if (ApArtId) {
+        const { activeNode, nodes } = this.data
+        const activeApNode = getActiveApNode(ApArtId, activeNode, nodes)
+        if (activeApNode) {
+          // TODO: set all necessary values:
+          // - id
+          // - name (aeEigenschaften.find...)
+          // - table (=ap)
+          // - nodeId: table/id
+          // - nodeIdPath: nodeIdPath[3] = nodeId
+          // urlPath: urlPath[3] = id
+          console.log(`keepActiveNodeUpToDate`)
+        }
       }
     }
   )
