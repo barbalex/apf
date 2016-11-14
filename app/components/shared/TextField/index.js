@@ -11,6 +11,7 @@ class MyTextField extends Component { // eslint-disable-line react/prefer-statel
     value: PropTypes.any,
     errorText: PropTypes.string,
     type: PropTypes.string,
+    multiLine: PropTypes.bool,
     disabled: PropTypes.bool,
     updateProperty: PropTypes.func,
     updatePropertyInDb: PropTypes.func,
@@ -23,6 +24,7 @@ class MyTextField extends Component { // eslint-disable-line react/prefer-statel
       value,
       errorText,
       type,
+      multiLine,
       updateProperty,
       updatePropertyInDb,
       disabled,
@@ -32,6 +34,7 @@ class MyTextField extends Component { // eslint-disable-line react/prefer-statel
       <TextField
         floatingLabelText={label}
         type={type || `text`}
+        multiLine={multiLine || false}
         value={value || ``}
         errorText={errorText || ``}
         disabled={disabled || false}

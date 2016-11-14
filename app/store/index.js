@@ -31,7 +31,6 @@ class Store extends singleton {
     this.fetchApStatus = this.fetchApStatus.bind(this)
     this.fetchApUmsetzung = this.fetchApUmsetzung.bind(this)
     this.fetchApErfkritWerte = this.fetchApErfkritWerte.bind(this)
-
     this.fetchAdresse = this.fetchAdresse.bind(this)
     this.fetchAllNodes = this.fetchAllNodes.bind(this)
     this.openNode = this.openNode.bind(this)

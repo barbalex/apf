@@ -9,6 +9,8 @@ import { observer, inject } from 'mobx-react'
 import styles from './styles.css'
 import Projekt from './Projekt'
 import Ap from './Ap'
+import Apberuebersicht from './Apberuebersicht'
+import Erfkrit from './Erfkrit'
 import Pop from './Pop'
 
 @inject(`store`)
@@ -36,10 +38,22 @@ class Daten extends Component { // eslint-disable-line react/prefer-stateless-fu
             <Projekt />
           </div>
         )
+      case `apberuebersicht`:
+        return (
+          <div className={styles.container}>
+            <Apberuebersicht />
+          </div>
+        )
       case `ap`:
         return (
           <div className={styles.container}>
             <Ap />
+          </div>
+        )
+      case `erfkrit`:
+        return (
+          <div className={styles.container}>
+            <Erfkrit />
           </div>
         )
       case `pop`:
