@@ -11,6 +11,7 @@ import Projekt from './Projekt'
 import Ap from './Ap'
 import Apberuebersicht from './Apberuebersicht'
 import Erfkrit from './Erfkrit'
+import Apber from './Apber'
 import Pop from './Pop'
 
 @inject(`store`)
@@ -54,6 +55,12 @@ class Daten extends Component { // eslint-disable-line react/prefer-stateless-fu
         return (
           <div className={styles.container}>
             <Erfkrit />
+          </div>
+        )
+      case `apber`:
+        return (
+          <div className={styles.container}>
+            <Apber />
           </div>
         )
       case `pop`:
