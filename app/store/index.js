@@ -261,12 +261,23 @@ class Store extends singleton {
       })
 
   keepActiveNodeLabelUpToDate = reaction(
-    () => this.data.activeNode.ApArtId,
+    () => {
+      if (this.data.activeNode && this.data.activeNode.ApArtId) {
+        return this.data.activeNode.ApArtId
+      }
+      return null
+    },
     (ApArtId) => {
       const { activeNode, nodes } = this.data
       const activeApNode = getActiveApNode(ApArtId, activeNode, nodes)
       if (activeApNode) {
-        // TODO: set all necessary values
+        // TODO: set all necessary values:
+        // - id
+        // - name (aeEigenschaften.find...)
+        // - table (=ap)
+        // - nodeId: table/id
+        // - nodeIdPath: nodeIdPath[3] = nodeId
+        // urlPath: urlPath[3] = id
       }
     }
   )
