@@ -261,7 +261,7 @@ class Store extends singleton {
         throw error
       })
 
-  keepActiveNodeUpToDate = reaction(
+  keepActiveApNodeUpToDate = reaction(
     () => get(this, `data.activeDataset.row.ApArtId`),
     (ApArtId) => {
       console.log(`keepActiveNodeUpToDate, ApArtId:`, ApArtId)
