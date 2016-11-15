@@ -15,7 +15,9 @@ export default [
     tabelleIdFeld: `PopId`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
-    label(row) {},
+    label(row) {
+      return `${row.PopNr || `(keine Nr)`}: ${row.PopName || `(kein Name)`}`
+    },
   },
   {
     database: `apflora`,
@@ -23,7 +25,9 @@ export default [
     tabelleIdFeld: `TPopId`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
-    label(row) {},
+    label(row) {
+      return `${row.TPopNr || `(keine Nr)`}: ${row.TPopFlurname || `(kein Flurname)`}`
+    },
   },
   {
     database: `apflora`,
@@ -31,7 +35,12 @@ export default [
     tabelleIdFeld: `TPopKontrId`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
-    label(row) {},
+    label(row) {
+      if (row.TPopKontrTyp && row.TPopKontrTyp === `"Freiwilligen-Erfolgskontrolle"`) {
+        return `${row.TPopKontrJahr || `(kein Jahr)`}`
+      }
+      return `${row.TPopKontrJahr || `(kein Jahr)`}: ${row.TPopKontrTyp || `(kein Typ)`}`
+    },
   },
   {
     database: `apflora`,
@@ -39,7 +48,11 @@ export default [
     tabelleIdFeld: `TPopKontrZaehlId`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
-    label(row) {},
+    label(row, store) {
+      const zaehleinheitTxt = store.data.tpopkontrzaehlEinheit.find(e => e.DomainCode === row.Zaehleinheit).DomainTxt
+      const methodeTxt = store.data.tpopkontrzaehlMethode.find(e => e.DomainCode === row.Methode).DomainTxt
+      return `${row.Anzahl || `(keine Anzahl)`} ${zaehleinheitTxt || `(keine Einheit)`} ${methodeTxt || `(keine Methode)`}`
+    },
   },
   {
     database: `apflora`,
@@ -47,7 +60,10 @@ export default [
     tabelleIdFeld: `TPopMassnId`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
-    label(row) {},
+    label(row, store) {
+      const massnTypTxt = store.data.tpopmassnTyp.find(e => e.DomainCode === row.TPopMassnTyp).DomainTxt
+      return `${row.TPopMassnJahr || `(kein Jahr)`}: ${massnTypTxt || `(kein Typ)`}`
+    },
   },
   {
     database: `apflora`,
@@ -55,7 +71,10 @@ export default [
     tabelleIdFeld: `ZielId`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
-    label(row) {},
+    label(row, store) {
+      const zielTypTxt = store.data.zielTyp.find(e => e.DomainCode === row.ZielTyp).DomainTxt
+      return `${row.ZielJahr || `(kein Jahr)`}: ${row.ZielBezeichnung} (${zielTypTxt})`
+    },
   },
   {
     database: `apflora`,
@@ -63,7 +82,9 @@ export default [
     tabelleIdFeld: `ZielBerId`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
-    label(row) {},
+    label(row) {
+      return `${row.ZielBerJahr || `(kein Jahr)`}: ${row.ZielBerErreichung || `(keine Entwicklung)`}`
+    },
   },
   {
     database: `apflora`,
@@ -71,7 +92,9 @@ export default [
     tabelleIdFeld: `ErfkritId`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
-    label(row) {},
+    label(row) {
+      return `${row.BeurteilTxt || `(nicht beurteilt)`}: ${row.ErfkritTxt || `(keine Kriterien erfasst)`}`
+    },
   },
   {
     database: `apflora`,
@@ -80,7 +103,7 @@ export default [
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
     label(row) {
-      return row.JBerJahr ? row.JBerJahr : `(kein Jahr)`
+      return row.JBerJahr || `(kein Jahr)`
     },
   },
   {
@@ -99,7 +122,9 @@ export default [
     tabelleIdFeld: `BerId`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
-    label(row) {},
+    label(row) {
+      return `${row.BerJahr || `(kein Jahr)`}: ${row.BerTitel || `(kein Titel)`}`
+    },
   },
   {
     database: `apflora`,
@@ -107,7 +132,9 @@ export default [
     tabelleIdFeld: `IbApArtId`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
-    label(row) {},
+    label() {
+      return 'Idealbiotop'
+    },
   },
   {
     database: `apflora`,
@@ -115,7 +142,13 @@ export default [
     tabelleIdFeld: `AaId`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
-    label(row) {},
+    label(row, store) {
+      let label = `(keine Art gewählt)`
+      if (!row.AaApArtId) {
+        label = store.data.aeEigenschaften.find(e => e.id === row.AaApArtId).label
+      }
+      return label
+    },
   },
   {
     database: `apflora`,
@@ -123,7 +156,9 @@ export default [
     tabelleIdFeld: `PopBerId`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
-    label(row) {},
+    label(row) {
+      return `${row.PopBerJahr || `(kein Jahr)`}: ${row.EntwicklungTxt || `(nicht beurteilt)`}`
+    },
   },
   {
     database: `apflora`,
@@ -131,7 +166,9 @@ export default [
     tabelleIdFeld: `PopMassnBerId`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
-    label(row) {},
+    label(row) {
+      return `${row.PopMassnBerJahr || `(kein Jahr)`}: ${row.BeurteilTxt || `(nicht beurteilt)`}`
+    },
   },
   {
     database: `apflora`,
@@ -139,7 +176,9 @@ export default [
     tabelleIdFeld: `TPopBerId`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
-    label(row) {},
+    label(row) {
+      return `${row.TPopBerJahr || `(kein Jahr)`}: ${row.EntwicklungTxt || `(nicht beurteilt)`}`
+    },
   },
   {
     database: `apflora`,
@@ -147,7 +186,10 @@ export default [
     tabelleIdFeld: `TPopMassnBerId`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
-    label(row) {},
+    label(row, store) {
+      const beurteilTxt = store.data.tpopmassnErfbeurt.find(e => e.DomainCode === row.TPopMassnBerErfolgsbeurteilung).DomainTxt
+      return `${row.TPopMassnBerJahr || `(kein Jahr)`}: ${beurteilTxt || `(keine Beurteilung)`}`
+    },
   },
   {
     database: `apflora`,
@@ -155,7 +197,9 @@ export default [
     tabelleIdFeld: `NO_NOTE`,
     mutWannFeld: `BeobMutWann`,
     mutWerFeld: `BeobMutWer`,
-    label(row) {},
+    label(row) {
+      return `${row.Datum || `(kein Datum)`}: ${row.Autor || `(kein Autor)`} (${row.Quelle})`
+    },
   },
   {
     database: `apflora`,
@@ -163,7 +207,9 @@ export default [
     tabelleIdFeld: `ProjId`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
-    label(row) {},
+    label(row) {
+      return `${row.ProjName || `(kein Name)`}`
+    },
   },
   {
     database: `beob`,
@@ -171,5 +217,8 @@ export default [
     tabelleIdFeld: `BeobId`,
     mutWannFeld: null,
     mutWerFeld: null,
+    label(row) {
+      return `${row.Datum || `(kein Datum)`}: ${row.Autor || `(kein Autor)`} (${row.Quelle})`
+    }
   },
 ]
