@@ -17,13 +17,6 @@ class Projekt extends Component { // eslint-disable-line react/prefer-stateless-
     return (
       <div className={styles.container}>
         <TextField
-          label="id"
-          fieldName="ProjId"
-          value={activeDataset.row.ProjId}
-          type="number"
-          disabled
-        />
-        <TextField
           label="Name"
           fieldName="ProjName"
           value={activeDataset.row.ProjName}

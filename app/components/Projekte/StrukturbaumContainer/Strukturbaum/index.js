@@ -102,6 +102,7 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
         props.onClick = onClick
       }
 
+      // TODO: generate name from node.data depending on table
       childNodes.unshift(
         <div
           className={nodeIsInActiveNodePath ? styles.nodeIsInActiveNodePath : styles.node}

@@ -12,6 +12,7 @@ import objectValues from 'lodash/values'
 import get from 'lodash/get'
 
 import getNodeByPath from '../modules/getNodeByPath'
+import getNodeByNodeIdPath from '../modules/getNodeByNodeIdPath'
 import apiBaseUrl from '../modules/apiBaseUrl'
 import fetchDataset from '../modules/fetchDataset'
 import tables from '../modules/tables'
@@ -279,11 +280,16 @@ class Store extends singleton {
   keepActiveProjektNodeUpToDate = reaction(
     () => get(this, `data.activeDataset.row.ProjName`),
     (ProjName) => {
-      console.log(`keepActiveProjektNodeUpToDate, ProjName:`, ProjName)
-      const { activeNode } = this.data
-      console.log(`keepActiveProjektNodeUpToDate, activeNode:`, activeNode)
+      const { activeNode, nodes } = this.data
       if (activeNode) {
-        activeNode.name = ProjName
+        // this could also be a folder under the node
+        const targetIdPath = activeNode.nodeIdPath.slice(0, 1)
+        console.log(`keepActiveProjektNodeUpToDate, targetIdPath:`, targetIdPath)
+        const targetNode = getNodeByNodeIdPath(nodes, targetIdPath)
+        if (targetNode && targetNode.name !== ProjName) {
+          console.log(`keepActiveProjektNodeUpToDate, new ProjName:`, ProjName)
+          targetNode.name = ProjName
+        }
       }
     }
   )
@@ -292,14 +298,23 @@ class Store extends singleton {
     () => get(this, `data.activeDataset.row.ApArtId`),
     (ApArtId) => {
       if (ApArtId) {
-        const { activeNode } = this.data
+        const { activeNode, nodes } = this.data
         if (activeNode) {
-          activeNode.id = ApArtId
-          activeNode.name = this.data.artname
-          const newNodeId = `${activeNode.table}/${ApArtId}`
-          activeNode.nodeId = newNodeId
-          activeNode.nodeIdPath[3] = newNodeId
-          activeNode.urlPath[3] = ApArtId
+          // this could also be a folder under the node
+          const targetIdPath = activeNode.nodeIdPath.slice(0, 3)
+          console.log(`keepActiveApNodeUpToDate: targetIdPath:`, targetIdPath)
+          const targetNode = getNodeByNodeIdPath(nodes, targetIdPath)
+          if (targetNode) {
+            if (targetNode.id !== ApArtId) targetNode.id = ApArtId
+            if (targetNode.name !== this.data.artname) targetNode.name = this.data.artname
+            const newNodeId = `${targetNode.table}/${ApArtId}`
+            if (targetNode.nodeId !== newNodeId) {
+              console.log(`keepActiveApNodeUpToDate: new nodeId:`, newNodeId)
+              targetNode.nodeId = newNodeId
+              targetNode.nodeIdPath[3] = newNodeId
+              targetNode.urlPath[3] = ApArtId
+            }
+          }
         }
       }
     }
