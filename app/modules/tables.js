@@ -5,6 +5,9 @@ export default [
     tabelleIdFeld: `ApArtId`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
+    label(row, store) {
+      return store.data.aeEigenschaften.find(e => e.id === row.ApArtId).label
+    },
   },
   {
     database: `apflora`,
@@ -12,6 +15,7 @@ export default [
     tabelleIdFeld: `PopId`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
+    label(row) {},
   },
   {
     database: `apflora`,
@@ -19,6 +23,7 @@ export default [
     tabelleIdFeld: `TPopId`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
+    label(row) {},
   },
   {
     database: `apflora`,
@@ -26,6 +31,7 @@ export default [
     tabelleIdFeld: `TPopKontrId`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
+    label(row) {},
   },
   {
     database: `apflora`,
@@ -33,6 +39,7 @@ export default [
     tabelleIdFeld: `TPopKontrZaehlId`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
+    label(row) {},
   },
   {
     database: `apflora`,
@@ -40,6 +47,7 @@ export default [
     tabelleIdFeld: `TPopMassnId`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
+    label(row) {},
   },
   {
     database: `apflora`,
@@ -47,6 +55,7 @@ export default [
     tabelleIdFeld: `ZielId`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
+    label(row) {},
   },
   {
     database: `apflora`,
@@ -54,6 +63,7 @@ export default [
     tabelleIdFeld: `ZielBerId`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
+    label(row) {},
   },
   {
     database: `apflora`,
@@ -61,6 +71,7 @@ export default [
     tabelleIdFeld: `ErfkritId`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
+    label(row) {},
   },
   {
     database: `apflora`,
@@ -68,6 +79,9 @@ export default [
     tabelleIdFeld: `JBerId`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
+    label(row) {
+      return row.JBerJahr ? row.JBerJahr : `(kein Jahr)`
+    },
   },
   {
     database: `apflora`,
@@ -75,6 +89,9 @@ export default [
     tabelleIdFeld: `JbuJahr`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
+    label(row) {
+      return row.JbuJahr
+    },
   },
   {
     database: `apflora`,
@@ -82,6 +99,7 @@ export default [
     tabelleIdFeld: `BerId`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
+    label(row) {},
   },
   {
     database: `apflora`,
@@ -89,6 +107,7 @@ export default [
     tabelleIdFeld: `IbApArtId`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
+    label(row) {},
   },
   {
     database: `apflora`,
@@ -96,6 +115,7 @@ export default [
     tabelleIdFeld: `AaId`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
+    label(row) {},
   },
   {
     database: `apflora`,
@@ -103,6 +123,7 @@ export default [
     tabelleIdFeld: `PopBerId`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
+    label(row) {},
   },
   {
     database: `apflora`,
@@ -110,6 +131,7 @@ export default [
     tabelleIdFeld: `PopMassnBerId`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
+    label(row) {},
   },
   {
     database: `apflora`,
@@ -117,6 +139,7 @@ export default [
     tabelleIdFeld: `TPopBerId`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
+    label(row) {},
   },
   {
     database: `apflora`,
@@ -124,6 +147,7 @@ export default [
     tabelleIdFeld: `TPopMassnBerId`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
+    label(row) {},
   },
   {
     database: `apflora`,
@@ -131,6 +155,7 @@ export default [
     tabelleIdFeld: `NO_NOTE`,
     mutWannFeld: `BeobMutWann`,
     mutWerFeld: `BeobMutWer`,
+    label(row) {},
   },
   {
     database: `apflora`,
@@ -138,6 +163,7 @@ export default [
     tabelleIdFeld: `ProjId`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
+    label(row) {},
   },
   {
     database: `beob`,
