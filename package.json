@@ -234,7 +234,6 @@
     "material-ui": "0.16.1",
     "mobx": "2.6.2",
     "mobx-react": "3.5.9",
-    "proj4": "^2.3.15",
     "proj4leaflet": "git://github.com/kartena/Proj4Leaflet.git#leaflet-proj-refactor",
     "react": "15.3.2",
     "react-addons-shallow-compare": "15.3.2",
