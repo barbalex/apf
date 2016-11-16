@@ -13,14 +13,14 @@ class Projekt extends Component { // eslint-disable-line react/prefer-stateless-
 
   render() {
     const { store } = this.props
-    const { activeDataset } = store.data
+    const { activeNode } = store.data
     return (
       <div className={styles.container}>
         <TextField
           label="Name"
           fieldName="ProjName"
-          value={activeDataset.row.ProjName}
-          errorText={activeDataset.valid.ProjName}
+          value={activeNode.row.ProjName}
+          errorText={activeNode.valid.ProjName}
           type="text"
           updateProperty={store.updateProperty}
           updatePropertyInDb={store.updatePropertyInDb}

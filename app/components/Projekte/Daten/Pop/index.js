@@ -39,7 +39,7 @@ class Pop extends Component { // eslint-disable-line react/prefer-stateless-func
           fullWidth
           floatingLabelText="Art"
           maxHeight={20}
-          value={store.data.activeDataset.ApArtId}
+          value={store.data.activeNode.row.ApArtId}
           onChange={(element) => {
             console.log(`element:`, element)
           }}

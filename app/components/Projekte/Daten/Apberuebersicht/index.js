@@ -13,14 +13,14 @@ class Apberuebersicht extends Component { // eslint-disable-line react/prefer-st
 
   render() {
     const { store } = this.props
-    const activeDataset = store.data.activeDataset
+    const activeNode = store.data.activeNode
     return (
       <div className={styles.container}>
         <TextField
           label="Jahr"
           fieldName="JbuJahr"
-          value={activeDataset.row.JbuJahr}
-          errorText={activeDataset.valid.JbuJahr}
+          value={activeNode.row.JbuJahr}
+          errorText={activeNode.valid.JbuJahr}
           type="number"
           fullWidth={false}
           updateProperty={store.updateProperty}
@@ -29,8 +29,8 @@ class Apberuebersicht extends Component { // eslint-disable-line react/prefer-st
         <TextField
           label="Bemerkungen"
           fieldName="JbuBemerkungen"
-          value={activeDataset.row.JbuBemerkungen}
-          errorText={activeDataset.valid.JbuBemerkungen}
+          value={activeNode.row.JbuBemerkungen}
+          errorText={activeNode.valid.JbuBemerkungen}
           type="text"
           multiLine
           fullWidth

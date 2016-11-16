@@ -1,8 +1,8 @@
 import _forEach from 'lodash/forEach'
 import Joi from 'joi-browser'
 
-export default (activeDataset, allFields) => {
-  const { table, row, valid } = activeDataset
+export default (activeNode, allFields) => {
+  const { table, row, valid } = activeNode
   if (!valid) {
     throw new Error(`valid object missing`)
   }

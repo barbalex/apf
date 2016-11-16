@@ -41,12 +41,12 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
       id: null,
       AdrName: ``,
     })
-    const activeDataset = store.data.activeDataset
+    const activeNode = store.data.activeNode
     const ApArtId = (
-      activeDataset
-      && activeDataset.row
-      && activeDataset.row.ApArtId ?
-      activeDataset.row.ApArtId :
+      activeNode
+      && activeNode.row
+      && activeNode.row.ApArtId ?
+      activeNode.row.ApArtId :
       null
     )
     let artwert = ``
@@ -63,7 +63,7 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
           fieldName="ApArtId"
           value={ApArtId}
           valueText={store.data.artname}
-          errorText={activeDataset.valid.ApArtId}
+          errorText={activeNode.valid.ApArtId}
           dataSource={dataSource}
           updatePropertyInDb={store.updatePropertyInDb}
         />
@@ -91,8 +91,8 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
           </LabelWithPopover>
           <RadioButtonGroup
             fieldName="ApStatus"
-            value={activeDataset.row.ApStatus}
-            errorText={activeDataset.valid.ApStatus}
+            value={activeNode.row.ApStatus}
+            errorText={activeNode.valid.ApStatus}
             dataSource={apStati}
             updatePropertyInDb={store.updatePropertyInDb}
           />
@@ -100,8 +100,8 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
         <TextField
           label="Start im Jahr"
           fieldName="ApJahr"
-          value={activeDataset.row.ApJahr}
-          errorText={activeDataset.valid.ApJahr}
+          value={activeNode.row.ApJahr}
+          errorText={activeNode.valid.ApJahr}
           type="number"
           updateProperty={store.updateProperty}
           updatePropertyInDb={store.updatePropertyInDb}
@@ -130,8 +130,8 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
           </LabelWithPopover>
           <RadioButtonGroup
             fieldName="ApUmsetzung"
-            value={activeDataset.row.ApUmsetzung}
-            errorText={activeDataset.valid.ApUmsetzung}
+            value={activeNode.row.ApUmsetzung}
+            errorText={activeNode.valid.ApUmsetzung}
             dataSource={apUmsetzungen}
             updatePropertyInDb={store.updatePropertyInDb}
           />
@@ -139,8 +139,8 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
         <SelectField
           label="Verantwortlich"
           fieldName="ApBearb"
-          value={activeDataset.row.ApBearb}
-          errorText={activeDataset.valid.ApBearb}
+          value={activeNode.row.ApBearb}
+          errorText={activeNode.valid.ApBearb}
           dataSource={adressen}
           valueProp="id"
           labelProp="AdrName"
