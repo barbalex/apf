@@ -38,7 +38,7 @@ class Store extends singleton {
     this.fetchNodeChildren = this.fetchNodeChildren.bind(this)
     this.closeNode = this.closeNode.bind(this)
     this.fetchActiveNodeDataset = this.fetchActiveNodeDataset.bind(this)
-    this.keepActiveNodeDatasetUpToDate = this.keepActiveNodeDatasetUpToDate.bind(this)
+    this.updateActiveNodeDataset = this.updateActiveNodeDataset.bind(this)
   }
 
   data = DataStore
@@ -274,6 +274,11 @@ class Store extends singleton {
             if (!label) return ``
             return label
           })
+          const validObject = {}
+          Object.keys(n.row).forEach((k) => {
+            validObject[k] = ``
+          })
+          n.valid = validObject
         })
         transaction(() => {
           this.data.nodes.replace(nodes)
@@ -400,7 +405,7 @@ class Store extends singleton {
     }
   )*/
 
-  keepActiveNodeDatasetUpToDate = reaction(
+  updateActiveNodeDataset = reaction(
     () => this.data.activeNode,
     (activeNode) => {
       if (!activeNode || !activeNode.table) {
@@ -419,21 +424,21 @@ class Store extends singleton {
 
         const table = activeNode.table
         const tabelleIdFeld = myTable.tabelleIdFeld
-        const id = activeNode.id
-        if (
-          activeNode
-          && activeNode.table
-          && activeNode.table === table
-          && activeNode.row
-          && activeNode.row[tabelleIdFeld]
-          && activeNode.row[tabelleIdFeld] === id
-        ) {
+        const id = activeNode.row[tabelleIdFeld]
+        // if (
+        //   activeNode
+        //   && activeNode.table
+        //   && activeNode.table === table
+        //   && activeNode.row
+        //   && activeNode.row[tabelleIdFeld]
+        //   && activeNode.row[tabelleIdFeld] === id
+        // ) {
           // active dataset has not changed
           // maybe only activeNode.expanded has changed
           // do nothing
-        } else {
-          this.fetchActiveNodeDataset({ table, field: tabelleIdFeld, value: id })
-        }
+        // } else {
+        this.fetchActiveNodeDataset({ table, field: tabelleIdFeld, value: id })
+        // }
       }
     }
   )

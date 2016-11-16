@@ -22,7 +22,6 @@ class Pop extends Component { // eslint-disable-line react/prefer-stateless-func
   componentDidMount() {
     // fetch dropdown data
     const { store } = this.props
-    store.fetchAeEigenschaften()
   }
 
   render() {

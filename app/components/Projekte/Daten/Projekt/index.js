@@ -14,6 +14,9 @@ class Projekt extends Component { // eslint-disable-line react/prefer-stateless-
   render() {
     const { store } = this.props
     const { activeNode } = store.data
+
+    // console.log(`Project: activeNode.row.ProjName:`, activeNode.row.ProjName)
+
     return (
       <div className={styles.container}>
         <TextField
