@@ -263,7 +263,7 @@ class Store extends singleton {
           if (!n.folder) {
             n.label = computed(() => {
               const tbl = tables.find(t => t.tabelleInDb === n.table)
-              if (!tbl) return ``
+              if (!tbl || !tbl.label) return ``
               const label = tbl.label(n.row, this.data)
               if (!label) return ``
               return label
