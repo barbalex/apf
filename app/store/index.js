@@ -98,7 +98,7 @@ class Store extends singleton {
     const combinedValidationMessages = objectValues(valid).join(``)
     // console.log(`updatePropertyInDb, combinedValidationMessages:`, combinedValidationMessages)
     if (combinedValidationMessages.length === 0) {
-      const { user } = this.data
+      const { user } = this.app
       const oldValue = row[key]
       row[key] = value
       axios.put(`${apiBaseUrl}/update/apflora/tabelle=${table}/tabelleIdFeld=${tabelleIdFeld}/tabelleId=${tabelleId}/feld=${key}/wert=${value}/user=${user}`)
