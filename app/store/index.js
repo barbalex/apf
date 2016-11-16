@@ -17,7 +17,7 @@ import apiBaseUrl from '../modules/apiBaseUrl'
 import fetchDataset from '../modules/fetchDataset'
 import tables from '../modules/tables'
 import countRowsAboveActiveNode from '../modules/countRowsAboveActiveNode'
-import ActiveDataset from './data/activeDataset'
+import Node from './data/node'
 import validateActiveDataset from '../modules/validateActiveDataset'
 
 import DataStore from './data'
@@ -63,7 +63,7 @@ class Store extends singleton {
 
   @action
   updateProperty = (key, value) => {
-    const { table, row } = this.data.activeDataset
+    const { table, row } = this.data.activeNode
     // ensure primary data exists
     if (!key || !table || !row) {
       return console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
@@ -73,7 +73,7 @@ class Store extends singleton {
 
   @action
   updatePropertyInDb = (key, value) => {
-    const { table, row, valid } = this.data.activeDataset
+    const { table, row, valid } = this.data.activeNode
 
     // ensure primary data exists
     if (!key || !table || !row) {
@@ -91,8 +91,8 @@ class Store extends singleton {
       return console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
     }
 
-    // validate using activeDataset (table, row, valid) and fields
-    validateActiveDataset(this.data.activeDataset, this.data.fields)
+    // validate using activeNode (table, row, valid) and fields
+    validateActiveDataset(this.data.activeNode, this.data.fields)
 
     // update if no validation messages exist
     const combinedValidationMessages = objectValues(valid).join(``)
@@ -268,9 +268,9 @@ class Store extends singleton {
           validObject[k] = ``
         })
         transaction(() => {
-          this.data.activeDataset.row = dataset
-          this.data.activeDataset.table = table
-          this.data.activeDataset.valid = validObject
+          this.data.activeNode.row = dataset
+          this.data.activeNode.table = table
+          this.data.activeNode.valid = validObject
         })
       })
       .catch((error) => {
@@ -278,16 +278,16 @@ class Store extends singleton {
       })
 
   keepActiveProjektNodeUpToDate = reaction(
-    () => get(this, `data.activeDataset.row.ProjName`),
+    () => get(this, `data.activeNode.row.ProjName`),
     (ProjName) => {
       const { activeNode, nodes } = this.data
       if (activeNode) {
         // this could also be a folder under the node
         const targetIdPath = activeNode.nodeIdPath.slice(0, 1)
-        console.log(`keepActiveProjektNodeUpToDate, targetIdPath:`, targetIdPath)
+        // console.log(`keepActiveProjektNodeUpToDate, targetIdPath:`, targetIdPath)
         const targetNode = getNodeByNodeIdPath(nodes, targetIdPath)
         if (targetNode && targetNode.name !== ProjName) {
-          console.log(`keepActiveProjektNodeUpToDate, new ProjName:`, ProjName)
+          // console.log(`keepActiveProjektNodeUpToDate, new ProjName:`, ProjName)
           targetNode.name = ProjName
         }
       }
@@ -295,21 +295,21 @@ class Store extends singleton {
   )
 
   keepActiveApNodeUpToDate = reaction(
-    () => get(this, `data.activeDataset.row.ApArtId`),
+    () => get(this, `data.activeNode.row.ApArtId`),
     (ApArtId) => {
       if (ApArtId) {
         const { activeNode, nodes } = this.data
         if (activeNode) {
           // this could also be a folder under the node
           const targetIdPath = activeNode.nodeIdPath.slice(0, 3)
-          console.log(`keepActiveApNodeUpToDate: targetIdPath:`, targetIdPath)
+          // console.log(`keepActiveApNodeUpToDate: targetIdPath:`, targetIdPath)
           const targetNode = getNodeByNodeIdPath(nodes, targetIdPath)
           if (targetNode) {
             if (targetNode.id !== ApArtId) targetNode.id = ApArtId
             if (targetNode.name !== this.data.artname) targetNode.name = this.data.artname
             const newNodeId = `${targetNode.table}/${ApArtId}`
             if (targetNode.nodeId !== newNodeId) {
-              console.log(`keepActiveApNodeUpToDate: new nodeId:`, newNodeId)
+              // console.log(`keepActiveApNodeUpToDate: new nodeId:`, newNodeId)
               targetNode.nodeId = newNodeId
               targetNode.nodeIdPath[3] = newNodeId
               targetNode.urlPath[3] = ApArtId
@@ -324,7 +324,7 @@ class Store extends singleton {
     () => this.data.activeNode,
     (activeNode) => {
       if (!activeNode || !activeNode.table) {
-        this.data.activeDataset = ActiveDataset
+        this.data.activeNode = Node
       } else {
         const myTable = tables.find(t => t.tabelleInDb && t.tabelleInDb === activeNode.table)
         if (!myTable) {
@@ -340,14 +340,13 @@ class Store extends singleton {
         const table = activeNode.table
         const tabelleIdFeld = myTable.tabelleIdFeld
         const id = activeNode.id
-        const activeDataset = this.data.activeDataset
         if (
-          activeDataset
-          && activeDataset.table
-          && activeDataset.table === table
-          && activeDataset.row
-          && activeDataset.row[tabelleIdFeld]
-          && activeDataset.row[tabelleIdFeld] === id
+          activeNode
+          && activeNode.table
+          && activeNode.table === table
+          && activeNode.row
+          && activeNode.row[tabelleIdFeld]
+          && activeNode.row[tabelleIdFeld] === id
         ) {
           // active dataset has not changed
           // maybe only activeNode.expanded has changed

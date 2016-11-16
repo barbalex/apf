@@ -1,24 +1,29 @@
 import { observable, computed } from 'mobx'
-import tables from '../../../modules/tables'
-import store '../index'
+// import tables from '../../../modules/tables'
+// import store from '../index'
 
-class ActiveNode {
+class Node {
   @observable nodeId = null
   @observable folder = null
   @observable table = null
   @observable row = null
+  folderLabel = null
+  /*
   @computed get label() {
     if (this.folderLabel) {
       return this.folderLabel
     }
     const table = tables.find(t => t.tabelleInDb === this.table)
+    if (!table) return ``
     const label = table.label(this.row, store)
-    return tables.find(t => t.tabelleInDb === this.table).label(this.row)
-  }
+    if (!label) return ``
+    return label
+  }*/
   @observable valid = null
   @observable expanded = false
   @observable urlPath = null
   @observable nodeIdPath = null
+  children = []
 }
 
-export default new ActiveNode()
+export default new Node()

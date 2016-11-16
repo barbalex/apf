@@ -5,8 +5,8 @@ export default [
     tabelleIdFeld: `ApArtId`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
-    label(row, store) {
-      return store.data.aeEigenschaften.find(e => e.id === row.ApArtId).label
+    label(row, data) {
+      return data.aeEigenschaften.find(e => e.id === row.ApArtId).label
     },
   },
   {
@@ -48,9 +48,9 @@ export default [
     tabelleIdFeld: `TPopKontrZaehlId`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
-    label(row, store) {
-      const zaehleinheitTxt = store.data.tpopkontrzaehlEinheit.find(e => e.DomainCode === row.Zaehleinheit).DomainTxt
-      const methodeTxt = store.data.tpopkontrzaehlMethode.find(e => e.DomainCode === row.Methode).DomainTxt
+    label(row, data) {
+      const zaehleinheitTxt = data.tpopkontrzaehlEinheit.find(e => e.DomainCode === row.Zaehleinheit).DomainTxt
+      const methodeTxt = data.tpopkontrzaehlMethode.find(e => e.DomainCode === row.Methode).DomainTxt
       return `${row.Anzahl || `(keine Anzahl)`} ${zaehleinheitTxt || `(keine Einheit)`} ${methodeTxt || `(keine Methode)`}`
     },
   },
@@ -60,8 +60,8 @@ export default [
     tabelleIdFeld: `TPopMassnId`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
-    label(row, store) {
-      const massnTypTxt = store.data.tpopmassnTyp.find(e => e.DomainCode === row.TPopMassnTyp).DomainTxt
+    label(row, data) {
+      const massnTypTxt = data.tpopmassnTyp.find(e => e.DomainCode === row.TPopMassnTyp).DomainTxt
       return `${row.TPopMassnJahr || `(kein Jahr)`}: ${massnTypTxt || `(kein Typ)`}`
     },
   },
@@ -71,8 +71,8 @@ export default [
     tabelleIdFeld: `ZielId`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
-    label(row, store) {
-      const zielTypTxt = store.data.zielTyp.find(e => e.DomainCode === row.ZielTyp).DomainTxt
+    label(row, data) {
+      const zielTypTxt = data.zielTyp.find(e => e.DomainCode === row.ZielTyp).DomainTxt
       return `${row.ZielJahr || `(kein Jahr)`}: ${row.ZielBezeichnung} (${zielTypTxt})`
     },
   },
@@ -142,10 +142,10 @@ export default [
     tabelleIdFeld: `AaId`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
-    label(row, store) {
+    label(row, data) {
       let label = `(keine Art gewählt)`
       if (!row.AaApArtId) {
-        label = store.data.aeEigenschaften.find(e => e.id === row.AaApArtId).label
+        label = data.aeEigenschaften.find(e => e.id === row.AaApArtId).label
       }
       return label
     },
@@ -186,8 +186,8 @@ export default [
     tabelleIdFeld: `TPopMassnBerId`,
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
-    label(row, store) {
-      const beurteilTxt = store.data.tpopmassnErfbeurt.find(e =>
+    label(row, data) {
+      const beurteilTxt = data.tpopmassnErfbeurt.find(e =>
         e.DomainCode === row.TPopMassnBerErfolgsbeurteilung
       ).DomainTxt
       return `${row.TPopMassnBerJahr || `(kein Jahr)`}: ${beurteilTxt || `(keine Beurteilung)`}`
