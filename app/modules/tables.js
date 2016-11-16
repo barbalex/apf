@@ -133,7 +133,7 @@ export default [
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
     label() {
-      return 'Idealbiotop'
+      return `Idealbiotop`
     },
   },
   {
@@ -221,6 +221,6 @@ export default [
     mutWerFeld: null,
     label(row) {
       return `${row.Datum || `(kein Datum)`}: ${row.Autor || `(kein Autor)`} (${row.Quelle})`
-    }
+    },
   },
 ]

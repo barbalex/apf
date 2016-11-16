@@ -48,6 +48,13 @@ window.app = {}
 window.app.store = store
 
 store.fetchFields()
+// fetch this data immediately
+// because it is used in the tree
+store.fetchAeEigenschaften()
+store.fetchTpopkontrzaehlEinheit()
+store.fetchTpopmassnTyp()
+store.fetchZielTyp()
+store.fetchTpopmassnErfbeurt()
 
 ReactDOM.render(
   <Provider store={store}>

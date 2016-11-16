@@ -35,7 +35,7 @@ const NodeTest = {
 
 // TODO: setting Node instead of noNode in nodes and nodes2 creates bad error in mobx
 class Data {
-  @observable nodes = [NodeTest]
+  @observable nodes = [noNode]
   @observable loadingAllNodes = false
   @observable fields = []
   @observable fieldsLoading = false
@@ -51,35 +51,50 @@ class Data {
     }
     return artname
   }
-  @observable nodes2 = [NodeTest]
+  @observable nodes2 = [noNode]
   @observable map = null
   @observable aeEigenschaften = []
   @observable aeEigenschaftenLoading = false
-  @observable aeLr = null
+  @observable aeLr = []
+  @observable aeLrLoading = false
   @observable aeFloraStatus = []
   @observable aeFloraStatusLoading = false
   @observable apStatus = []
   @observable apStatusLoading = null
   @observable apErfbeurtkrit = []
+  @observable apErfbeurtkritLoading = false
   @observable apErfkrit = []
+  @observable apErfkritLoading = false
   @observable apUmsetzung = []
   @observable apUmsetzungLoading = false
   @observable apErfkritWerte = []
   @observable apErfkritWerteLoading = false
   @observable popEntwicklung = []
+  @observable popEntwicklungLoading = false
   @observable popStatus = []
+  @observable popStatusLoading = false
   @observable tpopApberrelevant = []
+  @observable tpopApberrelevantLoading = false
   @observable tpopEntwicklung = []
+  @observable tpopEntwicklungLoading = false
   @observable tpopkontrIdbiotopuebereinst = []
+  @observable tpopkontrIdbiotopuebereinstLoading = false
   @observable tpopkontrTyp = []
+  @observable tpopkontrTypLoading = false
   @observable tpopkontrzaehlEinheit = []
+  @observable tpopkontrzaehlEinheitLoading = false
   @observable tpopkontrzaehlMethode = []
+  @observable tpopkontrzaehlMethodeLoading = false
   @observable tpopmassnErfbeurt = []
+  @observable tpopmassnErfbeurtLoading = false
   @observable tpopmassnTyp = []
+  @observable tpopmassnTypLoading = false
   @observable zielTyp = []
+  @observable zielTypLoading = false
   @observable adresse = []
   @observable adresseLoading = false
-  @observable gemeinde = null
+  @observable gemeinde = []
+  @observable gemeindeLoading = false
 }
 
 export default new Data()

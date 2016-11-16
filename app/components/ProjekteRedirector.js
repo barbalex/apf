@@ -13,7 +13,7 @@ const ProjekteRedirector = ({ store, location }) => {
   const activeNode = store.data.activeNode
   let to = null
   if (activeNode) {
-    to = `/${activeNode.urlPath.join('/')}`
+    to = `/${activeNode.urlPath.join(`/`)}`
   }
   const doRedirect = to && location.pathname !== to
 
@@ -28,4 +28,4 @@ ProjekteRedirector.propTypes = {
   location: PropTypes.object,
 }
 
-export default inject('store')(observer(ProjekteRedirector))
+export default inject(`store`)(observer(ProjekteRedirector))

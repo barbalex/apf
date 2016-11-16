@@ -5,7 +5,7 @@
  */
 /* eslint-disable no-console, no-param-reassign */
 
-import { action, transaction, reaction } from 'mobx'
+import { action, transaction, reaction, computed } from 'mobx'
 import singleton from 'singleton'
 import axios from 'axios'
 import objectValues from 'lodash/values'
@@ -178,6 +178,70 @@ class Store extends singleton {
   }
 
   @action
+  fetchTpopkontrzaehlEinheit = () => {
+    // only fetch if not yet fetched
+    if (this.data.tpopkontrzaehlEinheit.length === 0 && !this.data.tpopkontrzaehlEinheitLoading) {
+      this.data.tpopkontrzaehlEinheitLoading = true
+      axios.get(`${apiBaseUrl}/tpopkontrzaehlEinheit`)
+        .then(({ data: tpopkontrzaehlEinheit }) => {
+          transaction(() => {
+            this.data.tpopkontrzaehlEinheit = tpopkontrzaehlEinheit
+            this.data.tpopkontrzaehlEinheitLoading = false
+          })
+        })
+        .catch(error => console.log(`error fetching tpopkontrzaehlEinheit:`, error))
+    }
+  }
+
+  @action
+  fetchTpopmassnTyp = () => {
+    // only fetch if not yet fetched
+    if (this.data.tpopmassnTyp.length === 0 && !this.data.tpopmassnTypLoading) {
+      this.data.tpopmassnTypLoading = true
+      axios.get(`${apiBaseUrl}/tpopmassnTyp`)
+        .then(({ data: tpopmassnTyp }) => {
+          transaction(() => {
+            this.data.tpopmassnTyp = tpopmassnTyp
+            this.data.tpopmassnTypLoading = false
+          })
+        })
+        .catch(error => console.log(`error fetching tpopmassnTyp:`, error))
+    }
+  }
+
+  @action
+  fetchZielTyp = () => {
+    // only fetch if not yet fetched
+    if (this.data.zielTyp.length === 0 && !this.data.zielTypLoading) {
+      this.data.zielTypLoading = true
+      axios.get(`${apiBaseUrl}/zielTyp`)
+        .then(({ data: zielTyp }) => {
+          transaction(() => {
+            this.data.zielTyp = zielTyp
+            this.data.zielTypLoading = false
+          })
+        })
+        .catch(error => console.log(`error fetching zielTyp:`, error))
+    }
+  }
+
+  @action
+  fetchTpopmassnErfbeurt = () => {
+    // only fetch if not yet fetched
+    if (this.data.tpopmassnErfbeurt.length === 0 && !this.data.tpopmassnErfbeurtLoading) {
+      this.data.tpopmassnErfbeurtLoading = true
+      axios.get(`${apiBaseUrl}/tpopmassnErfbeurt`)
+        .then(({ data: tpopmassnErfbeurt }) => {
+          transaction(() => {
+            this.data.tpopmassnErfbeurt = tpopmassnErfbeurt
+            this.data.tpopmassnErfbeurtLoading = false
+          })
+        })
+        .catch(error => console.log(`error fetching tpopmassnErfbeurt:`, error))
+    }
+  }
+
+  @action
   fetchAdresse = () => {
     // only fetch if not yet fetched
     if (this.data.adresse.length === 0 && !this.data.adresseLoading) {
@@ -198,6 +262,19 @@ class Store extends singleton {
     this.data.loadingAllNodes = true
     axios.get(`${apiBaseUrl}/node?table=${table}&id=${id}&folder=${folder}&levels=all`)
       .then(({ data: nodes }) => {
+        nodes.forEach((n) => {
+          if (n.folderLabel) {
+            n.label = n.folderLabel
+            return
+          }
+          n.label = computed(() => {
+            const tbl = tables.find(t => t.tabelleInDb === n.table)
+            if (!tbl) return ``
+            const label = tbl.label(n.row, this.data)
+            if (!label) return ``
+            return label
+          })
+        })
         transaction(() => {
           this.data.nodes.replace(nodes)
           this.data.loadingAllNodes = false
@@ -277,6 +354,7 @@ class Store extends singleton {
         throw error
       })
 
+  /*
   keepActiveProjektNodeUpToDate = reaction(
     () => get(this, `data.activeNode.row.ProjName`),
     (ProjName) => {
@@ -293,7 +371,9 @@ class Store extends singleton {
       }
     }
   )
+  /*
 
+  /*
   keepActiveApNodeUpToDate = reaction(
     () => get(this, `data.activeNode.row.ApArtId`),
     (ApArtId) => {
@@ -318,7 +398,7 @@ class Store extends singleton {
         }
       }
     }
-  )
+  )*/
 
   keepActiveNodeDatasetUpToDate = reaction(
     () => this.data.activeNode,
