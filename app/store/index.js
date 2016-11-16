@@ -9,15 +9,12 @@ import { action, transaction, reaction, computed } from 'mobx'
 import singleton from 'singleton'
 import axios from 'axios'
 import objectValues from 'lodash/values'
-import get from 'lodash/get'
 
 import getNodeByPath from '../modules/getNodeByPath'
-import getNodeByNodeIdPath from '../modules/getNodeByNodeIdPath'
 import apiBaseUrl from '../modules/apiBaseUrl'
 import fetchDataset from '../modules/fetchDataset'
 import tables from '../modules/tables'
 import countRowsAboveActiveNode from '../modules/countRowsAboveActiveNode'
-import Node from './data/node'
 import validateActiveDataset from '../modules/validateActiveDataset'
 
 import DataStore from './data'
@@ -263,22 +260,20 @@ class Store extends singleton {
     axios.get(`${apiBaseUrl}/node?table=${table}&id=${id}&folder=${folder}&levels=all`)
       .then(({ data: nodes }) => {
         nodes.forEach((n) => {
-          if (n.folderLabel) {
-            n.label = n.folderLabel
-            return
+          if (!n.folder) {
+            n.label = computed(() => {
+              const tbl = tables.find(t => t.tabelleInDb === n.table)
+              if (!tbl) return ``
+              const label = tbl.label(n.row, this.data)
+              if (!label) return ``
+              return label
+            })
+            const validObject = {}
+            Object.keys(n.row).forEach((k) => {
+              validObject[k] = ``
+            })
+            n.valid = validObject
           }
-          n.label = computed(() => {
-            const tbl = tables.find(t => t.tabelleInDb === n.table)
-            if (!tbl) return ``
-            const label = tbl.label(n.row, this.data)
-            if (!label) return ``
-            return label
-          })
-          const validObject = {}
-          Object.keys(n.row).forEach((k) => {
-            validObject[k] = ``
-          })
-          n.valid = validObject
         })
         transaction(() => {
           this.data.nodes.replace(nodes)
@@ -324,7 +319,10 @@ class Store extends singleton {
 
   @action
   fetchNodeChildren = (node) => {
-    axios.get(`${apiBaseUrl}/node?table=${node.table}&id=${node.id}&folder=${node.folder ? node.folder : ``}`)
+    const table = tables.find(t => t.tabelleInDb === node.table)
+    if (!table) throw new Error(`table not found`)
+    const tabelleIdFeld = table.tabelleIdFeld
+    axios.get(`${apiBaseUrl}/node?table=${node.table}&id=${node.row[tabelleIdFeld]}&folder=${node.folder ? node.folder : ``}`)
       .then(({ data: nodes }) => {
         transaction(() => {
           node.children.replace(nodes)
@@ -359,57 +357,23 @@ class Store extends singleton {
         throw error
       })
 
-  /*
-  keepActiveProjektNodeUpToDate = reaction(
-    () => get(this, `data.activeNode.row.ProjName`),
-    (ProjName) => {
-      const { activeNode, nodes } = this.data
-      if (activeNode) {
-        // this could also be a folder under the node
-        const targetIdPath = activeNode.nodeIdPath.slice(0, 1)
-        // console.log(`keepActiveProjektNodeUpToDate, targetIdPath:`, targetIdPath)
-        const targetNode = getNodeByNodeIdPath(nodes, targetIdPath)
-        if (targetNode && targetNode.name !== ProjName) {
-          // console.log(`keepActiveProjektNodeUpToDate, new ProjName:`, ProjName)
-          targetNode.name = ProjName
-        }
-      }
-    }
-  )
-  /*
-
-  /*
-  keepActiveApNodeUpToDate = reaction(
-    () => get(this, `data.activeNode.row.ApArtId`),
-    (ApArtId) => {
-      if (ApArtId) {
-        const { activeNode, nodes } = this.data
-        if (activeNode) {
-          // this could also be a folder under the node
-          const targetIdPath = activeNode.nodeIdPath.slice(0, 3)
-          // console.log(`keepActiveApNodeUpToDate: targetIdPath:`, targetIdPath)
-          const targetNode = getNodeByNodeIdPath(nodes, targetIdPath)
-          if (targetNode) {
-            if (targetNode.id !== ApArtId) targetNode.id = ApArtId
-            if (targetNode.name !== this.data.artname) targetNode.name = this.data.artname
-            const newNodeId = `${targetNode.table}/${ApArtId}`
-            if (targetNode.nodeId !== newNodeId) {
-              // console.log(`keepActiveApNodeUpToDate: new nodeId:`, newNodeId)
-              targetNode.nodeId = newNodeId
-              targetNode.nodeIdPath[3] = newNodeId
-              targetNode.urlPath[3] = ApArtId
-            }
-          }
-        }
-      }
-    }
-  )*/
-
   updateActiveNodeDataset = reaction(
     () => this.data.activeNode,
     (activeNode) => {
       if (!activeNode || !activeNode.table) {
-        this.data.activeNode = Node
+        this.data.activeNode = {
+          nodeId: null,
+          folder: null,
+          table: null,
+          row: null,
+          folderLabel: null,
+          label: null,
+          valid: null,
+          expanded: false,
+          urlPath: null,
+          nodeIdPath: null,
+          children: [],
+        }
       } else {
         const myTable = tables.find(t => t.tabelleInDb && t.tabelleInDb === activeNode.table)
         if (!myTable) {

@@ -26,9 +26,9 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
   render() {  // eslint-disable-line class-methods-use-this
     const { store } = this.props
 
-    console.log(`node[0]:`, store.data)
-    console.log(`node[0]:`, store.data.nodes)
-    console.log(`node[0]:`, store.data.nodes[0])
+    // console.log(`node[0]:`, store.data)
+    // console.log(`node[0]:`, store.data.nodes)
+    // console.log(`node[0]:`, store.data.nodes[0])
 
     if (
       !store
@@ -117,7 +117,7 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
             {symbol}
           </span>
           <span className={styles.text}>
-            {node.name}
+            {node.label/* || node.folderLabel*/}
           </span>
         </div>
       )

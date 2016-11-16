@@ -1,6 +1,4 @@
 import { observable, computed, toJS } from 'mobx'
-import Node from './node'
-import tables from '../../modules/tables'
 
 // TODO: remove noNode
 const noNode = {
@@ -10,22 +8,13 @@ const noNode = {
   children: [],
 }
 
-const NodeTest = {
+const node = {
   nodeId: null,
   folder: null,
   table: null,
   row: null,
   folderLabel: null,
-  label() {
-    if (this.folderLabel) {
-      return this.folderLabel
-    }
-    const table = tables.find(t => t.tabelleInDb === this.table)
-    if (!table) return ``
-    const label = table.label(this.row, this)
-    if (!label) return ``
-    return label
-  },
+  label: null,
   valid: null,
   expanded: false,
   urlPath: null,
@@ -42,7 +31,7 @@ class Data {
   @observable activeNode = null
   @observable nrOfRowsAboveActiveNode = 0
   @observable treeHeight = 0
-  activeNode = Node
+  activeNode = node
   @computed get artname() {
     const aeEigenschaften = toJS(this.aeEigenschaften)
     let artname = ``
