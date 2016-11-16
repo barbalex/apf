@@ -187,7 +187,9 @@ export default [
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
     label(row, store) {
-      const beurteilTxt = store.data.tpopmassnErfbeurt.find(e => e.DomainCode === row.TPopMassnBerErfolgsbeurteilung).DomainTxt
+      const beurteilTxt = store.data.tpopmassnErfbeurt.find(e =>
+        e.DomainCode === row.TPopMassnBerErfolgsbeurteilung
+      ).DomainTxt
       return `${row.TPopMassnBerJahr || `(kein Jahr)`}: ${beurteilTxt || `(keine Beurteilung)`}`
     },
   },
