@@ -298,7 +298,7 @@ class Store extends singleton {
         transaction(() => {
           node.children.replace([{
             nodeId: `${node.nodeId}0`,
-            name: `lade Daten...`,
+            label: `lade Daten...`,
             expanded: false,
             children: [],
           }])
