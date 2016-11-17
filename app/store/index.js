@@ -283,7 +283,6 @@ class Store extends singleton {
   @action
   openNode = (node) => {
     if (node) {
-      console.log(`action openNode will set activeNode to node:`, node)
       transaction(() => {
         node.expanded = true
         if (this.data.activeNode !== node) {

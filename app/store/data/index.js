@@ -30,7 +30,6 @@ class Data {
   @observable activeNode = null
   @observable nrOfRowsAboveActiveNode = 0
   @observable treeHeight = 0
-  activeNode = node
   @computed get artname() {
     const aeEigenschaften = toJS(this.aeEigenschaften)
     let artname = ``
