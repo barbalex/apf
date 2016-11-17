@@ -119,15 +119,14 @@ class Store extends singleton {
 
   @action
   fetchAeEigenschaften = () => {
-    let { aeEigenschaften, aeEigenschaftenLoading } = this.data
       // only fetch if not yet fetched
-    if (aeEigenschaften.length === 0 && !aeEigenschaftenLoading) {
-      aeEigenschaftenLoading = true
+    if (this.data.aeEigenschaften.length === 0 && !this.data.aeEigenschaftenLoading) {
+      this.data.aeEigenschaftenLoading = true
       axios.get(`${apiBaseUrl}/artliste`)
         .then(({ data }) => {
           transaction(() => {
-            aeEigenschaften = data
-            aeEigenschaftenLoading = false
+            this.data.aeEigenschaften = data
+            this.data.aeEigenschaftenLoading = false
           })
         })
         .catch(error => console.log(`error fetching aeEigenschaften:`, error))
@@ -136,15 +135,14 @@ class Store extends singleton {
 
   @action
   fetchApStatus = () => {
-    let { apStatus, apStatusLoading } = this.data
     // only fetch if not yet fetched
-    if (apStatus.length === 0 && !apStatusLoading) {
-      apStatusLoading = true
+    if (this.data.apStatus.length === 0 && !this.data.apStatusLoading) {
+      this.data.apStatusLoading = true
       axios.get(`${apiBaseUrl}/apStatus`)
         .then(({ data }) => {
           transaction(() => {
-            apStatus = data
-            apStatusLoading = false
+            this.data.apStatus = data
+            this.data.apStatusLoading = false
           })
         })
         .catch(error => console.log(`error fetching apStatus:`, error))
@@ -153,15 +151,14 @@ class Store extends singleton {
 
   @action
   fetchApUmsetzung = () => {
-    let { apUmsetzung, apUmsetzungLoading } = this.data
     // only fetch if not yet fetched
-    if (apUmsetzung.length === 0 && !apUmsetzungLoading) {
-      apUmsetzungLoading = true
+    if (this.data.apUmsetzung.length === 0 && !this.data.apUmsetzungLoading) {
+      this.data.apUmsetzungLoading = true
       axios.get(`${apiBaseUrl}/apUmsetzung`)
         .then(({ data }) => {
           transaction(() => {
-            apUmsetzung = data
-            apUmsetzungLoading = false
+            this.data.apUmsetzung = data
+            this.data.apUmsetzungLoading = false
           })
         })
         .catch(error => console.log(`error fetching apUmsetzung:`, error))
@@ -170,15 +167,14 @@ class Store extends singleton {
 
   @action
   fetchApErfkritWerte = () => {
-    let { apErfkritWerte, apErfkritWerteLoading } = this.data
     // only fetch if not yet fetched
-    if (apErfkritWerte.length === 0 && !apErfkritWerteLoading) {
-      apErfkritWerteLoading = true
+    if (this.data.apErfkritWerte.length === 0 && !this.data.apErfkritWerteLoading) {
+      this.data.apErfkritWerteLoading = true
       axios.get(`${apiBaseUrl}/apErfkritWerte`)
         .then(({ data }) => {
           transaction(() => {
-            apErfkritWerte = data
-            apErfkritWerteLoading = false
+            this.data.apErfkritWerte = data
+            this.data.apErfkritWerteLoading = false
           })
         })
         .catch(error => console.log(`error fetching apErfkritWerte:`, error))
@@ -187,15 +183,14 @@ class Store extends singleton {
 
   @action
   fetchTpopkontrzaehlEinheit = () => {
-    let { tpopkontrzaehlEinheit, tpopkontrzaehlEinheitLoading } = this.data
     // only fetch if not yet fetched
-    if (tpopkontrzaehlEinheit.length === 0 && !tpopkontrzaehlEinheitLoading) {
-      tpopkontrzaehlEinheitLoading = true
+    if (this.data.tpopkontrzaehlEinheit.length === 0 && !this.data.tpopkontrzaehlEinheitLoading) {
+      this.data.tpopkontrzaehlEinheitLoading = true
       axios.get(`${apiBaseUrl}/tpopkontrzaehlEinheit`)
         .then(({ data }) => {
           transaction(() => {
-            tpopkontrzaehlEinheit = data
-            tpopkontrzaehlEinheitLoading = false
+            this.data.tpopkontrzaehlEinheit = data
+            this.data.tpopkontrzaehlEinheitLoading = false
           })
         })
         .catch(error => console.log(`error fetching tpopkontrzaehlEinheit:`, error))
@@ -204,15 +199,14 @@ class Store extends singleton {
 
   @action
   fetchTpopmassnTyp = () => {
-    let { tpopmassnTyp, tpopmassnTypLoading } = this.data
     // only fetch if not yet fetched
-    if (tpopmassnTyp.length === 0 && !tpopmassnTypLoading) {
-      tpopmassnTypLoading = true
+    if (this.data.tpopmassnTyp.length === 0 && !this.data.tpopmassnTypLoading) {
+      this.data.tpopmassnTypLoading = true
       axios.get(`${apiBaseUrl}/tpopmassnTyp`)
         .then(({ data }) => {
           transaction(() => {
-            tpopmassnTyp = data
-            tpopmassnTypLoading = false
+            this.data.tpopmassnTyp = data
+            this.data.tpopmassnTypLoading = false
           })
         })
         .catch(error => console.log(`error fetching tpopmassnTyp:`, error))
@@ -221,15 +215,14 @@ class Store extends singleton {
 
   @action
   fetchZielTyp = () => {
-    let { zielTyp, zielTypLoading } = this.data
     // only fetch if not yet fetched
-    if (zielTyp.length === 0 && !zielTypLoading) {
-      zielTypLoading = true
+    if (this.data.zielTyp.length === 0 && !this.data.zielTypLoading) {
+      this.data.zielTypLoading = true
       axios.get(`${apiBaseUrl}/zielTyp`)
         .then(({ data }) => {
           transaction(() => {
-            zielTyp = data
-            zielTypLoading = false
+            this.data.zielTyp = data
+            this.data.zielTypLoading = false
           })
         })
         .catch(error => console.log(`error fetching zielTyp:`, error))
@@ -238,15 +231,14 @@ class Store extends singleton {
 
   @action
   fetchTpopmassnErfbeurt = () => {
-    let { tpopmassnErfbeurt, tpopmassnErfbeurtLoading } = this.data
     // only fetch if not yet fetched
-    if (tpopmassnErfbeurt.length === 0 && !tpopmassnErfbeurtLoading) {
-      tpopmassnErfbeurtLoading = true
+    if (this.data.tpopmassnErfbeurt.length === 0 && !this.data.tpopmassnErfbeurtLoading) {
+      this.data.tpopmassnErfbeurtLoading = true
       axios.get(`${apiBaseUrl}/tpopmassnErfbeurt`)
         .then(({ data }) => {
           transaction(() => {
-            tpopmassnErfbeurt = data
-            tpopmassnErfbeurtLoading = false
+            this.data.tpopmassnErfbeurt = data
+            this.data.tpopmassnErfbeurtLoading = false
           })
         })
         .catch(error => console.log(`error fetching tpopmassnErfbeurt:`, error))
@@ -255,15 +247,14 @@ class Store extends singleton {
 
   @action
   fetchAdresse = () => {
-    let { adresse, adresseLoading } = this.data
     // only fetch if not yet fetched
-    if (adresse.length === 0 && !adresseLoading) {
-      adresseLoading = true
+    if (this.data.adresse.length === 0 && !this.data.adresseLoading) {
+      this.data.adresseLoading = true
       axios.get(`${apiBaseUrl}/adressen`)
         .then(({ data }) => {
           transaction(() => {
-            adresse = data
-            adresseLoading = false
+            this.data.adresse = data
+            this.data.adresseLoading = false
           })
         })
         .catch(error => console.log(`error fetching adresse:`, error))
@@ -275,8 +266,6 @@ class Store extends singleton {
     this.data.loadingAllNodes = true
     axios.get(`${apiBaseUrl}/node?table=${table}&id=${id}&folder=${folder}&levels=all`)
       .then(({ data: nodesFromDb }) => {
-        console.log(`action fetchAllNodes: nodesFromDb:`, nodesFromDb)
-        // TODO: need to iterate through hierarchy, not only through top level array!!!
         addLabelAndValidToNodes(nodesFromDb, this)
         transaction(() => {
           this.data.nodes.replace(nodesFromDb)
@@ -345,10 +334,9 @@ class Store extends singleton {
 
   @action
   closeNode = (node) => {
-    let { activeNode } = this.data
     transaction(() => {
-      if (activeNode !== node) {
-        activeNode = node
+      if (this.data.activeNode !== node) {
+        this.data.activeNode = node
       }
       node.expanded = false
     })
@@ -357,17 +345,9 @@ class Store extends singleton {
   fetchActiveNodeDataset = ({ table, field, value }) =>
     fetchDataset({ table, field, value })
       .then((dataset) => {
-        const { activeNode } = this.data
-        /*
-        const validObject = {}
-        Object.keys(dataset).forEach((k) => {
-          validObject[k] = ``
-        })*/
         transaction(() => {
-          activeNode.row = dataset
-          // activeNode.table = table
-          // activeNode.valid = validObject
-          addLabelAndValidToNodes(activeNode)
+          this.data.activeNode.row = dataset
+          addLabelAndValidToNodes(this.data.activeNode)
         })
       })
       .catch((error) => {
