@@ -24,11 +24,17 @@ import AppStore from './app'
 class Store extends singleton {
   constructor() {
     super()
+    this.fetchFields = this.fetchFields.bind(this)
     this.updateProperty = this.updateProperty.bind(this)
+    this.updatePropertyInDb = this.updatePropertyInDb.bind(this)
     this.fetchAeEigenschaften = this.fetchAeEigenschaften.bind(this)
     this.fetchApStatus = this.fetchApStatus.bind(this)
     this.fetchApUmsetzung = this.fetchApUmsetzung.bind(this)
     this.fetchApErfkritWerte = this.fetchApErfkritWerte.bind(this)
+    this.fetchTpopkontrzaehlEinheit = this.fetchTpopkontrzaehlEinheit.bind(this)
+    this.fetchTpopmassnTyp = this.fetchTpopmassnTyp.bind(this)
+    this.fetchZielTyp = this.fetchZielTyp.bind(this)
+    this.fetchTpopmassnErfbeurt = this.fetchTpopmassnErfbeurt.bind(this)
     this.fetchAdresse = this.fetchAdresse.bind(this)
     this.fetchAllNodes = this.fetchAllNodes.bind(this)
     this.openNode = this.openNode.bind(this)
@@ -44,14 +50,15 @@ class Store extends singleton {
 
   @action
   fetchFields = () => {
-    // only fetch if not yet fetched
-    if (this.data.fields.length === 0 && !this.data.fieldsLoading) {
-      this.data.fieldsLoading = true
+    let { fields, fieldsLoading } = this.data
+      // only fetch if not yet fetched
+    if (fields.length === 0 && !fieldsLoading) {
+      fieldsLoading = true
       axios.get(`${apiBaseUrl}/felder`)
-        .then(({ data: fields }) => {
+        .then(({ data }) => {
           transaction(() => {
-            this.data.fields = fields
-            this.data.fieldsLoading = false
+            fields = data
+            fieldsLoading = false
           })
         })
         .catch(error => console.log(`error fetching fields:`, error))
@@ -78,12 +85,12 @@ class Store extends singleton {
     }
 
     // ensure derived data exists
-    const tabelle = tables.find(t => t.tabelleInDb === table && t.database === `apflora`)
+    const tabelle = tables.find(t => t.tabelleInDb === table)
     const tabelleIdFeld = tabelle ? tabelle.tabelleIdFeld : undefined
     if (!tabelleIdFeld) {
       return console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
     }
-    const tabelleId = row[tabelleIdFeld] ? row[tabelleIdFeld] : undefined
+    const tabelleId = row[tabelleIdFeld] || undefined
     if (!tabelleId) {
       return console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
     }
@@ -112,14 +119,15 @@ class Store extends singleton {
 
   @action
   fetchAeEigenschaften = () => {
-    // only fetch if not yet fetched
-    if (this.data.aeEigenschaften.length === 0 && !this.data.aeEigenschaftenLoading) {
-      this.data.aeEigenschaftenLoading = true
+    let { aeEigenschaften, aeEigenschaftenLoading } = this.data
+      // only fetch if not yet fetched
+    if (aeEigenschaften.length === 0 && !aeEigenschaftenLoading) {
+      aeEigenschaftenLoading = true
       axios.get(`${apiBaseUrl}/artliste`)
-        .then(({ data: aeEigenschaften }) => {
+        .then(({ data }) => {
           transaction(() => {
-            this.data.aeEigenschaften = aeEigenschaften
-            this.data.aeEigenschaftenLoading = false
+            aeEigenschaften = data
+            aeEigenschaftenLoading = false
           })
         })
         .catch(error => console.log(`error fetching aeEigenschaften:`, error))
@@ -128,14 +136,15 @@ class Store extends singleton {
 
   @action
   fetchApStatus = () => {
+    let { apStatus, apStatusLoading } = this.data
     // only fetch if not yet fetched
-    if (this.data.apStatus.length === 0 && !this.data.apStatusLoading) {
-      this.data.apStatusLoading = true
+    if (apStatus.length === 0 && !apStatusLoading) {
+      apStatusLoading = true
       axios.get(`${apiBaseUrl}/apStatus`)
-        .then(({ data: apStatus }) => {
+        .then(({ data }) => {
           transaction(() => {
-            this.data.apStatus = apStatus
-            this.data.apStatusLoading = false
+            apStatus = data
+            apStatusLoading = false
           })
         })
         .catch(error => console.log(`error fetching apStatus:`, error))
@@ -144,14 +153,15 @@ class Store extends singleton {
 
   @action
   fetchApUmsetzung = () => {
+    let { apUmsetzung, apUmsetzungLoading } = this.data
     // only fetch if not yet fetched
-    if (this.data.apUmsetzung.length === 0 && !this.data.apUmsetzungLoading) {
-      this.data.apUmsetzungLoading = true
+    if (apUmsetzung.length === 0 && !apUmsetzungLoading) {
+      apUmsetzungLoading = true
       axios.get(`${apiBaseUrl}/apUmsetzung`)
-        .then(({ data: apUmsetzung }) => {
+        .then(({ data }) => {
           transaction(() => {
-            this.data.apUmsetzung = apUmsetzung
-            this.data.apUmsetzungLoading = false
+            apUmsetzung = data
+            apUmsetzungLoading = false
           })
         })
         .catch(error => console.log(`error fetching apUmsetzung:`, error))
@@ -160,14 +170,15 @@ class Store extends singleton {
 
   @action
   fetchApErfkritWerte = () => {
+    let { apErfkritWerte, apErfkritWerteLoading } = this.data
     // only fetch if not yet fetched
-    if (this.data.apErfkritWerte.length === 0 && !this.data.apErfkritWerteLoading) {
-      this.data.apErfkritWerteLoading = true
+    if (apErfkritWerte.length === 0 && !apErfkritWerteLoading) {
+      apErfkritWerteLoading = true
       axios.get(`${apiBaseUrl}/apErfkritWerte`)
-        .then(({ data: apErfkritWerte }) => {
+        .then(({ data }) => {
           transaction(() => {
-            this.data.apErfkritWerte = apErfkritWerte
-            this.data.apErfkritWerteLoading = false
+            apErfkritWerte = data
+            apErfkritWerteLoading = false
           })
         })
         .catch(error => console.log(`error fetching apErfkritWerte:`, error))
@@ -176,14 +187,15 @@ class Store extends singleton {
 
   @action
   fetchTpopkontrzaehlEinheit = () => {
+    let { tpopkontrzaehlEinheit, tpopkontrzaehlEinheitLoading } = this.data
     // only fetch if not yet fetched
-    if (this.data.tpopkontrzaehlEinheit.length === 0 && !this.data.tpopkontrzaehlEinheitLoading) {
-      this.data.tpopkontrzaehlEinheitLoading = true
+    if (tpopkontrzaehlEinheit.length === 0 && !tpopkontrzaehlEinheitLoading) {
+      tpopkontrzaehlEinheitLoading = true
       axios.get(`${apiBaseUrl}/tpopkontrzaehlEinheit`)
-        .then(({ data: tpopkontrzaehlEinheit }) => {
+        .then(({ data }) => {
           transaction(() => {
-            this.data.tpopkontrzaehlEinheit = tpopkontrzaehlEinheit
-            this.data.tpopkontrzaehlEinheitLoading = false
+            tpopkontrzaehlEinheit = data
+            tpopkontrzaehlEinheitLoading = false
           })
         })
         .catch(error => console.log(`error fetching tpopkontrzaehlEinheit:`, error))
@@ -192,14 +204,15 @@ class Store extends singleton {
 
   @action
   fetchTpopmassnTyp = () => {
+    let { tpopmassnTyp, tpopmassnTypLoading } = this.data
     // only fetch if not yet fetched
-    if (this.data.tpopmassnTyp.length === 0 && !this.data.tpopmassnTypLoading) {
-      this.data.tpopmassnTypLoading = true
+    if (tpopmassnTyp.length === 0 && !tpopmassnTypLoading) {
+      tpopmassnTypLoading = true
       axios.get(`${apiBaseUrl}/tpopmassnTyp`)
-        .then(({ data: tpopmassnTyp }) => {
+        .then(({ data }) => {
           transaction(() => {
-            this.data.tpopmassnTyp = tpopmassnTyp
-            this.data.tpopmassnTypLoading = false
+            tpopmassnTyp = data
+            tpopmassnTypLoading = false
           })
         })
         .catch(error => console.log(`error fetching tpopmassnTyp:`, error))
@@ -208,14 +221,15 @@ class Store extends singleton {
 
   @action
   fetchZielTyp = () => {
+    let { zielTyp, zielTypLoading } = this.data
     // only fetch if not yet fetched
-    if (this.data.zielTyp.length === 0 && !this.data.zielTypLoading) {
-      this.data.zielTypLoading = true
+    if (zielTyp.length === 0 && !zielTypLoading) {
+      zielTypLoading = true
       axios.get(`${apiBaseUrl}/zielTyp`)
-        .then(({ data: zielTyp }) => {
+        .then(({ data }) => {
           transaction(() => {
-            this.data.zielTyp = zielTyp
-            this.data.zielTypLoading = false
+            zielTyp = data
+            zielTypLoading = false
           })
         })
         .catch(error => console.log(`error fetching zielTyp:`, error))
@@ -224,14 +238,15 @@ class Store extends singleton {
 
   @action
   fetchTpopmassnErfbeurt = () => {
+    let { tpopmassnErfbeurt, tpopmassnErfbeurtLoading } = this.data
     // only fetch if not yet fetched
-    if (this.data.tpopmassnErfbeurt.length === 0 && !this.data.tpopmassnErfbeurtLoading) {
-      this.data.tpopmassnErfbeurtLoading = true
+    if (tpopmassnErfbeurt.length === 0 && !tpopmassnErfbeurtLoading) {
+      tpopmassnErfbeurtLoading = true
       axios.get(`${apiBaseUrl}/tpopmassnErfbeurt`)
-        .then(({ data: tpopmassnErfbeurt }) => {
+        .then(({ data }) => {
           transaction(() => {
-            this.data.tpopmassnErfbeurt = tpopmassnErfbeurt
-            this.data.tpopmassnErfbeurtLoading = false
+            tpopmassnErfbeurt = data
+            tpopmassnErfbeurtLoading = false
           })
         })
         .catch(error => console.log(`error fetching tpopmassnErfbeurt:`, error))
@@ -240,14 +255,15 @@ class Store extends singleton {
 
   @action
   fetchAdresse = () => {
+    let { adresse, adresseLoading } = this.data
     // only fetch if not yet fetched
-    if (this.data.adresse.length === 0 && !this.data.adresseLoading) {
-      this.data.adresseLoading = true
+    if (adresse.length === 0 && !adresseLoading) {
+      adresseLoading = true
       axios.get(`${apiBaseUrl}/adressen`)
-        .then(({ data: adresse }) => {
+        .then(({ data }) => {
           transaction(() => {
-            this.data.adresse = adresse
-            this.data.adresseLoading = false
+            adresse = data
+            adresseLoading = false
           })
         })
         .catch(error => console.log(`error fetching adresse:`, error))
@@ -256,16 +272,17 @@ class Store extends singleton {
 
   @action
   fetchAllNodes = ({ table, id, folder }) => {
-    this.data.loadingAllNodes = true
+    let { loadingAllNodes, nodes } = this.data
+    loadingAllNodes = true
     axios.get(`${apiBaseUrl}/node?table=${table}&id=${id}&folder=${folder}&levels=all`)
-      .then(({ data: nodes }) => {
-        nodes.forEach((n) => {
-          if (!n.folder) {
+      .then(({ data: nodesFromDb }) => {
+        nodesFromDb.forEach((n) => {
+          if (n.row) {
             n.label = computed(() => {
               const tbl = tables.find(t => t.tabelleInDb === n.table)
-              if (!tbl || !tbl.label) return ``
+              if (!tbl || !tbl.label) return `(kein Name)`
               const label = tbl.label(n.row, this.data)
-              if (!label) return ``
+              if (!label) return `(kein Name)`
               return label
             })
             const validObject = {}
@@ -276,11 +293,11 @@ class Store extends singleton {
           }
         })
         transaction(() => {
-          this.data.nodes.replace(nodes)
-          this.data.loadingAllNodes = false
+          nodes.replace(nodesFromDb)
+          loadingAllNodes = false
         })
         // set project node as active node
-        const activeNode = getNodeByPath(this.data.nodes, [{ table, id, folder }])
+        const activeNode = getNodeByPath(nodes, [{ table, id, folder }])
         if (activeNode && activeNode !== this.data.activeNode) {
           this.data.activeNode = activeNode
         }
@@ -289,13 +306,13 @@ class Store extends singleton {
   }
 
   @action
-  openNode = (node, index) => {
+  openNode = (node) => {
     if (node) {
+      let { activeNode } = this.data
       transaction(() => {
         node.expanded = true
-        if (this.data.activeNode !== node) {
-          this.data.activeNode = node
-          this.data.activeNodeIndex = index
+        if (activeNode !== node) {
+          activeNode = node
         }
       })
       // only show `lade Daten...` if not yet loaded
@@ -319,22 +336,32 @@ class Store extends singleton {
 
   @action
   fetchNodeChildren = (node) => {
-    const table = tables.find(t => t.tabelleInDb === node.table)
-    if (!table) throw new Error(`table not found`)
-    const tabelleIdFeld = table.tabelleIdFeld
-    axios.get(`${apiBaseUrl}/node?table=${node.table}&id=${node.row[tabelleIdFeld]}&folder=${node.folder ? node.folder : ``}`)
+    let id
+    if (node.id) {
+      id = node.id
+    } else {
+      const table = tables.find(t => t.tabelleInDb === node.table)
+      if (!table) throw new Error(`table not found`)
+      const tabelleIdFeld = table.tabelleIdFeld
+      id = node.row[tabelleIdFeld]
+    }
+    axios.get(`${apiBaseUrl}/node?table=${node.table}&id=${id}&folder=${node.folder ? node.folder : ``}`)
       .then(({ data: nodes }) => {
         transaction(() => {
           node.children.replace(nodes)
         })
       })
+      .catch(error =>
+        console.log(`action fetchNodeChildren: Error fetching node children:`, error
+      ))
   }
 
   @action
   closeNode = (node) => {
+    let { activeNode } = this.data
     transaction(() => {
-      if (this.data.activeNode !== node) {
-        this.data.activeNode = node
+      if (activeNode !== node) {
+        activeNode = node
       }
       node.expanded = false
     })
@@ -343,14 +370,15 @@ class Store extends singleton {
   fetchActiveNodeDataset = ({ table, field, value }) =>
     fetchDataset({ table, field, value })
       .then((dataset) => {
+        const { activeNode } = this.data
         const validObject = {}
         Object.keys(dataset).forEach((k) => {
           validObject[k] = ``
         })
         transaction(() => {
-          this.data.activeNode.row = dataset
-          this.data.activeNode.table = table
-          this.data.activeNode.valid = validObject
+          activeNode.row = dataset
+          activeNode.table = table
+          activeNode.valid = validObject
         })
       })
       .catch((error) => {
@@ -375,9 +403,9 @@ class Store extends singleton {
           children: [],
         }
       } else {
-        const myTable = tables.find(t => t.tabelleInDb && t.tabelleInDb === activeNode.table)
+        const myTable = tables.find(t => t.tabelleInDb === activeNode.table)
         if (!myTable) {
-          throw new Error(`Table ${activeNode.table} not found in 'modules/table'`)
+          throw new Error(`Table ${activeNode.table} not found in 'modules/tables'`)
         }
 
         this.data.nrOfRowsAboveActiveNode = countRowsAboveActiveNode(
@@ -388,21 +416,30 @@ class Store extends singleton {
 
         const table = activeNode.table
         const tabelleIdFeld = myTable.tabelleIdFeld
-        const id = activeNode.row[tabelleIdFeld]
-        // if (
-        //   activeNode
-        //   && activeNode.table
-        //   && activeNode.table === table
-        //   && activeNode.row
-        //   && activeNode.row[tabelleIdFeld]
-        //   && activeNode.row[tabelleIdFeld] === id
-        // ) {
+        const id = activeNode.id ? activeNode.id : activeNode.row[tabelleIdFeld]
+        if (
+          activeNode
+          && activeNode.table
+          && activeNode.table === table
+          && (
+            (
+              activeNode.row
+              && activeNode.row[tabelleIdFeld]
+              && activeNode.row[tabelleIdFeld] === id
+            )
+            ||
+            (
+              activeNode.id
+              && activeNode.id === id
+            )
+          )
+        ) {
           // active dataset has not changed
           // maybe only activeNode.expanded has changed
           // do nothing
-        // } else {
-        this.fetchActiveNodeDataset({ table, field: tabelleIdFeld, value: id })
-        // }
+        } else {
+          this.fetchActiveNodeDataset({ table, field: tabelleIdFeld, value: id })
+        }
       }
     }
   )

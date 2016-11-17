@@ -73,7 +73,7 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
         if (node.children && node.expanded) {
           store.closeNode(node)
         } else {
-          store.openNode(node, index)
+          store.openNode(node)
         }
       }
 
