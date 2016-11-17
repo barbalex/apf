@@ -13,7 +13,6 @@ const node = {
   folder: null,
   table: null,
   row: null,
-  folderLabel: null,
   label: null,
   valid: null,
   expanded: false,

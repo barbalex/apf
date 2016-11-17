@@ -117,7 +117,7 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
             {symbol}
           </span>
           <span className={styles.text}>
-            {node.label/* || node.folderLabel*/}
+            {node.label}
           </span>
         </div>
       )

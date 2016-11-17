@@ -276,6 +276,8 @@ class Store extends singleton {
     loadingAllNodes = true
     axios.get(`${apiBaseUrl}/node?table=${table}&id=${id}&folder=${folder}&levels=all`)
       .then(({ data: nodesFromDb }) => {
+        console.log(`action fetchAllNodes: nodesFromDb:`, nodesFromDb)
+        // TODO: need to iterate through hierarchy, not only through top level array!!!
         nodesFromDb.forEach((n) => {
           if (n.row) {
             n.label = computed(() => {
@@ -394,7 +396,6 @@ class Store extends singleton {
           folder: null,
           table: null,
           row: null,
-          folderLabel: null,
           label: null,
           valid: null,
           expanded: false,
