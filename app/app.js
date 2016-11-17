@@ -7,6 +7,7 @@
  */
 
 import 'babel-polyfill'
+import 'moment'
 
 /* eslint-disable import/no-webpack-loader-syntax, import/extensions */
 // Load the manifest.json file and the .htaccess file
