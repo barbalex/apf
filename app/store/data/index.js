@@ -1,15 +1,7 @@
 import { observable, computed, toJS } from 'mobx'
 
-// TODO: remove noNode
-const noNode = {
+const placeholderNode = {
   nodeId: `none`,
-  name: `this seems to be needed for mobx`,
-  expanded: false,
-  children: [],
-}
-
-const node = {
-  nodeId: null,
   folder: null,
   table: null,
   row: null,
@@ -23,7 +15,7 @@ const node = {
 
 // TODO: setting Node instead of noNode in nodes and nodes2 creates bad error in mobx
 class Data {
-  @observable nodes = [noNode]
+  @observable nodes = [placeholderNode]
   @observable loadingAllNodes = false
   @observable fields = []
   @observable fieldsLoading = false
@@ -38,7 +30,7 @@ class Data {
     }
     return artname
   }
-  @observable nodes2 = [noNode]
+  @observable nodes2 = [placeholderNode]
   @observable map = null
   @observable aeEigenschaften = []
   @observable aeEigenschaftenLoading = false

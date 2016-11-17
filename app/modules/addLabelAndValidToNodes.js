@@ -8,7 +8,7 @@ const addLabelAndValidToNodes = (nodes, store) => {
   }
   nodes.forEach((n) => {
     if (isPlainObject(n)) {
-      if (n.row) {
+      if (!n.folder) {
         n.label = computed(() => {
           const tbl = tables.find(t => t.tabelleInDb === n.table)
           if (!tbl || !tbl.label) return `(kein Name)`
@@ -16,12 +16,12 @@ const addLabelAndValidToNodes = (nodes, store) => {
           if (!label) return `(kein Name)`
           return label
         })
-        const validObject = {}
-        Object.keys(n.row).forEach((k) => {
-          validObject[k] = ``
-        })
-        n.valid = validObject
       }
+      const validObject = {}
+      Object.keys(n.row).forEach((k) => {
+        validObject[k] = ``
+      })
+      n.valid = validObject
       if (n.children && n.children.length) {
         addLabelAndValidToNodes(n.children, store)
       }

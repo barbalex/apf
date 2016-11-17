@@ -103,7 +103,7 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
       } else if (nodeHasChildren) {
         props.onClick = onClick
         symbol = symbolTypes.closed
-      } else if (node.name === `lade Daten...`) {
+      } else if (node.label === `lade Daten...`) {
         symbol = symbolTypes.loadingData
       } else {
         symbol = symbolTypes.hasNoChildren
