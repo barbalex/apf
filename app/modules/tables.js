@@ -6,7 +6,10 @@ export default [
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
     label(row, data) {
-      return data.aeEigenschaften.find(e => e.id === row.ApArtId).label
+      if (!data || !data.aeEigenschaften) return ``
+      const ae = data.aeEigenschaften.find(e => e.id === row.ApArtId)
+      if (!ae) return ``
+      return ae.label || ``
     },
   },
   {
@@ -16,6 +19,7 @@ export default [
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
     label(row) {
+      if (!row) return ``
       return `${row.PopNr || `(keine Nr)`}: ${row.PopName || `(kein Name)`}`
     },
   },
@@ -26,6 +30,7 @@ export default [
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
     label(row) {
+      if (!row) return ``
       return `${row.TPopNr || `(keine Nr)`}: ${row.TPopFlurname || `(kein Flurname)`}`
     },
   },
@@ -36,6 +41,7 @@ export default [
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
     label(row) {
+      if (!row) return ``
       if (row.TPopKontrTyp && row.TPopKontrTyp === `"Freiwilligen-Erfolgskontrolle"`) {
         return `${row.TPopKontrJahr || `(kein Jahr)`}`
       }
@@ -49,8 +55,13 @@ export default [
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
     label(row, data) {
-      const zaehleinheitTxt = data.tpopkontrzaehlEinheit.find(e => e.DomainCode === row.Zaehleinheit).DomainTxt
-      const methodeTxt = data.tpopkontrzaehlMethode.find(e => e.DomainCode === row.Methode).DomainTxt
+      if (!row || !data || !data.tpopkontrzaehlEinheit || !data.tpopkontrzaehlMethode) return ``
+      const zaehleinheit = data.tpopkontrzaehlEinheit.find(e => e.DomainCode === row.Zaehleinheit)
+      if (!zaehleinheit) return ``
+      const zaehleinheitTxt = zaehleinheit.DomainTxt || ``
+      const methode = data.tpopkontrzaehlMethode.find(e => e.DomainCode === row.Methode)
+      if (!methode) return ``
+      const methodeTxt = methode.DomainTxt || ``
       return `${row.Anzahl || `(keine Anzahl)`} ${zaehleinheitTxt || `(keine Einheit)`} ${methodeTxt || `(keine Methode)`}`
     },
   },
@@ -61,7 +72,10 @@ export default [
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
     label(row, data) {
-      const massnTypTxt = data.tpopmassnTyp.find(e => e.DomainCode === row.TPopMassnTyp).DomainTxt
+      if (!row || !data.tpopmassnTyp) return ``
+      const massnTyp = data.tpopmassnTyp.find(e => e.DomainCode === row.TPopMassnTyp)
+      if (!massnTyp) return ``
+      const massnTypTxt = massnTyp.DomainTxt || ``
       return `${row.TPopMassnJahr || `(kein Jahr)`}: ${massnTypTxt || `(kein Typ)`}`
     },
   },
@@ -72,7 +86,10 @@ export default [
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
     label(row, data) {
-      const zielTypTxt = data.zielTyp.find(e => e.DomainCode === row.ZielTyp).DomainTxt
+      if (!row || !data.zielTyp) return ``
+      const zielTyp = data.zielTyp.find(e => e.DomainCode === row.ZielTyp)
+      if (!zielTyp) return ``
+      const zielTypTxt = zielTyp.DomainTxt || ``
       return `${row.ZielJahr || `(kein Jahr)`}: ${row.ZielBezeichnung} (${zielTypTxt})`
     },
   },
@@ -83,6 +100,7 @@ export default [
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
     label(row) {
+      if (!row) return ``
       return `${row.ZielBerJahr || `(kein Jahr)`}: ${row.ZielBerErreichung || `(keine Entwicklung)`}`
     },
   },
@@ -93,6 +111,7 @@ export default [
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
     label(row) {
+      if (!row) return ``
       return `${row.BeurteilTxt || `(nicht beurteilt)`}: ${row.ErfkritTxt || `(keine Kriterien erfasst)`}`
     },
   },
@@ -103,6 +122,7 @@ export default [
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
     label(row) {
+      if (!row) return ``
       return row.JBerJahr || `(kein Jahr)`
     },
   },
@@ -113,7 +133,8 @@ export default [
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
     label(row) {
-      return row.JbuJahr
+      if (!row) return ``
+      return row.JbuJahr || ``
     },
   },
   {
@@ -123,6 +144,7 @@ export default [
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
     label(row) {
+      if (!row) return ``
       return `${row.BerJahr || `(kein Jahr)`}: ${row.BerTitel || `(kein Titel)`}`
     },
   },
@@ -143,9 +165,13 @@ export default [
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
     label(row, data) {
+      if (!row) return ``
       let label = `(keine Art gewählt)`
-      if (!row.AaApArtId) {
-        label = data.aeEigenschaften.find(e => e.id === row.AaApArtId).label
+      if (row.AaApArtId && data && data.aeEigenschaften) {
+        const ae = data.aeEigenschaften.find(e => e.id === row.AaApArtId)
+        if (ae) {
+          label = ae.label
+        }
       }
       return label
     },
@@ -157,6 +183,7 @@ export default [
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
     label(row) {
+      if (!row) return ``
       return `${row.PopBerJahr || `(kein Jahr)`}: ${row.EntwicklungTxt || `(nicht beurteilt)`}`
     },
   },
@@ -167,6 +194,7 @@ export default [
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
     label(row) {
+      if (!row) return ``
       return `${row.PopMassnBerJahr || `(kein Jahr)`}: ${row.BeurteilTxt || `(nicht beurteilt)`}`
     },
   },
@@ -177,6 +205,7 @@ export default [
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
     label(row) {
+      if (!row) return ``
       return `${row.TPopBerJahr || `(kein Jahr)`}: ${row.EntwicklungTxt || `(nicht beurteilt)`}`
     },
   },
@@ -187,9 +216,9 @@ export default [
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
     label(row, data) {
-      const beurteilTxt = data.tpopmassnErfbeurt.find(e =>
-        e.DomainCode === row.TPopMassnBerErfolgsbeurteilung
-      ).DomainTxt
+      if (!row || !data || !data.tpopmassnErfbeurt) return ``
+      const beurteil = data.tpopmassnErfbeurt.find(e => e.DomainCode === row.TPopMassnBerErfolgsbeurteilung)
+      const beurteilTxt = beurteil.DomainTxt || ``
       return `${row.TPopMassnBerJahr || `(kein Jahr)`}: ${beurteilTxt || `(keine Beurteilung)`}`
     },
   },
@@ -200,6 +229,7 @@ export default [
     mutWannFeld: `BeobMutWann`,
     mutWerFeld: `BeobMutWer`,
     label(row) {
+      if (!row) return ``
       return `${row.Datum || `(kein Datum)`}: ${row.Autor || `(kein Autor)`} (${row.Quelle})`
     },
   },
@@ -210,7 +240,8 @@ export default [
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
     label(row) {
-      return row && row.ProjName ? row.ProjName : `(kein Name)`
+      if (!row) return ``
+      return row.ProjName || `(kein Name)`
     },
   },
   {
@@ -220,6 +251,7 @@ export default [
     mutWannFeld: null,
     mutWerFeld: null,
     label(row) {
+      if (!row) return ``
       return `${row.Datum || `(kein Datum)`}: ${row.Autor || `(kein Autor)`} (${row.Quelle})`
     },
   },
