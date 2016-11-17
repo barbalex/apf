@@ -5,7 +5,7 @@
  */
 /* eslint-disable no-console, no-param-reassign */
 
-import { action, transaction, reaction, computed } from 'mobx'
+import { action, transaction, reaction } from 'mobx'
 import singleton from 'singleton'
 import axios from 'axios'
 import objectValues from 'lodash/values'
@@ -16,6 +16,7 @@ import fetchDataset from '../modules/fetchDataset'
 import tables from '../modules/tables'
 import countRowsAboveActiveNode from '../modules/countRowsAboveActiveNode'
 import validateActiveDataset from '../modules/validateActiveDataset'
+import addLabelAndValidToNodes from '../modules/addLabelAndValidToNodes'
 
 import DataStore from './data'
 import UiStore from './ui'
@@ -50,15 +51,14 @@ class Store extends singleton {
 
   @action
   fetchFields = () => {
-    let { fields, fieldsLoading } = this.data
       // only fetch if not yet fetched
-    if (fields.length === 0 && !fieldsLoading) {
-      fieldsLoading = true
+    if (this.data.fields.length === 0 && !this.data.fieldsLoading) {
+      this.data.fieldsLoading = true
       axios.get(`${apiBaseUrl}/felder`)
         .then(({ data }) => {
           transaction(() => {
-            fields = data
-            fieldsLoading = false
+            this.data.fields = data
+            this.data.fieldsLoading = false
           })
         })
         .catch(error => console.log(`error fetching fields:`, error))
@@ -272,34 +272,18 @@ class Store extends singleton {
 
   @action
   fetchAllNodes = ({ table, id, folder }) => {
-    let { loadingAllNodes, nodes } = this.data
-    loadingAllNodes = true
+    this.data.loadingAllNodes = true
     axios.get(`${apiBaseUrl}/node?table=${table}&id=${id}&folder=${folder}&levels=all`)
       .then(({ data: nodesFromDb }) => {
         console.log(`action fetchAllNodes: nodesFromDb:`, nodesFromDb)
         // TODO: need to iterate through hierarchy, not only through top level array!!!
-        nodesFromDb.forEach((n) => {
-          if (n.row) {
-            n.label = computed(() => {
-              const tbl = tables.find(t => t.tabelleInDb === n.table)
-              if (!tbl || !tbl.label) return `(kein Name)`
-              const label = tbl.label(n.row, this.data)
-              if (!label) return `(kein Name)`
-              return label
-            })
-            const validObject = {}
-            Object.keys(n.row).forEach((k) => {
-              validObject[k] = ``
-            })
-            n.valid = validObject
-          }
-        })
+        addLabelAndValidToNodes(nodesFromDb, this)
         transaction(() => {
-          nodes.replace(nodesFromDb)
-          loadingAllNodes = false
+          this.data.nodes.replace(nodesFromDb)
+          this.data.loadingAllNodes = false
         })
         // set project node as active node
-        const activeNode = getNodeByPath(nodes, [{ table, id, folder }])
+        const activeNode = getNodeByPath(this.data.nodes, [{ table, id, folder }])
         if (activeNode && activeNode !== this.data.activeNode) {
           this.data.activeNode = activeNode
         }
@@ -310,11 +294,11 @@ class Store extends singleton {
   @action
   openNode = (node) => {
     if (node) {
-      let { activeNode } = this.data
+      console.log(`action openNode will set activeNode to node:`, node)
       transaction(() => {
         node.expanded = true
-        if (activeNode !== node) {
-          activeNode = node
+        if (this.data.activeNode !== node) {
+          this.data.activeNode = node
         }
       })
       // only show `lade Daten...` if not yet loaded
@@ -349,6 +333,7 @@ class Store extends singleton {
     }
     axios.get(`${apiBaseUrl}/node?table=${node.table}&id=${id}&folder=${node.folder ? node.folder : ``}`)
       .then(({ data: nodes }) => {
+        addLabelAndValidToNodes(nodes, this)
         transaction(() => {
           node.children.replace(nodes)
         })
@@ -373,14 +358,16 @@ class Store extends singleton {
     fetchDataset({ table, field, value })
       .then((dataset) => {
         const { activeNode } = this.data
+        /*
         const validObject = {}
         Object.keys(dataset).forEach((k) => {
           validObject[k] = ``
-        })
+        })*/
         transaction(() => {
           activeNode.row = dataset
-          activeNode.table = table
-          activeNode.valid = validObject
+          // activeNode.table = table
+          // activeNode.valid = validObject
+          addLabelAndValidToNodes(activeNode)
         })
       })
       .catch((error) => {

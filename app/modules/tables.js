@@ -210,7 +210,7 @@ export default [
     mutWannFeld: `MutWann`,
     mutWerFeld: `MutWer`,
     label(row) {
-      return `${row.ProjName || `(kein Name)`}`
+      return row.ProjName || `(kein Name)`
     },
   },
   {
