@@ -12,16 +12,25 @@ const addPropertiesToNodes = (allNodes, topLevelNodes, store) => {
       if (!n.folder) {
         n.label = computed(() => {
           const tbl = tables.find(t => t.tabelleInDb === n.table)
-          if (!tbl || !tbl.label) return `(kein Name)`
-          const label = tbl.label(n.row, store.data)
+          if (!tbl || !tbl.rowLabel) return `(kein Name)`
+          const label = tbl.rowLabel(n.row, store.data)
           if (!label) return `(kein Name)`
+          return label
+        })
+      } else {
+        n.label = computed(() => {
+          if (n !== store.data.activeNode) return n.folderLabel
+          const tbl = tables.find(t => t.tabelleInDb === n.folder)
+          if (!tbl || !tbl.folderLabel) return n.folderLabel
+          const label = tbl.folderLabel(n, store.data)
+          if (!label) return n.folderLabel
           return label
         })
       }
       // add filtered children
       n.childrenFilteredByLabel = computed(() => {
         const filter = store.data.activeNodeChildrenLabelFilter
-        if (!filter) return n.children
+        if (n !== store.data.activeNode || !filter) return n.children
         return n.children.filter((c) => {
           if (!c.label || !c.label.toLowerCase()) return false
           return c.label.toLowerCase().includes(filter)

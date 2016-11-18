@@ -11,6 +11,7 @@ const placeholderNode = {
   urlPath: null,
   nodeIdPath: null,
   children: [],
+  childrenFilteredByLabel: [],
 }
 
 class Data {
@@ -19,7 +20,6 @@ class Data {
   @observable fields = []
   @observable fieldsLoading = false
   @observable activeNode = null
-  @observable activeNodeChildrenLabelFilter = null
   @observable nrOfRowsAboveActiveNode = 0
   @computed get artname() {
     const aeEigenschaften = toJS(this.aeEigenschaften)
