@@ -20,7 +20,10 @@ class Data {
   @observable fields = []
   @observable fieldsLoading = false
   @observable activeNode = null
-  @observable activeNodeChildrenLabelFilter = `abi`
+  @observable activeNodeChildrenLabelFilter = {
+    table: `ap`,
+    value: `abi`,
+  }
   @observable nrOfRowsAboveActiveNode = 0
   @computed get artname() {
     const aeEigenschaften = toJS(this.aeEigenschaften)

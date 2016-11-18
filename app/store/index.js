@@ -292,7 +292,7 @@ class Store extends singleton {
       // only show `lade Daten...` if not yet loaded
       if (
         node.children
-        && node.children.length === 1
+        && node.children.length
         && (
           node.children[0] === 0
           || (node.children[0].label && node.children[0].label === `lade Daten...`)
