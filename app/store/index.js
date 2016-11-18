@@ -324,8 +324,8 @@ class Store extends singleton {
     }
     axios.get(`${apiBaseUrl}/node?table=${node.table}&id=${id}&folder=${node.folder ? node.folder : ``}`)
       .then(({ data: nodes }) => {
-        addPropertiesToNodes(nodes, nodes, this)
         transaction(() => {
+          addPropertiesToNodes(nodes, nodes, this)
           node.children.replace(nodes)
         })
       })

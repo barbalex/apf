@@ -21,7 +21,7 @@ class Data {
   @observable fieldsLoading = false
   @observable activeNode = null
   @observable nodeLabelFilter = {
-    ap: `abi`,
+    ap: `abie`,
   }
   @observable nrOfRowsAboveActiveNode = 0
   @computed get artname() {
