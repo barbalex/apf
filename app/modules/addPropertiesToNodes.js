@@ -19,9 +19,7 @@ const addPropertiesToNodes = (allNodes, topLevelNodes, store) => {
         })
       } else {
         n.label = computed(() => {
-          // if (n !== store.data.activeNode) return n.folderLabel
           const tbl = tables.find(t => t.tabelleInDb === n.folder)
-          // if (!tbl || !tbl.folderLabel) return n.folderLabel
           const label = tbl.folderLabel(n, store.data)
           if (!label) return n.folderLabel
           return label
@@ -29,10 +27,11 @@ const addPropertiesToNodes = (allNodes, topLevelNodes, store) => {
       }
       // add filtered children
       n.childrenFilteredByLabel = computed(() => {
-        const filter = store.data.nodeLabelFilter[n.folder ? n.folder : n.table]
+        const filter = store.data.nodeLabelFilter[n.folder || n.table]
         if (!filter) return n.children
         return n.children.filter((c) => {
-          if (!c.label || !c.label.toLowerCase()) return false
+          if (!c.label || !c.label.toLowerCase) return false
+          if (c.label.toString) return c.label.toString().includes(filter)
           return c.label.toLowerCase().includes(filter)
         })
       })

@@ -1,8 +1,17 @@
 .container {
+  height: 100%;
+}
+
+.listContainer {
   font-family: monospace;
 }
-.container * {
+.listContainer * {
   box-sizing: border-box;
+}
+
+.filterField {
+  margin-top: -0.6em;
+  padding: 0 0.8em 0 0.8em;
 }
 
 .topUl {
