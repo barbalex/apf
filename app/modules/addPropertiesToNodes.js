@@ -2,7 +2,7 @@ import { computed } from 'mobx'
 import isPlainObject from 'lodash/isPlainObject'
 import tables from './tables'
 
-const addLabelAndValidToNodes = (allNodes, topLevelNodes, store) => {
+const addPropertiesToNodes = (allNodes, topLevelNodes, store) => {
   if (!topLevelNodes || !topLevelNodes.length) {
     return
   }
@@ -18,6 +18,15 @@ const addLabelAndValidToNodes = (allNodes, topLevelNodes, store) => {
           return label
         })
       }
+      // add filtered children
+      n.childrenFilteredByLabel = computed(() => {
+        const filter = store.data.activeNodeChildrenLabelFilter
+        if (!filter) return n.children
+        return n.children.filter((c) => {
+          if (!c.label || !c.label.toLowerCase()) return false
+          return c.label.toLowerCase().includes(filter)
+        })
+      })
       // add row of data node to folder nodes
       if (n.folder) {
         const dataNodeId = n.nodeIdPath[n.nodeIdPath.length - 2]
@@ -35,10 +44,10 @@ const addLabelAndValidToNodes = (allNodes, topLevelNodes, store) => {
       })
       n.valid = validObject
       if (n.children && n.children.length) {
-        addLabelAndValidToNodes(allNodes, n.children, store)
+        addPropertiesToNodes(allNodes, n.children, store)
       }
     }
   })
 }
 
-export default addLabelAndValidToNodes
+export default addPropertiesToNodes

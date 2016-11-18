@@ -97,7 +97,13 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
         // TODO:
         // if nodes are stored as a map and data separately,
         // fetch and combine it here
-        childNodes = node.children.map(child =>
+        // apply filter
+        const childrenProperty = (
+          node === store.data.activeNode ?
+          `childrenFilteredByLabel` :
+          `children`
+        )
+        childNodes = node[childrenProperty].map(child =>
           renderNode(child, child.nodeId)
         )
       } else if (nodeHasChildren) {
