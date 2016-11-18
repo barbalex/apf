@@ -2,12 +2,13 @@ import { computed } from 'mobx'
 import isPlainObject from 'lodash/isPlainObject'
 import tables from './tables'
 
-const addLabelAndValidToNodes = (nodes, store) => {
-  if (!nodes || !nodes.length) {
+const addLabelAndValidToNodes = (allNodes, topLevelNodes, store) => {
+  if (!topLevelNodes || !topLevelNodes.length) {
     return
   }
-  nodes.forEach((n) => {
+  topLevelNodes.forEach((n) => {
     if (isPlainObject(n)) {
+      // add label to data nodes
       if (!n.folder) {
         n.label = computed(() => {
           const tbl = tables.find(t => t.tabelleInDb === n.table)
@@ -17,13 +18,24 @@ const addLabelAndValidToNodes = (nodes, store) => {
           return label
         })
       }
+      // add row of data node to folder nodes
+      if (n.folder) {
+        const dataNodeId = n.nodeIdPath[n.nodeIdPath.length - 2]
+        if (dataNodeId) {
+          const dataNode = allNodes.find(node => node.nodeId === dataNodeId)
+          if (dataNode && dataNode.row) {
+            n.row = dataNode.row
+          }
+        }
+      }
+      // add valid to all nodes
       const validObject = {}
       Object.keys(n.row).forEach((k) => {
         validObject[k] = ``
       })
       n.valid = validObject
       if (n.children && n.children.length) {
-        addLabelAndValidToNodes(n.children, store)
+        addLabelAndValidToNodes(allNodes, n.children, store)
       }
     }
   })

@@ -266,11 +266,13 @@ class Store extends singleton {
     this.data.loadingAllNodes = true
     axios.get(`${apiBaseUrl}/node?table=${table}&id=${id}&folder=${folder}&levels=all`)
       .then(({ data: nodesFromDb }) => {
-        addLabelAndValidToNodes(nodesFromDb, this)
+        console.log(`action fetchAllNodes: nodesFromDb[0]:`, nodesFromDb[0])
+        addLabelAndValidToNodes(nodesFromDb, nodesFromDb, this)
         transaction(() => {
           this.data.nodes.replace(nodesFromDb)
           this.data.loadingAllNodes = false
         })
+        console.log(`action fetchAllNodes: this.data.nodes[0]:`, this.data.nodes[0])
         // set project node as active node
         const activeNode = getNodeByPath(this.data.nodes, [{ table, id, folder }])
         if (activeNode && activeNode !== this.data.activeNode) {
@@ -321,7 +323,7 @@ class Store extends singleton {
     }
     axios.get(`${apiBaseUrl}/node?table=${node.table}&id=${id}&folder=${node.folder ? node.folder : ``}`)
       .then(({ data: nodes }) => {
-        addLabelAndValidToNodes(nodes, this)
+        addLabelAndValidToNodes(nodes, nodes, this)
         transaction(() => {
           node.children.replace(nodes)
         })
@@ -346,7 +348,7 @@ class Store extends singleton {
       .then((dataset) => {
         transaction(() => {
           this.data.activeNode.row = dataset
-          addLabelAndValidToNodes(this.data.activeNode)
+          addLabelAndValidToNodes(this.data.nodes, this.data.activeNode, this)
         })
       })
       .catch((error) => {
