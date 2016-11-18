@@ -21,7 +21,7 @@ class StrukturbaumContainer extends Component { // eslint-disable-line react/pre
 
   componentDidMount() {
     const { store } = this.props
-    store.data.treeHeight = this.tree.clientHeight
+    store.ui.treeHeight = this.tree.clientHeight
     const treeRect = this.tree.getBoundingClientRect()
     store.ui.treeTopPosition = treeRect.top
   }

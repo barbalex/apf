@@ -21,7 +21,6 @@ class Data {
   @observable fieldsLoading = false
   @observable activeNode = null
   @observable nrOfRowsAboveActiveNode = 0
-  @observable treeHeight = 0
   @computed get artname() {
     const aeEigenschaften = toJS(this.aeEigenschaften)
     let artname = ``
