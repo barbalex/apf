@@ -29,11 +29,11 @@ const addPropertiesToNodes = (allNodes, topLevelNodes, store) => {
       }
       // add filtered children
       n.childrenFilteredByLabel = computed(() => {
-        const filter = store.data.activeNodeChildrenLabelFilter
-        if (n.table !== filter.table || !filter) return n.children
+        const filter = store.data.nodeLabelFilter[n.folder ? n.folder : n.table]
+        if (!filter) return n.children
         return n.children.filter((c) => {
           if (!c.label || !c.label.toLowerCase()) return false
-          return c.label.toLowerCase().includes(filter.value)
+          return c.label.toLowerCase().includes(filter)
         })
       })
       // add row of data node to folder nodes
