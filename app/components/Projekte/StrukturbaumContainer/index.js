@@ -32,7 +32,7 @@ class StrukturbaumContainer extends Component { // eslint-disable-line react/pre
   }
 
   render() {
-    const { store, location } = this.props
+    const { store } = this.props
     const activeTab = store.ui.projekte.strukturbaum.activeTab
     return (
       <div className={styles.strukturbaum}>
@@ -55,7 +55,7 @@ class StrukturbaumContainer extends Component { // eslint-disable-line react/pre
         <div className={styles.tabsContent} ref={(c) => { this.tree = c }}>
           {
             activeTab === `strukturbaum`
-            && <Strukturbaum location={location} />
+            && <Strukturbaum />
           }
           {
             activeTab === `filter`

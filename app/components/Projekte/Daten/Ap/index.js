@@ -55,6 +55,7 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
     }
     const apNodeIds = getApNodeIds(store.data.activeNode, store.data.nodes)
     const dataSource = aeEigenschaften.filter(r => !apNodeIds.includes(r.id) || r.id === ApArtId)
+
     return (
       <div className={styles.container}>
         <AutoComplete

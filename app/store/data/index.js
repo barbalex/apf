@@ -13,7 +13,6 @@ const placeholderNode = {
   children: [],
 }
 
-// TODO: setting Node instead of noNode in nodes and nodes2 creates bad error in mobx
 class Data {
   @observable nodes = [placeholderNode]
   @observable loadingAllNodes = false

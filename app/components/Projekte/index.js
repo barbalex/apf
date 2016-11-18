@@ -68,7 +68,7 @@ class Projekte extends React.Component { // eslint-disable-line react/prefer-sta
         <div className={styles.content} >
           {
             store.ui.projekte.strukturbaum.visible
-              && <StrukturbaumContainer location={location} />
+              && <StrukturbaumContainer />
           }
           {
             store.ui.projekte.daten.visible
