@@ -22,6 +22,7 @@ import addPropertiesToNodes from '../modules/addPropertiesToNodes'
 import DataStore from './data'
 import UiStore from './ui'
 import AppStore from './app'
+import TableStore from './table'
 
 class Store extends singleton {
   constructor() {
@@ -48,6 +49,7 @@ class Store extends singleton {
   data = DataStore
   ui = UiStore
   app = AppStore
+  table = TableStore
 
   @action
   fetchFields = () => {
@@ -130,14 +132,14 @@ class Store extends singleton {
       return
     }
     // only fetch if not yet fetched
-    if (this.tables[tableName].size === 0 && !this.tables[`${tableName}Loading`]) {
+    if (this.table[tableName].size === 0 && !this.table[`${tableName}Loading`]) {
       const parentIdField = tables.find(t => t.table === tableName).parentIdField
-      this.tables[`${tableName}Loading`] = true
+      this.table[`${tableName}Loading`] = true
       axios.get(`${apiBaseUrl}/schema/${schemaName || `apflora`}/table/${tableName}`)
         .then(({ data }) => {
           transaction(() => {
-            this.tables[`${tableName}Loading`] = keyBy(data, parentIdField)
-            this.tables[`${tableName}Loading`] = false
+            this.table[`${tableName}Loading`] = keyBy(data, parentIdField)
+            this.table[`${tableName}Loading`] = false
           })
         })
         .catch(error => console.log(`error fetching table ${tableName}:`, error))
