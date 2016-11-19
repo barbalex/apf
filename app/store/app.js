@@ -5,6 +5,7 @@ class App {
   @observable user = null
   @observable fields = []
   @observable fieldsLoading = false
+  @observable map = null
 }
 
 export default new App()

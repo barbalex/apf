@@ -28,10 +28,10 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
 
     if (
       !store
-      || !store.data
-      || !store.data.nodes
-      || (store.data.nodes.length && store.data.nodes.length === 0)
-      || (store.data.nodes[0] && store.data.nodes[0].nodeId === `none`)
+      || !store.node
+      || !store.node.nodes
+      || (store.node.nodes.length && store.node.nodes.length === 0)
+      || (store.node.nodes[0] && store.node.nodes[0].nodeId === `none`)
     ) {
       return (
         <div className={styles.container}>
@@ -47,10 +47,10 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
     // calculate scrolltop
     // without this if a folder low in the tree is opened,
     // it always gets scrolled down out of sight
-    const nodes = store.data.nodes
+    const nodes = store.node.nodes
     const nrOfRows = getNrOfNodeRows(nodes)
     const rowHeight = (nrOfRows * 23) / nodes.length
-    const treeHeightAboveActiveNode = store.data.nrOfRowsAboveActiveNode * 23
+    const treeHeightAboveActiveNode = store.node.nrOfRowsAboveActiveNode * 23
     const roomAboveClick = store.ui.lastClickY - store.ui.treeTopPosition
     // correcting by 10px seems to keep the tree from jumping
     const scrolltop = (treeHeightAboveActiveNode - roomAboveClick) + 10
@@ -59,7 +59,7 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
       <div
         key={key}
       >
-        {renderNode(store.data.nodes[index], index)}
+        {renderNode(store.node.nodes[index], index)}
       </div>
 
     const renderNode = (node, index) => {
@@ -80,7 +80,7 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
       }
       let symbol
       let symbolClassName = `symbol`
-      const nodeIsInActiveNodePath = isNodeInActiveNodePath(node, store.data.activeNode)
+      const nodeIsInActiveNodePath = isNodeInActiveNodePath(node, store.node.activeNode)
 
       if (nodeHasChildren && node.expanded) {
         props.onClick = onClick
@@ -91,7 +91,7 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
         // fetch and combine it here
         // apply filter
         const childrenProperty = (
-          node === store.data.activeNode ?
+          node === store.node.activeNode ?
           `childrenFilteredByLabel` :
           `children`
         )

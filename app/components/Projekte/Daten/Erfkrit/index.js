@@ -22,8 +22,8 @@ class Erfkrit extends Component { // eslint-disable-line react/prefer-stateless-
 
   render() {
     const { store } = this.props
-    const apErfkritWerte = mobX.toJS(store.data.apErfkritWerte)
-    const activeNode = store.data.activeNode
+    const apErfkritWerte = mobX.toJS(store.table.ap_erfkrit_werte)
+    const activeNode = store.node.activeNode
     return (
       <div className={styles.container}>
         <div className={styles.fieldContainer}>

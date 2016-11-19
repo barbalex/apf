@@ -26,7 +26,7 @@ class Pop extends Component { // eslint-disable-line react/prefer-stateless-func
 
   render() {
     const { store } = this.props
-    const aeEigenschaften = mobX.toJS(store.data.aeEigenschaften)
+    const aeEigenschaften = mobX.toJS(store.table.adb_eigenschaften)
     aeEigenschaften.unshift({
       label: ``,
       id: null,
@@ -34,11 +34,11 @@ class Pop extends Component { // eslint-disable-line react/prefer-stateless-func
     return (
       <div className={styles.container}>
         <SelectField
-          hintText={store.data.aeEigenschaftenLoading ? `lade Daten...` : ``}
+          hintText={store.table.adb_eigenschaftenLoading ? `lade Daten...` : ``}
           fullWidth
           floatingLabelText="Art"
           maxHeight={20}
-          value={store.data.activeNode.row.ApArtId}
+          value={store.node.activeNode.row.ApArtId}
           onChange={(element) => {
             console.log(`element:`, element)
           }}

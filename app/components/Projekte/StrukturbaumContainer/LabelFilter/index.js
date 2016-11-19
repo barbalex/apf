@@ -24,7 +24,7 @@ class LabelFilter extends Component { // eslint-disable-line react/prefer-statel
       filteredTable = activeNode.folder || activeNode.table
       console.log(`filteredTable:`, filteredTable)
       if (filteredTable) {
-        filterValue = data.nodeLabelFilter[filteredTable]
+        filterValue = node.nodeLabelFilter[filteredTable]
         console.log(`filterValue:`, filterValue)
       }
     }

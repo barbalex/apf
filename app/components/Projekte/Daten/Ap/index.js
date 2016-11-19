@@ -32,15 +32,15 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
 
   render() {
     const { store } = this.props
-    const aeEigenschaften = mobX.toJS(store.data.aeEigenschaften)
-    const apStati = mobX.toJS(store.data.apStatus)
-    const apUmsetzungen = mobX.toJS(store.data.apUmsetzung)
-    const adressen = mobX.toJS(store.data.adresse)
+    const aeEigenschaften = mobX.toJS(store.table.adb_eigenschaften)
+    const apStati = mobX.toJS(store.table.ap_bearbstand_werte)
+    const apUmsetzungen = mobX.toJS(store.table.ap_umsetzung_werte)
+    const adressen = mobX.toJS(store.table.adresse)
     adressen.unshift({
       id: null,
       AdrName: ``,
     })
-    const activeNode = store.data.activeNode
+    const activeNode = store.node.activeNode
     const ApArtId = (
       activeNode
       && activeNode.row
@@ -53,7 +53,7 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
       const aeEigenschaftenRow = aeEigenschaften.find(e => e.id === ApArtId)
       artwert = aeEigenschaftenRow.artwert
     }
-    const apNodeIds = getApNodeIds(store.data.activeNode, store.data.nodes)
+    const apNodeIds = getApNodeIds(store.node.activeNode, store.node.nodes)
     const dataSource = aeEigenschaften.filter(r => !apNodeIds.includes(r.id) || r.id === ApArtId)
 
     return (
@@ -62,7 +62,7 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
           label="Art"
           fieldName="ApArtId"
           value={ApArtId}
-          valueText={store.data.artname}
+          valueText={store.table.artname}
           errorText={activeNode.valid.ApArtId}
           dataSource={dataSource}
           updatePropertyInDb={store.updatePropertyInDb}

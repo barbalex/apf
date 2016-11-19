@@ -13,7 +13,7 @@ class Apberuebersicht extends Component { // eslint-disable-line react/prefer-st
 
   render() {
     const { store } = this.props
-    const activeNode = store.data.activeNode
+    const activeNode = store.node.activeNode
     return (
       <div className={styles.container}>
         <TextField

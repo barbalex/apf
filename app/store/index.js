@@ -66,12 +66,12 @@ class Store extends singleton {
   @action
   updateLabelFilter = (table, value) => {
     if (!table) return console.log(`nodeLabelFilter cant be updated: no table passed`)
-    this.data.nodeLabelFilter[table] = value
+    this.node.nodeLabelFilter[table] = value
   }
 
   @action
   updateProperty = (key, value) => {
-    const { table, row } = this.data.activeNode
+    const { table, row } = this.node.activeNode
     // ensure primary data exists
     if (!key || !table || !row) {
       return console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
@@ -81,7 +81,7 @@ class Store extends singleton {
 
   @action
   updatePropertyInDb = (key, value) => {
-    const { table, row, valid } = this.data.activeNode
+    const { table, row, valid } = this.node.activeNode
 
     // ensure primary data exists
     if (!key || !table || !row) {
@@ -100,7 +100,7 @@ class Store extends singleton {
     }
 
     // validate using activeNode (table, row, valid) and fields
-    validateActiveDataset(this.data.activeNode, this.app.fields)
+    validateActiveDataset(this.node.activeNode, this.app.fields)
 
     // update if no validation messages exist
     const combinedValidationMessages = objectValues(valid).join(``)
@@ -208,17 +208,17 @@ class Store extends singleton {
 
   @action
   fetchAllNodes = ({ table, id, folder }) => {
-    this.data.loadingAllNodes = true
+    this.node.loadingAllNodes = true
     axios.get(`${apiBaseUrl}/node?table=${table}&id=${id}&folder=${folder}&levels=all`)
       .then(({ data: nodesFromDb }) => {
         addPropertiesToNodes(nodesFromDb, nodesFromDb, this)
         transaction(() => {
-          this.data.nodes.replace(nodesFromDb)
-          this.data.loadingAllNodes = false
+          this.node.nodes.replace(nodesFromDb)
+          this.node.loadingAllNodes = false
           // set project node as active node
-          const activeNode = getNodeByPath(this.data.nodes, [{ table, id, folder }])
-          if (activeNode && activeNode !== this.data.activeNode) {
-            this.data.activeNode = activeNode
+          const activeNode = getNodeByPath(this.node.nodes, [{ table, id, folder }])
+          if (activeNode && activeNode !== this.node.activeNode) {
+            this.node.activeNode = activeNode
           }
         })
       })
@@ -231,8 +231,8 @@ class Store extends singleton {
       const wasClosed = !node.expanded
       transaction(() => {
         node.expanded = !node.expanded
-        if (this.data.activeNode !== node) {
-          this.data.activeNode = node
+        if (this.node.activeNode !== node) {
+          this.node.activeNode = node
         }
       })
       if (
@@ -271,7 +271,7 @@ class Store extends singleton {
     axios.get(`${apiBaseUrl}/node?table=${node.table}&id=${id}&folder=${node.folder ? node.folder : ``}`)
       .then(({ data: nodes }) => {
         transaction(() => {
-          addPropertiesToNodes(this.data.nodes, nodes, this)
+          addPropertiesToNodes(this.node.nodes, nodes, this)
           node.children.replace(nodes)
         })
       })
@@ -284,8 +284,8 @@ class Store extends singleton {
     fetchDataset({ table, field, value })
       .then((dataset) => {
         transaction(() => {
-          this.data.activeNode.row = dataset
-          addPropertiesToNodes(this.data.nodes, this.data.activeNode, this)
+          this.node.activeNode.row = dataset
+          addPropertiesToNodes(this.node.nodes, this.node.activeNode, this)
         })
       })
       .catch((error) => {
@@ -293,10 +293,10 @@ class Store extends singleton {
       })
 
   updateActiveNodeDataset = reaction(
-    () => this.data.activeNode,
+    () => this.node.activeNode,
     (activeNode) => {
       if (!activeNode || !activeNode.table) {
-        this.data.activeNode = {
+        this.node.activeNode = {
           nodeId: null,
           folder: null,
           table: null,
@@ -314,10 +314,10 @@ class Store extends singleton {
           throw new Error(`Table ${activeNode.table} not found in 'modules/tables'`)
         }
 
-        this.data.nrOfRowsAboveActiveNode = countRowsAboveActiveNode(
-          this.data.nodes,
+        this.node.nrOfRowsAboveActiveNode = countRowsAboveActiveNode(
+          this.node.nodes,
           activeNode,
-          this.data.nrOfRowsAboveActiveNode
+          this.node.nrOfRowsAboveActiveNode
         )
 
         const table = activeNode.table

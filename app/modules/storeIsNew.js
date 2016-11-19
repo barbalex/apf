@@ -1,2 +1,2 @@
 export default store =>
-  store.data.nodes && store.data.nodes[0] && store.data.nodes[0].nodeId === `none`
+  store.node.nodes && store.node.nodes[0] && store.node.nodes[0].nodeId === `none`

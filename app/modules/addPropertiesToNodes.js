@@ -13,21 +13,21 @@ const addPropertiesToNodes = (allNodes, topLevelNodes, store) => {
         n.label = computed(() => {
           const tbl = tables.find(t => t.table === n.table)
           if (!tbl || !tbl.label) return `(kein Name)`
-          const label = tbl.label(n.row, store.data)
+          const label = tbl.label(n.row, store.table)
           if (!label) return `(kein Name)`
           return label
         })
       } else {
         n.label = computed(() => {
           const tbl = tables.find(t => t.table === n.folder)
-          const label = tbl.folderLabel(n, store.data)
+          const label = tbl.folderLabel(n, store.table)
           if (!label) return n.folderLabel
           return label
         })
       }
       // add filtered children
       n.childrenFilteredByLabel = computed(() => {
-        const filter = store.data.nodeLabelFilter[n.folder || n.table]
+        const filter = store.node.nodeLabelFilter[n.folder || n.table]
         if (!filter) return n.children
         return n.children.filter((c) => {
           if (!c.label || !c.label.toLowerCase) return false
