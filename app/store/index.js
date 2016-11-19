@@ -19,7 +19,7 @@ import countRowsAboveActiveNode from '../modules/countRowsAboveActiveNode'
 import validateActiveDataset from '../modules/validateActiveDataset'
 import addPropertiesToNodes from '../modules/addPropertiesToNodes'
 
-import DataStore from './data'
+import NodeStore from './node'
 import UiStore from './ui'
 import AppStore from './app'
 import TableStore from './table'
@@ -38,7 +38,7 @@ class Store extends singleton {
     this.updateActiveNodeDataset = this.updateActiveNodeDataset.bind(this)
   }
 
-  data = DataStore
+  node = NodeStore
   ui = UiStore
   app = AppStore
   table = TableStore
@@ -46,13 +46,13 @@ class Store extends singleton {
   @action
   fetchFields = () => {
       // only fetch if not yet fetched
-    if (this.app.fields.length === 0 && !this.data.fieldsLoading) {
-      this.data.fieldsLoading = true
+    if (this.app.fields.length === 0 && !this.app.fieldsLoading) {
+      this.app.fieldsLoading = true
       axios.get(`${apiBaseUrl}/felder`)
         .then(({ data }) => {
           transaction(() => {
             this.app.fields = data
-            this.data.fieldsLoading = false
+            this.app.fieldsLoading = false
           })
         })
         .catch(error => console.log(`error fetching fields:`, error))
