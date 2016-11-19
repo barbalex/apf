@@ -66,11 +66,7 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
       const onClick = (event) => {
         event.stopPropagation()
         store.ui.lastClickY = event.pageY
-        if (node.children && node.expanded) {
-          store.closeNode(node)
-        } else {
-          store.openNode(node)
-        }
+        store.toggleNode(node)
       }
 
       const props = { key: index }

@@ -38,9 +38,8 @@ class Store extends singleton {
     this.fetchTpopmassnErfbeurt = this.fetchTpopmassnErfbeurt.bind(this)
     this.fetchAdresse = this.fetchAdresse.bind(this)
     this.fetchAllNodes = this.fetchAllNodes.bind(this)
-    this.openNode = this.openNode.bind(this)
+    this.toggleNode = this.toggleNode.bind(this)
     this.fetchNodeChildren = this.fetchNodeChildren.bind(this)
-    this.closeNode = this.closeNode.bind(this)
     this.fetchActiveNodeDataset = this.fetchActiveNodeDataset.bind(this)
     this.updateActiveNodeDataset = this.updateActiveNodeDataset.bind(this)
   }
@@ -287,17 +286,18 @@ class Store extends singleton {
   }
 
   @action
-  openNode = (node) => {
+  toggleNode = (node) => {
     if (node) {
+      const wasClosed = !node.expanded
       transaction(() => {
-        node.expanded = true
+        node.expanded = !node.expanded
         if (this.data.activeNode !== node) {
           this.data.activeNode = node
         }
       })
-      // only show `lade Daten...` if not yet loaded
       if (
-        node.children
+        wasClosed
+        && node.children
         && node.children.length
         && (
           node.children[0] === 0
@@ -311,8 +311,8 @@ class Store extends singleton {
             expanded: false,
             children: [],
           }])
-          this.fetchNodeChildren(node)
         })
+        this.fetchNodeChildren(node)
       }
     }
   }
@@ -338,16 +338,6 @@ class Store extends singleton {
       .catch(error =>
         console.log(`action fetchNodeChildren: Error fetching node children:`, error
       ))
-  }
-
-  @action
-  closeNode = (node) => {
-    transaction(() => {
-      if (this.data.activeNode !== node) {
-        this.data.activeNode = node
-      }
-      node.expanded = false
-    })
   }
 
   fetchActiveNodeDataset = ({ table, field, value }) =>
