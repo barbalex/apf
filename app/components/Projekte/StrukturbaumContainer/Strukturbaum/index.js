@@ -10,7 +10,6 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import { AutoSizer, List } from 'react-virtualized'
-import TextField from 'material-ui/TextField'
 
 import getNrOfNodeRows from '../../../../modules/getNrOfNodeRows'
 import isNodeInActiveNodePath from '../../../../modules/isNodeInActiveNodePath'
@@ -26,18 +25,6 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
 
   render() {  // eslint-disable-line class-methods-use-this
     const { store } = this.props
-    const { data } = store
-    const { activeNode } = data
-    let filterValue = ``
-    let filteredTable
-    if (activeNode) {
-      filteredTable = activeNode.folder || activeNode.table
-      if (filteredTable) {
-        filterValue = data.nodeLabelFilter[filteredTable]
-        console.log(`filteredTable:`, filteredTable)
-        console.log(`filterValue:`, filterValue)
-      }
-    }
 
     if (
       !store
@@ -160,16 +147,6 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
 
     return (
       <div className={styles.container}>
-        <TextField
-          floatingLabelText="Filter"
-          value={filterValue || ``}
-          onChange={(event, val) => {
-            console.log(`val:`, val)
-            console.log(`filteredTable:`, filteredTable)
-            data.nodeLabelFilter[filteredTable] = val
-          }}
-          className={styles.filterField}
-        />
         <AutoSizer>
           {({ height, width }) => (
             <List

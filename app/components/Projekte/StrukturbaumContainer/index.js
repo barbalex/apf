@@ -6,9 +6,8 @@
 
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
-import { Tabs, Tab } from 'material-ui/Tabs'
 import styles from './styles.css'
-import Filter from './Filter'
+import LabelFilter from './LabelFilter'
 import Strukturbaum from './Strukturbaum'
 
 @inject(`store`)
@@ -26,41 +25,15 @@ class StrukturbaumContainer extends Component { // eslint-disable-line react/pre
     store.ui.treeTopPosition = treeRect.top
   }
 
-  onClickTab = (value) => {
-    const { store } = this.props
-    store.ui.projekte.strukturbaum.activeTab = value
-  }
-
   render() {
     const { store } = this.props
-    const activeTab = store.ui.projekte.strukturbaum.activeTab
     return (
-      <div className={styles.strukturbaum}>
-        <Tabs
-          value={activeTab}
-          onChange={this.onClickTab}
-        >
-          <Tab
-            label="Strukturbaum"
-            value="strukturbaum"
-            className={styles.strukturbaumTab}
-          >
-          </Tab>
-          <Tab
-            label="Filter"
-            value="filter"
-          >
-          </Tab>
-        </Tabs>
-        <div className={styles.tabsContent} ref={(c) => { this.tree = c }}>
-          {
-            activeTab === `strukturbaum`
-            && <Strukturbaum />
-          }
-          {
-            activeTab === `filter`
-            && <Filter />
-          }
+      <div className={styles.container}>
+        <div className={styles.labelFilter}>
+          <LabelFilter />
+        </div>
+        <div className={styles.strukturbaum} ref={(c) => { this.tree = c }}>
+          <Strukturbaum />
         </div>
       </div>
     )

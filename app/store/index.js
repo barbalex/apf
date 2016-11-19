@@ -66,6 +66,12 @@ class Store extends singleton {
   }
 
   @action
+  updateLabelFilter = (table, value) => {
+    if (!table) return console.log(`nodeLabelFilter cant be updated: no table passed`)
+    this.data.nodeLabelFilter[table] = value
+  }
+
+  @action
   updateProperty = (key, value) => {
     const { table, row } = this.data.activeNode
     // ensure primary data exists

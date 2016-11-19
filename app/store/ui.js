@@ -10,7 +10,6 @@ class Ui {
   @observable projekte = {
     strukturbaum: {
       visible: true,
-      activeTab: `strukturbaum`,
     },
     strukturbaum2: {
       visible: false,
