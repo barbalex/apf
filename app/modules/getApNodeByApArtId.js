@@ -4,8 +4,8 @@ import tables from './tables'
 export default (ApArtId, activeNode, nodes) => {
   if (!ApArtId) return null
   const apNodes = getApNodes(activeNode, nodes) || []
-  const table = tables.find(t => t.tabelleInDb === activeNode.table)
+  const table = tables.find(t => t.table === activeNode.table)
   if (!table) return null
-  const tabelleIdFeld = table.tabelleIdFeld
-  return apNodes.find(n => n.row[tabelleIdFeld] === ApArtId)
+  const idField = table.idField
+  return apNodes.find(n => n.row[idField] === ApArtId)
 }

@@ -11,15 +11,15 @@ const addPropertiesToNodes = (allNodes, topLevelNodes, store) => {
       // add label to data nodes
       if (!n.folder) {
         n.label = computed(() => {
-          const tbl = tables.find(t => t.tabelleInDb === n.table)
-          if (!tbl || !tbl.rowLabel) return `(kein Name)`
-          const label = tbl.rowLabel(n.row, store.data)
+          const tbl = tables.find(t => t.table === n.table)
+          if (!tbl || !tbl.label) return `(kein Name)`
+          const label = tbl.label(n.row, store.data)
           if (!label) return `(kein Name)`
           return label
         })
       } else {
         n.label = computed(() => {
-          const tbl = tables.find(t => t.tabelleInDb === n.folder)
+          const tbl = tables.find(t => t.table === n.folder)
           const label = tbl.folderLabel(n, store.data)
           if (!label) return n.folderLabel
           return label
