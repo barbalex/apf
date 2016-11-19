@@ -9,6 +9,7 @@ import { action, transaction, reaction } from 'mobx'
 import singleton from 'singleton'
 import axios from 'axios'
 import objectValues from 'lodash/values'
+import keyBy from 'lodash/keyBy'
 
 import getNodeByPath from '../modules/getNodeByPath'
 import apiBaseUrl from '../modules/apiBaseUrl'
@@ -90,12 +91,12 @@ class Store extends singleton {
     }
 
     // ensure derived data exists
-    const tabelle = tables.find(t => t.tabelleInDb === table)
-    const tabelleIdFeld = tabelle ? tabelle.tabelleIdFeld : undefined
-    if (!tabelleIdFeld) {
+    const tabelle = tables.find(t => t.table === table)
+    const idField = tabelle ? tabelle.idField : undefined
+    if (!idField) {
       return console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
     }
-    const tabelleId = row[tabelleIdFeld] || undefined
+    const tabelleId = row[idField] || undefined
     if (!tabelleId) {
       return console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
     }
@@ -110,7 +111,7 @@ class Store extends singleton {
       const { user } = this.app
       const oldValue = row[key]
       row[key] = value
-      axios.put(`${apiBaseUrl}/update/apflora/tabelle=${table}/tabelleIdFeld=${tabelleIdFeld}/tabelleId=${tabelleId}/feld=${key}/wert=${value}/user=${user}`)
+      axios.put(`${apiBaseUrl}/update/apflora/tabelle=${table}/idField=${idField}/tabelleId=${tabelleId}/feld=${key}/wert=${value}/user=${user}`)
         .catch((error) => {
           row[key] = oldValue
           this.app.errors.unshift(error)
@@ -119,6 +120,23 @@ class Store extends singleton {
           }, 1000 * 10)
           console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
         })
+    }
+  }
+
+  @action
+  fetchTable = (tableName) => {
+      // only fetch if not yet fetched
+    if (this.tables[tableName].size === 0 && !this.tables[`${tableName}Loading`]) {
+      const parentIdField = tables.find(t => t.table === tableName).parentIdField
+      this.tables[`${tableName}Loading`] = true
+      axios.get(`${apiBaseUrl}/${tableName}`)
+        .then(({ data }) => {
+          transaction(() => {
+            this.tables[`${tableName}Loading`] = keyBy(data, parentIdField)
+            this.tables[`${tableName}Loading`] = false
+          })
+        })
+        .catch(error => console.log(`error fetching table ${tableName}:`, error))
     }
   }
 
@@ -323,10 +341,10 @@ class Store extends singleton {
     if (node.id) {
       id = node.id
     } else {
-      const table = tables.find(t => t.tabelleInDb === node.table)
+      const table = tables.find(t => t.table === node.table)
       if (!table) throw new Error(`table not found`)
-      const tabelleIdFeld = table.tabelleIdFeld
-      id = node.row[tabelleIdFeld]
+      const idField = table.idField
+      id = node.row[idField]
     }
     axios.get(`${apiBaseUrl}/node?table=${node.table}&id=${id}&folder=${node.folder ? node.folder : ``}`)
       .then(({ data: nodes }) => {
@@ -369,7 +387,7 @@ class Store extends singleton {
           children: [],
         }
       } else {
-        const myTable = tables.find(t => t.tabelleInDb === activeNode.table)
+        const myTable = tables.find(t => t.table === activeNode.table)
         if (!myTable) {
           throw new Error(`Table ${activeNode.table} not found in 'modules/tables'`)
         }
@@ -381,8 +399,8 @@ class Store extends singleton {
         )
 
         const table = activeNode.table
-        const tabelleIdFeld = myTable.tabelleIdFeld
-        const id = activeNode.id ? activeNode.id : activeNode.row[tabelleIdFeld]
+        const idField = myTable.idField
+        const id = activeNode.id ? activeNode.id : activeNode.row[idField]
         if (
           activeNode
           && activeNode.table
@@ -390,8 +408,8 @@ class Store extends singleton {
           && (
             (
               activeNode.row
-              && activeNode.row[tabelleIdFeld]
-              && activeNode.row[tabelleIdFeld] === id
+              && activeNode.row[idField]
+              && activeNode.row[idField] === id
             )
             ||
             (
@@ -404,7 +422,7 @@ class Store extends singleton {
           // maybe only activeNode.expanded has changed
           // do nothing
         } else {
-          this.fetchActiveNodeDataset({ table, field: tabelleIdFeld, value: id })
+          this.fetchActiveNodeDataset({ table, field: idField, value: id })
         }
       }
     }
