@@ -30,14 +30,10 @@ class Store extends singleton {
     this.fetchFields = this.fetchFields.bind(this)
     this.updateProperty = this.updateProperty.bind(this)
     this.updatePropertyInDb = this.updatePropertyInDb.bind(this)
-    this.fetchAeEigenschaften = this.fetchAeEigenschaften.bind(this)
+    this.fetchTable = this.fetchTable.bind(this)
     this.fetchApStatus = this.fetchApStatus.bind(this)
     this.fetchApUmsetzung = this.fetchApUmsetzung.bind(this)
     this.fetchApErfkritWerte = this.fetchApErfkritWerte.bind(this)
-    this.fetchTpopkontrzaehlEinheit = this.fetchTpopkontrzaehlEinheit.bind(this)
-    this.fetchTpopmassnTyp = this.fetchTpopmassnTyp.bind(this)
-    this.fetchZielTyp = this.fetchZielTyp.bind(this)
-    this.fetchTpopmassnErfbeurt = this.fetchTpopmassnErfbeurt.bind(this)
     this.fetchAdresse = this.fetchAdresse.bind(this)
     this.fetchAllNodes = this.fetchAllNodes.bind(this)
     this.toggleNode = this.toggleNode.bind(this)
@@ -147,22 +143,6 @@ class Store extends singleton {
   }
 
   @action
-  fetchAeEigenschaften = () => {
-      // only fetch if not yet fetched
-    if (this.data.aeEigenschaften.length === 0 && !this.data.aeEigenschaftenLoading) {
-      this.data.aeEigenschaftenLoading = true
-      axios.get(`${apiBaseUrl}/artliste`)
-        .then(({ data }) => {
-          transaction(() => {
-            this.data.aeEigenschaften = data
-            this.data.aeEigenschaftenLoading = false
-          })
-        })
-        .catch(error => console.log(`error fetching aeEigenschaften:`, error))
-    }
-  }
-
-  @action
   fetchApStatus = () => {
     // only fetch if not yet fetched
     if (this.data.apStatus.length === 0 && !this.data.apStatusLoading) {
@@ -207,70 +187,6 @@ class Store extends singleton {
           })
         })
         .catch(error => console.log(`error fetching apErfkritWerte:`, error))
-    }
-  }
-
-  @action
-  fetchTpopkontrzaehlEinheit = () => {
-    // only fetch if not yet fetched
-    if (this.data.tpopkontrzaehlEinheit.length === 0 && !this.data.tpopkontrzaehlEinheitLoading) {
-      this.data.tpopkontrzaehlEinheitLoading = true
-      axios.get(`${apiBaseUrl}/tpopkontrzaehlEinheit`)
-        .then(({ data }) => {
-          transaction(() => {
-            this.data.tpopkontrzaehlEinheit = data
-            this.data.tpopkontrzaehlEinheitLoading = false
-          })
-        })
-        .catch(error => console.log(`error fetching tpopkontrzaehlEinheit:`, error))
-    }
-  }
-
-  @action
-  fetchTpopmassnTyp = () => {
-    // only fetch if not yet fetched
-    if (this.data.tpopmassnTyp.length === 0 && !this.data.tpopmassnTypLoading) {
-      this.data.tpopmassnTypLoading = true
-      axios.get(`${apiBaseUrl}/tpopmassnTyp`)
-        .then(({ data }) => {
-          transaction(() => {
-            this.data.tpopmassnTyp = data
-            this.data.tpopmassnTypLoading = false
-          })
-        })
-        .catch(error => console.log(`error fetching tpopmassnTyp:`, error))
-    }
-  }
-
-  @action
-  fetchZielTyp = () => {
-    // only fetch if not yet fetched
-    if (this.data.zielTyp.length === 0 && !this.data.zielTypLoading) {
-      this.data.zielTypLoading = true
-      axios.get(`${apiBaseUrl}/zielTyp`)
-        .then(({ data }) => {
-          transaction(() => {
-            this.data.zielTyp = data
-            this.data.zielTypLoading = false
-          })
-        })
-        .catch(error => console.log(`error fetching zielTyp:`, error))
-    }
-  }
-
-  @action
-  fetchTpopmassnErfbeurt = () => {
-    // only fetch if not yet fetched
-    if (this.data.tpopmassnErfbeurt.length === 0 && !this.data.tpopmassnErfbeurtLoading) {
-      this.data.tpopmassnErfbeurtLoading = true
-      axios.get(`${apiBaseUrl}/tpopmassnErfbeurt`)
-        .then(({ data }) => {
-          transaction(() => {
-            this.data.tpopmassnErfbeurt = data
-            this.data.tpopmassnErfbeurtLoading = false
-          })
-        })
-        .catch(error => console.log(`error fetching tpopmassnErfbeurt:`, error))
     }
   }
 
