@@ -124,12 +124,16 @@ class Store extends singleton {
   }
 
   @action
-  fetchTable = (tableName) => {
-      // only fetch if not yet fetched
+  fetchTable = (tableName, schemaName) => {
+    if (!tableName) {
+      console.error(`action fetchTable: tableName must be passed`)
+      return
+    }
+    // only fetch if not yet fetched
     if (this.tables[tableName].size === 0 && !this.tables[`${tableName}Loading`]) {
       const parentIdField = tables.find(t => t.table === tableName).parentIdField
       this.tables[`${tableName}Loading`] = true
-      axios.get(`${apiBaseUrl}/${tableName}`)
+      axios.get(`${apiBaseUrl}/schema/${schemaName || `apflora`}/table/${tableName}`)
         .then(({ data }) => {
           transaction(() => {
             this.tables[`${tableName}Loading`] = keyBy(data, parentIdField)
