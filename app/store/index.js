@@ -31,10 +31,6 @@ class Store extends singleton {
     this.updateProperty = this.updateProperty.bind(this)
     this.updatePropertyInDb = this.updatePropertyInDb.bind(this)
     this.fetchTable = this.fetchTable.bind(this)
-    this.fetchApStatus = this.fetchApStatus.bind(this)
-    this.fetchApUmsetzung = this.fetchApUmsetzung.bind(this)
-    this.fetchApErfkritWerte = this.fetchApErfkritWerte.bind(this)
-    this.fetchAdresse = this.fetchAdresse.bind(this)
     this.fetchAllNodes = this.fetchAllNodes.bind(this)
     this.toggleNode = this.toggleNode.bind(this)
     this.fetchNodeChildren = this.fetchNodeChildren.bind(this)
@@ -139,70 +135,6 @@ class Store extends singleton {
           })
         })
         .catch(error => console.log(`error fetching table ${tableName}:`, error))
-    }
-  }
-
-  @action
-  fetchApStatus = () => {
-    // only fetch if not yet fetched
-    if (this.data.apStatus.length === 0 && !this.data.apStatusLoading) {
-      this.data.apStatusLoading = true
-      axios.get(`${apiBaseUrl}/apStatus`)
-        .then(({ data }) => {
-          transaction(() => {
-            this.data.apStatus = data
-            this.data.apStatusLoading = false
-          })
-        })
-        .catch(error => console.log(`error fetching apStatus:`, error))
-    }
-  }
-
-  @action
-  fetchApUmsetzung = () => {
-    // only fetch if not yet fetched
-    if (this.data.apUmsetzung.length === 0 && !this.data.apUmsetzungLoading) {
-      this.data.apUmsetzungLoading = true
-      axios.get(`${apiBaseUrl}/apUmsetzung`)
-        .then(({ data }) => {
-          transaction(() => {
-            this.data.apUmsetzung = data
-            this.data.apUmsetzungLoading = false
-          })
-        })
-        .catch(error => console.log(`error fetching apUmsetzung:`, error))
-    }
-  }
-
-  @action
-  fetchApErfkritWerte = () => {
-    // only fetch if not yet fetched
-    if (this.data.apErfkritWerte.length === 0 && !this.data.apErfkritWerteLoading) {
-      this.data.apErfkritWerteLoading = true
-      axios.get(`${apiBaseUrl}/apErfkritWerte`)
-        .then(({ data }) => {
-          transaction(() => {
-            this.data.apErfkritWerte = data
-            this.data.apErfkritWerteLoading = false
-          })
-        })
-        .catch(error => console.log(`error fetching apErfkritWerte:`, error))
-    }
-  }
-
-  @action
-  fetchAdresse = () => {
-    // only fetch if not yet fetched
-    if (this.data.adresse.length === 0 && !this.data.adresseLoading) {
-      this.data.adresseLoading = true
-      axios.get(`${apiBaseUrl}/adressen`)
-        .then(({ data }) => {
-          transaction(() => {
-            this.data.adresse = data
-            this.data.adresseLoading = false
-          })
-        })
-        .catch(error => console.log(`error fetching adresse:`, error))
     }
   }
 

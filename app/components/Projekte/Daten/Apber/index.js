@@ -17,7 +17,7 @@ class Apber extends Component { // eslint-disable-line react/prefer-stateless-fu
   componentDidMount() {
     // fetch dropdown data
     const { store } = this.props
-    store.fetchApErfkritWerte()
+    store.fetchTable(`ap_erfkrit_werte`)
   }
 
   render() {

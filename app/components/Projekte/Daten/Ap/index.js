@@ -25,9 +25,9 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
   componentDidMount() {
     // fetch dropdown data
     const { store } = this.props
-    store.fetchApStatus()
-    store.fetchApUmsetzung()
-    store.fetchAdresse()
+    store.fetchTable(`ap_bearbstand_werte`)
+    store.fetchTable(`ap_umsetzung_werte`)
+    store.fetchTable(`adresse`)
   }
 
   render() {
