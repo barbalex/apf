@@ -32,48 +32,6 @@ class Data {
   }
   @observable nodes2 = [placeholderNode]
   @observable map = null
-  @observable aeEigenschaften = []
-  @observable aeEigenschaftenLoading = false
-  @observable aeLr = []
-  @observable aeLrLoading = false
-  @observable aeFloraStatus = []
-  @observable aeFloraStatusLoading = false
-  @observable apStatus = []
-  @observable apStatusLoading = null
-  @observable apErfbeurtkrit = []
-  @observable apErfbeurtkritLoading = false
-  @observable apErfkrit = []
-  @observable apErfkritLoading = false
-  @observable apUmsetzung = []
-  @observable apUmsetzungLoading = false
-  @observable apErfkritWerte = []
-  @observable apErfkritWerteLoading = false
-  @observable popEntwicklung = []
-  @observable popEntwicklungLoading = false
-  @observable popStatus = []
-  @observable popStatusLoading = false
-  @observable tpopApberrelevant = []
-  @observable tpopApberrelevantLoading = false
-  @observable tpopEntwicklung = []
-  @observable tpopEntwicklungLoading = false
-  @observable tpopkontrIdbiotopuebereinst = []
-  @observable tpopkontrIdbiotopuebereinstLoading = false
-  @observable tpopkontrTyp = []
-  @observable tpopkontrTypLoading = false
-  @observable tpopkontrzaehlEinheit = []
-  @observable tpopkontrzaehlEinheitLoading = false
-  @observable tpopkontrzaehlMethode = []
-  @observable tpopkontrzaehlMethodeLoading = false
-  @observable tpopmassnErfbeurt = []
-  @observable tpopmassnErfbeurtLoading = false
-  @observable tpopmassnTyp = []
-  @observable tpopmassnTypLoading = false
-  @observable zielTyp = []
-  @observable zielTypLoading = false
-  @observable adresse = []
-  @observable adresseLoading = false
-  @observable gemeinde = []
-  @observable gemeindeLoading = false
 }
 
 export default new Data()

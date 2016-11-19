@@ -50,12 +50,12 @@ class Store extends singleton {
   @action
   fetchFields = () => {
       // only fetch if not yet fetched
-    if (this.data.fields.length === 0 && !this.data.fieldsLoading) {
+    if (this.app.fields.length === 0 && !this.data.fieldsLoading) {
       this.data.fieldsLoading = true
       axios.get(`${apiBaseUrl}/felder`)
         .then(({ data }) => {
           transaction(() => {
-            this.data.fields = data
+            this.app.fields = data
             this.data.fieldsLoading = false
           })
         })
@@ -100,7 +100,7 @@ class Store extends singleton {
     }
 
     // validate using activeNode (table, row, valid) and fields
-    validateActiveDataset(this.data.activeNode, this.data.fields)
+    validateActiveDataset(this.data.activeNode, this.app.fields)
 
     // update if no validation messages exist
     const combinedValidationMessages = objectValues(valid).join(``)

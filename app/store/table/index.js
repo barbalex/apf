@@ -1,9 +1,17 @@
 /* eslint-disable camelcase */
-import { observable } from 'mobx'
+import { observable, computed, toJS } from 'mobx'
 
 class Table {
   @observable adb_eigenschaften = []
   @observable adb_eigenschaftenLoading = false
+  @computed get artname() {
+    const aeEigenschaften = toJS(this.adb_eigenschaften)
+    let artname = ``
+    if (this.activeNode.row && this.activeNode.row.ApArtId && aeEigenschaften.length > 0) {
+      artname = aeEigenschaften.find(e => e.id === this.activeNode.row.ApArtId).label
+    }
+    return artname
+  }
   @observable adb_lr = []
   @observable adb_lrLoading = false
   @observable adresse = []
