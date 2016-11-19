@@ -276,12 +276,12 @@ class Store extends singleton {
         transaction(() => {
           this.data.nodes.replace(nodesFromDb)
           this.data.loadingAllNodes = false
+          // set project node as active node
+          const activeNode = getNodeByPath(this.data.nodes, [{ table, id, folder }])
+          if (activeNode && activeNode !== this.data.activeNode) {
+            this.data.activeNode = activeNode
+          }
         })
-        // set project node as active node
-        const activeNode = getNodeByPath(this.data.nodes, [{ table, id, folder }])
-        if (activeNode && activeNode !== this.data.activeNode) {
-          this.data.activeNode = activeNode
-        }
       })
       .catch(error => console.log(`error fetching nodes:`, error))
   }
