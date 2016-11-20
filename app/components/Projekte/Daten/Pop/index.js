@@ -7,6 +7,9 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import mobX from 'mobx'
+import values from 'lodash/values'
+import sortBy from 'lodash/sortBy'
+import map from 'lodash/map'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 import styles from './styles.css'
@@ -26,7 +29,18 @@ class Pop extends Component { // eslint-disable-line react/prefer-stateless-func
 
   render() {
     const { store } = this.props
-    const aeEigenschaften = mobX.toJS(store.table.adb_eigenschaften)
+    const aeEigenschaften = sortBy(
+      map(
+        values(
+          mobX.toJS(store.table.adb_eigenschaften)
+        ),
+        v => ({
+          id: v.TaxonomieId,
+          label: v.Artname,
+        })
+      ),
+      `label`
+    )
     aeEigenschaften.unshift({
       label: ``,
       id: null,

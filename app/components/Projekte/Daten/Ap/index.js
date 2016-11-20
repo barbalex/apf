@@ -1,6 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import mobX from 'mobx'
+import filter from 'lodash/filter'
+import values from 'lodash/values'
+import sortBy from 'lodash/sortBy'
 import AutoComplete from '../../../shared/Autocomplete'
 import RadioButtonGroup from '../../../shared/RadioButtonGroup'
 import LabelWithPopover from '../../../shared/LabelWithPopover'
@@ -33,8 +36,18 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
   render() {
     const { store } = this.props
     const aeEigenschaften = mobX.toJS(store.table.adb_eigenschaften)
-    const apStati = mobX.toJS(store.table.ap_bearbstand_werte)
-    const apUmsetzungen = mobX.toJS(store.table.ap_umsetzung_werte)
+    const apStati = sortBy(
+      values(
+        mobX.toJS(store.table.ap_bearbstand_werte)
+      ),
+      `DomainOrd`
+    )
+    const apUmsetzungen = sortBy(
+      values(
+        mobX.toJS(store.table.ap_umsetzung_werte)
+      ),
+      `DomainOrd`
+    )
     const adressen = mobX.toJS(store.table.adresse)
     adressen.unshift({
       id: null,
@@ -49,12 +62,11 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
       null
     )
     let artwert = ``
-    if (ApArtId && aeEigenschaften.length > 0) {
-      const aeEigenschaftenRow = aeEigenschaften.find(e => e.id === ApArtId)
-      artwert = aeEigenschaftenRow.artwert
+    if (ApArtId && aeEigenschaften.size > 0) {
+      artwert = aeEigenschaften[ApArtId].Artwert
     }
     const apNodeIds = getApNodeIds(store.node.activeNode, store.node.nodes)
-    const dataSource = aeEigenschaften.filter(r => !apNodeIds.includes(r.id) || r.id === ApArtId)
+    const dataSource = filter(aeEigenschaften, r => !apNodeIds.includes(r.TaxonomieId) || r.TaxonomieId === ApArtId)
 
     return (
       <div className={styles.container}>
@@ -142,7 +154,7 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
           value={activeNode.row.ApBearb}
           errorText={activeNode.valid.ApBearb}
           dataSource={adressen}
-          valueProp="id"
+          valueProp="AdrId"
           labelProp="AdrName"
           updatePropertyInDb={store.updatePropertyInDb}
         />

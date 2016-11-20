@@ -444,4 +444,15 @@ export default [
       return `${row.Datum || `(kein Datum)`}: ${row.Autor || `(kein Autor)`} (${row.Quelle})`
     },
   },
+  {
+    database: `beob`,
+    table: `adb_eigenschaften`,
+    idField: `TaxonomieId`,
+    parentIdField: `TaxonomieId`,
+    mutWannField: null,
+    mitWerField: null,
+    label(row) {
+      return row.Artname
+    },
+  },
 ]
