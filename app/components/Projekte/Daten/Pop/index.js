@@ -7,7 +7,6 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import mobX from 'mobx'
-import values from 'lodash/values'
 import sortBy from 'lodash/sortBy'
 import map from 'lodash/map'
 import SelectField from 'material-ui/SelectField'
@@ -31,9 +30,7 @@ class Pop extends Component { // eslint-disable-line react/prefer-stateless-func
     const { store } = this.props
     const aeEigenschaften = sortBy(
       map(
-        values(
-          mobX.toJS(store.table.adb_eigenschaften)
-        ),
+        mobX.toJS(store.table.adb_eigenschaften).values(),
         v => ({
           id: v.TaxonomieId,
           label: v.Artname,

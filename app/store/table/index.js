@@ -8,7 +8,7 @@ class Table {
     const aeEigenschaften = toJS(this.adb_eigenschaften)
     let artname = ``
     if (this.activeNode.row && this.activeNode.row.ApArtId && aeEigenschaften.size > 0) {
-      artname = aeEigenschaften[this.activeNode.row.ApArtId].Artname
+      artname = aeEigenschaften.get(this.activeNode.row.ApArtId).Artname
     }
     return artname
   }

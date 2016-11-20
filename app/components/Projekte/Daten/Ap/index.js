@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import mobX from 'mobx'
 import filter from 'lodash/filter'
-import values from 'lodash/values'
 import sortBy from 'lodash/sortBy'
 import AutoComplete from '../../../shared/Autocomplete'
 import RadioButtonGroup from '../../../shared/RadioButtonGroup'
@@ -37,15 +36,11 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
     const { store } = this.props
     const aeEigenschaften = mobX.toJS(store.table.adb_eigenschaften)
     const apStati = sortBy(
-      values(
-        mobX.toJS(store.table.ap_bearbstand_werte)
-      ),
+      mobX.toJS(store.table.ap_bearbstand_werte).values(),
       `DomainOrd`
     )
     const apUmsetzungen = sortBy(
-      values(
-        mobX.toJS(store.table.ap_umsetzung_werte)
-      ),
+      mobX.toJS(store.table.ap_umsetzung_werte).values(),
       `DomainOrd`
     )
     const adressen = mobX.toJS(store.table.adresse)
@@ -63,10 +58,10 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
     )
     let artwert = ``
     if (ApArtId && aeEigenschaften.size > 0) {
-      artwert = aeEigenschaften[ApArtId].Artwert
+      artwert = aeEigenschaften.get(ApArtId).Artwert
     }
     const apNodeIds = getApNodeIds(store.node.activeNode, store.node.nodes)
-    const dataSource = filter(aeEigenschaften, r => !apNodeIds.includes(r.TaxonomieId) || r.TaxonomieId === ApArtId)
+    const dataSource = filter(aeEigenschaften.values(), r => !apNodeIds.includes(r.TaxonomieId) || r.TaxonomieId === ApArtId)
 
     return (
       <div className={styles.container}>

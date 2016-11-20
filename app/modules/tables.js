@@ -1,4 +1,7 @@
+import { toJS } from 'mobX'
+
 const noLabel = `(kein Name)`
+
 export default [
   {
     database: `apflora`,
@@ -9,9 +12,9 @@ export default [
     mutWerField: `MutWer`,
     label(row, data) {
       if (!data || !data.aeEigenschaften) return noLabel
-      const ae = data.aeEigenschaften.find(e => e.id === row.ApArtId)
+      const ae = toJS(data.aeEigenschaften).get(row.ApArtId)
       if (!ae) return noLabel
-      return ae.label || noLabel
+      return ae.Artname || noLabel
     },
     folder: {
       label(node) {
@@ -261,9 +264,9 @@ export default [
       if (!row) return noLabel
       let label = `(keine Art gewählt)`
       if (row.AaApArtId && data && data.aeEigenschaften) {
-        const ae = data.aeEigenschaften.find(e => e.id === row.AaApArtId)
+        const ae = toJS(data.aeEigenschaften).get(row.AaApArtId)
         if (ae) {
-          label = ae.label
+          label = ae.Artname
         }
       }
       return label
