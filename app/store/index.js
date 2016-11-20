@@ -139,8 +139,12 @@ class Store extends singleton {
   }
 
   @action
-  fetchAllNodes = ({ table, id, folder }) => {
+  fetchAllNodes = (location) => {
+    // location musst be passed in
     this.node.loadingAllNodes = true
+    // get all information from url
+    // start parallel fetches for every table
+    // update activeNode at the end
     axios.get(`${apiBaseUrl}/node?table=${table}&id=${id}&folder=${folder}&levels=all`)
       .then(({ data: nodesFromDb }) => {
         addPropertiesToNodes(nodesFromDb, nodesFromDb, this)

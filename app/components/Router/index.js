@@ -43,7 +43,7 @@ const Router = ({ store }) => {
         <Match pattern="*" component={AppBar} />
         {
           !newStore
-          && <Match pattern="/Projekte" component={ProjekteRedirector} />
+            && <Match pattern="/Projekte" component={ProjekteRedirector} />
         }
         <Match
           exactly
