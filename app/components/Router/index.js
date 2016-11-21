@@ -50,7 +50,7 @@ const Router = ({ store }) => {
           pattern="/Projekte"
           render={() => {
             newStore && store.fetchAllNodes({ table: `projekt`, id: null, folder: null })
-            return <Projekte />
+              return <Projekte />
           }}
         />
         <Match

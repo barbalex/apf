@@ -88,6 +88,22 @@ export default [
   },
   {
     database: `apflora`,
+    table: `tpopkontrzaehl_einheit_werte`,
+    idField: `ZaehleinheitCode`,
+    parentIdField: `Zaehleinheit`,
+    mutWannField: `MutWann`,
+    mutWerField: `MutWer`,
+    label() {
+      return `dont need a label`
+    },
+    folder: {
+      label() {
+        return `dont need a folder label`
+      },
+    },
+  },
+  {
+    database: `apflora`,
     table: `tpopkontrzaehl`,
     idField: `TPopKontrZaehlId`,
     parentIdField: `TPopKontrId`,
@@ -133,6 +149,54 @@ export default [
   },
   {
     database: `apflora`,
+    table: `tpopmassn_typ_werte`,
+    idField: `MassnTypCode`,
+    parentIdField: `TPopMassnTyp`,
+    mutWannField: `MutWann`,
+    mutWerField: `MutWer`,
+    label() {
+      return `dont need a label`
+    },
+    folder: {
+      label() {
+        return `dont need a label`
+      },
+    },
+  },
+  {
+    database: `apflora`,
+    table: `popmassn_erfbeurt_werte`,
+    idField: `BeurteilId`,
+    parentIdField: `PopMassnBerErfolgsbeurteilung`,
+    mutWannField: `MutWann`,
+    mutWerField: `MutWer`,
+    label() {
+      return `dont need a label`
+    },
+    folder: {
+      label() {
+        return `dont need a label`
+      },
+    },
+  },
+  {
+    database: `apflora`,
+    table: `tpopmassn_erfbeurt_werte`,
+    idField: `BeurteilId`,
+    parentIdField: `TPopMassnBerErfolgsbeurteilung`,
+    mutWannField: `MutWann`,
+    mutWerField: `MutWer`,
+    label() {
+      return `dont need a label`
+    },
+    folder: {
+      label() {
+        return `dont need a label`
+      },
+    },
+  },
+  {
+    database: `apflora`,
     table: `ziel`,
     idField: `ZielId`,
     parentIdField: `ApArtId`,
@@ -149,6 +213,22 @@ export default [
       label(node) {
         if (!node || !node.childrenFilteredByLabel) return `AP-Ziele`
         return `AP-Ziele (${node.childrenFilteredByLabel.length})`
+      },
+    },
+  },
+  {
+    database: `apflora`,
+    table: `ziel_typ_werte`,
+    idField: `ZielTypId`,
+    parentIdField: `ZielTyp`,
+    mutWannField: `MutWann`,
+    mutWerField: `MutWer`,
+    label() {
+      return `dont need a label`
+    },
+    folder: {
+      label() {
+        return `dont need a label`
       },
     },
   },

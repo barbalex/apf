@@ -125,6 +125,7 @@ class Store extends singleton {
     }
     // only fetch if not yet fetched
     if (this.table[tableName].size === 0 && !this.table[`${tableName}Loading`]) {
+      console.log(`action fetchTable, tableName:`, tableName)
       const parentIdField = tables.find(t => t.table === tableName).parentIdField
       this.table[`${tableName}Loading`] = true
       axios.get(`${apiBaseUrl}/schema/${schemaName || `apflora`}/table/${tableName}`)
@@ -142,8 +143,14 @@ class Store extends singleton {
   fetchAllNodes = (location) => {
     // location musst be passed in
     this.node.loadingAllNodes = true
-    // get all information from url
+    // get all information from location.pathname
+    console.log(`action fetchAllNodes: location:`, location)
+    const pathElements = location.pathname.split(`/`)
     // start parallel fetches for every table
+    axios.all([
+
+    ])
+      .then(axios.spread(res1, res2))
     // update activeNode at the end
     axios.get(`${apiBaseUrl}/node?table=${table}&id=${id}&folder=${folder}&levels=all`)
       .then(({ data: nodesFromDb }) => {
