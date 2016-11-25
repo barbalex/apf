@@ -136,11 +136,24 @@ class Store extends singleton {
     console.log(`action fetchAllNodes: location:`, location)
     const pathElements = location.pathname.split(`/`)
     // fetch for every table
+    const path = []
     const fetchFunctions = []
-    axios.all([
-
-    ])
-      .then(axios.spread(res1, res2))
+    if (pathElements[0] && pathElements[0] === `Projekte`) {
+      path.push({
+        table: `projekt`,
+      })
+      fetchFunctions.push(fetchTable(`apflora`, `projekt`))
+      if (pathElements[1]) {
+        path.push({
+          table: `projekt`,
+          parentId: pathElements[1],
+        })
+        fetchFunctions.push(fetchTableByParentId(`apflora`, `projekt`, pathElements[1]))
+      }
+    }
+    axios.all(fetchFunctions)
+      .then()
+    /*
     // update activeNode at the end
     axios.get(`${apiBaseUrl}/node?table=${table}&id=${id}&folder=${folder}&levels=all`)
       .then(({ data: nodesFromDb }) => {
@@ -155,7 +168,7 @@ class Store extends singleton {
           }
         })
       })
-      .catch(error => console.log(`error fetching nodes:`, error))
+      .catch(error => console.log(`error fetching nodes:`, error))*/
   }
 
   @action
