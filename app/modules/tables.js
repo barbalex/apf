@@ -219,7 +219,7 @@ export default [
   {
     database: `apflora`,
     table: `ziel_typ_werte`,
-    idField: `ZielTypId`,
+    idField: `ZieltypId`,
     parentIdField: `ZielTyp`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
