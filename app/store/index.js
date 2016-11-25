@@ -11,6 +11,7 @@ import axios from 'axios'
 import objectValues from 'lodash/values'
 
 import fetchTable from './fetchTable'
+import fetchTableByParentId from './fetchTableByParentId'
 import getNodeByPath from '../modules/getNodeByPath'
 import apiBaseUrl from '../modules/apiBaseUrl'
 import fetchDataset from '../modules/fetchDataset'
@@ -118,8 +119,13 @@ class Store extends singleton {
   }
 
   @action
-  fetchTable = (tableName, schemaName) => {
-    fetchTable(this, tableName, schemaName)
+  fetchTable = (schemaName, tableName) => {
+    fetchTable(this, schemaName, tableName)
+  }
+
+  @action
+  fetchTableByParentId = (schemaName, tableName, parentId) => {
+    fetchTableByParentId(this, schemaName, tableName, parentId)
   }
 
   @action
@@ -129,7 +135,8 @@ class Store extends singleton {
     // get all information from location.pathname
     console.log(`action fetchAllNodes: location:`, location)
     const pathElements = location.pathname.split(`/`)
-    // start parallel fetches for every table
+    // fetch for every table
+    const fetchFunctions = []
     axios.all([
 
     ])

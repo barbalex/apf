@@ -471,7 +471,6 @@ export default [
       name: `beobNichtZuzuordnen`,
       label(node) {
         if (!node || !node.childrenFilteredByLabel) return `(kein Name)`
-        console.log(`node.folderLabel:`, node.folderLabel)
         return node.folderLabel
         // if (!node.childrenFilteredByLabel && node.label) return node.label
         // return `nicht zuzuordnende Beobachtungen (${node.row.AnzBeobNichtZuzuordnen < 100 ? node.row.AnzBeobNichtZuzuordnen : `neuste 100 von ${node.row.AnzBeobNichtZuzuordnen}`})`
@@ -496,7 +495,6 @@ export default [
       name: `beobNichtBeurteilt`,
       label(node) {
         if (!node || !node.childrenFilteredByLabel) return `(kein Name)`
-        console.log(`node.folderLabel:`, node.folderLabel)
         return node.folderLabel
         // if (!node.childrenFilteredByLabel && node.label) return node.label
         // return `nicht beurteilte Beobachtungen (${node.row.AnzBeobNichtBeurteilt < 100 ? node.row.AnzBeobNichtBeurteilt : `neuste 100 von ${node.row.AnzBeobNichtBeurteilt}`})`

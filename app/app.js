@@ -51,11 +51,11 @@ window.app.store = store
 store.fetchFields()
 // fetch this data immediately
 // because it is used in the tree
-store.fetchTable(`adb_eigenschaften`, `beob`)
-store.fetchTable(`tpopkontrzaehl_einheit_werte`)
-store.fetchTable(`tpopmassn_typ_werte`)
-store.fetchTable(`ziel_typ_werte`)
-store.fetchTable(`tpopmassn_erfbeurt_werte`)
+store.fetchTable(`beob`, `adb_eigenschaften`)
+store.fetchTable(`apflora`, `tpopkontrzaehl_einheit_werte`)
+store.fetchTable(`apflora`, `tpopmassn_typ_werte`)
+store.fetchTable(`apflora`, `ziel_typ_werte`)
+store.fetchTable(`apflora`, `tpopmassn_erfbeurt_werte`)
 
 ReactDOM.render(
   <Provider store={store}>
