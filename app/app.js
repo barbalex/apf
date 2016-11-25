@@ -26,6 +26,9 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import DevTools from 'mobx-react-devtools'
 import { Provider } from 'mobx-react'
 
+import { Lokka } from 'lokka'
+import { Transport } from 'lokka-transport-http'
+
 // Import the CSS reset, which HtmlWebpackPlugin transfers to the build folder
 import 'sanitize.css/sanitize.css'
 
@@ -33,6 +36,7 @@ import 'sanitize.css/sanitize.css'
 import store from './store'
 import styles from './app.css'  // eslint-disable-line no-unused-vars
 import Router from './components/Router'
+import graphqlBaseUrl from './modules/graphqlBaseUrl'
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
@@ -44,9 +48,15 @@ const theme = Object.assign({}, darkBaseTheme, {
   },
 })
 
+// connect to graphql
+const gql = new Lokka({
+  transport: new Transport(graphqlBaseUrl),
+})
+
 // make store accessible in dev
 window.app = {}
 window.app.store = store
+window.app.gql = gql
 
 store.fetchFields()
 // fetch this data immediately
