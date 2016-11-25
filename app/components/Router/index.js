@@ -48,96 +48,97 @@ const Router = ({ store }) => {
         <Match
           exactly
           pattern="/Projekte"
-          render={() => {
-            newStore && store.fetchAllNodes({ table: `projekt`, id: null, folder: null })
+          render={({ pathname, params }) => {
+            newStore && store.fetchAllNodes({ pathname, params })
               return <Projekte />
           }}
         />
         <Match
           exactly
           pattern="/Projekte/:ProjId"
-          render={({ params }) => {
-            newStore && store.fetchAllNodes({ table: `projekt`, id: params.ProjId, folder: null })
-            return <Projekte />
+          render={({ pathname, params }) => {
+            console.log(`pathname:`, pathname)
+            newStore && store.fetchAllNodes({ pathname, params })
+              return <Projekte />
           }}
         />
         <Match
           exactly
           pattern="/Projekte/:ProjId/AP-Berichte"
-          render={({ params }) => {
-            newStore && store.fetchAllNodes({ table: `projekt`, id: params.ProjId, folder: `apberuebersicht` })
-            return <Projekte />
+          render={({ pathname, params }) => {
+            newStore && store.fetchAllNodes({ pathname, params })
+              return <Projekte />
           }}
         />
         <Match
           exactly
           pattern="/Projekte/:ProjId/AP-Berichte/:JbuJahr"
-          render={({ params }) => {
-            newStore && store.fetchAllNodes({ table: `apberuebersicht`, id: params.JbuJahr, folder: null })
-            return <Projekte />
+          render={({ pathname, params }) => {
+            newStore && store.fetchAllNodes({ pathname, params })
+              return <Projekte />
           }}
         />
         <Match
           exactly
           pattern="/Projekte/:ProjId/Arten"
-          render={({ params }) => {
-            newStore && store.fetchAllNodes({ table: `projekt`, id: params.ProjId, folder: `ap` })
-            return <Projekte />
+          render={({ pathname, params }) => {
+            newStore && store.fetchAllNodes({ pathname, params })
+              return <Projekte />
           }}
         />
         <Match
           exactly
           pattern="/Projekte/:ProjId/Arten/:ApArtId"
-          render={({ params }) => {
-            newStore && store.fetchAllNodes({ table: `ap`, id: params.ApArtId, folder: null })
-            return <Projekte />
+          render={({ pathname, params }) => {
+            newStore && store.fetchAllNodes({ pathname, params })
+              return <Projekte />
           }}
         />
         <Match
           exactly
           pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Berichte"
-          render={({ params }) => {
-            newStore && store.fetchAllNodes({ table: `ap`, id: params.ApArtId, folder: `apber` })
-            return <Projekte />
+          render={({ pathname, params }) => {
+            newStore && store.fetchAllNodes({ pathname, params })
+              return <Projekte />
           }}
         />
         <Match
           exactly
           pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Berichte/:JBerId"
-          render={({ params }) => {
-            newStore && store.fetchAllNodes({ table: `apber`, id: params.JBerId, folder: null })
-            return <Projekte />
+          render={({ pathname, params }) => {
+            newStore && store.fetchAllNodes({ pathname, params })
+              return <Projekte />
           }}
         />
         <Match
           exactly
           pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Erfolgskriterien"
-          render={({ params }) => {
-            newStore && store.fetchAllNodes({ table: `ap`, id: params.ApArtId, folder: `erfkrit` })
-            return <Projekte />
+          render={({ pathname, params }) => {
+            newStore && store.fetchAllNodes({ pathname, params })
+              return <Projekte />
           }}
         />
         <Match
           exactly
           pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Erfolgskriterien/:ErfkritId"
-          render={({ params }) => {
-            newStore && store.fetchAllNodes({ table: `erfkrit`, id: params.ErfkritId, folder: null })
-            return <Projekte />
+          render={({ pathname, params }) => {
+            newStore && store.fetchAllNodes({ pathname, params })
+              return <Projekte />
           }}
         />
         <Match
           exactly
           pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Ziele"
-          render={({ params }) => {
-            newStore && store.fetchAllNodes({ table: `ap`, id: params.ApArtId, folder: `ziel` })
-            return <Projekte />
+          render={({ pathname, params }) => {
+            newStore && store.fetchAllNodes({ pathname, params })
+              return <Projekte />
           }}
         />
         <Match
           exactly
           pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Ziele/:ZielId"
-          render={({ params }) => {
-            newStore && store.fetchAllNodes({ table: `ziel`, id: params.ZielId, folder: null })
+          render={({ pathname, params }) => {
+            newStore && store.fetchAllNodes({ pathname, params })
             return <Projekte />
           }}
         />

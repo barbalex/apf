@@ -10,7 +10,7 @@ import singleton from 'singleton'
 import axios from 'axios'
 import objectValues from 'lodash/values'
 
-import fetchTable from './fetchTable'
+import fetchTableModule from './fetchTable'
 import fetchTableByParentId from './fetchTableByParentId'
 import getNodeByPath from '../modules/getNodeByPath'
 import apiBaseUrl from '../modules/apiBaseUrl'
@@ -120,7 +120,7 @@ class Store extends singleton {
 
   @action
   fetchTable = (schemaName, tableName) => {
-    fetchTable(this, schemaName, tableName)
+    fetchTableModule(this, schemaName, tableName)
   }
 
   @action
@@ -129,12 +129,13 @@ class Store extends singleton {
   }
 
   @action
-  fetchAllNodes = (location) => {
+  fetchAllNodes = ({ pathname, params }) => {
     // location musst be passed in
     this.node.loadingAllNodes = true
     // get all information from location.pathname
-    console.log(`action fetchAllNodes: location:`, location)
-    const pathElements = location.pathname.split(`/`)
+    const pathElements = pathname.split(`/`)
+    pathElements.shift()
+    console.log(`pathElements:`, pathElements)
     // fetch for every table
     const path = []
     const fetchFunctions = []
@@ -142,15 +143,34 @@ class Store extends singleton {
       path.push({
         table: `projekt`,
       })
-      fetchFunctions.push(fetchTable(`apflora`, `projekt`))
+      fetchFunctions.push(fetchTableModule(this, `apflora`, `projekt`))
       if (pathElements[1]) {
         path.push({
           table: `projekt`,
           parentId: pathElements[1],
         })
-        fetchFunctions.push(fetchTableByParentId(`apflora`, `projekt`, pathElements[1]))
+        // TODO: expand node
+        if (pathElements[2]) {
+          if (pathElements[2] === `Arten`) {
+            path.push({
+              table: `ap`,
+              parentId: pathElements[1],
+              folder: `Arten`,
+            })
+            fetchFunctions.push(fetchTableByParentId(`apflora`, `ap`, pathElements[1]))
+          }
+          if (pathElements[2] === `AP-Berichte`) {
+            path.push({
+              table: `apberuebersicht`,
+              parentId: pathElements[1],
+              folder: `AP-Berichte`,
+            })
+            fetchFunctions.push(fetchTableByParentId(`apflora`, `apberuebersicht`, pathElements[1]))
+          }
+        }
       }
     }
+    console.log(`will run axios.all(fetchFunctions):`, fetchFunctions)
     axios.all(fetchFunctions)
       .then()
     /*
