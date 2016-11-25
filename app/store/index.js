@@ -9,8 +9,8 @@ import { action, transaction, reaction } from 'mobx'
 import singleton from 'singleton'
 import axios from 'axios'
 import objectValues from 'lodash/values'
-import keyBy from 'lodash/keyBy'
 
+import fetchTable from './fetchTable'
 import getNodeByPath from '../modules/getNodeByPath'
 import apiBaseUrl from '../modules/apiBaseUrl'
 import fetchDataset from '../modules/fetchDataset'
@@ -118,28 +118,8 @@ class Store extends singleton {
   }
 
   @action
-  fetchTable = (tableName, schemaNamePassed) => {
-    if (!tableName) {
-      console.error(`action fetchTable: tableName must be passed`)
-      return
-    }
-    const schemaName = schemaNamePassed || `apflora`
-    // only fetch if not yet fetched
-    if (this.table[tableName].size === 0 && !this.table[`${tableName}Loading`]) {
-      const idField = tables.find(t => t.table === tableName).idField
-      this.table[`${tableName}Loading`] = true
-      axios.get(`${apiBaseUrl}/schema/${schemaName}/table/${tableName}`)
-        .then(({ data }) => {
-          transaction(() => {
-            data.forEach(d =>
-              this.table[`${tableName}`].set(d[idField], d)
-            )
-            // this.table[`${tableName}`] = keyBy(data, idField)
-            this.table[`${tableName}Loading`] = false
-          })
-        })
-        .catch(error => console.log(`error fetching table ${tableName}:`, error))
-    }
+  fetchTable = (tableName, schemaName) => {
+    fetchTable(this, tableName, schemaName)
   }
 
   @action
