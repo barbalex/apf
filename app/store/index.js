@@ -172,7 +172,9 @@ class Store extends singleton {
     }
     console.log(`will run axios.all(fetchFunctions):`, fetchFunctions)
     axios.all(fetchFunctions)
-      .then()
+      .then(() => {
+        // build tree from tables
+      })
     /*
     // update activeNode at the end
     axios.get(`${apiBaseUrl}/node?table=${table}&id=${id}&folder=${folder}&levels=all`)

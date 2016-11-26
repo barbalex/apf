@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 import { observable, computed, toJS } from 'mobx'
+import sortBy from 'lodash/sortBy'
 
 class Table {
   @observable adb_eigenschaften = new Map()
@@ -67,6 +68,49 @@ class Table {
   @observable popmassnber = new Map()
   @observable popmassnberLoading = false
   @observable projekt = new Map()
+  @computed get projektNodes() {
+    // grab projekte as array and sort them by name
+    const projekte = this.projekt.values().sortBy(`ProjName`)
+    // map through all projekt and create array of nodes
+    return projekte.map(el => ({
+      nodeId: `projekt/${el.ProjId}`,
+      table: `projekt`,
+      row: el,
+      expanded: idActive, // || oneProject,  // temporarily disabled
+      urlPath: [`Projekte`, el.ProjId],
+      nodeIdPath: [`projekt/${el.ProjId}`],
+      children: [
+        // ap folder
+        {
+          nodeId: `projekt/${el.ProjId}/ap`,
+          folder: `ap`,
+          table: `projekt`,
+          row: el,
+          id: el.ProjId,
+          expanded: false,
+          children: apFolder.length === 0 ? _.times(el.AnzAp, _.constant(0)) : apFolder,
+          urlPath: [`Projekte`, el.ProjId, `Arten`],
+          nodeIdPath: [`projekt/${el.ProjId}`, `projekt/${el.ProjId}/ap`],
+        },
+        // apberuebersicht folder
+        {
+          nodeId: `projekt/${el.ProjId}/apberuebersicht`,
+          folder: `apberuebersicht`,
+          table: `projekt`,
+          row: el,
+          id: el.ProjId,
+          expanded: false,
+          children: (
+            apberuebersichtFolder.length === 0 ?
+            _.times(el.AnzApberuebersicht, _.constant(0)) :
+            apberuebersichtFolder
+          ),
+          urlPath: [`Projekte`, el.ProjId, `AP-Berichte`],
+          nodeIdPath: [`projekt/${el.ProjId}`, `projekt/${el.ProjId}/apberuebersicht`],
+        },
+      ],
+    }))
+  }
   @observable projektLoading = false
   @observable tpop = new Map()
   @observable tpopLoading = false

@@ -1,4 +1,5 @@
-import { toJS } from 'mobX'
+/* eslint-disable max-len */
+import { toJS } from 'mobx'
 
 const noLabel = `(kein Name)`
 
