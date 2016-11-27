@@ -509,10 +509,6 @@ export default [
     parentIdField: ``,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
-    label(row) {
-      if (!row) return noLabel
-      return row.ProjName || `(kein Name)`
-    },
   },
   {
     database: `beob`,
