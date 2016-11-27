@@ -12,6 +12,7 @@ class Node {
     const projekte = sortBy(this.store.table.projekt.values(), `ProjName`)
     // map through all projekt and create array of nodes
     return projekte.map(el => ({
+      type: `row`,
       label: `Projekte`,
       table: `projekt`,
       row: el,
@@ -24,6 +25,7 @@ class Node {
       },
       children: [
         {
+          type: `folder`,
           label: `Arten (${this.apNodes.length})`,
           folder: `ap`,
           table: `projekt`,
@@ -39,6 +41,7 @@ class Node {
         },
         // apberuebersicht folder
         {
+          type: `folder`,
           label: `AP-Berichte ${this.apberuebersichtNodes.length}`,
           folder: `apberuebersicht`,
           table: `projekt`,
