@@ -1,5 +1,8 @@
 import { observable, computed } from 'mobx'
 import sortBy from 'lodash/sortBy'
+import getActiveElementsFromUrl from '../../modules/getActiveElementsFromUrl'
+
+const activeElements = getActiveElementsFromUrl()
 
 class Node {
   constructor(store, pathArray) {
@@ -16,13 +19,7 @@ class Node {
       label: `Projekte`,
       table: `projekt`,
       row: el,
-      expanded() {
-        const projElement = this.pathArray.find(pEl => pEl.table === `projekt`)
-        if (projElement) {
-          return projElement.id === el.projId
-        }
-        return false
-      },
+      expanded: el.projId === activeElements.projekt,
       children: [
         {
           type: `folder`,
@@ -30,13 +27,7 @@ class Node {
           folder: `ap`,
           table: `projekt`,
           row: el,
-          expanded() {
-            const projElement = this.pathArray.find(pEl => pEl.childrenTable === `ap`)
-            if (projElement) {
-              return projElement.parentId === el.projId
-            }
-            return false
-          },
+          expanded: activeElements.apFolder,
           children: this.apNodes,
         },
         // apberuebersicht folder
@@ -47,7 +38,7 @@ class Node {
           table: `projekt`,
           row: el,
           id: el.ProjId,
-          expanded: false,
+          expanded: activeElements.apberuebersichtFolder,
           children: this.apberuebersichtNodes,
         },
       ],
