@@ -5,9 +5,8 @@ import getActiveElementsFromUrl from '../../modules/getActiveElementsFromUrl'
 const activeElements = getActiveElementsFromUrl()
 
 class Node {
-  constructor(store, pathArray) {
+  constructor(store) {
     this.store = store
-    this.pathArray = pathArray
   }
 
   @computed get projektNodes() {
@@ -56,8 +55,8 @@ class Node {
       label() {
         let artname = `(kein Name)`
         const aeEigenschaften = toJS(this.store.data.adb_eigenschaften)
-        if (this.activeNode.row && this.activeNode.row.ApArtId && aeEigenschaften.size > 0) {
-          artname = aeEigenschaften.get(this.activeNode.row.ApArtId).Artname
+        if (aeEigenschaften.size > 0) {
+          artname = aeEigenschaften.get(el.ApArtId).Artname
         }
         return artname
       },
@@ -201,4 +200,4 @@ class Node {
   @observable nrOfRowsAboveActiveNode = 0
 }
 
-export default (store, pathArray) => new Node(store, pathArray)
+export default store => new Node(store)

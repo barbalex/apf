@@ -1,6 +1,8 @@
 /* eslint-disable camelcase */
 import { observable, computed, toJS } from 'mobx'
 
+// TODO: apply asMap
+
 class Table {
   @observable adb_eigenschaften = new Map()
   @observable adb_eigenschaftenLoading = false
