@@ -20,6 +20,7 @@ class Node {
       table: `projekt`,
       row: el,
       expanded: el.projId === activeElements.projekt,
+      // TODO: add url for every node
       children: [
         {
           type: `folder`,
@@ -30,7 +31,6 @@ class Node {
           expanded: activeElements.apFolder,
           children: this.apNodes,
         },
-        // apberuebersicht folder
         {
           type: `folder`,
           label: `AP-Berichte ${this.apberuebersichtNodes.length}`,
