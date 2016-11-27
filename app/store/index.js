@@ -39,10 +39,12 @@ class Store extends singleton {
     this.updateActiveNodeDataset = this.updateActiveNodeDataset.bind(this)
   }
 
-  node = NodeStore
+  node = NodeStore(this, AppStore.pathArray)
   ui = UiStore
   app = AppStore
-  table = TableStore
+  table = TableStore(this, AppStore.pathArray)
+
+  // TODO: listen to location changes, update app.pathArray
 
   @action
   fetchFields = () => {

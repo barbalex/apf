@@ -1,26 +1,60 @@
-import { observable } from 'mobx'
+import { observable, computed } from 'mobx'
+import sortBy from 'lodash/sortBy'
 
-const placeholderNode = {
-  nodeId: `none`,
-  folder: null,
-  table: null,
-  row: null,
-  label: null,
-  valid: null,
-  expanded: false,
-  urlPath: null,
-  nodeIdPath: null,
-  children: [],
-  childrenFilteredByLabel: [],
-}
+class Node {
+  constructor(store, pathArray) {
+    this.store = store
+    this.pathArray = pathArray
+  }
 
-class Data {
-  @observable nodes = [placeholderNode]
+  @computed get projektNodes() {
+    // grab projekte as array and sort them by name
+    const projekte = sortBy(this.store.table.projekt.values(), `ProjName`)
+    // map through all projekt and create array of nodes
+    return projekte.map(el => ({
+      label: `Projekte`,
+      table: `projekt`,
+      row: el,
+      expanded() {
+        const projElement = this.pathArray.find(pEl => pEl.table === `projekt`)
+        if (projElement) {
+          return projElement.id === el.projId
+        }
+        return false
+      },
+      children: [
+        {
+          label: `Arten (${this.apNodes.length})`,
+          folder: `ap`,
+          table: `projekt`,
+          row: el,
+          expanded() {
+            const projElement = this.pathArray.find(pEl => pEl.childrenTable === `ap`)
+            if (projElement) {
+              return projElement.parentId === el.projId
+            }
+            return false
+          },
+          children: this.apNodes,
+        },
+        // apberuebersicht folder
+        {
+          label: `AP-Berichte ${this.apberuebersichtNodes.length}`,
+          folder: `apberuebersicht`,
+          table: `projekt`,
+          row: el,
+          id: el.ProjId,
+          expanded: false,
+          children: this.apberuebersichtNodes,
+        },
+      ],
+    }))
+  }
+
   @observable loadingAllNodes = false
   @observable activeNode = null
   @observable nodeLabelFilter = {}
   @observable nrOfRowsAboveActiveNode = 0
-  @observable nodes2 = [placeholderNode]
 }
 
-export default new Data()
+export default (store, pathArray) => new Node(store, pathArray)

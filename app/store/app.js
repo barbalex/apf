@@ -5,6 +5,7 @@ class App {
   @observable user = null
   @observable fields = []
   @observable fieldsLoading = false
+  @observable pathArray = null
   @observable map = null
 }
 
