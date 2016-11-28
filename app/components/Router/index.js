@@ -49,6 +49,7 @@ const Router = ({ store }) => {
           exactly
           pattern="/Projekte"
           render={() => {
+            console.log(`newStore:`, newStore)
             newStore && store.fetchAllNodes()
             return <Projekte />
           }}
@@ -57,6 +58,7 @@ const Router = ({ store }) => {
           exactly
           pattern="/Projekte/:ProjId"
           render={() => {
+            console.log(`newStore:`, newStore)
             newStore && store.fetchAllNodes()
             return <Projekte />
           }}

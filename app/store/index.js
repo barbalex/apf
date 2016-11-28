@@ -135,82 +135,82 @@ class Store extends singleton {
 
   @action
   fetchAllNodes = () => {
-    // location musst be passed in
+    console.log(`action fetchAllNodes: running`)
     this.node.loadingAllNodes = true
     const activeElements = getActiveUrlElements()
-    const fetchFunctions = []
+    const store = this
     const fetchingFromActiveElements = {
       projektFolder() {
-        return fetchFunctions.push(fetchTableModule(this, `apflora`, `projekt`))
+        return fetchTableModule(store, `apflora`, `projekt`)
       },
       apberuebersichtFolder() {
-        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `apberuebersicht`, activeElements.projekt))
+        return fetchTableByParentId(store, `apflora`, `apberuebersicht`, activeElements.projekt)
       },
       apFolder() {
-        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `ap`, activeElements.projekt))
+        return fetchTableByParentId(store, `apflora`, `ap`, activeElements.projekt)
       },
       assozartFolder() {
-        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `assozart`, activeElements.ap))
+        return fetchTableByParentId(store, `apflora`, `assozart`, activeElements.ap)
       },
       idealbiotopFolder() {
-        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `idealbiotop`, activeElements.ap))
+        return fetchTableByParentId(store, `apflora`, `idealbiotop`, activeElements.ap)
       },
       beobNichtZuzuordnenFolder() {
         // TODO
-        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `ap`, activeElements.projekt))
+        return fetchTableByParentId(store, `apflora`, `ap`, activeElements.projekt)
       },
       beobzuordnungFolder() {
         // TODO
-        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `ap`, activeElements.projekt))
+        return fetchTableByParentId(store, `apflora`, `ap`, activeElements.projekt)
       },
       berFolder() {
-        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `ber`, activeElements.ap))
+        return fetchTableByParentId(store, `apflora`, `ber`, activeElements.ap)
       },
       apberFolder() {
-        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `apber`, activeElements.ap))
+        return fetchTableByParentId(store, `apflora`, `apber`, activeElements.ap)
       },
       erfkritFolder() {
-        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `erfkrit`, activeElements.ap))
+        return fetchTableByParentId(store, `apflora`, `erfkrit`, activeElements.ap)
       },
       zielFolder() {
-        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `ziel`, activeElements.ap))
+        return fetchTableByParentId(store, `apflora`, `ziel`, activeElements.ap)
       },
       zielberFolder() {
-        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `zielber`, activeElements.ziel))
+        return fetchTableByParentId(store, `apflora`, `zielber`, activeElements.ziel)
       },
       popFolder() {
-        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `pop`, activeElements.ap))
+        return fetchTableByParentId(store, `apflora`, `pop`, activeElements.ap)
       },
       popberFolder() {
-        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `popber`, activeElements.pop))
+        return fetchTableByParentId(store, `apflora`, `popber`, activeElements.pop)
       },
       popmassnberFolder() {
-        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `popmassnber`, activeElements.pop))
+        return fetchTableByParentId(store, `apflora`, `popmassnber`, activeElements.pop)
       },
       tpopFolder() {
-        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `tpop`, activeElements.pop))
+        return fetchTableByParentId(store, `apflora`, `tpop`, activeElements.pop)
       },
       tpopmassnFolder() {
-        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `tpopmassn`, activeElements.tpop))
+        return fetchTableByParentId(store, `apflora`, `tpopmassn`, activeElements.tpop)
       },
       tpopmassnberFolder() {
-        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `tpopmassnber`, activeElements.tpop))
+        return fetchTableByParentId(store, `apflora`, `tpopmassnber`, activeElements.tpop)
       },
       tpopfeldkontrFolder() {
-        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `tpopkontr`, activeElements.tpop))
+        return fetchTableByParentId(store, `apflora`, `tpopkontr`, activeElements.tpop)
       },
       tpopkontrzaehlFolder() {
-        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `tpopkontrzaehl`, activeElements.tpopfeldkontr))
+        return fetchTableByParentId(store, `apflora`, `tpopkontrzaehl`, activeElements.tpopfeldkontr)
       },
       tpopfreiwkontrFolder() {
-        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `tpopkontr`, activeElements.tpop))
+        return fetchTableByParentId(store, `apflora`, `tpopkontr`, activeElements.tpop)
       },
       tpopberFolder() {
-        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `tpopber`, activeElements.tpop))
+        return fetchTableByParentId(store, `apflora`, `tpopber`, activeElements.tpop)
       },
       tpopBeobzuordnungFolder() {
         // TODO
-        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `ap`, activeElements.tpop))
+        return fetchTableByParentId(store, `apflora`, `ap`, activeElements.tpop)
       },
     }
     forEach(fetchingFromActiveElements, (func, key) => {
@@ -218,11 +218,6 @@ class Store extends singleton {
         func()
       }
     })
-    console.log(`will run axios.all(fetchFunctions):`, fetchFunctions)
-    axios.all(fetchFunctions)
-      .then(() => {
-        // build tree from tables
-      })
     /*
     // update activeNode at the end
     axios.get(`${apiBaseUrl}/node?table=${table}&id=${id}&folder=${folder}&levels=all`)

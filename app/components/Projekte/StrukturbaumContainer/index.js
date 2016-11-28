@@ -26,7 +26,6 @@ class StrukturbaumContainer extends Component { // eslint-disable-line react/pre
   }
 
   render() {
-    const { store } = this.props
     return (
       <div className={styles.container}>
         <div className={styles.labelFilter}>
