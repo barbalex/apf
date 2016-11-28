@@ -1,11 +1,8 @@
 import _forEach from 'lodash/forEach'
 import Joi from 'joi-browser'
 
-export default (activeNode, allFields) => {
-  const { table, row, valid } = activeNode
-  if (!valid) {
-    throw new Error(`valid object missing`)
-  }
+export default (table, row, allFields) => {
+  const valid = {}
   if (!table || !row || !allFields || !allFields.length) {
     console.log(`validateActiveDataset: table, row or fields missing`)  // eslint-disable-line no-console
     return valid
@@ -65,4 +62,5 @@ export default (activeNode, allFields) => {
       }
     }
   })
+  return valid
 }

@@ -20,7 +20,6 @@ import fetchDataset from '../modules/fetchDataset'
 import tables from '../modules/tables'
 import countRowsAboveActiveNode from '../modules/countRowsAboveActiveNode'
 import validateActiveDataset from '../modules/validateActiveDataset'
-import addPropertiesToNodes from '../modules/addPropertiesToNodes'
 import getActiveUrlElements from '../modules/getActiveUrlElements'
 import getActiveDatasetFromUrl from '../modules/getActiveDatasetFromUrl'
 
@@ -74,7 +73,7 @@ class Store extends singleton {
 
   @action
   updateProperty = (key, value) => {
-    const { table, row } = this.node.activeNode
+    const { table, row } = this.activeDataset
     // ensure primary data exists
     if (!key || !table || !row) {
       return console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
@@ -84,7 +83,7 @@ class Store extends singleton {
 
   @action
   updatePropertyInDb = (key, value) => {
-    const { table, row, valid } = this.node.activeNode
+    const { table, row, valid } = this.activeDataset
 
     // ensure primary data exists
     if (!key || !table || !row) {
@@ -101,9 +100,6 @@ class Store extends singleton {
     if (!tabelleId) {
       return console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
     }
-
-    // validate using activeNode (table, row, valid) and fields
-    validateActiveDataset(this.node.activeNode, this.app.fields)
 
     // update if no validation messages exist
     const combinedValidationMessages = objectValues(valid).join(``)
@@ -216,7 +212,6 @@ class Store extends singleton {
     forEach(fetchingFromActiveElements, (func, key) => {
       if (activeElements[key]) func()
     })
-    this.table.activeDataset = getActiveDatasetFromUrl(this)
   }
 
   @action
@@ -224,6 +219,7 @@ class Store extends singleton {
     if (node) {
       const wasClosed = !node.expanded
       transaction(() => {
+        // TODO
         node.expanded = !node.expanded
         if (this.node.activeNode !== node) {
           this.node.activeNode = node
@@ -265,7 +261,6 @@ class Store extends singleton {
     axios.get(`${apiBaseUrl}/node?table=${node.table}&id=${id}&folder=${node.folder ? node.folder : ``}`)
       .then(({ data: nodes }) => {
         transaction(() => {
-          addPropertiesToNodes(this.node.nodes, nodes, this)
           node.children.replace(nodes)
         })
       })
@@ -279,7 +274,6 @@ class Store extends singleton {
       .then((dataset) => {
         transaction(() => {
           this.node.activeNode.row = dataset
-          addPropertiesToNodes(this.node.nodes, this.node.activeNode, this)
         })
       })
       .catch((error) => {
@@ -344,6 +338,16 @@ class Store extends singleton {
     }
   )
 
+  @computed get activeDataset() {
+    const { row, table } = getActiveDatasetFromUrl(this)
+    return {
+      table,
+      row,
+      valid() {
+        return validateActiveDataset(table, row, this.app.fields)
+      },
+    }
+  }
 
   @computed get projektNodes() {
     // grab projekte as array and sort them by name
