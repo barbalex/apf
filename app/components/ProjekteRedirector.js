@@ -9,12 +9,16 @@ import React, { PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import { Redirect } from 'react-router'
 
+import getNodeOfActiveDataset from '../modules/getNodeOfActiveDataset'
+
 const ProjekteRedirector = ({ store, location }) => {
-  const activeNode = store.activeDataset
+  const { activeDataset } = store
   let to = null
-  if (activeNode) {
-    to = `/${activeNode.urlPath.join(`/`)}`
+  if (activeDataset) {
+    const { url } = getNodeOfActiveDataset(store)
+    to = `/${url.join(`/`)}`
   }
+  console.log(`ProjekteRedirector: to:`, to)
   const doRedirect = to && location.pathname !== to
 
   if (doRedirect) {

@@ -26,8 +26,6 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
   render() {  // eslint-disable-line class-methods-use-this
     const { store } = this.props
 
-    console.log(`Strukturbaum: store.projektNodes:`, store.projektNodes)
-
     if (
       !store
       || !store.projektNodes
