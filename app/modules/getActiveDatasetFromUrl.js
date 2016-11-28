@@ -7,7 +7,7 @@ export default (store) => {
       return store.table.apberuebersicht.get(aEl.apberuebersicht)
     } else if (aEl.ap) {
       if (aEl.ziel) {
-        if (!aEl.zielber) {
+        if (aEl.zielber) {
           return store.table.zielber.get(aEl.zielber)
         }
         return store.table.ziel.get(aEl.ziel)
@@ -29,21 +29,30 @@ export default (store) => {
         } else if (aEl.tpopber) {
           return store.table.tpopber.get(aEl.tpopber)
         } else if (aEl.tpop) {
-
-        } else {
-          // none of the tpop folders is active
-          return store.table.pop.get(aEl.pop)
+          if (aEl.tpopBeobzuordnung) {
+            return store.table.tpopBeobzuordnung.get(aEl.tpopBeobzuordnung)
+          } else if (aEl.tpopber) {
+            return store.table.tpopber.get(aEl.tpopber)
+          } else if (aEl.tpopfreiwkontr) {
+            return store.table.tpopfreiwkontr.get(aEl.tpopfreiwkontr)
+          } else if (aEl.tpopfeldkontr) {
+            return store.table.tpopfeldkontr.get(aEl.tpopfeldkontr)
+          } else if (aEl.tpopmassnber) {
+            return store.table.tpopmassnber.get(aEl.tpopmassnber)
+          } else if (aEl.tpopmassn) {
+            return store.table.tpopmassn.get(aEl.tpopmassn)
+          }
+          return store.table.tpop.get(aEl.tpop)
         }
-      } else {
-        // none of the pop folders is active
-        return store.table.ap.get(aEl.ap)
+        // none of the tpop folders is active
+        return store.table.pop.get(aEl.pop)
       }
-    } else {
-      // !aEl.ap && !aEl.apberuebersicht
-      return store.table.projekt.get(aEl.projekt)
+      // none of the pop folders is active
+      return store.table.ap.get(aEl.ap)
     }
-  } else {
-    // no aEl.projekt
-    return null
+    // !aEl.ap && !aEl.apberuebersicht
+    return store.table.projekt.get(aEl.projekt)
   }
+  // no aEl.projekt
+  return null
 }

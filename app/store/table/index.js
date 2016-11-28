@@ -108,6 +108,7 @@ class Table {
   @observable ziel_typ_werteLoading = false
   @observable zielber = new Map()
   @observable zielberLoading = false
+  @observable activeDataset = null
 }
 
 export default new Table()

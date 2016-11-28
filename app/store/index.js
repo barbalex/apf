@@ -22,6 +22,7 @@ import countRowsAboveActiveNode from '../modules/countRowsAboveActiveNode'
 import validateActiveDataset from '../modules/validateActiveDataset'
 import addPropertiesToNodes from '../modules/addPropertiesToNodes'
 import getActiveUrlElements from '../modules/getActiveUrlElements'
+import getActiveDatasetFromUrl from '../modules/getActiveDatasetFromUrl'
 
 import NodeStore from './node'
 import UiStore from './ui'
@@ -214,26 +215,9 @@ class Store extends singleton {
       },
     }
     forEach(fetchingFromActiveElements, (func, key) => {
-      if (activeElements[key]) {
-        func()
-      }
+      if (activeElements[key]) func()
     })
-    /*
-    // update activeNode at the end
-    axios.get(`${apiBaseUrl}/node?table=${table}&id=${id}&folder=${folder}&levels=all`)
-      .then(({ data: nodesFromDb }) => {
-        addPropertiesToNodes(nodesFromDb, nodesFromDb, this)
-        transaction(() => {
-          this.node.nodes.replace(nodesFromDb)
-          this.node.loadingAllNodes = false
-          // set project node as active node
-          const activeNode = getNodeByPath(this.node.nodes, [{ table, id, folder }])
-          if (activeNode && activeNode !== this.node.activeNode) {
-            this.node.activeNode = activeNode
-          }
-        })
-      })
-      .catch(error => console.log(`error fetching nodes:`, error))*/
+    this.table.activeDataset = getActiveDatasetFromUrl()
   }
 
   @action
