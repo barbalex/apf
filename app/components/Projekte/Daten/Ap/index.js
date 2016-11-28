@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
-import mobX from 'mobx'
+import { toJS } from 'mobx'
 import filter from 'lodash/filter'
 import sortBy from 'lodash/sortBy'
 import AutoComplete from '../../../shared/Autocomplete'
@@ -34,16 +34,16 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
 
   render() {
     const { store } = this.props
-    const aeEigenschaften = mobX.toJS(store.table.adb_eigenschaften)
+    const aeEigenschaften = toJS(store.table.adb_eigenschaften)
     const apStati = sortBy(
-      mobX.toJS(store.table.ap_bearbstand_werte).values(),
+      toJS(store.table.ap_bearbstand_werte).values(),
       `DomainOrd`
     )
     const apUmsetzungen = sortBy(
-      mobX.toJS(store.table.ap_umsetzung_werte).values(),
+      toJS(store.table.ap_umsetzung_werte).values(),
       `DomainOrd`
     )
-    const adressen = mobX.toJS(store.table.adresse)
+    const adressen = toJS(store.table.adresse)
     adressen.unshift({
       id: null,
       AdrName: ``,

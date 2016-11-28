@@ -29,7 +29,7 @@ class Daten extends Component { // eslint-disable-line react/prefer-stateless-fu
 
   activeForm() {
     const { store } = this.props
-    if (!store.activeDataset || !store.activeDataset.table) {
+    if (!store.activeDataset || !store.activeDataset.table || !store.activeDataset.row) {
       return <div />
     }
     switch (store.activeDataset.table) {
@@ -67,11 +67,12 @@ class Daten extends Component { // eslint-disable-line react/prefer-stateless-fu
         return <Pop />
       default:
         return (
+          store.activeDataset &&
           store.activeDataset.row &&
           <div className={styles.container}>
             <p>Daten</p>
             <pre>
-              {JSON.stringify(store.activeDataset, null, 2)}
+              {JSON.stringify(store.activeDataset.row, null, 2)}
             </pre>
           </div>
         )

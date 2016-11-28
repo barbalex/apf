@@ -20,8 +20,8 @@ class Projekt extends Component { // eslint-disable-line react/prefer-stateless-
         <TextField
           label="Name"
           fieldName="ProjName"
-          value={activeDataset.row && activeDataset.row.ProjName ? activeDataset.row.ProjName : ``}
-          errorText={activeDataset.valid && activeDataset.valid.ProjName ? activeDataset.valid.ProjName : ``}
+          value={activeDataset && activeDataset.row && activeDataset.row.ProjName ? activeDataset.row.ProjName : ``}
+          errorText={activeDataset && activeDataset.valid && activeDataset.valid.ProjName ? activeDataset.valid.ProjName : ``}
           type="text"
           updateProperty={store.updateProperty}
           updatePropertyInDb={store.updatePropertyInDb}
