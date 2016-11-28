@@ -3,6 +3,7 @@ export default () => {
   const pathElements = pathName.split(`/`)
   // get rid of empty element at start
   pathElements.shift()
+
   const projektFolder = (pathElements[0] && pathElements[0] === `Projekte`) || false
   const projekt = projektFolder && pathElements[1] ? parseInt(pathElements[1], 10) : null
   const apberuebersichtFolder = (projekt && pathElements[2] && pathElements[2] === `AP-Berichte`) || false
@@ -48,6 +49,7 @@ export default () => {
   const tpopber = tpopberFolder && pathElements[9] ? parseInt(pathElements[9], 10) : null
   const tpopBeobzuordnungFolder = (tpop && pathElements[8] && pathElements[8] === `zugeordnete-Beobachtungen`) || false
   const tpopBeobzuordnung = tpopBeobzuordnungFolder && pathElements[9] ? pathElements[9] : null
+
   return {
     projektFolder,
     projekt,

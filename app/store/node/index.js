@@ -2,13 +2,12 @@ import { observable, computed, toJS } from 'mobx'
 import sortBy from 'lodash/sortBy'
 import getActiveUrlElements from '../../modules/getActiveUrlElements'
 
-console.log(`will get active elements`)
 const activeElements = getActiveUrlElements()
-console.log(`activeElements:`, activeElements)
 
 class Node {
   constructor(store) {
     this.store = store
+    console.log(`store/node, constructor, store:`, store)
   }
 
   @computed get projektNodes() {

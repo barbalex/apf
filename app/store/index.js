@@ -41,10 +41,10 @@ class Store extends singleton {
     this.updateActiveNodeDataset = this.updateActiveNodeDataset.bind(this)
   }
 
-  node = NodeStore(this, AppStore.pathArray)
+  node = NodeStore
   ui = UiStore
   app = AppStore
-  table = TableStore(this, AppStore.pathArray)
+  table = TableStore
 
   // TODO: listen to location changes, update app.pathArray
 
@@ -135,7 +135,6 @@ class Store extends singleton {
   @action
   fetchAllNodes = () => {
     // location musst be passed in
-    /*
     this.node.loadingAllNodes = true
     const activeElements = getActiveUrlElements()
     const fetchFunctions = []
@@ -222,7 +221,7 @@ class Store extends singleton {
     axios.all(fetchFunctions)
       .then(() => {
         // build tree from tables
-      })*/
+      })
     /*
     // update activeNode at the end
     axios.get(`${apiBaseUrl}/node?table=${table}&id=${id}&folder=${folder}&levels=all`)
