@@ -1,8 +1,10 @@
 import { observable, computed, toJS } from 'mobx'
 import sortBy from 'lodash/sortBy'
-import getActiveElementsFromUrl from '../../modules/getActiveElementsFromUrl'
+import getActiveUrlElements from '../../modules/getActiveUrlElements'
 
-const activeElements = getActiveElementsFromUrl()
+console.log(`will get active elements`)
+const activeElements = getActiveUrlElements()
+console.log(`activeElements:`, activeElements)
 
 class Node {
   constructor(store) {

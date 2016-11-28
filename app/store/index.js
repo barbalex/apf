@@ -9,16 +9,18 @@ import { action, transaction, reaction } from 'mobx'
 import singleton from 'singleton'
 import axios from 'axios'
 import objectValues from 'lodash/values'
+import forEach from 'lodash/forEach'
 
 import fetchTableModule from './fetchTable'
 import fetchTableByParentId from './fetchTableByParentId'
-import getNodeByPath from '../modules/getNodeByPath'
+// import getNodeByPath from '../modules/getNodeByPath'
 import apiBaseUrl from '../modules/apiBaseUrl'
 import fetchDataset from '../modules/fetchDataset'
 import tables from '../modules/tables'
 import countRowsAboveActiveNode from '../modules/countRowsAboveActiveNode'
 import validateActiveDataset from '../modules/validateActiveDataset'
 import addPropertiesToNodes from '../modules/addPropertiesToNodes'
+// import getActiveUrlElements from '../modules/getActiveUrlElements'
 
 import NodeStore from './node'
 import UiStore from './ui'
@@ -131,52 +133,96 @@ class Store extends singleton {
   }
 
   @action
-  fetchAllNodes = ({ pathname, params }) => {
+  fetchAllNodes = () => {
     // location musst be passed in
+    /*
     this.node.loadingAllNodes = true
-    // get all information from location.pathname
-    const pathElements = pathname.split(`/`)
-    pathElements.shift()
-    console.log(`pathElements:`, pathElements)
-    // fetch for every table
-    const path = []
+    const activeElements = getActiveUrlElements()
     const fetchFunctions = []
-    if (pathElements[0] && pathElements[0] === `Projekte`) {
-      path.push({
-        table: `projekt`,
-      })
-      fetchFunctions.push(fetchTableModule(this, `apflora`, `projekt`))
-      if (pathElements[1]) {
-        path.push({
-          table: `projekt`,
-          parentId: pathElements[1],
-        })
-        // TODO: expand node
-        if (pathElements[2]) {
-          if (pathElements[2] === `Arten`) {
-            path.push({
-              table: `ap`,
-              parentId: pathElements[1],
-              folder: `Arten`,
-            })
-            fetchFunctions.push(fetchTableByParentId(`apflora`, `ap`, pathElements[1]))
-          }
-          if (pathElements[2] === `AP-Berichte`) {
-            path.push({
-              table: `apberuebersicht`,
-              parentId: pathElements[1],
-              folder: `AP-Berichte`,
-            })
-            fetchFunctions.push(fetchTableByParentId(`apflora`, `apberuebersicht`, pathElements[1]))
-          }
-        }
-      }
+    const fetchingFromActiveElements = {
+      projektFolder() {
+        return fetchFunctions.push(fetchTableModule(this, `apflora`, `projekt`))
+      },
+      apberuebersichtFolder() {
+        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `apberuebersicht`, activeElements.projekt))
+      },
+      apFolder() {
+        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `ap`, activeElements.projekt))
+      },
+      assozartFolder() {
+        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `assozart`, activeElements.ap))
+      },
+      idealbiotopFolder() {
+        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `idealbiotop`, activeElements.ap))
+      },
+      beobNichtZuzuordnenFolder() {
+        // TODO
+        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `ap`, activeElements.projekt))
+      },
+      beobzuordnungFolder() {
+        // TODO
+        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `ap`, activeElements.projekt))
+      },
+      berFolder() {
+        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `ber`, activeElements.ap))
+      },
+      apberFolder() {
+        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `apber`, activeElements.ap))
+      },
+      erfkritFolder() {
+        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `erfkrit`, activeElements.ap))
+      },
+      zielFolder() {
+        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `ziel`, activeElements.ap))
+      },
+      zielberFolder() {
+        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `zielber`, activeElements.ziel))
+      },
+      popFolder() {
+        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `pop`, activeElements.ap))
+      },
+      popberFolder() {
+        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `popber`, activeElements.pop))
+      },
+      popmassnberFolder() {
+        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `popmassnber`, activeElements.pop))
+      },
+      tpopFolder() {
+        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `tpop`, activeElements.pop))
+      },
+      tpopmassnFolder() {
+        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `tpopmassn`, activeElements.tpop))
+      },
+      tpopmassnberFolder() {
+        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `tpopmassnber`, activeElements.tpop))
+      },
+      tpopfeldkontrFolder() {
+        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `tpopkontr`, activeElements.tpop))
+      },
+      tpopkontrzaehlFolder() {
+        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `tpopkontrzaehl`, activeElements.tpopfeldkontr))
+      },
+      tpopfreiwkontrFolder() {
+        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `tpopkontr`, activeElements.tpop))
+      },
+      tpopberFolder() {
+        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `tpopber`, activeElements.tpop))
+      },
+      tpopBeobzuordnungFolder() {
+        // TODO
+        return fetchFunctions.push(fetchTableByParentId(this, `apflora`, `ap`, activeElements.tpop))
+      },
     }
+    forEach(fetchingFromActiveElements, (func, key) => {
+      if (activeElements[key]) {
+        func()
+      }
+    })
     console.log(`will run axios.all(fetchFunctions):`, fetchFunctions)
     axios.all(fetchFunctions)
       .then(() => {
         // build tree from tables
-      })
+      })*/
     /*
     // update activeNode at the end
     axios.get(`${apiBaseUrl}/node?table=${table}&id=${id}&folder=${folder}&levels=all`)
