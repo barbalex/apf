@@ -2,6 +2,7 @@ import getActiveUrlElements from './getActiveUrlElements'
 
 export default (store) => {
   const aEl = getActiveUrlElements()
+  console.log(`getActiveDatasetFromUrl: aEl:`, aEl)
   if (aEl.projekt) {
     if (aEl.apberuebersicht) {
       return store.table.apberuebersicht.get(aEl.apberuebersicht)
@@ -51,6 +52,11 @@ export default (store) => {
       return store.table.ap.get(aEl.ap)
     }
     // !aEl.ap && !aEl.apberuebersicht
+    console.log(`getActiveDatasetFromUrl: aEl.projekt:`, aEl.projekt)
+    console.log(`getActiveDatasetFromUrl: store.table.projekt:`, store.table.projekt)
+    console.log(`getActiveDatasetFromUrl: store.table.projekt.get(aEl.projekt):`, store.table.projekt.get(aEl.projekt))
+    console.log(`getActiveDatasetFromUrl: store.table.projekt.get(1):`, store.table.projekt.get(1))
+    console.log(`getActiveDatasetFromUrl: store.table.projekt.get('1'):`, store.table.projekt.get(`1`))
     return store.table.projekt.get(aEl.projekt)
   }
   // no aEl.projekt

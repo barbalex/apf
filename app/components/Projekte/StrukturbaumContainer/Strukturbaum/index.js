@@ -29,9 +29,8 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
     if (
       !store
       || !store.node
-      || !store.node.nodes
-      || (store.node.nodes.length && store.node.nodes.length === 0)
-      || (store.node.nodes[0] && store.node.nodes[0].nodeId === `none`)
+      || !store.node.projekt
+      || store.node.projekt.size === 0
     ) {
       return (
         <div className={styles.container}>
@@ -47,7 +46,7 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
     // calculate scrolltop
     // without this if a folder low in the tree is opened,
     // it always gets scrolled down out of sight
-    const nodes = store.node.nodes
+    const nodes = store.projektNodes
     const nrOfRows = getNrOfNodeRows(nodes)
     const rowHeight = (nrOfRows * 23) / nodes.length
     const treeHeightAboveActiveNode = store.node.nrOfRowsAboveActiveNode * 23
@@ -59,7 +58,7 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
       <div
         key={key}
       >
-        {renderNode(store.node.nodes[index], index)}
+        {renderNode(store.projektNodes[index], index)}
       </div>
 
     const renderNode = (node, index) => {

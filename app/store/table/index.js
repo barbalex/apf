@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { observable, computed, toJS } from 'mobx'
+import { observable, asMap, computed, toJS } from 'mobx'
 
 // TODO: apply asMap
 
@@ -18,7 +18,7 @@ class Table {
   @observable adb_lrLoading = false
   @observable adresse = new Map()
   @observable adresseLoading = false
-  @observable ap = new Map()
+  @observable ap = asMap(new Map())
   @observable apLoading = false
   @observable ap_bearbstand_werte = new Map()
   @observable ap_bearbstand_werteLoading = false
@@ -68,7 +68,7 @@ class Table {
   @observable popberLoading = false
   @observable popmassnber = new Map()
   @observable popmassnberLoading = false
-  @observable projekt = new Map()
+  @observable projekt = asMap(new Map())
   @observable projektLoading = false
   @observable tpop = new Map()
   @observable tpopLoading = false

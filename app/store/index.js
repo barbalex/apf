@@ -136,7 +136,6 @@ class Store extends singleton {
 
   @action
   fetchAllNodes = () => {
-    console.log(`action fetchAllNodes: running`)
     this.node.loadingAllNodes = true
     const activeElements = getActiveUrlElements()
     const store = this
@@ -217,7 +216,7 @@ class Store extends singleton {
     forEach(fetchingFromActiveElements, (func, key) => {
       if (activeElements[key]) func()
     })
-    this.table.activeDataset = getActiveDatasetFromUrl()
+    this.table.activeDataset = getActiveDatasetFromUrl(this)
   }
 
   @action
@@ -348,8 +347,9 @@ class Store extends singleton {
 
   @computed get projektNodes() {
     // grab projekte as array and sort them by name
-    const projekte = sortBy(this.table.projekt.values(), `ProjName`)
+    const projekte = sortBy(Array.from(this.table.projekt.values()), `ProjName`)
     const activeElements = getActiveUrlElements()
+
     // map through all projekt and create array of nodes
     return projekte.map(el => ({
       type: `row`,
@@ -377,7 +377,7 @@ class Store extends singleton {
           row: el,
           id: el.ProjId,
           expanded: activeElements.apberuebersichtFolder,
-          url: [`Projekte`, el.ProjId `AP-Berichte`],
+          url: [`Projekte`, el.ProjId, `AP-Berichte`],
           children: this.apberuebersichtNodes,
         },
       ],
@@ -386,7 +386,7 @@ class Store extends singleton {
 
   @computed get apNodes() {
     // grab ape as array and sort them by name
-    const ap = this.table.ap.values()
+    const ap = Array.from(this.table.ap.values())
     const activeElements = getActiveUrlElements()
     // map through all ap and create array of nodes
     const nodes = ap.map(el => ({

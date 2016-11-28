@@ -60,7 +60,7 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
     if (ApArtId && aeEigenschaften.size > 0) {
       artwert = aeEigenschaften.get(ApArtId).Artwert
     }
-    const apNodeIds = getApNodeIds(store.node.activeNode, store.node.nodes)
+    const apNodeIds = getApNodeIds(store.node.activeNode, store.projektNodes)
     const dataSource = filter(aeEigenschaften.values(), r => !apNodeIds.includes(r.TaxonomieId) || r.TaxonomieId === ApArtId)
 
     return (
