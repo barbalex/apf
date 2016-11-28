@@ -10,7 +10,7 @@ import { observer, inject } from 'mobx-react'
 import { Redirect } from 'react-router'
 
 const ProjekteRedirector = ({ store, location }) => {
-  const activeNode = store.node.activeNode
+  const activeNode = store.activeDataset
   let to = null
   if (activeNode) {
     to = `/${activeNode.urlPath.join(`/`)}`

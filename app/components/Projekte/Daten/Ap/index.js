@@ -48,7 +48,7 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
       id: null,
       AdrName: ``,
     })
-    const activeNode = store.node.activeNode
+    const activeNode = store.activeDataset
     const ApArtId = (
       activeNode
       && activeNode.row
@@ -60,8 +60,10 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
     if (ApArtId && aeEigenschaften.size > 0) {
       artwert = aeEigenschaften.get(ApArtId).Artwert
     }
-    const apNodeIds = getApNodeIds(store.node.activeNode, store.projektNodes)
-    const dataSource = filter(aeEigenschaften.values(), r => !apNodeIds.includes(r.TaxonomieId) || r.TaxonomieId === ApArtId)
+    const apNodeIds = getApNodeIds(store.activeDataset, store.projektNodes)
+    const dataSource = filter(aeEigenschaften.values(), r =>
+      !apNodeIds.includes(r.TaxonomieId) || r.TaxonomieId === ApArtId
+    )
 
     return (
       <div className={styles.container}>

@@ -23,7 +23,7 @@ class Apber extends Component { // eslint-disable-line react/prefer-stateless-fu
   render() {
     const { store } = this.props
     const apErfkritWerte = mobX.toJS(store.table.ap_erfkrit_werte)
-    const activeNode = store.node.activeNode
+    const activeNode = store.activeDataset
     return (
       <div className={styles.container}>
         <TextField

@@ -4,7 +4,7 @@ import apiBaseUrl from '../modules/apiBaseUrl'
 import tables from '../modules/tables'
 
 export default (store, schemaNamePassed, tableName) => {
-  console.log(`module fetchTable: tableName:`, tableName)
+  // console.log(`module fetchTable: tableName:`, tableName)
   if (!tableName) {
     return new Error(`action fetchTable: tableName must be passed`)
   }

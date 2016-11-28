@@ -80,7 +80,7 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
       }
       let symbol
       let symbolClassName = `symbol`
-      const nodeIsInActiveNodePath = isNodeInActiveNodePath(node, store.node.activeNode)
+      const nodeIsInActiveNodePath = isNodeInActiveNodePath(node, store.activeDataset)
 
       if (nodeHasChildren && node.expanded) {
         props.onClick = onClick
@@ -91,7 +91,7 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
         // fetch and combine it here
         // apply filter
         const childrenProperty = (
-          node === store.node.activeNode ?
+          node === store.activeDataset ?
           `childrenFilteredByLabel` :
           `children`
         )
