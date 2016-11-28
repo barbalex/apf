@@ -26,11 +26,12 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
   render() {  // eslint-disable-line class-methods-use-this
     const { store } = this.props
 
+    console.log(`Strukturbaum: store.projektNodes:`, store.projektNodes)
+
     if (
       !store
-      || !store.node
-      || !store.node.projekt
-      || store.node.projekt.size === 0
+      || !store.projektNodes
+      || store.projektNodes.length === 0
     ) {
       return (
         <div className={styles.container}>
