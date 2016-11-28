@@ -24,12 +24,15 @@ export default (store) => {
       } else if (aEl.assozart) {
         return store.table.assozart.get(aEl.assozart)
       } else if (aEl.pop) {
-        if (
-          !aEl.tpop &&
-          !aEl.tpopber &&
-          !aEl.tpopmassnber
-        ) {
+        if (aEl.tpopmassnber) {
+          return store.table.tpopmassnber.get(aEl.tpopmassnber)
+        } else if (aEl.tpopber) {
+          return store.table.tpopber.get(aEl.tpopber)
+        } else if (aEl.tpop) {
 
+        } else {
+          // none of the tpop folders is active
+          return store.table.pop.get(aEl.pop)
         }
       } else {
         // none of the pop folders is active
