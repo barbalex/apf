@@ -5,7 +5,7 @@
  */
 /* eslint-disable no-console, no-param-reassign */
 
-import { action, reaction, transaction, computed, toJS } from 'mobx'
+import { action, reaction, autorun, transaction, computed, toJS, observable } from 'mobx'
 import singleton from 'singleton'
 import axios from 'axios'
 import objectValues from 'lodash/values'
@@ -23,6 +23,7 @@ import tables from '../modules/tables'
 import validateActiveDataset from '../modules/validateActiveDataset'
 import getActiveDatasetFromUrl from '../modules/getActiveDatasetFromUrl'
 import storeIsNew from '../modules/storeIsNew'
+import getActiveUrlElements from '../modules/getActiveUrlElements'
 
 import NodeStore from './node'
 import UiStore from './ui'
@@ -39,126 +40,35 @@ class Store extends singleton {
     this.toggleNode = this.toggleNode.bind(this)
     this.fetchNodeChildren = this.fetchNodeChildren.bind(this)
     this.fetchActiveNodeDataset = this.fetchActiveNodeDataset.bind(this)
-    this.setUrlStateFromLocation = this.setUrlStateFromLocation.bind(this)
-    this.history = createHistory()
-    this.history.listen((location) => {
-      console.log(`location:`, location)
-      this.setUrlStateFromLocation(location.pathname)
-    })
   }
 
+  @observable history = createHistory()
   node = NodeStore
   ui = UiStore
   app = AppStore
   table = TableStore
 
-  // TODO: listen to location changes, update app.pathArray
-
-  @action
-  fetchFields = () => {
-      // only fetch if not yet fetched
-    if (this.app.fields.length === 0 && !this.app.fieldsLoading) {
-      this.app.fieldsLoading = true
-      axios.get(`${apiBaseUrl}/felder`)
-        .then(({ data }) => {
-          transaction(() => {
-            this.app.fields = data
-            this.app.fieldsLoading = false
-          })
-        })
-        .catch(error => console.log(`error fetching fields:`, error))
-    }
-  }
-
-  @action
-  updateLabelFilter = (table, value) => {
-    if (!table) return console.log(`nodeLabelFilter cant be updated: no table passed`)
-    this.node.nodeLabelFilter[table] = value
-  }
-
-  @action
-  updateProperty = (key, value) => {
-    const { table, row } = this.activeDataset
-    // ensure primary data exists
-    if (!key || !table || !row) {
-      return console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
-    }
-    row[key] = value
-  }
-
-  @action
-  updatePropertyInDb = (key, value) => {
-    const { table, row, valid } = this.activeDataset
-
-    // ensure primary data exists
-    if (!key || !table || !row) {
-      return
-    }
-
-    // ensure derived data exists
-    const tabelle = tables.find(t => t.table === table)
-    const idField = tabelle ? tabelle.idField : undefined
-    if (!idField) {
-      return console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
-    }
-    const tabelleId = row[idField] || undefined
-    if (!tabelleId) {
-      return console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
-    }
-
-    // update if no validation messages exist
-    const combinedValidationMessages = objectValues(valid).join(``)
-    // console.log(`updatePropertyInDb, combinedValidationMessages:`, combinedValidationMessages)
-    if (combinedValidationMessages.length === 0) {
-      const { user } = this.app
-      const oldValue = row[key]
-      row[key] = value
-      axios.put(`${apiBaseUrl}/update/apflora/tabelle=${table}/idField=${idField}/tabelleId=${tabelleId}/feld=${key}/wert=${value}/user=${user}`)
-        .catch((error) => {
-          row[key] = oldValue
-          this.app.errors.unshift(error)
-          setTimeout(() => {
-            this.app.errors.pop()
-          }, 1000 * 10)
-          console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
-        })
-    }
-  }
-
-  @action
-  fetchTable = (schemaName, tableName) => {
-    fetchTableModule(this, schemaName, tableName)
-  }
-
-  @action
-  fetchTableByParentId = (schemaName, tableName, parentId) => {
-    fetchTableByParentId(this, schemaName, tableName, parentId)
-  }
-
-  @action
-  setUrlStateFromLocation = (pathnamePassed) => {
-    let pathName = pathnamePassed || window.location.pathname
-    pathName = pathName.replace(`/`, ``)
+  @computed get url() {
+    // const pathNamePassed = this.history ? this.history.location.pathname : window.location.pathname
+    const pathNamePassed = this.history.location.pathname
+    // let pathName = pathnamePassed || window.location.pathname
+    const pathName = pathNamePassed.replace(`/`, ``)
     const pathElements = pathName.split(`/`)
-    // get rid of empty element(s) at start
-    if (pathElements[0] === ``) pathElements.shift()
-    // forward / to /Projekte
-    if (pathElements.length === 0) {
-      pathElements.push(`Projekte`)
-      // update window.location
-      this.history.push(`Projekte`)
-    } else {
-      this.app.url = pathElements
+    if (pathElements[0] === ``) {
+      // get rid of empty element(s) at start
+      pathElements.shift()
     }
+    return pathElements
   }
 
   updateData = reaction(
-    () => this.app.url,
+    () => this.history.location.pathname,
     () => {
       // if new store, fetch all nodes
+      console.log(`hi from updateData reaction`)
       if (storeIsNew(this)) {
         this.node.loadingAllNodes = true
-        const activeElements = this.app.activeUrlElements
+        const activeElements = this.activeUrlElements
         const store = this
         const fetchingFromActiveElements = {
           projektFolder() {
@@ -248,6 +158,101 @@ class Store extends singleton {
     }
   )
 
+  forwardToProjekte = autorun(
+    () => {
+      const { history } = this
+      if (this.history.location.pathname === `/`) {
+        // forward / to /Projekte
+        history.push(`Projekte`)
+      }
+    }
+  )
+
+  @computed get activeUrlElements() {
+    return getActiveUrlElements(this.url)
+  }
+
+  @action
+  fetchFields = () => {
+      // only fetch if not yet done
+    if (this.app.fields.length === 0 && !this.app.fieldsLoading) {
+      this.app.fieldsLoading = true
+      axios.get(`${apiBaseUrl}/felder`)
+        .then(({ data }) => {
+          transaction(() => {
+            this.app.fields = data
+            this.app.fieldsLoading = false
+          })
+        })
+        .catch(error => console.log(`error fetching fields:`, error))
+    }
+  }
+
+  @action
+  updateLabelFilter = (table, value) => {
+    if (!table) return console.log(`nodeLabelFilter cant be updated: no table passed`)
+    this.node.nodeLabelFilter[table] = value
+  }
+
+  @action
+  updateProperty = (key, value) => {
+    const { table, row } = this.activeDataset
+    // ensure primary data exists
+    if (!key || !table || !row) {
+      return console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
+    }
+    row[key] = value
+  }
+
+  @action
+  updatePropertyInDb = (key, value) => {
+    const { table, row, valid } = this.activeDataset
+
+    // ensure primary data exists
+    if (!key || !table || !row) {
+      return
+    }
+
+    // ensure derived data exists
+    const tabelle = tables.find(t => t.table === table)
+    const idField = tabelle ? tabelle.idField : undefined
+    if (!idField) {
+      return console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
+    }
+    const tabelleId = row[idField] || undefined
+    if (!tabelleId) {
+      return console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
+    }
+
+    // update if no validation messages exist
+    const combinedValidationMessages = objectValues(valid).join(``)
+    // console.log(`updatePropertyInDb, combinedValidationMessages:`, combinedValidationMessages)
+    if (combinedValidationMessages.length === 0) {
+      const { user } = this.app
+      const oldValue = row[key]
+      row[key] = value
+      axios.put(`${apiBaseUrl}/update/apflora/tabelle=${table}/idField=${idField}/tabelleId=${tabelleId}/feld=${key}/wert=${value}/user=${user}`)
+        .catch((error) => {
+          row[key] = oldValue
+          this.app.errors.unshift(error)
+          setTimeout(() => {
+            this.app.errors.pop()
+          }, 1000 * 10)
+          console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
+        })
+    }
+  }
+
+  @action
+  fetchTable = (schemaName, tableName) => {
+    fetchTableModule(this, schemaName, tableName)
+  }
+
+  @action
+  fetchTableByParentId = (schemaName, tableName, parentId) => {
+    fetchTableByParentId(this, schemaName, tableName, parentId)
+  }
+
   @action
   toggleNode = (node) => {
     if (node) {
@@ -328,7 +333,7 @@ class Store extends singleton {
   @computed get projektNodes() {
     // grab projekte as array and sort them by name
     const projekte = sortBy(Array.from(this.table.projekt.values()), `ProjName`)
-    const activeElements = this.app.activeUrlElements
+    const activeElements = this.activeUrlElements
 
     // map through all projekt and create array of nodes
     return projekte.map(el => ({
@@ -367,7 +372,7 @@ class Store extends singleton {
   @computed get apberuebersichtNodes() {
     // grab apberuebersicht as array and sort them by year
     const apberuebersicht = sortBy(this.table.apberuebersicht.values(), `JbuJahr`)
-    const activeElements = this.app.activeUrlElements
+    const activeElements = this.activeUrlElements
     // map through all projekt and create array of nodes
     return apberuebersicht.map(el => ({
       type: `row`,
@@ -382,7 +387,7 @@ class Store extends singleton {
   @computed get apNodes() {
     // grab ape as array and sort them by name
     const ap = Array.from(this.table.ap.values())
-    const activeElements = this.app.activeUrlElements
+    const activeElements = this.activeUrlElements
     // map through all ap and create array of nodes
     const nodes = ap.map(el => ({
       type: `row`,

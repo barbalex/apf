@@ -1,5 +1,5 @@
 export default (store) => {
-  const aEl = store.app.activeUrlElements
+  const aEl = store.activeUrlElements
   let activeDataset = {
     table: null,
     row: null,

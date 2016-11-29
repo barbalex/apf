@@ -35,7 +35,6 @@ import styles from './app.css'  // eslint-disable-line no-unused-vars
 // import Router from './components/Router'
 import AppBar from './components/AppBar'
 import Projekte from './components/Projekte'
-// import ProjekteRedirector from './components/ProjekteRedirector'
 import Exporte from './components/Exporte'
 import Benutzer from './components/Benutzer'
 
@@ -55,7 +54,6 @@ window.app.store = store
 
 console.log(`app.js, store:`, store)
 
-store.setUrlStateFromLocation()
 store.fetchFields()
 // fetch this data immediately
 // because it is used in the tree

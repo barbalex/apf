@@ -1,4 +1,5 @@
 import React from 'react'
+import { observer, inject } from 'mobx-react'
 import AppBar from 'material-ui/AppBar'
 import { Tabs, Tab } from 'material-ui/Tabs'
 import IconMenu from 'material-ui/IconMenu'
@@ -8,7 +9,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
 
 import styles from './styles.css'
 
-const MyAppBar = ({ pathname }, context) =>
+const MyAppBar = ({ store }) =>
   <AppBar
     title="AP Flora"
     className={styles.menuDiv}
@@ -17,9 +18,9 @@ const MyAppBar = ({ pathname }, context) =>
         className={styles.menuDiv}
       >
         <Tabs
-          value={pathname}
+          value={store.history.location.pathname}
           onChange={path =>
-            context.router.transitionTo(path)
+            store.history.push(path)
           }
         >
           <Tab
@@ -40,14 +41,14 @@ const MyAppBar = ({ pathname }, context) =>
         </Tabs>
         <IconMenu
           iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-          anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
-          targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+          anchorOrigin={{ horizontal: `left`, vertical: `bottom` }}
+          targetOrigin={{ horizontal: `left`, vertical: `top` }}
           style={{ paddingLeft: 10 }}
         >
           <MenuItem
             primaryText="Über apflora.ch"
             onTouchTap={() =>
-              window.open('https://github.com/FNSKtZH/apflora/wiki')
+              window.open(`https://github.com/FNSKtZH/apflora/wiki`)
             }
           />
         </IconMenu>
@@ -56,11 +57,8 @@ const MyAppBar = ({ pathname }, context) =>
     showMenuIconButton={false}
   />
 
-MyAppBar.contextTypes = {
-  router: React.PropTypes.object,
-}
 MyAppBar.propTypes = {
-  pathname: React.PropTypes.string,
+  store: React.PropTypes.object,
 }
 
-export default MyAppBar
+export default inject(`store`)(observer(MyAppBar))
