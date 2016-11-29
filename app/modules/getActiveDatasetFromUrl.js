@@ -58,6 +58,6 @@ export default (store) => {
     // !aEl.ap && !aEl.apberuebersicht
     activeDataset = { table: `projekt`, row: store.table.projekt.get(aEl.projekt) }
   }
-  console.log(`getActiveDatasetFromUrl: activeDataset:`, activeDataset)
+  // console.log(`getActiveDatasetFromUrl: activeDataset:`, activeDataset)
   return activeDataset
 }
