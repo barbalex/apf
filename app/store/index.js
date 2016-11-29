@@ -388,6 +388,21 @@ class Store extends singleton {
     }))
   }
 
+  @computed get apberuebersichtNodes() {
+    // grab apberuebersicht as array and sort them by year
+    const apberuebersicht = sortBy(this.table.apberuebersicht.values(), `JbuJahr`)
+    const activeElements = getActiveUrlElements()
+    // map through all projekt and create array of nodes
+    return apberuebersicht.map(el => ({
+      type: `row`,
+      label: el.JbuJahr,
+      table: `apberuebersicht`,
+      row: el,
+      expanded: el.JbuJahr === activeElements.apberuebersicht,
+      url: [`Projekte`, el.ProjId `AP-Berichte`, el.JbuJahr],
+    }))
+  }
+
   @computed get apNodes() {
     // grab ape as array and sort them by name
     const ap = Array.from(this.table.ap.values())
@@ -521,21 +536,6 @@ class Store extends singleton {
     }))
     // sort by label and return
     return sortBy(nodes, `label`)
-  }
-
-  @computed get apberuebersichtNodes() {
-    // grab apberuebersicht as array and sort them by year
-    const apberuebersicht = sortBy(this.table.apberuebersicht.values(), `JbuJahr`)
-    const activeElements = getActiveUrlElements()
-    // map through all projekt and create array of nodes
-    return apberuebersicht.map(el => ({
-      type: `row`,
-      label: el.JbuJahr,
-      table: `apberuebersicht`,
-      row: el,
-      expanded: el.JbuJahr === activeElements.apberuebersicht,
-      url: [`Projekte`, el.ProjId `AP-Berichte`, el.JbuJahr],
-    }))
   }
 }
 
