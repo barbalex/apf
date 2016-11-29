@@ -5,7 +5,7 @@
  */
 /* eslint-disable no-console, no-param-reassign */
 
-import { action, transaction, reaction, computed, toJS } from 'mobx'
+import { action, transaction, computed, toJS } from 'mobx'
 import singleton from 'singleton'
 import axios from 'axios'
 import objectValues from 'lodash/values'
@@ -18,7 +18,7 @@ import fetchTableByParentId from './fetchTableByParentId'
 import apiBaseUrl from '../modules/apiBaseUrl'
 import fetchDataset from '../modules/fetchDataset'
 import tables from '../modules/tables'
-import countRowsAboveActiveNode from '../modules/countRowsAboveActiveNode'
+// import countRowsAboveActiveNode from '../modules/countRowsAboveActiveNode'
 import validateActiveDataset from '../modules/validateActiveDataset'
 import getActiveUrlElements from '../modules/getActiveUrlElements'
 import getActiveDatasetFromUrl from '../modules/getActiveDatasetFromUrl'
@@ -39,7 +39,6 @@ class Store extends singleton {
     this.toggleNode = this.toggleNode.bind(this)
     this.fetchNodeChildren = this.fetchNodeChildren.bind(this)
     this.fetchActiveNodeDataset = this.fetchActiveNodeDataset.bind(this)
-    this.updateActiveNodeDataset = this.updateActiveNodeDataset.bind(this)
   }
 
   node = NodeStore
@@ -279,64 +278,6 @@ class Store extends singleton {
       .catch((error) => {
         throw error
       })
-
-  updateActiveNodeDataset = reaction(
-    () => this.node.activeNode,
-    (activeNode) => {
-      if (!activeNode || !activeNode.table) {
-        this.node.activeNode = {
-          nodeId: null,
-          folder: null,
-          table: null,
-          row: null,
-          label: null,
-          valid: null,
-          expanded: false,
-          urlPath: null,
-          nodeIdPath: null,
-          children: [],
-        }
-      } else {
-        const myTable = tables.find(t => t.table === activeNode.table)
-        if (!myTable) {
-          throw new Error(`Table ${activeNode.table} not found in 'modules/tables'`)
-        }
-
-        this.node.nrOfRowsAboveActiveNode = countRowsAboveActiveNode(
-          this.node.nodes,
-          activeNode,
-          this.node.nrOfRowsAboveActiveNode
-        )
-
-        const table = activeNode.table
-        const idField = myTable.idField
-        const id = activeNode.id ? activeNode.id : activeNode.row[idField]
-        if (
-          activeNode
-          && activeNode.table
-          && activeNode.table === table
-          && (
-            (
-              activeNode.row
-              && activeNode.row[idField]
-              && activeNode.row[idField] === id
-            )
-            ||
-            (
-              activeNode.id
-              && activeNode.id === id
-            )
-          )
-        ) {
-          // active dataset has not changed
-          // maybe only activeNode.expanded has changed
-          // do nothing
-        } else {
-          this.fetchActiveNodeDataset({ table, field: idField, value: id })
-        }
-      }
-    }
-  )
 
   @computed get activeDataset() {
     const { row, table } = getActiveDatasetFromUrl(this)
