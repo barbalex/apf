@@ -11,6 +11,7 @@ import axios from 'axios'
 import objectValues from 'lodash/values'
 import forEach from 'lodash/forEach'
 import sortBy from 'lodash/sortBy'
+import createHistory from 'history/createBrowserHistory'
 
 import fetchTableModule from './fetchTable'
 import fetchTableByParentId from './fetchTableByParentId'
@@ -38,12 +39,17 @@ class Store extends singleton {
     this.toggleNode = this.toggleNode.bind(this)
     this.fetchNodeChildren = this.fetchNodeChildren.bind(this)
     this.fetchActiveNodeDataset = this.fetchActiveNodeDataset.bind(this)
+    this.setUrlStateFromLocation = this.setUrlStateFromLocation.bind(this)
+    this.history.listen((location) => {
+      this.setUrlStateFromLocation(location.pathname)
+    })
   }
 
   node = NodeStore
   ui = UiStore
   app = AppStore
   table = TableStore
+  history = createHistory()
 
   // TODO: listen to location changes, update app.pathArray
 
@@ -129,11 +135,19 @@ class Store extends singleton {
   }
 
   @action
-  setUrlStateFromLocation = () => {
-    const pathName = window.location.pathname
+  setUrlStateFromLocation = (pathnamePassed) => {
+    const pathName = pathnamePassed.replace(`/`, ``)
+    console.log(`action setUrlStateFromLocation: pathName:`, pathName)
     const pathElements = pathName.split(`/`)
-    // get rid of empty element at start
-    pathElements.shift()
+    // get rid of empty element(s) at start
+    if (pathElements[0] === ``) pathElements.shift()
+    // forward / to /Projekte
+    console.log(`action setUrlStateFromLocation: pathElements:`, pathElements)
+    if (pathElements.length === 0) {
+      pathElements.push(`Projekte`)
+      // update window.location
+      this.history.push(`Projekte`)
+    }
     this.app.url = pathElements
   }
 

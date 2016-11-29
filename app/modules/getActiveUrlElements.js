@@ -1,9 +1,6 @@
 export default (url) => {
-  // const pathName = window.location.pathname
-  // const url = pathName.split(`/`)
-  // get rid of empty element at start
-  // url.shift()
-
+  const exporte = (url[0] && url[0] === `Exporte`) || false
+  const benutzer = (url[0] && url[0] === `Benutzer`) || false
   const projektFolder = (url[0] && url[0] === `Projekte`) || false
   const projekt = projektFolder && url[1] ? parseInt(url[1], 10) : null
   const apberuebersichtFolder = (projekt && url[2] && url[2] === `AP-Berichte`) || false
@@ -51,6 +48,8 @@ export default (url) => {
   const tpopBeobzuordnung = tpopBeobzuordnungFolder && url[9] ? url[9] : null
 
   return {
+    exporte,
+    benutzer,
     projektFolder,
     projekt,
     apberuebersichtFolder,

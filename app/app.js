@@ -32,7 +32,12 @@ import 'sanitize.css/sanitize.css'
 // import components
 import store from './store'
 import styles from './app.css'  // eslint-disable-line no-unused-vars
-import Router from './components/Router'
+// import Router from './components/Router'
+import AppBar from './components/AppBar'
+import Projekte from './components/Projekte'
+// import ProjekteRedirector from './components/ProjekteRedirector'
+import Exporte from './components/Exporte'
+import Benutzer from './components/Benutzer'
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
@@ -65,7 +70,19 @@ ReactDOM.render(
     >
       <div>
         <DevTools />
-        <Router />
+        <AppBar />
+        {
+          store.activeUrlElements.projektFolder
+          && <Projekte />
+        }
+        {
+          store.activeUrlElements.exporte
+          && <Exporte />
+        }
+        {
+          store.activeUrlElements.benutzer
+          && <Benutzer />
+        }
       </div>
     </MuiThemeProvider>
   </Provider>,
