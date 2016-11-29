@@ -1,7 +1,5 @@
-import getActiveUrlElements from './getActiveUrlElements'
-
 export default (store) => {
-  const aEl = getActiveUrlElements()
+  const aEl = store.app.activeUrlElements
   let activeDataset = {
     table: null,
     row: null,

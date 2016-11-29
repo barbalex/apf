@@ -20,7 +20,6 @@ import fetchDataset from '../modules/fetchDataset'
 import tables from '../modules/tables'
 // import countRowsAboveActiveNode from '../modules/countRowsAboveActiveNode'
 import validateActiveDataset from '../modules/validateActiveDataset'
-import getActiveUrlElements from '../modules/getActiveUrlElements'
 import getActiveDatasetFromUrl from '../modules/getActiveDatasetFromUrl'
 
 import NodeStore from './node'
@@ -130,9 +129,19 @@ class Store extends singleton {
   }
 
   @action
+  setUrlStateFromLocation = () => {
+    const pathName = window.location.pathname
+    const pathElements = pathName.split(`/`)
+    // get rid of empty element at start
+    pathElements.shift()
+    this.app.url = pathElements
+  }
+
+  @action
   fetchAllNodes = () => {
     this.node.loadingAllNodes = true
-    const activeElements = getActiveUrlElements()
+    this.setUrlStateFromLocation()
+    const { activeElements } = this.app
     const store = this
     const fetchingFromActiveElements = {
       projektFolder() {
@@ -293,7 +302,7 @@ class Store extends singleton {
   @computed get projektNodes() {
     // grab projekte as array and sort them by name
     const projekte = sortBy(Array.from(this.table.projekt.values()), `ProjName`)
-    const activeElements = getActiveUrlElements()
+    const activeElements = this.app.activeUrlElements
 
     // map through all projekt and create array of nodes
     return projekte.map(el => ({
@@ -332,7 +341,7 @@ class Store extends singleton {
   @computed get apberuebersichtNodes() {
     // grab apberuebersicht as array and sort them by year
     const apberuebersicht = sortBy(this.table.apberuebersicht.values(), `JbuJahr`)
-    const activeElements = getActiveUrlElements()
+    const activeElements = this.app.activeUrlElements
     // map through all projekt and create array of nodes
     return apberuebersicht.map(el => ({
       type: `row`,
@@ -347,7 +356,7 @@ class Store extends singleton {
   @computed get apNodes() {
     // grab ape as array and sort them by name
     const ap = Array.from(this.table.ap.values())
-    const activeElements = getActiveUrlElements()
+    const activeElements = this.app.activeUrlElements
     // map through all ap and create array of nodes
     const nodes = ap.map(el => ({
       type: `row`,
