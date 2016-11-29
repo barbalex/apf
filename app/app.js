@@ -53,6 +53,8 @@ const theme = Object.assign({}, darkBaseTheme, {
 window.app = {}
 window.app.store = store
 
+console.log(`app.js, store:`, store)
+
 store.setUrlStateFromLocation()
 store.fetchFields()
 // fetch this data immediately

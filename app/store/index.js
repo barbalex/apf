@@ -40,7 +40,9 @@ class Store extends singleton {
     this.fetchNodeChildren = this.fetchNodeChildren.bind(this)
     this.fetchActiveNodeDataset = this.fetchActiveNodeDataset.bind(this)
     this.setUrlStateFromLocation = this.setUrlStateFromLocation.bind(this)
+    this.history = createHistory()
     this.history.listen((location) => {
+      console.log(`location:`, location)
       this.setUrlStateFromLocation(location.pathname)
     })
   }
@@ -49,7 +51,6 @@ class Store extends singleton {
   ui = UiStore
   app = AppStore
   table = TableStore
-  history = createHistory()
 
   // TODO: listen to location changes, update app.pathArray
 
@@ -136,19 +137,19 @@ class Store extends singleton {
 
   @action
   setUrlStateFromLocation = (pathnamePassed) => {
-    const pathName = pathnamePassed.replace(`/`, ``)
-    console.log(`action setUrlStateFromLocation: pathName:`, pathName)
+    let pathName = pathnamePassed || window.location.pathname
+    pathName = pathName.replace(`/`, ``)
     const pathElements = pathName.split(`/`)
     // get rid of empty element(s) at start
     if (pathElements[0] === ``) pathElements.shift()
     // forward / to /Projekte
-    console.log(`action setUrlStateFromLocation: pathElements:`, pathElements)
     if (pathElements.length === 0) {
       pathElements.push(`Projekte`)
       // update window.location
       this.history.push(`Projekte`)
+    } else {
+      this.app.url = pathElements
     }
-    this.app.url = pathElements
   }
 
   updateData = reaction(
