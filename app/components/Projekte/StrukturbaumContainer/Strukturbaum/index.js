@@ -94,7 +94,7 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
           `children`
         )
         childNodes = node[childrenProperty].map(child =>
-          renderNode(child, child.nodeId)
+          renderNode(child, child.url.join(`/`))
         )
       } else if (nodeHasChildren) {
         props.onClick = onClick
@@ -110,7 +110,7 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
       childNodes.unshift(
         <div
           className={nodeIsInActiveNodePath ? styles.nodeIsInActiveNodePath : styles.node}
-          key={`${node.nodeId}-child`}
+          key={`${index}-child`}
         >
           <span className={styles[symbolClassName]}>
             {symbol}
@@ -123,7 +123,7 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
 
       return (
         <ul
-          key={node.nodeId}
+          key={index}
           onClick={props.onClick}
           className={
             node.urlPath && node.urlPath.length && node.urlPath.length === 1 ?
