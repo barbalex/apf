@@ -49,7 +49,6 @@ const Router = ({ store }) => {
           exactly
           pattern="/Projekte"
           render={() => {
-            newStore && store.fetchAllNodes()
             return <Projekte />
           }}
         />
@@ -57,7 +56,6 @@ const Router = ({ store }) => {
           exactly
           pattern="/Projekte/:ProjId"
           render={() => {
-            newStore && store.fetchAllNodes()
             return <Projekte />
           }}
         />
@@ -65,7 +63,6 @@ const Router = ({ store }) => {
           exactly
           pattern="/Projekte/:ProjId/AP-Berichte"
           render={() => {
-            newStore && store.fetchAllNodes()
             return <Projekte />
           }}
         />
@@ -73,7 +70,6 @@ const Router = ({ store }) => {
           exactly
           pattern="/Projekte/:ProjId/AP-Berichte/:JbuJahr"
           render={() => {
-            newStore && store.fetchAllNodes()
             return <Projekte />
           }}
         />
@@ -81,7 +77,6 @@ const Router = ({ store }) => {
           exactly
           pattern="/Projekte/:ProjId/Arten"
           render={() => {
-            newStore && store.fetchAllNodes()
             return <Projekte />
           }}
         />
@@ -89,7 +84,6 @@ const Router = ({ store }) => {
           exactly
           pattern="/Projekte/:ProjId/Arten/:ApArtId"
           render={() => {
-            newStore && store.fetchAllNodes()
             return <Projekte />
           }}
         />
@@ -97,7 +91,6 @@ const Router = ({ store }) => {
           exactly
           pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Berichte"
           render={() => {
-            newStore && store.fetchAllNodes()
             return <Projekte />
           }}
         />
@@ -105,7 +98,6 @@ const Router = ({ store }) => {
           exactly
           pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Berichte/:JBerId"
           render={() => {
-            newStore && store.fetchAllNodes()
             return <Projekte />
           }}
         />
@@ -113,7 +105,6 @@ const Router = ({ store }) => {
           exactly
           pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Erfolgskriterien"
           render={() => {
-            newStore && store.fetchAllNodes()
             return <Projekte />
           }}
         />
@@ -121,7 +112,6 @@ const Router = ({ store }) => {
           exactly
           pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Erfolgskriterien/:ErfkritId"
           render={() => {
-            newStore && store.fetchAllNodes()
             return <Projekte />
           }}
         />
@@ -129,7 +119,6 @@ const Router = ({ store }) => {
           exactly
           pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Ziele"
           render={() => {
-            newStore && store.fetchAllNodes()
             return <Projekte />
           }}
         />
@@ -137,7 +126,6 @@ const Router = ({ store }) => {
           exactly
           pattern="/Projekte/:ProjId/Arten/:ApArtId/AP-Ziele/:ZielId"
           render={() => {
-            newStore && store.fetchAllNodes()
             return <Projekte />
           }}
         />

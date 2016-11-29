@@ -48,6 +48,7 @@ const theme = Object.assign({}, darkBaseTheme, {
 window.app = {}
 window.app.store = store
 
+store.setUrlStateFromLocation()
 store.fetchFields()
 // fetch this data immediately
 // because it is used in the tree

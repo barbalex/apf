@@ -5,7 +5,7 @@
  */
 /* eslint-disable no-console, no-param-reassign */
 
-import { action, transaction, computed, toJS } from 'mobx'
+import { action, reaction, transaction, computed, toJS } from 'mobx'
 import singleton from 'singleton'
 import axios from 'axios'
 import objectValues from 'lodash/values'
@@ -21,6 +21,7 @@ import tables from '../modules/tables'
 // import countRowsAboveActiveNode from '../modules/countRowsAboveActiveNode'
 import validateActiveDataset from '../modules/validateActiveDataset'
 import getActiveDatasetFromUrl from '../modules/getActiveDatasetFromUrl'
+import storeIsNew from '../modules/storeIsNew'
 
 import NodeStore from './node'
 import UiStore from './ui'
@@ -34,7 +35,6 @@ class Store extends singleton {
     this.updateProperty = this.updateProperty.bind(this)
     this.updatePropertyInDb = this.updatePropertyInDb.bind(this)
     this.fetchTable = this.fetchTable.bind(this)
-    this.fetchAllNodes = this.fetchAllNodes.bind(this)
     this.toggleNode = this.toggleNode.bind(this)
     this.fetchNodeChildren = this.fetchNodeChildren.bind(this)
     this.fetchActiveNodeDataset = this.fetchActiveNodeDataset.bind(this)
@@ -137,90 +137,101 @@ class Store extends singleton {
     this.app.url = pathElements
   }
 
-  @action
-  fetchAllNodes = () => {
-    this.node.loadingAllNodes = true
-    this.setUrlStateFromLocation()
-    const { activeElements } = this.app
-    const store = this
-    const fetchingFromActiveElements = {
-      projektFolder() {
-        return fetchTableModule(store, `apflora`, `projekt`)
-      },
-      apberuebersichtFolder() {
-        return fetchTableByParentId(store, `apflora`, `apberuebersicht`, activeElements.projekt)
-      },
-      apFolder() {
-        return fetchTableByParentId(store, `apflora`, `ap`, activeElements.projekt)
-      },
-      assozartFolder() {
-        return fetchTableByParentId(store, `apflora`, `assozart`, activeElements.ap)
-      },
-      idealbiotopFolder() {
-        return fetchTableByParentId(store, `apflora`, `idealbiotop`, activeElements.ap)
-      },
-      beobNichtZuzuordnenFolder() {
-        // TODO
-        return fetchTableByParentId(store, `apflora`, `ap`, activeElements.projekt)
-      },
-      beobzuordnungFolder() {
-        // TODO
-        return fetchTableByParentId(store, `apflora`, `ap`, activeElements.projekt)
-      },
-      berFolder() {
-        return fetchTableByParentId(store, `apflora`, `ber`, activeElements.ap)
-      },
-      apberFolder() {
-        return fetchTableByParentId(store, `apflora`, `apber`, activeElements.ap)
-      },
-      erfkritFolder() {
-        return fetchTableByParentId(store, `apflora`, `erfkrit`, activeElements.ap)
-      },
-      zielFolder() {
-        return fetchTableByParentId(store, `apflora`, `ziel`, activeElements.ap)
-      },
-      zielberFolder() {
-        return fetchTableByParentId(store, `apflora`, `zielber`, activeElements.ziel)
-      },
-      popFolder() {
-        return fetchTableByParentId(store, `apflora`, `pop`, activeElements.ap)
-      },
-      popberFolder() {
-        return fetchTableByParentId(store, `apflora`, `popber`, activeElements.pop)
-      },
-      popmassnberFolder() {
-        return fetchTableByParentId(store, `apflora`, `popmassnber`, activeElements.pop)
-      },
-      tpopFolder() {
-        return fetchTableByParentId(store, `apflora`, `tpop`, activeElements.pop)
-      },
-      tpopmassnFolder() {
-        return fetchTableByParentId(store, `apflora`, `tpopmassn`, activeElements.tpop)
-      },
-      tpopmassnberFolder() {
-        return fetchTableByParentId(store, `apflora`, `tpopmassnber`, activeElements.tpop)
-      },
-      tpopfeldkontrFolder() {
-        return fetchTableByParentId(store, `apflora`, `tpopkontr`, activeElements.tpop)
-      },
-      tpopkontrzaehlFolder() {
-        return fetchTableByParentId(store, `apflora`, `tpopkontrzaehl`, activeElements.tpopfeldkontr)
-      },
-      tpopfreiwkontrFolder() {
-        return fetchTableByParentId(store, `apflora`, `tpopkontr`, activeElements.tpop)
-      },
-      tpopberFolder() {
-        return fetchTableByParentId(store, `apflora`, `tpopber`, activeElements.tpop)
-      },
-      tpopBeobzuordnungFolder() {
-        // TODO
-        return fetchTableByParentId(store, `apflora`, `ap`, activeElements.tpop)
-      },
+  updateData = reaction(
+    () => this.app.url,
+    () => {
+      // if new store, fetch all nodes
+      if (storeIsNew(this)) {
+        this.node.loadingAllNodes = true
+        const activeElements = this.app.activeUrlElements
+        const store = this
+        const fetchingFromActiveElements = {
+          projektFolder() {
+            return fetchTableModule(store, `apflora`, `projekt`)
+          },
+          apberuebersichtFolder() {
+            return fetchTableByParentId(store, `apflora`, `apberuebersicht`, activeElements.projekt)
+          },
+          apFolder() {
+            return fetchTableByParentId(store, `apflora`, `ap`, activeElements.projekt)
+          },
+          assozartFolder() {
+            return fetchTableByParentId(store, `apflora`, `assozart`, activeElements.ap)
+          },
+          idealbiotopFolder() {
+            return fetchTableByParentId(store, `apflora`, `idealbiotop`, activeElements.ap)
+          },
+          beobNichtZuzuordnenFolder() {
+            // TODO
+            return fetchTableByParentId(store, `apflora`, `ap`, activeElements.projekt)
+          },
+          beobzuordnungFolder() {
+            // TODO
+            return fetchTableByParentId(store, `apflora`, `ap`, activeElements.projekt)
+          },
+          berFolder() {
+            return fetchTableByParentId(store, `apflora`, `ber`, activeElements.ap)
+          },
+          apberFolder() {
+            return fetchTableByParentId(store, `apflora`, `apber`, activeElements.ap)
+          },
+          erfkritFolder() {
+            return fetchTableByParentId(store, `apflora`, `erfkrit`, activeElements.ap)
+          },
+          zielFolder() {
+            return fetchTableByParentId(store, `apflora`, `ziel`, activeElements.ap)
+          },
+          zielberFolder() {
+            return fetchTableByParentId(store, `apflora`, `zielber`, activeElements.ziel)
+          },
+          popFolder() {
+            return fetchTableByParentId(store, `apflora`, `pop`, activeElements.ap)
+          },
+          popberFolder() {
+            return fetchTableByParentId(store, `apflora`, `popber`, activeElements.pop)
+          },
+          popmassnberFolder() {
+            return fetchTableByParentId(store, `apflora`, `popmassnber`, activeElements.pop)
+          },
+          tpopFolder() {
+            return fetchTableByParentId(store, `apflora`, `tpop`, activeElements.pop)
+          },
+          tpopmassnFolder() {
+            return fetchTableByParentId(store, `apflora`, `tpopmassn`, activeElements.tpop)
+          },
+          tpopmassnberFolder() {
+            return fetchTableByParentId(store, `apflora`, `tpopmassnber`, activeElements.tpop)
+          },
+          tpopfeldkontrFolder() {
+            return fetchTableByParentId(store, `apflora`, `tpopkontr`, activeElements.tpop)
+          },
+          tpopkontrzaehlFolder() {
+            return fetchTableByParentId(store, `apflora`, `tpopkontrzaehl`, activeElements.tpopfeldkontr)
+          },
+          tpopfreiwkontrFolder() {
+            return fetchTableByParentId(store, `apflora`, `tpopkontr`, activeElements.tpop)
+          },
+          tpopberFolder() {
+            return fetchTableByParentId(store, `apflora`, `tpopber`, activeElements.tpop)
+          },
+          tpopBeobzuordnungFolder() {
+            // TODO
+            return fetchTableByParentId(store, `apflora`, `ap`, activeElements.tpop)
+          },
+        }
+        console.log(`reaction updateData: fetchingFromActiveElements:`, fetchingFromActiveElements)
+        console.log(`reaction updateData: activeElements:`, activeElements)
+        forEach(fetchingFromActiveElements, (func, key) => {
+          if (activeElements[key]) func()
+        })
+      } else {
+
+      }
+      // else if url longer: load new table
+
+      // else dont load data
     }
-    forEach(fetchingFromActiveElements, (func, key) => {
-      if (activeElements[key]) func()
-    })
-  }
+  )
 
   @action
   toggleNode = (node) => {
