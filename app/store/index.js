@@ -37,7 +37,6 @@ class Store extends singleton {
     this.updatePropertyInDb = this.updatePropertyInDb.bind(this)
     this.fetchTable = this.fetchTable.bind(this)
     this.toggleNode = this.toggleNode.bind(this)
-    this.fetchNodeChildren = this.fetchNodeChildren.bind(this)
   }
 
   @observable history = createHistory()
@@ -181,28 +180,6 @@ class Store extends singleton {
       this.history.push(`/${newUrl.join(`/`)}`)
       node.expanded = !node.expanded
     }
-  }
-
-  @action
-  fetchNodeChildren = (node) => {
-    let id
-    if (node.id) {
-      id = node.id
-    } else {
-      const table = tables.find(t => t.table === node.table)
-      if (!table) throw new Error(`table not found`)
-      const idField = table.idField
-      id = node.row[idField]
-    }
-    axios.get(`${apiBaseUrl}/node?table=${node.table}&id=${id}&folder=${node.folder ? node.folder : ``}`)
-      .then(({ data: nodes }) => {
-        transaction(() => {
-          node.children.replace(nodes)
-        })
-      })
-      .catch(error =>
-        console.log(`action fetchNodeChildren: Error fetching node children:`, error
-      ))
   }
 
   updateActiveDataset = autorun(
