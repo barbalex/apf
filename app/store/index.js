@@ -59,8 +59,7 @@ class Store extends singleton {
   forwardToProjekte = autorun(
     () => {
       const { history } = this
-      if (this.history.location.pathname === `/`) {
-        // forward / to /Projekte
+      if (history.location.pathname === `/`) {
         history.push(`Projekte`)
       }
     }
