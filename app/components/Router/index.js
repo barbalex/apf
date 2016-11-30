@@ -1,9 +1,3 @@
-/*
- *
- * Projekte
- *
- */
-
 import React, { PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import DevTools from 'mobx-react-devtools'
@@ -23,21 +17,21 @@ class Router extends React.Component { // eslint-disable-line react/prefer-state
 
   render() {
     const { store } = this.props
-
+    const { projektFolder, exporte, benutzer } = store.activeUrlElements
     return (
       <div>
         <DevTools />
         <AppBar />
         {
-          store.activeUrlElements.projektFolder
+          projektFolder
           && <Projekte />
         }
         {
-          store.activeUrlElements.exporte
+          exporte
           && <Exporte />
         }
         {
-          store.activeUrlElements.benutzer
+          benutzer
           && <Benutzer />
         }
       </div>
