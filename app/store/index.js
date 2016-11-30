@@ -20,7 +20,6 @@ import apiBaseUrl from '../modules/apiBaseUrl'
 import fetchDataset from '../modules/fetchDataset'
 import tables from '../modules/tables'
 // import countRowsAboveActiveNode from '../modules/countRowsAboveActiveNode'
-import validateActiveDataset from '../modules/validateActiveDataset'
 import getActiveDatasetFromUrl from '../modules/getActiveDatasetFromUrl'
 import storeIsNew from '../modules/storeIsNew'
 import getActiveUrlElements from '../modules/getActiveUrlElements'
@@ -321,16 +320,12 @@ class Store extends singleton {
         throw error
       })
 
-  @computed get activeDataset() {
-    const { row, table } = getActiveDatasetFromUrl(this)
-    return {
-      table,
-      row,
-      valid() {
-        return validateActiveDataset(table, row, this.app.fields)
-      },
+  updateActiveDataset = autorun(
+    () => {
+      this.activeDataset = getActiveDatasetFromUrl(this)
     }
-  }
+  )
+  @observable activeDataset
 
   @computed get projektNodes() {
     // grab projekte as array and sort them by name
@@ -374,9 +369,7 @@ class Store extends singleton {
   @computed get apberuebersichtNodes() {
     // grab apberuebersicht as array and sort them by year
     const apberuebersicht = sortBy(Array.from(this.table.apberuebersicht.values()), `JbuJahr`)
-    console.log(`computed get apberuebersichtNodes: apberuebersicht:`, apberuebersicht)
     const { activeUrlElements } = this
-    console.log(`activeUrlElements.apberuebersicht:`, activeUrlElements.apberuebersicht)
     // map through all projekt and create array of nodes
     return apberuebersicht.map(el => ({
       type: `row`,

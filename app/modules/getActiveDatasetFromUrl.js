@@ -1,11 +1,12 @@
+import validateActiveDataset from './validateActiveDataset'
+
 export default (store) => {
   const aEl = store.activeUrlElements
   let activeDataset = {
     table: null,
     row: null,
-    valid: {},
   }
-  if (aEl.projekt) {
+  if (aEl.projektFolder) {
     if (aEl.apberuebersicht) {
       activeDataset = { table: `apberuebersicht`, row: store.table.apberuebersicht.get(aEl.apberuebersicht) }
     } else if (aEl.ap) {
@@ -52,10 +53,13 @@ export default (store) => {
       }
       // none of the pop folders is active
       activeDataset = { table: `ap`, row: store.table.ap.get(aEl.ap) }
+    } else {
+      // !aEl.ap && !aEl.apberuebersicht
+      activeDataset = { table: `projekt`, row: store.table.projekt.get(aEl.projekt) }
     }
-    // !aEl.ap && !aEl.apberuebersicht
-    activeDataset = { table: `projekt`, row: store.table.projekt.get(aEl.projekt) }
   }
-  // console.log(`getActiveDatasetFromUrl: activeDataset:`, activeDataset)
+  console.log(`getActiveDatasetFromUrl: activeDataset:`, activeDataset)
+  console.log(`getActiveDatasetFromUrl: store.app.fields:`, store.app.fields)
+  activeDataset.valid = validateActiveDataset(activeDataset.table, activeDataset.row, store.app.fields)
   return activeDataset
 }
