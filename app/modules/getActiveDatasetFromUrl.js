@@ -62,8 +62,6 @@ export default (store) => {
       activeDataset = { table: `projekt`, row: store.table.projekt.get(aEl.projekt) }
     }
   }
-  // console.log(`getActiveDatasetFromUrl: activeDataset:`, activeDataset)
-  // console.log(`getActiveDatasetFromUrl: store.app.fields:`, store.app.fields)
   activeDataset.valid = validateActiveDataset(activeDataset.table, activeDataset.row, store.app.fields)
   return { activeDataset, activeNode }
 }
