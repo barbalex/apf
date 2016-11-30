@@ -1,7 +1,7 @@
 import { transaction } from 'mobx'
 import axios from 'axios'
-import apiBaseUrl from '../modules/apiBaseUrl'
-import tables from '../modules/tables'
+import apiBaseUrl from './apiBaseUrl'
+import tables from './tables'
 
 export default (store, schemaNamePassed, tableName, parentId) => {
   if (!tableName) {
