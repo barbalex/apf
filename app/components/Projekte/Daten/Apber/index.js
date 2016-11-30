@@ -23,14 +23,14 @@ class Apber extends Component { // eslint-disable-line react/prefer-stateless-fu
   render() {
     const { store } = this.props
     const apErfkritWerte = Array.from(store.table.ap_erfkrit_werte.values())
-    const activeNode = store.activeDataset
+    const { activeDataset } = store
     return (
       <div className={styles.container}>
         <TextField
           label="Jahr"
           fieldName="JBerJahr"
-          value={activeNode.row.JBerJahr}
-          errorText={activeNode.valid.JBerJahr}
+          value={activeDataset.row.JBerJahr}
+          errorText={activeDataset.valid.JBerJahr}
           type="number"
           updateProperty={store.updateProperty}
           updatePropertyInDb={store.updatePropertyInDb}
@@ -39,8 +39,8 @@ class Apber extends Component { // eslint-disable-line react/prefer-stateless-fu
           <Label label="Beurteilung" />
           <RadioButtonGroup
             fieldName="JberBeurteilung"
-            value={activeNode.row.JberBeurteilung}
-            errorText={activeNode.valid.JberBeurteilung}
+            value={activeDataset.row.JberBeurteilung}
+            errorText={activeDataset.valid.JberBeurteilung}
             dataSource={apErfkritWerte}
             updatePropertyInDb={store.updatePropertyInDb}
           />
@@ -48,8 +48,8 @@ class Apber extends Component { // eslint-disable-line react/prefer-stateless-fu
         <TextField
           label="Kriterien"
           fieldName="ErfkritTxt"
-          value={activeNode.row.ErfkritTxt}
-          errorText={activeNode.valid.ErfkritTxt}
+          value={activeDataset.row.ErfkritTxt}
+          errorText={activeDataset.valid.ErfkritTxt}
           type="text"
           multiLine
           fullWidth

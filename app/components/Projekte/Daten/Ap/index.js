@@ -17,11 +17,6 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
     store: PropTypes.object,
   }
 
-  /*
-  constructor() {
-    super()
-  }*/
-
   componentDidMount() {
     // fetch dropdown data
     const { store } = this.props

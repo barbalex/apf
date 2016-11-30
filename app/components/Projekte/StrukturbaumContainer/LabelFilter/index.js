@@ -16,12 +16,11 @@ class LabelFilter extends Component { // eslint-disable-line react/prefer-statel
 
   render() {  // eslint-disable-line class-methods-use-this
     const { store } = this.props
-    const { node } = store
-    const { activeNode } = node
+    const { activeDataset } = store
     let filterValue = ``
     let filteredTable
-    if (activeNode) {
-      filteredTable = activeNode.folder || activeNode.table
+    if (activeDataset) {
+      filteredTable = activeDataset.table
       console.log(`filteredTable:`, filteredTable)
       if (filteredTable) {
         filterValue = node.nodeLabelFilter[filteredTable]

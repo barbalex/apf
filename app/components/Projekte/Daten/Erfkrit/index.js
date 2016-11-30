@@ -22,15 +22,15 @@ class Erfkrit extends Component { // eslint-disable-line react/prefer-stateless-
   render() {
     const { store } = this.props
     const apErfkritWerte = Array.from(store.table.ap_erfkrit_werte.values())
-    const activeNode = store.activeDataset
+    const { activeDataset } = store
     return (
       <div className={styles.container}>
         <div className={styles.fieldContainer}>
           <Label label="Beurteilung" />
           <RadioButtonGroup
             fieldName="ErfkritErreichungsgrad"
-            value={activeNode.row.ErfkritErreichungsgrad}
-            errorText={activeNode.valid.ErfkritErreichungsgrad}
+            value={activeDataset.row.ErfkritErreichungsgrad}
+            errorText={activeDataset.valid.ErfkritErreichungsgrad}
             dataSource={apErfkritWerte}
             updatePropertyInDb={store.updatePropertyInDb}
           />
@@ -38,8 +38,8 @@ class Erfkrit extends Component { // eslint-disable-line react/prefer-stateless-
         <TextField
           label="Kriterien"
           fieldName="ErfkritTxt"
-          value={activeNode.row.ErfkritTxt}
-          errorText={activeNode.valid.ErfkritTxt}
+          value={activeDataset.row.ErfkritTxt}
+          errorText={activeDataset.valid.ErfkritTxt}
           type="text"
           multiLine
           fullWidth
