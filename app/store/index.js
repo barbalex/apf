@@ -61,11 +61,10 @@ class Store extends singleton {
     return pathElements
   }
 
-  updateData = reaction(
-    () => this.history.location.pathname,
+  updateData = autorun(
     () => {
       // if new store, fetch all nodes
-      console.log(`hi from updateData reaction`)
+      console.log(`updateData reaction: storeIsNew(this):`, storeIsNew(this))
       if (storeIsNew(this)) {
         this.node.loadingAllNodes = true
         const activeElements = this.activeUrlElements
