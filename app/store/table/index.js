@@ -1,19 +1,9 @@
 /* eslint-disable camelcase */
-import { observable, asMap, map, computed, toJS } from 'mobx'
-
-// TODO: apply asMap
+import { observable, map } from 'mobx'
 
 class Table {
   @observable adb_eigenschaften = map()
   @observable adb_eigenschaftenLoading = false
-  @computed get artname() {
-    const aeEigenschaften = toJS(this.adb_eigenschaften)
-    let artname = ``
-    if (this.activeNode.row && this.activeNode.row.ApArtId && aeEigenschaften.size > 0) {
-      artname = aeEigenschaften.get(this.activeNode.row.ApArtId).Artname
-    }
-    return artname
-  }
   @observable adb_lr = map()
   @observable adb_lrLoading = false
   @observable adresse = map()
