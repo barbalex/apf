@@ -49,9 +49,7 @@ class Store extends singleton {
   table = TableStore
 
   @computed get url() {
-    // const pathNamePassed = this.history ? this.history.location.pathname : window.location.pathname
     const pathNamePassed = this.history.location.pathname
-    // let pathName = pathnamePassed || window.location.pathname
     const pathName = pathNamePassed.replace(`/`, ``)
     const pathElements = pathName.split(`/`)
     if (pathElements[0] === ``) {
@@ -61,10 +59,27 @@ class Store extends singleton {
     return pathElements
   }
 
+  forwardToProjekte = autorun(
+    () => {
+      const { history } = this
+      if (this.history.location.pathname === `/`) {
+        // forward / to /Projekte
+        history.push(`Projekte`)
+      }
+    }
+  )
+
+  updateActiveUrlElements = autorun(
+    () => {
+      this.activeUrlElements = getActiveUrlElements(this.url)
+    }
+  )
+
+  @observable activeUrlElements
+
   updateData = autorun(
     () => {
       // if new store, fetch all nodes
-      console.log(`updateData reaction: storeIsNew(this):`, storeIsNew(this))
       if (storeIsNew(this)) {
         this.node.loadingAllNodes = true
         const activeElements = this.activeUrlElements
@@ -149,27 +164,15 @@ class Store extends singleton {
           if (activeElements[key]) func()
         })
       } else {
-
+        // else if url longer: load new table
+        // get previous pathname
+        console.log(`this.history:`, this.history)
       }
-      // else if url longer: load new table
+
 
       // else dont load data
     }
   )
-
-  forwardToProjekte = autorun(
-    () => {
-      const { history } = this
-      if (this.history.location.pathname === `/`) {
-        // forward / to /Projekte
-        history.push(`Projekte`)
-      }
-    }
-  )
-
-  @computed get activeUrlElements() {
-    return getActiveUrlElements(this.url)
-  }
 
   @action
   fetchFields = () => {
@@ -340,7 +343,7 @@ class Store extends singleton {
       label: el.ProjName || `(kein Name)`,
       table: `projekt`,
       row: el,
-      expanded: el.projId === activeElements.projekt,
+      expanded: el.ProjId === activeElements.projekt,
       url: [`Projekte`, el.ProjId],
       children: [
         {
@@ -370,16 +373,18 @@ class Store extends singleton {
 
   @computed get apberuebersichtNodes() {
     // grab apberuebersicht as array and sort them by year
-    const apberuebersicht = sortBy(this.table.apberuebersicht.values(), `JbuJahr`)
-    const activeElements = this.activeUrlElements
+    const apberuebersicht = sortBy(Array.from(this.table.apberuebersicht.values()), `JbuJahr`)
+    console.log(`computed get apberuebersichtNodes: apberuebersicht:`, apberuebersicht)
+    const { activeUrlElements } = this
+    console.log(`activeUrlElements.apberuebersicht:`, activeUrlElements.apberuebersicht)
     // map through all projekt and create array of nodes
     return apberuebersicht.map(el => ({
       type: `row`,
       label: el.JbuJahr,
       table: `apberuebersicht`,
       row: el,
-      expanded: el.JbuJahr === activeElements.apberuebersicht,
-      url: [`Projekte`, el.ProjId `AP-Berichte`, el.JbuJahr],
+      expanded: el.JbuJahr === activeUrlElements.apberuebersicht,
+      url: [`Projekte`, el.ProjId, `AP-Berichte`, el.JbuJahr],
     }))
   }
 
