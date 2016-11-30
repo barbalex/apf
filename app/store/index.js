@@ -84,10 +84,8 @@ class Store extends singleton {
       } else {
         // else if url longer: load new table
         // get previous pathname
-        console.log(`this.history:`, this.history)
+        fetchDataForActiveUrlElements(this)
       }
-
-
       // else dont load data
     }
   )
@@ -176,33 +174,12 @@ class Store extends singleton {
   @action
   toggleNode = (node) => {
     if (node) {
-      const wasClosed = !node.expanded
-      transaction(() => {
-        // TODO
-        node.expanded = !node.expanded
-        if (this.node.activeNode !== node) {
-          this.node.activeNode = node
-        }
-      })
-      if (
-        wasClosed
-        && node.children
-        && node.children.length
-        && (
-          node.children[0] === 0
-          || (node.children[0].label && node.children[0].label === `lade Daten...`)
-        )
-      ) {
-        transaction(() => {
-          node.children.replace([{
-            nodeId: `${node.nodeId}0`,
-            label: `lade Daten...`,
-            expanded: false,
-            children: [],
-          }])
-        })
-        this.fetchNodeChildren(node)
+      const newUrl = node.url
+      if (node.expanded) {
+        newUrl.pop()
       }
+      this.history.push(`/${newUrl.join(`/`)}`)
+      node.expanded = !node.expanded
     }
   }
 
