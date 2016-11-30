@@ -34,7 +34,7 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
 
   render() {
     const { store } = this.props
-    const aeEigenschaften = toJS(store.table.adb_eigenschaften)
+    const { adb_eigenschaften } = store.table
     const apStati = sortBy(
       toJS(store.table.ap_bearbstand_werte).values(),
       `DomainOrd`
@@ -48,22 +48,30 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
       id: null,
       AdrName: ``,
     })
-    const activeNode = store.activeDataset
+    const { activeDataset } = store
     const ApArtId = (
-      activeNode
-      && activeNode.row
-      && activeNode.row.ApArtId ?
-      activeNode.row.ApArtId :
+      activeDataset
+      && activeDataset.row
+      && activeDataset.row.ApArtId ?
+      activeDataset.row.ApArtId :
       null
     )
     let artwert = ``
-    if (ApArtId && aeEigenschaften.size > 0) {
-      artwert = aeEigenschaften.get(ApArtId).Artwert
+    if (ApArtId && adb_eigenschaften.size > 0) {
+      artwert = adb_eigenschaften.get(ApArtId).Artwert
     }
     const apNodeIds = getApNodeIds(store.activeDataset, store.projektNodes)
-    const dataSource = filter(aeEigenschaften.values(), r =>
+    const dataSource = filter(Array.from(adb_eigenschaften.values()), r =>
       !apNodeIds.includes(r.TaxonomieId) || r.TaxonomieId === ApArtId
     )
+    const artname = () => {
+      let name
+      if (ApArtId && adb_eigenschaften.size > 0) {
+        name = adb_eigenschaften.get(activeDataset.row.ApArtId).Artname
+      }
+      return name || ``
+    }
+    console.log(`Ap: artname:`, artname)
 
     return (
       <div className={styles.container}>
@@ -71,8 +79,8 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
           label="Art"
           fieldName="ApArtId"
           value={ApArtId}
-          valueText={store.table.artname}
-          errorText={activeNode.valid.ApArtId}
+          valueText={artname}
+          errorText={activeDataset.valid.ApArtId}
           dataSource={dataSource}
           updatePropertyInDb={store.updatePropertyInDb}
         />
@@ -100,8 +108,8 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
           </LabelWithPopover>
           <RadioButtonGroup
             fieldName="ApStatus"
-            value={activeNode.row.ApStatus}
-            errorText={activeNode.valid.ApStatus}
+            value={activeDataset.row.ApStatus}
+            errorText={activeDataset.valid.ApStatus}
             dataSource={apStati}
             updatePropertyInDb={store.updatePropertyInDb}
           />
@@ -109,8 +117,8 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
         <TextField
           label="Start im Jahr"
           fieldName="ApJahr"
-          value={activeNode.row.ApJahr}
-          errorText={activeNode.valid.ApJahr}
+          value={activeDataset.row.ApJahr}
+          errorText={activeDataset.valid.ApJahr}
           type="number"
           updateProperty={store.updateProperty}
           updatePropertyInDb={store.updatePropertyInDb}
@@ -139,8 +147,8 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
           </LabelWithPopover>
           <RadioButtonGroup
             fieldName="ApUmsetzung"
-            value={activeNode.row.ApUmsetzung}
-            errorText={activeNode.valid.ApUmsetzung}
+            value={activeDataset.row.ApUmsetzung}
+            errorText={activeDataset.valid.ApUmsetzung}
             dataSource={apUmsetzungen}
             updatePropertyInDb={store.updatePropertyInDb}
           />
@@ -148,8 +156,8 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
         <SelectField
           label="Verantwortlich"
           fieldName="ApBearb"
-          value={activeNode.row.ApBearb}
-          errorText={activeNode.valid.ApBearb}
+          value={activeDataset.row.ApBearb}
+          errorText={activeDataset.valid.ApBearb}
           dataSource={adressen}
           valueProp="AdrId"
           labelProp="AdrName"
