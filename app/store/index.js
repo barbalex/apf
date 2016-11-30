@@ -160,14 +160,12 @@ class Store extends singleton {
   }
 
   @action
-  fetchTable = (schemaName, tableName) => {
+  fetchTable = (schemaName, tableName) =>
     fetchTableModule(this, schemaName, tableName)
-  }
 
   @action
-  fetchTableByParentId = (schemaName, tableName, parentId) => {
+  fetchTableByParentId = (schemaName, tableName, parentId) =>
     fetchTableByParentId(this, schemaName, tableName, parentId)
-  }
 
   @action
   toggleNode = (node) => {

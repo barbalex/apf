@@ -94,14 +94,6 @@ export default [
     parentIdField: `Zaehleinheit`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
-    label() {
-      return `dont need a label`
-    },
-    folder: {
-      label() {
-        return `dont need a folder label`
-      },
-    },
   },
   {
     database: `apflora`,
@@ -155,14 +147,6 @@ export default [
     parentIdField: `TPopMassnTyp`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
-    label() {
-      return `dont need a label`
-    },
-    folder: {
-      label() {
-        return `dont need a label`
-      },
-    },
   },
   {
     database: `apflora`,
@@ -171,14 +155,6 @@ export default [
     parentIdField: `PopMassnBerErfolgsbeurteilung`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
-    label() {
-      return `dont need a label`
-    },
-    folder: {
-      label() {
-        return `dont need a label`
-      },
-    },
   },
   {
     database: `apflora`,
@@ -187,14 +163,6 @@ export default [
     parentIdField: `TPopMassnBerErfolgsbeurteilung`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
-    label() {
-      return `dont need a label`
-    },
-    folder: {
-      label() {
-        return `dont need a label`
-      },
-    },
   },
   {
     database: `apflora`,
@@ -224,14 +192,6 @@ export default [
     parentIdField: `ZielTyp`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
-    label() {
-      return `dont need a label`
-    },
-    folder: {
-      label() {
-        return `dont need a label`
-      },
-    },
   },
   {
     database: `apflora`,
@@ -532,5 +492,37 @@ export default [
     label(row) {
       return row.Artname
     },
+  },
+  {
+    database: `apflora`,
+    table: `ap_bearbstand_werte`,
+    idField: `DomainCode`,
+    parentIdField: `ApStatus`,
+    mutWannField: `MutWann`,
+    mitWerField: `MutWer`,
+  },
+  {
+    database: `apflora`,
+    table: `ap_umsetzung_werte`,
+    idField: `DomainCode`,
+    parentIdField: `ApUmsetzung`,
+    mutWannField: `MutWann`,
+    mitWerField: `MutWer`,
+  },
+  {
+    database: `apflora`,
+    table: `adresse`,
+    idField: `AdrId`,
+    parentIdField: null,
+    mutWannField: `MutWann`,
+    mitWerField: `MutWer`,
+  },
+  {
+    database: `apflora`,
+    table: `ap_erfkrit_werte`,
+    idField: `BeurteilId`,
+    parentIdField: `ErfkritErreichungsgrad`,
+    mutWannField: `MutWann`,
+    mitWerField: `MutWer`,
   },
 ]

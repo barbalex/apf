@@ -25,7 +25,6 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
   componentDidMount() {
     // fetch dropdown data
     const { store } = this.props
-    console.log(`Ap, componentDidMount`)
     store.fetchTable(`apflora`, `ap_bearbstand_werte`)
     store.fetchTable(`apflora`, `ap_umsetzung_werte`)
     store.fetchTable(`apflora`, `adresse`)
@@ -38,7 +37,6 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
       Array.from(store.table.ap_bearbstand_werte.values()),
       `DomainOrd`
     )
-    console.log(`Ap render: apStati:`, apStati)
     const apUmsetzungen = sortBy(
       Array.from(store.table.ap_umsetzung_werte.values()),
       `DomainOrd`
