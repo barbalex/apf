@@ -181,17 +181,17 @@ class Store extends singleton {
     }
   }
 
+  @observable activeDataset
   updateActiveDataset = autorun(
     () => {
       this.activeDataset = getActiveDatasetFromUrl(this)
     }
   )
-  @observable activeDataset
 
   @computed get projektNodes() {
     // grab projekte as array and sort them by name
     const projekte = sortBy(Array.from(this.table.projekt.values()), `ProjName`)
-    const activeElements = this.activeUrlElements
+    const { activeUrlElements } = this
 
     // map through all projekt and create array of nodes
     return projekte.map(el => ({
@@ -199,7 +199,7 @@ class Store extends singleton {
       label: el.ProjName || `(kein Name)`,
       table: `projekt`,
       row: el,
-      expanded: el.ProjId === activeElements.projekt,
+      expanded: el.ProjId === activeUrlElements.projekt,
       url: [`Projekte`, el.ProjId],
       children: [
         {
@@ -208,7 +208,7 @@ class Store extends singleton {
           folder: `ap`,
           table: `projekt`,
           row: el,
-          expanded: activeElements.apFolder,
+          expanded: activeUrlElements.apFolder,
           url: [`Projekte`, el.ProjId, `Arten`],
           children: this.apNodes,
         },
@@ -219,7 +219,7 @@ class Store extends singleton {
           table: `projekt`,
           row: el,
           id: el.ProjId,
-          expanded: activeElements.apberuebersichtFolder,
+          expanded: activeUrlElements.apberuebersichtFolder,
           url: [`Projekte`, el.ProjId, `AP-Berichte`],
           children: this.apberuebersichtNodes,
         },
@@ -245,134 +245,134 @@ class Store extends singleton {
   @computed get apNodes() {
     // grab ape as array and sort them by name
     const ap = Array.from(this.table.ap.values())
-    const activeElements = this.activeUrlElements
+    const { activeUrlElements } = this
     // map through all ap and create array of nodes
-    const nodes = ap.map(el => ({
-      type: `row`,
-      label() {
-        let artname = `(kein Name)`
-        const aeEigenschaften = toJS(this.data.adb_eigenschaften)
-        if (aeEigenschaften.size > 0) {
-          artname = aeEigenschaften.get(el.ApArtId).Artname
-        }
-        return artname
-      },
-      table: `ap`,
-      row: el,
-      expanded: el.ApArtId === activeElements.ap,
-      url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId],
-      children: [
-        // pop folder
-        {
-          type: `folder`,
-          label: `Populationen. TODO: add number`,
-          table: `ap`,
-          row: el,
-          id: el.ApArtId,
-          expanded: activeElements.popFolder,
-          url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `Populationen`],
-          children: [],
-        },
-        // ziel folder
-        {
-          type: `folder`,
-          label: `AP-Ziele. TODO: add number`,
-          table: `ap`,
-          row: el,
-          id: el.ApArtId,
-          expanded: activeElements.zielFolder,
-          url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `AP-Ziele`],
-          children: [],
-        },
-        // erfkrit folder
-        {
-          type: `folder`,
-          label: `AP-Erfolgskriterien. TODO: add number`,
-          table: `ap`,
-          row: el,
-          id: el.ApArtId,
-          expanded: activeElements.erfkritFolder,
-          url: [`Projekte`, ap.ProjId, `Arten`, ap.ApArtId, `AP-Erfolgskriterien`],
-          children: [],
-        },
-        // apber folder
-        {
-          type: `folder`,
-          label: `AP-Berichte. TODO: add number`,
-          table: `ap`,
-          row: el,
-          id: el.ApArtId,
-          expanded: activeElements.apberFolder,
-          url: [`Projekte`, ap.ProjId, `Arten`, ap.ApArtId, `AP-Berichte`],
-          children: [],
-        },
-        // ber folder
-        {
-          type: `folder`,
-          label: `Berichte. TODO: add number`,
-          table: `ap`,
-          row: el,
-          id: el.ApArtId,
-          expanded: activeElements.berFolder,
-          url: [`Projekte`, ap.ProjId, `Arten`, ap.ApArtId, `Berichte`],
-          children: [],
-        },
-        // beobNichtBeurteilt folder
-        {
-          type: `folder`,
-          label: `nicht beurteilte Beobachtungen. TODO: add number`,
-          table: `ap`,
-          row: el,
-          id: el.ApArtId,
-          expanded: activeElements.beobzuordnungFolder,
-          url: [`Projekte`, ap.ProjId, `Arten`, ap.ApArtId, `nicht-beurteilte-Beobachtungen`],
-          children: [],
-        },
-        // beobNichtZuzuordnen folder
-        {
-          type: `folder`,
-          label: `nicht zuzuordnende Beobachtungen. TODO: add number`,
-          table: `ap`,
-          row: el,
-          id: el.ApArtId,
-          expanded: activeElements.beobNichtZuzuordnenFolder,
-          url: [`Projekte`, ap.ProjId, `Arten`, ap.ApArtId, `nicht-zuzuordnende-Beobachtungen`],
-          children: [],
-        },
-        // idealbiotop folder
-        {
-          type: `folder`,
-          label: `Idealbiotop`,
-          table: `idealbiotop`,
-          row: el,
-          id: el.ApArtId,
-          expanded: activeElements.idealbiotopFolder,
-          url: [`Projekte`, ap.ProjId, `Arten`, ap.ApArtId, `Idealbiotop`],
-          children: [],
-        },
-        // assozarten folder
-        {
-          type: `folder`,
-          label: `assoziierte Arten. TODO: add number`,
-          table: `ap`,
-          row: el,
-          id: el.ApArtId,
-          expanded: activeElements.assozartFolder,
-          url: [`Projekte`, ap.ProjId, `Arten`, ap.ApArtId, `assoziierte-Arten`],
-          children: [],
-        },
-        // qk folder
-        {
-          type: `folder`,
-          label: `Qualitätskontrollen`,
-          table: `ap`,
-          row: el,
-          id: el.ApArtId,
-          expanded: false,
-          url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `Qualitätskontrollen`],
-        },
-      ],
-    }))
+    const nodes = ap.map((el) => {
+      let label = `...`
+      const { adb_eigenschaften } = this.table
+      if (adb_eigenschaften.size > 0) {
+        label = adb_eigenschaften.get(el.ApArtId).Artname
+      }
+      return {
+        type: `row`,
+        label,
+        table: `ap`,
+        row: el,
+        expanded: el.ApArtId === activeUrlElements.ap,
+        url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId],
+        children: [
+          // pop folder
+          {
+            type: `folder`,
+            label: `Populationen. TODO: add number`,
+            table: `ap`,
+            row: el,
+            id: el.ApArtId,
+            expanded: activeUrlElements.popFolder,
+            url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `Populationen`],
+            children: [],
+          },
+          // ziel folder
+          {
+            type: `folder`,
+            label: `AP-Ziele. TODO: add number`,
+            table: `ap`,
+            row: el,
+            id: el.ApArtId,
+            expanded: activeUrlElements.zielFolder,
+            url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `AP-Ziele`],
+            children: [],
+          },
+          // erfkrit folder
+          {
+            type: `folder`,
+            label: `AP-Erfolgskriterien. TODO: add number`,
+            table: `ap`,
+            row: el,
+            id: el.ApArtId,
+            expanded: activeUrlElements.erfkritFolder,
+            url: [`Projekte`, ap.ProjId, `Arten`, ap.ApArtId, `AP-Erfolgskriterien`],
+            children: [],
+          },
+          // apber folder
+          {
+            type: `folder`,
+            label: `AP-Berichte. TODO: add number`,
+            table: `ap`,
+            row: el,
+            id: el.ApArtId,
+            expanded: activeUrlElements.apberFolder,
+            url: [`Projekte`, ap.ProjId, `Arten`, ap.ApArtId, `AP-Berichte`],
+            children: [],
+          },
+          // ber folder
+          {
+            type: `folder`,
+            label: `Berichte. TODO: add number`,
+            table: `ap`,
+            row: el,
+            id: el.ApArtId,
+            expanded: activeUrlElements.berFolder,
+            url: [`Projekte`, ap.ProjId, `Arten`, ap.ApArtId, `Berichte`],
+            children: [],
+          },
+          // beobNichtBeurteilt folder
+          {
+            type: `folder`,
+            label: `nicht beurteilte Beobachtungen. TODO: add number`,
+            table: `ap`,
+            row: el,
+            id: el.ApArtId,
+            expanded: activeUrlElements.beobzuordnungFolder,
+            url: [`Projekte`, ap.ProjId, `Arten`, ap.ApArtId, `nicht-beurteilte-Beobachtungen`],
+            children: [],
+          },
+          // beobNichtZuzuordnen folder
+          {
+            type: `folder`,
+            label: `nicht zuzuordnende Beobachtungen. TODO: add number`,
+            table: `ap`,
+            row: el,
+            id: el.ApArtId,
+            expanded: activeUrlElements.beobNichtZuzuordnenFolder,
+            url: [`Projekte`, ap.ProjId, `Arten`, ap.ApArtId, `nicht-zuzuordnende-Beobachtungen`],
+            children: [],
+          },
+          // idealbiotop folder
+          {
+            type: `folder`,
+            label: `Idealbiotop`,
+            table: `idealbiotop`,
+            row: el,
+            id: el.ApArtId,
+            expanded: activeUrlElements.idealbiotopFolder,
+            url: [`Projekte`, ap.ProjId, `Arten`, ap.ApArtId, `Idealbiotop`],
+            children: [],
+          },
+          // assozarten folder
+          {
+            type: `folder`,
+            label: `assoziierte Arten. TODO: add number`,
+            table: `ap`,
+            row: el,
+            id: el.ApArtId,
+            expanded: activeUrlElements.assozartFolder,
+            url: [`Projekte`, ap.ProjId, `Arten`, ap.ApArtId, `assoziierte-Arten`],
+            children: [],
+          },
+          // qk folder
+          {
+            type: `folder`,
+            label: `Qualitätskontrollen`,
+            table: `ap`,
+            row: el,
+            id: el.ApArtId,
+            expanded: false,
+            url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `Qualitätskontrollen`],
+          },
+        ],
+      }
+    })
     // sort by label and return
     return sortBy(nodes, `label`)
   }
