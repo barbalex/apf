@@ -38,7 +38,6 @@ class Store extends singleton {
     this.fetchTable = this.fetchTable.bind(this)
     this.toggleNode = this.toggleNode.bind(this)
     this.fetchNodeChildren = this.fetchNodeChildren.bind(this)
-    this.fetchActiveNodeDataset = this.fetchActiveNodeDataset.bind(this)
   }
 
   @observable history = createHistory()
@@ -309,17 +308,6 @@ class Store extends singleton {
       ))
   }
 
-  fetchActiveNodeDataset = ({ table, field, value }) =>
-    fetchDataset({ table, field, value })
-      .then((dataset) => {
-        transaction(() => {
-          this.node.activeNode.row = dataset
-        })
-      })
-      .catch((error) => {
-        throw error
-      })
-
   updateActiveDataset = autorun(
     () => {
       this.activeDataset = getActiveDatasetFromUrl(this)
@@ -353,7 +341,7 @@ class Store extends singleton {
         },
         {
           type: `folder`,
-          label: `AP-Berichte ${this.apberuebersichtNodes.length}`,
+          label: `AP-Berichte (${this.apberuebersichtNodes.length})`,
           folder: `apberuebersicht`,
           table: `projekt`,
           row: el,
