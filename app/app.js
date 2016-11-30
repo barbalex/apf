@@ -23,7 +23,6 @@ import injectTapEventPlugin from 'react-tap-event-plugin'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import DevTools from 'mobx-react-devtools'
 import { Provider } from 'mobx-react'
 
 // Import the CSS reset, which HtmlWebpackPlugin transfers to the build folder
@@ -32,11 +31,7 @@ import 'sanitize.css/sanitize.css'
 // import components
 import store from './store'
 import styles from './app.css'  // eslint-disable-line no-unused-vars
-// import Router from './components/Router'
-import AppBar from './components/AppBar'
-import Projekte from './components/Projekte'
-import Exporte from './components/Exporte'
-import Benutzer from './components/Benutzer'
+import Router from './components/Router'
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
@@ -52,8 +47,6 @@ const theme = Object.assign({}, darkBaseTheme, {
 window.app = {}
 window.app.store = store
 
-console.log(`app.js, store:`, store)
-
 store.fetchFields()
 // fetch this data immediately
 // because it is used in the tree
@@ -68,22 +61,7 @@ ReactDOM.render(
     <MuiThemeProvider
       muiTheme={getMuiTheme(theme)}
     >
-      <div>
-        <DevTools />
-        <AppBar />
-        {
-          store.activeUrlElements.projektFolder
-          && <Projekte />
-        }
-        {
-          store.activeUrlElements.exporte
-          && <Exporte />
-        }
-        {
-          store.activeUrlElements.benutzer
-          && <Benutzer />
-        }
-      </div>
+      <Router />
     </MuiThemeProvider>
   </Provider>,
   document.getElementById(`app`)
