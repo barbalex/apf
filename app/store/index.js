@@ -265,15 +265,20 @@ class Store extends singleton {
       let label = `...`
       const { adb_eigenschaften } = this.table
       if (adb_eigenschaften.size > 0) {
-        label = adb_eigenschaften.get(el.AaApArtId).Artname
+        if (el.AaSisfNr) {
+          label = adb_eigenschaften.get(el.AaSisfNr).Artname
+        } else {
+          label = `(keine Art gewählt)`
+        }
       }
+      const projId = this.table.ap.get(el.AaApArtId).ProjId
       return {
         type: `row`,
         label,
         table: `assozart`,
         row: el,
         expanded: el.AaId === activeUrlElements.assozart,
-        url: [`Projekte`, el.ProjId, `Arten`, el.AaApArtId, `assoziierte-Arten`, el.AaId],
+        url: [`Projekte`, projId, `Arten`, el.AaApArtId, `assoziierte-Arten`, el.AaId],
       }
     })
     // filter by node.nodeLabelFilter
@@ -336,7 +341,7 @@ class Store extends singleton {
             row: el,
             id: el.ApArtId,
             expanded: activeUrlElements.erfkritFolder,
-            url: [`Projekte`, ap.ProjId, `Arten`, ap.ApArtId, `AP-Erfolgskriterien`],
+            url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `AP-Erfolgskriterien`],
             children: [],
           },
           // apber folder
@@ -347,7 +352,7 @@ class Store extends singleton {
             row: el,
             id: el.ApArtId,
             expanded: activeUrlElements.apberFolder,
-            url: [`Projekte`, ap.ProjId, `Arten`, ap.ApArtId, `AP-Berichte`],
+            url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `AP-Berichte`],
             children: [],
           },
           // ber folder
@@ -358,7 +363,7 @@ class Store extends singleton {
             row: el,
             id: el.ApArtId,
             expanded: activeUrlElements.berFolder,
-            url: [`Projekte`, ap.ProjId, `Arten`, ap.ApArtId, `Berichte`],
+            url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `Berichte`],
             children: [],
           },
           // beobNichtBeurteilt folder
@@ -369,7 +374,7 @@ class Store extends singleton {
             row: el,
             id: el.ApArtId,
             expanded: activeUrlElements.beobzuordnungFolder,
-            url: [`Projekte`, ap.ProjId, `Arten`, ap.ApArtId, `nicht-beurteilte-Beobachtungen`],
+            url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `nicht-beurteilte-Beobachtungen`],
             children: [],
           },
           // beobNichtZuzuordnen folder
@@ -380,7 +385,7 @@ class Store extends singleton {
             row: el,
             id: el.ApArtId,
             expanded: activeUrlElements.beobNichtZuzuordnenFolder,
-            url: [`Projekte`, ap.ProjId, `Arten`, ap.ApArtId, `nicht-zuzuordnende-Beobachtungen`],
+            url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `nicht-zuzuordnende-Beobachtungen`],
             children: [],
           },
           // idealbiotop folder
@@ -391,7 +396,7 @@ class Store extends singleton {
             row: el,
             id: el.ApArtId,
             expanded: activeUrlElements.idealbiotopFolder,
-            url: [`Projekte`, ap.ProjId, `Arten`, ap.ApArtId, `Idealbiotop`],
+            url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `Idealbiotop`],
             children: [],
           },
           // assozarten folder
@@ -402,7 +407,7 @@ class Store extends singleton {
             row: el,
             id: el.ApArtId,
             expanded: activeUrlElements.assozartFolder,
-            url: [`Projekte`, ap.ProjId, `Arten`, ap.ApArtId, `assoziierte-Arten`],
+            url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `assoziierte-Arten`],
             children: this.assozartNodes,
           },
           // qk folder
