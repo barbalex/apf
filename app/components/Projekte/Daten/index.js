@@ -22,17 +22,13 @@ class Daten extends Component { // eslint-disable-line react/prefer-stateless-fu
     store: PropTypes.object,
   }
 
-  constructor() {
-    super()
-    this.activeForm = this.activeForm.bind(this)
-  }
-
-  activeForm() {
+  render() {
     const { store } = this.props
-    if (!store.activeDataset || !store.activeDataset.table || !store.activeDataset.row) {
+    const { activeDataset } = store
+    if (!activeDataset || !activeDataset.table || !activeDataset.row) {
       return <div />
     }
-    switch (store.activeDataset.table) {
+    switch (activeDataset.table) {
       case `projekt`:
         return (
           <div className={styles.container}>
@@ -67,20 +63,16 @@ class Daten extends Component { // eslint-disable-line react/prefer-stateless-fu
         return <Pop />
       default:
         return (
-          store.activeDataset &&
-          store.activeDataset.row &&
+          activeDataset &&
+          activeDataset.row &&
           <div className={styles.container}>
             <p>Daten</p>
             <pre>
-              {JSON.stringify(store.activeDataset.row, null, 2)}
+              {JSON.stringify(activeDataset.row, null, 2)}
             </pre>
           </div>
         )
     }
-  }
-
-  render() {
-    return this.activeForm()
   }
 }
 

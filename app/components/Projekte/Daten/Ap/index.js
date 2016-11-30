@@ -27,6 +27,7 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
   componentDidMount() {
     // fetch dropdown data
     const { store } = this.props
+    console.log(`Ap, componentDidMount`)
     store.fetchTable(`apflora`, `ap_bearbstand_werte`)
     store.fetchTable(`apflora`, `ap_umsetzung_werte`)
     store.fetchTable(`apflora`, `adresse`)
@@ -36,18 +37,21 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
     const { store } = this.props
     const { adb_eigenschaften } = store.table
     const apStati = sortBy(
-      toJS(store.table.ap_bearbstand_werte).values(),
+      Array.from(store.table.ap_bearbstand_werte.values()),
       `DomainOrd`
     )
+    console.log(`Ap render: apStati:`, apStati)
     const apUmsetzungen = sortBy(
-      toJS(store.table.ap_umsetzung_werte).values(),
+      Array.from(store.table.ap_umsetzung_werte.values()),
       `DomainOrd`
     )
-    const adressen = toJS(store.table.adresse)
+    console.log(`Ap render: apUmsetzungen:`, apUmsetzungen)
+    const adressen = Array.from(store.table.adresse.values())
     adressen.unshift({
       id: null,
       AdrName: ``,
     })
+    console.log(`Ap render: adressen:`, adressen)
     const { activeDataset } = store
     const ApArtId = (
       activeDataset
@@ -56,14 +60,19 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
       activeDataset.row.ApArtId :
       null
     )
+    console.log(`Ap render: ApArtId:`, ApArtId)
     let artwert = ``
     if (ApArtId && adb_eigenschaften.size > 0) {
       artwert = adb_eigenschaften.get(ApArtId).Artwert
     }
+    console.log(`Ap render: artwert:`, artwert)
+    // TODO: next line produces error
     const apNodeIds = getApNodeIds(store.activeDataset, store.projektNodes)
+    console.log(`Ap render: apNodeIds:`, apNodeIds)
     const dataSource = filter(Array.from(adb_eigenschaften.values()), r =>
       !apNodeIds.includes(r.TaxonomieId) || r.TaxonomieId === ApArtId
     )
+    console.log(`Ap render: dataSource:`, dataSource)
     const artname = () => {
       let name
       if (ApArtId && adb_eigenschaften.size > 0) {
@@ -71,7 +80,7 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
       }
       return name || ``
     }
-    console.log(`Ap: artname:`, artname)
+    console.log(`Ap render: artname:`, artname)
 
     return (
       <div className={styles.container}>

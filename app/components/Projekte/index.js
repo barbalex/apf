@@ -37,45 +37,45 @@ class Projekte extends React.Component { // eslint-disable-line react/prefer-sta
         <Toolbar className={styles.toolbar} >
           <FlatButton
             label="Strukturbaum"
-            primary={store.ui.projekte.strukturbaum.visible}
+            primary={strukturbaum.visible}
             onClick={() => {
-              store.ui.projekte.strukturbaum.visible = !store.ui.projekte.strukturbaum.visible
+              strukturbaum.visible = !strukturbaum.visible
             }}
           />
           <FlatButton
             label="Strukturbaum 2"
-            primary={store.ui.projekte.strukturbaum2.visible}
+            primary={strukturbaum2.visible}
             onClick={() => {
-              store.ui.projekte.strukturbaum2.visible = !store.ui.projekte.strukturbaum2.visible
+              strukturbaum2.visible = !strukturbaum2.visible
             }}
             disabled
           />
           <FlatButton
             label="Daten"
-            primary={store.ui.projekte.daten.visible}
+            primary={daten.visible}
             onClick={() => {
-              store.ui.projekte.daten.visible = !store.ui.projekte.daten.visible
+              daten.visible = !daten.visible
             }}
           />
           <FlatButton
             label="Karte"
-            primary={store.ui.projekte.karte.visible}
+            primary={karte.visible}
             onClick={() => {
-              store.ui.projekte.karte.visible = !store.ui.projekte.karte.visible
+              karte.visible = !karte.visible
             }}
           />
         </Toolbar>
         <div className={styles.content} >
           {
-            store.ui.projekte.strukturbaum.visible
+            strukturbaum.visible
               && <StrukturbaumContainer />
           }
           {
-            store.ui.projekte.daten.visible
+            daten.visible
               && <Daten />
           }
           {
-            store.ui.projekte.karte.visible
+            karte.visible
               && <Karte />
           }
         </div>
