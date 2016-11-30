@@ -5,11 +5,10 @@
  */
 /* eslint-disable no-console, no-param-reassign */
 
-import { action, reaction, autorun, transaction, computed, toJS, observable } from 'mobx'
+import { action, autorun, transaction, computed, toJS, observable } from 'mobx'
 import singleton from 'singleton'
 import axios from 'axios'
 import objectValues from 'lodash/values'
-import forEach from 'lodash/forEach'
 import sortBy from 'lodash/sortBy'
 import createHistory from 'history/createBrowserHistory'
 
@@ -17,12 +16,13 @@ import fetchTableModule from './fetchTable'
 import fetchTableByParentId from './fetchTableByParentId'
 // import getNodeByPath from '../modules/getNodeByPath'
 import apiBaseUrl from '../modules/apiBaseUrl'
-import fetchDataset from '../modules/fetchDataset'
+// import fetchDataset from '../modules/fetchDataset'
 import tables from '../modules/tables'
 // import countRowsAboveActiveNode from '../modules/countRowsAboveActiveNode'
 import getActiveDatasetFromUrl from '../modules/getActiveDatasetFromUrl'
 import storeIsNew from '../modules/storeIsNew'
 import getActiveUrlElements from '../modules/getActiveUrlElements'
+import fetchDataForActiveUrlElements from '../modules/fetchDataForActiveUrlElements'
 
 import NodeStore from './node'
 import UiStore from './ui'
@@ -79,88 +79,8 @@ class Store extends singleton {
     () => {
       // if new store, fetch all nodes
       if (storeIsNew(this)) {
-        this.node.loadingAllNodes = true
-        const activeElements = this.activeUrlElements
-        const store = this
-        const fetchingFromActiveElements = {
-          projektFolder() {
-            return fetchTableModule(store, `apflora`, `projekt`)
-          },
-          apberuebersichtFolder() {
-            return fetchTableByParentId(store, `apflora`, `apberuebersicht`, activeElements.projekt)
-          },
-          apFolder() {
-            return fetchTableByParentId(store, `apflora`, `ap`, activeElements.projekt)
-          },
-          assozartFolder() {
-            return fetchTableByParentId(store, `apflora`, `assozart`, activeElements.ap)
-          },
-          idealbiotopFolder() {
-            return fetchTableByParentId(store, `apflora`, `idealbiotop`, activeElements.ap)
-          },
-          beobNichtZuzuordnenFolder() {
-            // TODO
-            return fetchTableByParentId(store, `apflora`, `ap`, activeElements.projekt)
-          },
-          beobzuordnungFolder() {
-            // TODO
-            return fetchTableByParentId(store, `apflora`, `ap`, activeElements.projekt)
-          },
-          berFolder() {
-            return fetchTableByParentId(store, `apflora`, `ber`, activeElements.ap)
-          },
-          apberFolder() {
-            return fetchTableByParentId(store, `apflora`, `apber`, activeElements.ap)
-          },
-          erfkritFolder() {
-            return fetchTableByParentId(store, `apflora`, `erfkrit`, activeElements.ap)
-          },
-          zielFolder() {
-            return fetchTableByParentId(store, `apflora`, `ziel`, activeElements.ap)
-          },
-          zielberFolder() {
-            return fetchTableByParentId(store, `apflora`, `zielber`, activeElements.ziel)
-          },
-          popFolder() {
-            return fetchTableByParentId(store, `apflora`, `pop`, activeElements.ap)
-          },
-          popberFolder() {
-            return fetchTableByParentId(store, `apflora`, `popber`, activeElements.pop)
-          },
-          popmassnberFolder() {
-            return fetchTableByParentId(store, `apflora`, `popmassnber`, activeElements.pop)
-          },
-          tpopFolder() {
-            return fetchTableByParentId(store, `apflora`, `tpop`, activeElements.pop)
-          },
-          tpopmassnFolder() {
-            return fetchTableByParentId(store, `apflora`, `tpopmassn`, activeElements.tpop)
-          },
-          tpopmassnberFolder() {
-            return fetchTableByParentId(store, `apflora`, `tpopmassnber`, activeElements.tpop)
-          },
-          tpopfeldkontrFolder() {
-            return fetchTableByParentId(store, `apflora`, `tpopkontr`, activeElements.tpop)
-          },
-          tpopkontrzaehlFolder() {
-            return fetchTableByParentId(store, `apflora`, `tpopkontrzaehl`, activeElements.tpopfeldkontr)
-          },
-          tpopfreiwkontrFolder() {
-            return fetchTableByParentId(store, `apflora`, `tpopkontr`, activeElements.tpop)
-          },
-          tpopberFolder() {
-            return fetchTableByParentId(store, `apflora`, `tpopber`, activeElements.tpop)
-          },
-          tpopBeobzuordnungFolder() {
-            // TODO
-            return fetchTableByParentId(store, `apflora`, `ap`, activeElements.tpop)
-          },
-        }
-        console.log(`reaction updateData: fetchingFromActiveElements:`, fetchingFromActiveElements)
-        console.log(`reaction updateData: activeElements:`, activeElements)
-        forEach(fetchingFromActiveElements, (func, key) => {
-          if (activeElements[key]) func()
-        })
+        // this.node.loadingAllNodes = true
+        fetchDataForActiveUrlElements(this)
       } else {
         // else if url longer: load new table
         // get previous pathname
