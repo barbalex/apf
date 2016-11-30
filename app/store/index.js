@@ -107,7 +107,7 @@ class Store extends singleton {
   @action
   updateLabelFilter = (table, value) => {
     if (!table) return console.log(`nodeLabelFilter cant be updated: no table passed`)
-    this.node.nodeLabelFilter[table] = value
+    this.node.nodeLabelFilter.set(table, value)
   }
 
   @action
@@ -191,9 +191,9 @@ class Store extends singleton {
     let projekte = Array.from(this.table.projekt.values())
     const { activeUrlElements } = this
     // filter by node.nodeLabelFilter
-    const filterString = this.node.nodeLabelFilter.projekt
+    const filterString = this.node.nodeLabelFilter.get(`projekt`)
     if (filterString) {
-      projekte = projekte.filter(p => p.ProjName.includes(filterString))
+      projekte = projekte.filter(p => p.ProjName.toLowerCase().includes(filterString.toLowerCase()))
     }
     // sort
     projekte = sortBy(projekte, `ProjName`)
@@ -236,7 +236,7 @@ class Store extends singleton {
     // grab apberuebersicht as array and sort them by year
     let apberuebersicht = Array.from(this.table.apberuebersicht.values())
     // filter by node.nodeLabelFilter
-    const filterString = this.node.nodeLabelFilter.apberuebersicht
+    const filterString = this.node.nodeLabelFilter.get(`apberuebersicht`)
     if (filterString) {
       apberuebersicht = apberuebersicht.filter(p => p.JbuJahr.toString().includes(filterString))
     }
@@ -385,9 +385,9 @@ class Store extends singleton {
       }
     })
     // filter by node.nodeLabelFilter
-    const filterString = this.node.nodeLabelFilter.ap
+    const filterString = this.node.nodeLabelFilter.get(`ap`)
     if (filterString) {
-      nodes = nodes.filter(p => p.label.includes(filterString))
+      nodes = nodes.filter(p => p.label.toLowerCase().includes(filterString.toLowerCase()))
     }
     // sort by label and return
     return sortBy(nodes, `label`)
