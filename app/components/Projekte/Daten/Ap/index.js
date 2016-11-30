@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
-import { toJS } from 'mobx'
 import filter from 'lodash/filter'
 import sortBy from 'lodash/sortBy'
 import AutoComplete from '../../../shared/Autocomplete'
