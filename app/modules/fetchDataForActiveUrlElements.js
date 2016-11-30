@@ -76,8 +76,8 @@ export default (store) => {
       return store.fetchTableByParentId(`apflora`, `ap`, activeElements.tpop)
     },
   }
-  console.log(`reaction updateData: fetchingFromActiveElements:`, fetchingFromActiveElements)
-  console.log(`reaction updateData: activeElements:`, activeElements)
+  // console.log(`reaction updateData: fetchingFromActiveElements:`, fetchingFromActiveElements)
+  // console.log(`reaction updateData: activeElements:`, activeElements)
   forEach(fetchingFromActiveElements, (func, key) => {
     if (activeElements[key]) func()
   })
