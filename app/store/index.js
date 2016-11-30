@@ -179,10 +179,13 @@ class Store extends singleton {
     }
   }
 
+  @observable activeNode
   @observable activeDataset
   updateActiveDataset = autorun(
     () => {
-      this.activeDataset = getActiveDatasetFromUrl(this)
+      const { activeDataset, activeNode } = getActiveDatasetFromUrl(this)
+      this.activeDataset = activeDataset
+      this.activeNode = activeNode
     }
   )
 

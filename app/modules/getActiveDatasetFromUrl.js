@@ -6,9 +6,11 @@ export default (store) => {
     table: null,
     row: null,
   }
+  let activeNode = null
   if (aEl.projektFolder) {
     if (aEl.apberuebersicht) {
       activeDataset = { table: `apberuebersicht`, row: store.table.apberuebersicht.get(aEl.apberuebersicht) }
+      activeNode = store.apNodes.find(n => n.row.JbuJahr === aEl.apberuebersicht)
     } else if (aEl.ap) {
       if (aEl.ziel) {
         if (aEl.zielber) {
@@ -61,5 +63,5 @@ export default (store) => {
   // console.log(`getActiveDatasetFromUrl: activeDataset:`, activeDataset)
   // console.log(`getActiveDatasetFromUrl: store.app.fields:`, store.app.fields)
   activeDataset.valid = validateActiveDataset(activeDataset.table, activeDataset.row, store.app.fields)
-  return activeDataset
+  return { activeDataset, activeNode }
 }
