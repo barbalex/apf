@@ -7,7 +7,6 @@ import RadioButtonGroup from '../../../shared/RadioButtonGroup'
 import LabelWithPopover from '../../../shared/LabelWithPopover'
 import TextField from '../../../shared/TextField'
 import SelectField from '../../../shared/SelectField'
-import getApNodeIds from '../../../../modules/getApNodeIds'
 import styles from './styles.css'
 
 @inject(`store`)
@@ -44,13 +43,11 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
       Array.from(store.table.ap_umsetzung_werte.values()),
       `DomainOrd`
     )
-    console.log(`Ap render: apUmsetzungen:`, apUmsetzungen)
     const adressen = Array.from(store.table.adresse.values())
     adressen.unshift({
       id: null,
       AdrName: ``,
     })
-    console.log(`Ap render: adressen:`, adressen)
     const { activeDataset } = store
     const ApArtId = (
       activeDataset
@@ -59,19 +56,14 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
       activeDataset.row.ApArtId :
       null
     )
-    console.log(`Ap render: ApArtId:`, ApArtId)
     let artwert = ``
     if (ApArtId && adb_eigenschaften.size > 0) {
       artwert = adb_eigenschaften.get(ApArtId).Artwert
     }
-    console.log(`Ap render: artwert:`, artwert)
-    // TODO: next line produces error
-    const apNodeIds = getApNodeIds(store.activeDataset, store.projektNodes)
-    console.log(`Ap render: apNodeIds:`, apNodeIds)
+    const apIds = Array.from(store.table.ap.keys())
     const dataSource = filter(Array.from(adb_eigenschaften.values()), r =>
-      !apNodeIds.includes(r.TaxonomieId) || r.TaxonomieId === ApArtId
+      !apIds.includes(r.TaxonomieId) || r.TaxonomieId === ApArtId
     )
-    console.log(`Ap render: dataSource:`, dataSource)
     const artname = () => {
       let name
       if (ApArtId && adb_eigenschaften.size > 0) {
@@ -79,7 +71,6 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
       }
       return name || ``
     }
-    console.log(`Ap render: artname:`, artname)
 
     return (
       <div className={styles.container}>
@@ -87,7 +78,7 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
           label="Art"
           fieldName="ApArtId"
           value={ApArtId}
-          valueText={artname}
+          valueText={artname()}
           errorText={activeDataset.valid.ApArtId}
           dataSource={dataSource}
           updatePropertyInDb={store.updatePropertyInDb}
