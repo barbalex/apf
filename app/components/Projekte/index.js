@@ -25,6 +25,7 @@ class Projekte extends React.Component { // eslint-disable-line react/prefer-sta
 
   render() {
     const { store } = this.props
+    const { strukturbaum, strukturbaum2, daten, karte } = store.ui.projekte
 
     return (
       <div className={styles.container}>
