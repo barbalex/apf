@@ -49,12 +49,14 @@ export default (store) => {
             activeDataset = { table: `tpopmassn`, row: store.table.tpopmassn.get(aEl.tpopmassn) }
           }
           activeDataset = { table: `tpop`, row: store.table.tpop.get(aEl.tpop) }
+        } else {
+          // none of the tpop folders is active
+          activeDataset = { table: `pop`, row: store.table.pop.get(aEl.pop) }
         }
-        // none of the tpop folders is active
-        activeDataset = { table: `pop`, row: store.table.pop.get(aEl.pop) }
+      } else {
+        // none of the pop folders is active
+        activeDataset = { table: `ap`, row: store.table.ap.get(aEl.ap) }
       }
-      // none of the pop folders is active
-      activeDataset = { table: `ap`, row: store.table.ap.get(aEl.ap) }
     } else {
       // !aEl.ap && !aEl.apberuebersicht
       activeDataset = { table: `projekt`, row: store.table.projekt.get(aEl.projekt) }

@@ -13,6 +13,7 @@ import Apberuebersicht from './Apberuebersicht'
 import Erfkrit from './Erfkrit'
 import Apber from './Apber'
 import Pop from './Pop'
+import Assozart from './Assozart'
 
 @inject(`store`)
 @observer
@@ -28,51 +29,29 @@ class Daten extends Component { // eslint-disable-line react/prefer-stateless-fu
     if (!activeDataset || !activeDataset.table || !activeDataset.row) {
       return <div />
     }
-    switch (activeDataset.table) {
-      case `projekt`:
-        return (
-          <div className={styles.container}>
-            <Projekt />
-          </div>
-        )
-      case `apberuebersicht`:
-        return (
-          <div className={styles.container}>
-            <Apberuebersicht />
-          </div>
-        )
-      case `ap`:
-        return (
-          <div className={styles.container}>
-            <Ap />
-          </div>
-        )
-      case `erfkrit`:
-        return (
-          <div className={styles.container}>
-            <Erfkrit />
-          </div>
-        )
-      case `apber`:
-        return (
-          <div className={styles.container}>
-            <Apber />
-          </div>
-        )
-      case `pop`:
-        return <Pop />
-      default:
-        return (
-          activeDataset &&
-          activeDataset.row &&
-          <div className={styles.container}>
-            <p>Daten</p>
-            <pre>
-              {JSON.stringify(activeDataset.row, null, 2)}
-            </pre>
-          </div>
-        )
+    const formObject = {
+      projekt: <Projekt />,
+      apberuebersicht: <Apberuebersicht />,
+      ap: <Ap />,
+      assozart: <Assozart />,
+      erfkrit: <Erfkrit />,
+      apber: <Apber />,
+      pop: <Pop />,
     }
+    const standardForm = (
+      <div>
+        <p>Daten</p>
+        <pre>
+          {JSON.stringify(activeDataset.row, null, 2)}
+        </pre>
+      </div>
+    )
+    const form = formObject[activeDataset.table] || standardForm
+    return (
+      <div className={styles.container}>
+        {form}
+      </div>
+    )
   }
 }
 
