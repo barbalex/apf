@@ -21,21 +21,17 @@ class LabelFilter extends Component { // eslint-disable-line react/prefer-statel
     let filteredTable
     if (activeDataset) {
       filteredTable = activeDataset.table
-      console.log(`filteredTable:`, filteredTable)
       if (filteredTable) {
         filterValue = node.nodeLabelFilter.get(filteredTable)
-        console.log(`filterValue:`, filterValue)
       }
     }
     return (
       <TextField
         floatingLabelText="Filter"
         value={filterValue || ``}
-        onChange={(event, val) => {
-          console.log(`val:`, val)
-          console.log(`filteredTable:`, filteredTable)
+        onChange={(event, val) =>
           store.updateLabelFilter(filteredTable, val)
-        }}
+        }
         className={styles.filterField}
       />
     )

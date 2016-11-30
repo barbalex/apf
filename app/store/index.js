@@ -256,6 +256,37 @@ class Store extends singleton {
     }))
   }
 
+  @computed get assozartNodes() {
+    const { activeUrlElements } = this
+    // grab assozart as array and sort them by year
+    const assozart = Array.from(this.table.assozart.values())
+    // map through all projekt and create array of nodes
+    let nodes = assozart.map((el) => {
+      let label = `...`
+      const { adb_eigenschaften } = this.table
+      if (adb_eigenschaften.size > 0) {
+        label = adb_eigenschaften.get(el.AaApArtId).Artname
+      }
+      return {
+        type: `row`,
+        label,
+        table: `assozart`,
+        row: el,
+        expanded: el.AaId === activeUrlElements.assozart,
+        url: [`Projekte`, el.ProjId, `Arten`, el.AaApArtId, `assoziierte-Arten`, el.AaId],
+      }
+    })
+    // filter by node.nodeLabelFilter
+    const filterString = this.node.nodeLabelFilter.get(`assozart`)
+    if (filterString) {
+      nodes = nodes.filter(p =>
+        p.label.toLowerCase().includes(filterString.toLowerCase())
+      )
+    }
+    // sort by label and return
+    return sortBy(nodes, `label`)
+  }
+
   @computed get apNodes() {
     const { activeUrlElements } = this
     // grab ape as array and sort them by name
@@ -366,13 +397,13 @@ class Store extends singleton {
           // assozarten folder
           {
             type: `folder`,
-            label: `assoziierte Arten. TODO: add number`,
+            label: `assoziierte Arten. (${this.assozartNodes.length})`,
             table: `ap`,
             row: el,
             id: el.ApArtId,
             expanded: activeUrlElements.assozartFolder,
             url: [`Projekte`, ap.ProjId, `Arten`, ap.ApArtId, `assoziierte-Arten`],
-            children: [],
+            children: this.assozartNodes,
           },
           // qk folder
           {
@@ -390,7 +421,9 @@ class Store extends singleton {
     // filter by node.nodeLabelFilter
     const filterString = this.node.nodeLabelFilter.get(`ap`)
     if (filterString) {
-      nodes = nodes.filter(p => p.label.toLowerCase().includes(filterString.toLowerCase()))
+      nodes = nodes.filter(p =>
+        p.label.toLowerCase().includes(filterString.toLowerCase())
+      )
     }
     // sort by label and return
     return sortBy(nodes, `label`)
