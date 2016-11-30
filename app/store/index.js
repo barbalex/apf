@@ -188,9 +188,15 @@ class Store extends singleton {
 
   @computed get projektNodes() {
     // grab projekte as array and sort them by name
-    const projekte = sortBy(Array.from(this.table.projekt.values()), `ProjName`)
+    let projekte = Array.from(this.table.projekt.values())
     const { activeUrlElements } = this
-
+    // filter by node.nodeLabelFilter
+    const filterString = this.node.nodeLabelFilter.projekt
+    if (filterString) {
+      projekte = projekte.filter(p => p.ProjName.includes(filterString))
+    }
+    // sort
+    projekte = sortBy(projekte, `ProjName`)
     // map through all projekt and create array of nodes
     return projekte.map(el => ({
       type: `row`,
@@ -226,9 +232,16 @@ class Store extends singleton {
   }
 
   @computed get apberuebersichtNodes() {
-    // grab apberuebersicht as array and sort them by year
-    const apberuebersicht = sortBy(Array.from(this.table.apberuebersicht.values()), `JbuJahr`)
     const { activeUrlElements } = this
+    // grab apberuebersicht as array and sort them by year
+    let apberuebersicht = Array.from(this.table.apberuebersicht.values())
+    // filter by node.nodeLabelFilter
+    const filterString = this.node.nodeLabelFilter.apberuebersicht
+    if (filterString) {
+      apberuebersicht = apberuebersicht.filter(p => p.JbuJahr.toString().includes(filterString))
+    }
+    // sort
+    apberuebersicht = sortBy(apberuebersicht, `JbuJahr`)
     // map through all projekt and create array of nodes
     return apberuebersicht.map(el => ({
       type: `row`,
@@ -241,11 +254,11 @@ class Store extends singleton {
   }
 
   @computed get apNodes() {
+    const { activeUrlElements } = this
     // grab ape as array and sort them by name
     const ap = Array.from(this.table.ap.values())
-    const { activeUrlElements } = this
     // map through all ap and create array of nodes
-    const nodes = ap.map((el) => {
+    let nodes = ap.map((el) => {
       let label = `...`
       const { adb_eigenschaften } = this.table
       if (adb_eigenschaften.size > 0) {
@@ -371,6 +384,11 @@ class Store extends singleton {
         ],
       }
     })
+    // filter by node.nodeLabelFilter
+    const filterString = this.node.nodeLabelFilter.ap
+    if (filterString) {
+      nodes = nodes.filter(p => p.label.includes(filterString))
+    }
     // sort by label and return
     return sortBy(nodes, `label`)
   }

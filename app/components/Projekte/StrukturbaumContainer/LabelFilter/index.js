@@ -16,7 +16,7 @@ class LabelFilter extends Component { // eslint-disable-line react/prefer-statel
 
   render() {  // eslint-disable-line class-methods-use-this
     const { store } = this.props
-    const { activeDataset } = store
+    const { activeDataset, node } = store
     let filterValue = ``
     let filteredTable
     if (activeDataset) {
