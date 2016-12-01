@@ -4,76 +4,84 @@ export default (store) => {
   const activeElements = store.activeUrlElements
   const fetchingFromActiveElements = {
     projektFolder() {
-      return store.fetchTable(`apflora`, `projekt`)
+      store.fetchTable(`apflora`, `projekt`)
+    },
+    projekt() {
+      store.fetchTableByParentId(`apflora`, `ap`, activeElements.projekt)
+      store.fetchTableByParentId(`apflora`, `apberuebersicht`, activeElements.projekt)
     },
     apberuebersichtFolder() {
-      return store.fetchTableByParentId(`apflora`, `apberuebersicht`, activeElements.projekt)
+      store.fetchTableByParentId(`apflora`, `apberuebersicht`, activeElements.projekt)
     },
     apFolder() {
-      return store.fetchTableByParentId(`apflora`, `ap`, activeElements.projekt)
+      store.fetchTableByParentId(`apflora`, `ap`, activeElements.projekt)
+    },
+    ap() {
+      store.fetchTableByParentId(`apflora`, `assozart`, activeElements.ap)
+      // TODO: add more folders
     },
     assozartFolder() {
-      return store.fetchTableByParentId(`apflora`, `assozart`, activeElements.ap)
+      store.fetchTableByParentId(`apflora`, `assozart`, activeElements.ap)
     },
     idealbiotopFolder() {
-      return store.fetchTableByParentId(`apflora`, `idealbiotop`, activeElements.ap)
+      store.fetchTableByParentId(`apflora`, `idealbiotop`, activeElements.ap)
     },
     beobNichtZuzuordnenFolder() {
       // TODO
-      return store.fetchTableByParentId(`apflora`, `ap`, activeElements.projekt)
+      store.fetchTableByParentId(`apflora`, `ap`, activeElements.projekt)
     },
     beobzuordnungFolder() {
       // TODO
-      return store.fetchTableByParentId(`apflora`, `ap`, activeElements.projekt)
+      store.fetchTableByParentId(`apflora`, `ap`, activeElements.projekt)
     },
     berFolder() {
-      return store.fetchTableByParentId(`apflora`, `ber`, activeElements.ap)
+      store.fetchTableByParentId(`apflora`, `ber`, activeElements.ap)
     },
     apberFolder() {
-      return store.fetchTableByParentId(`apflora`, `apber`, activeElements.ap)
+      store.fetchTableByParentId(`apflora`, `apber`, activeElements.ap)
     },
     erfkritFolder() {
-      return store.fetchTableByParentId(`apflora`, `erfkrit`, activeElements.ap)
+      store.fetchTableByParentId(`apflora`, `erfkrit`, activeElements.ap)
     },
     zielFolder() {
-      return store.fetchTableByParentId(`apflora`, `ziel`, activeElements.ap)
+      store.fetchTableByParentId(`apflora`, `ziel`, activeElements.ap)
     },
     zielberFolder() {
-      return store.fetchTableByParentId(`apflora`, `zielber`, activeElements.ziel)
+      store.fetchTableByParentId(`apflora`, `zielber`, activeElements.ziel)
     },
     popFolder() {
-      return store.fetchTableByParentId(`apflora`, `pop`, activeElements.ap)
+      store.fetchTableByParentId(`apflora`, `pop`, activeElements.ap)
     },
     popberFolder() {
-      return store.fetchTableByParentId(`apflora`, `popber`, activeElements.pop)
+      store.fetchTableByParentId(`apflora`, `popber`, activeElements.pop)
     },
     popmassnberFolder() {
-      return store.fetchTableByParentId(`apflora`, `popmassnber`, activeElements.pop)
+      store.fetchTableByParentId(`apflora`, `popmassnber`, activeElements.pop)
     },
     tpopFolder() {
-      return store.fetchTableByParentId(`apflora`, `tpop`, activeElements.pop)
+      store.fetchTableByParentId(`apflora`, `tpop`, activeElements.pop)
     },
     tpopmassnFolder() {
-      return store.fetchTableByParentId(`apflora`, `tpopmassn`, activeElements.tpop)
+      store.fetchTableByParentId(`apflora`, `tpopmassn`, activeElements.tpop)
     },
     tpopmassnberFolder() {
-      return store.fetchTableByParentId(`apflora`, `tpopmassnber`, activeElements.tpop)
+      store.fetchTableByParentId(`apflora`, `tpopmassnber`, activeElements.tpop)
     },
     tpopfeldkontrFolder() {
-      return store.fetchTableByParentId(`apflora`, `tpopkontr`, activeElements.tpop)
+      store.fetchTableByParentId(`apflora`, `tpopkontr`, activeElements.tpop)
     },
     tpopkontrzaehlFolder() {
-      return store.fetchTableByParentId(`apflora`, `tpopkontrzaehl`, activeElements.tpopfeldkontr)
+      store.fetchTableByParentId(`apflora`, `tpopkontrzaehl`, activeElements.tpopfeldkontr)
     },
     tpopfreiwkontrFolder() {
-      return store.fetchTableByParentId(`apflora`, `tpopkontr`, activeElements.tpop)
+      store.fetchTableByParentId(`apflora`, `tpopkontr`, activeElements.tpop)
     },
     tpopberFolder() {
-      return store.fetchTableByParentId(`apflora`, `tpopber`, activeElements.tpop)
+      store.fetchTableByParentId(`apflora`, `tpopber`, activeElements.tpop)
     },
     tpopBeobzuordnungFolder() {
       // TODO
-      return store.fetchTableByParentId(`apflora`, `ap`, activeElements.tpop)
+      store.fetchTableByParentId(`apflora`, `ap`, activeElements.tpop)
     },
   }
   // console.log(`reaction updateData: fetchingFromActiveElements:`, fetchingFromActiveElements)
