@@ -57,9 +57,11 @@ export default (store) => {
         // none of the pop folders is active
         activeDataset = { table: `ap`, row: store.table.ap.get(aEl.ap) }
       }
+    } else if (aEl.projekt) {
+      activeDataset = { table: `projekt`, row: store.table.projekt.get(aEl.projekt) }
     } else {
       // !aEl.ap && !aEl.apberuebersicht
-      activeDataset = { table: `projekt`, row: store.table.projekt.get(aEl.projekt) }
+      activeDataset = { table: null, row: null, valid: {} }
     }
   }
   activeDataset.valid = validateActiveDataset(activeDataset.table, activeDataset.row, store.app.fields)

@@ -3,6 +3,10 @@ import Joi from 'joi-browser'
 
 export default (table, row, allFields) => {
   const valid = {}
+  if (table === null && row === null) {
+    // happens when to folder is called
+    return valid
+  }
   if (!table || !row || !allFields || !allFields.length) {
     console.log(`validateActiveDataset: table, row or fields missing`)  // eslint-disable-line no-console
     return valid
