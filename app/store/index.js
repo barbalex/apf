@@ -154,7 +154,7 @@ class Store extends singleton {
       const { user } = this.app
       const oldValue = row[key]
       row[key] = value
-      axios.put(`${apiBaseUrl}/update/apflora/tabelle=${table}/idField=${idField}/tabelleId=${tabelleId}/feld=${key}/wert=${value}/user=${user}`)
+      axios.put(`${apiBaseUrl}/update/apflora/tabelle=${table}/tabelleIdFeld=${idField}/tabelleId=${tabelleId}/feld=${key}/wert=${value}/user=${user}`)
         .catch((error) => {
           row[key] = oldValue
           this.app.errors.unshift(error)
