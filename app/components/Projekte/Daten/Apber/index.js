@@ -28,6 +28,7 @@ class Apber extends Component { // eslint-disable-line react/prefer-stateless-fu
       value: el.BeurteilId,
       label: el.BeurteilTxt,
     }))
+    console.log(`apErfkritWerte:`, apErfkritWerte)
     const { activeDataset } = store
     return (
       <div className={styles.container}>
@@ -43,9 +44,9 @@ class Apber extends Component { // eslint-disable-line react/prefer-stateless-fu
         <div className={styles.fieldContainer}>
           <Label label="Beurteilung" />
           <RadioButtonGroup
-            fieldName="JberBeurteilung"
-            value={activeDataset.row.JberBeurteilung}
-            errorText={activeDataset.valid.JberBeurteilung}
+            fieldName="JBerBeurteilung"
+            value={activeDataset.row.JBerBeurteilung}
+            errorText={activeDataset.valid.JBerBeurteilung}
             dataSource={apErfkritWerte}
             updatePropertyInDb={store.updatePropertyInDb}
           />
