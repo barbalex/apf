@@ -299,6 +299,31 @@ class Store extends singleton {
     return sortBy(nodes, `label`)
   }
 
+  @computed get apberNodes() {
+    const { activeUrlElements } = this
+    // grab apber as array and sort them by year
+    let apber = Array.from(this.table.apber.values())
+    // filter by node.nodeLabelFilter
+    const filterString = this.node.nodeLabelFilter.get(`apber`)
+    if (filterString) {
+      apber = apber.filter(p => p.JBerJahr.toString().includes(filterString))
+    }
+    // sort
+    apber = sortBy(apber, `JBerJahr`)
+    // map through all projekt and create array of nodes
+    return apber.map((el) => {
+      const projId = this.table.ap.get(el.ApArtId).ProjId
+      return {
+        type: `row`,
+        label: el.JBerJahr || `(kein Jahr)`,
+        table: `apber`,
+        row: el,
+        expanded: el.JBerJahr === activeUrlElements.apber,
+        url: [`Projekte`, projId, `Arten`, el.ApArtId, `AP-Berichte`, el.JBerId],
+      }
+    })
+  }
+
   @computed get apNodes() {
     const { activeUrlElements } = this
     // grab ape as array and sort them by name
@@ -354,13 +379,13 @@ class Store extends singleton {
           // apber folder
           {
             type: `folder`,
-            label: `AP-Berichte. TODO: add number`,
+            label: `AP-Berichte (${this.apberNodes.length})`,
             table: `ap`,
             row: el,
             id: el.ApArtId,
             expanded: activeUrlElements.apberFolder,
             url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `AP-Berichte`],
-            children: [],
+            children: this.apberNodes,
           },
           // ber folder
           {
