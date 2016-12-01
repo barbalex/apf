@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
-import moment from 'moment'
 import TextField from '../../../shared/TextField'
 import DatePicker from '../../../shared/DatePicker'
 import styles from './styles.css'
@@ -13,9 +12,16 @@ class Idealbiotop extends Component { // eslint-disable-line react/prefer-statel
     store: PropTypes.object,
   }
 
+  componentDidMount() {
+    // fetch dropdown data
+    const { store } = this.props
+    store.fetchTable(`apflora`, `adresse`)
+  }
+
   render() {
     const { store } = this.props
     const { activeDataset } = store
+
     return (
       <div className={styles.container}>
         <DatePicker
@@ -217,6 +223,7 @@ class Idealbiotop extends Component { // eslint-disable-line react/prefer-statel
           updateProperty={store.updateProperty}
           updatePropertyInDb={store.updatePropertyInDb}
         />
+        <div style={{ height: `55px` }} />
       </div>
     )
   }

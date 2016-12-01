@@ -7,7 +7,7 @@ class MyRadioButtonGroup extends Component { // eslint-disable-line react/prefer
 
   static propTypes = {
     fieldName: PropTypes.string.isRequired,
-    value: PropTypes.number,
+    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     dataSource: PropTypes.arrayOf(PropTypes.object).isRequired,
     updatePropertyInDb: PropTypes.func.isRequired,
   }
@@ -19,7 +19,7 @@ class MyRadioButtonGroup extends Component { // eslint-disable-line react/prefer
       dataSource,
       updatePropertyInDb,
     } = this.props
-    const valueSelected = value >= 0 ? value : ``
+    const valueSelected = (value !== null && value !== undefined) ? value : ``
     return (
       <RadioButtonGroup
         name={fieldName}
