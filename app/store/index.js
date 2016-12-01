@@ -306,7 +306,12 @@ class Store extends singleton {
     // filter by node.nodeLabelFilter
     const filterString = this.node.nodeLabelFilter.get(`apber`)
     if (filterString) {
-      apber = apber.filter(p => p.JBerJahr.toString().includes(filterString))
+      apber = apber.filter((p) => {
+        if (p.JBerJahr !== undefined && p.JBerJahr !== null) {
+          return p.JBerJahr.toString().includes(filterString)
+        }
+        return false
+      })
     }
     // sort
     apber = sortBy(apber, `JBerJahr`)
