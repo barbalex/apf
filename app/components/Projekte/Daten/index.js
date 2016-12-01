@@ -14,6 +14,7 @@ import Erfkrit from './Erfkrit'
 import Apber from './Apber'
 import Pop from './Pop'
 import Assozart from './Assozart'
+import Idealbiotop from './Idealbiotop'
 
 @inject(`store`)
 @observer
@@ -34,6 +35,7 @@ class Daten extends Component { // eslint-disable-line react/prefer-stateless-fu
       apberuebersicht: <Apberuebersicht />,
       ap: <Ap />,
       assozart: <Assozart />,
+      idealbiotop: <Idealbiotop />,
       erfkrit: <Erfkrit />,
       apber: <Apber />,
       pop: <Pop />,

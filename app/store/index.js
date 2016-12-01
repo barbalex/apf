@@ -397,7 +397,6 @@ class Store extends singleton {
             id: el.ApArtId,
             expanded: activeUrlElements.idealbiotopFolder,
             url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `Idealbiotop`],
-            children: [],
           },
           // assozarten folder
           {

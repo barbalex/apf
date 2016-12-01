@@ -18,6 +18,7 @@ export default (store) => {
     },
     ap() {
       store.fetchTableByParentId(`apflora`, `assozart`, activeElements.ap)
+      store.fetchTableByParentId(`apflora`, `idealbiotop`, activeElements.ap)
       // TODO: add more folders
     },
     assozartFolder() {

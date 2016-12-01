@@ -29,6 +29,8 @@ export default (store) => {
         activeDataset = { table: `beobNichtZuzuordnen`, row: store.table.beobNichtZuzuordnen.get(aEl.beobNichtZuzuordnen) }
       } else if (aEl.assozart) {
         activeDataset = { table: `assozart`, row: store.table.assozart.get(aEl.assozart) }
+      } else if (aEl.idealbiotopFolder) {
+        activeDataset = { table: `idealbiotop`, row: store.table.idealbiotop.get(aEl.ap) }
       } else if (aEl.pop) {
         if (aEl.tpopmassnber) {
           activeDataset = { table: `tpopmassnber`, row: store.table.tpopmassnber.get(aEl.tpopmassnber) }
