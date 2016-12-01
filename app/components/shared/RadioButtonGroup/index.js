@@ -33,8 +33,8 @@ class MyRadioButtonGroup extends Component { // eslint-disable-line react/prefer
         {
           dataSource.map((e, index) =>
             <RadioButton
-              value={e.DomainCode}
-              label={e.DomainTxt}
+              value={e.value}
+              label={e.label}
               key={index}
             />
           )

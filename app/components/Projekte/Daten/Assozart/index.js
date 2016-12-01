@@ -1,8 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import filter from 'lodash/filter'
-import RadioButtonGroup from '../../../shared/RadioButtonGroup'
-import Label from '../../../shared/Label'
 import TextField from '../../../shared/TextField'
 import AutoComplete from '../../../shared/Autocomplete'
 import styles from './styles.css'

@@ -28,14 +28,18 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
   render() {
     const { store } = this.props
     const { adb_eigenschaften } = store.table
-    const apStati = sortBy(
-      Array.from(store.table.ap_bearbstand_werte.values()),
-      `DomainOrd`
-    )
-    const apUmsetzungen = sortBy(
-      Array.from(store.table.ap_umsetzung_werte.values()),
-      `DomainOrd`
-    )
+    let apStati = Array.from(store.table.ap_bearbstand_werte.values())
+    apStati = sortBy(apStati, `DomainOrd`)
+    apStati = apStati.map(el => ({
+      value: el.DomainCode,
+      label: el.DomainTxt,
+    }))
+    let apUmsetzungen = Array.from(store.table.ap_umsetzung_werte.values())
+    apUmsetzungen = sortBy(apUmsetzungen, `DomainOrd`)
+    apUmsetzungen = apUmsetzungen.map(el => ({
+      value: el.DomainCode,
+      label: el.DomainTxt,
+    }))
     const adressen = Array.from(store.table.adresse.values())
     adressen.unshift({
       id: null,

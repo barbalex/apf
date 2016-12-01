@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
+import sortBy from 'lodash/sortBy'
 import RadioButtonGroup from '../../../shared/RadioButtonGroup'
 import Label from '../../../shared/Label'
 import TextField from '../../../shared/TextField'
@@ -21,7 +22,12 @@ class Apber extends Component { // eslint-disable-line react/prefer-stateless-fu
 
   render() {
     const { store } = this.props
-    const apErfkritWerte = Array.from(store.table.ap_erfkrit_werte.values())
+    let apErfkritWerte = Array.from(store.table.ap_erfkrit_werte.values())
+    apErfkritWerte = sortBy(apErfkritWerte, `BeurteilOrd`)
+    apErfkritWerte = apErfkritWerte.map(el => ({
+      value: el.BeurteilId,
+      label: el.BeurteilTxt,
+    }))
     const { activeDataset } = store
     return (
       <div className={styles.container}>
