@@ -330,13 +330,10 @@ class Store extends singleton {
     const erfkrit = Array.from(this.table.erfkrit.values())
     // get erfkritWerte
     const apErfkritWerte = Array.from(this.table.ap_erfkrit_werte.values())
-    console.log(`apErfkritWerte:`, apErfkritWerte)
     // map through all projekt and create array of nodes
     let nodes = erfkrit.map((el) => {
       const projId = this.table.ap.get(el.ApArtId).ProjId
-      console.log(`el.ErfkritErreichungsgrad:`, el.ErfkritErreichungsgrad)
       const erfkritWert = apErfkritWerte.find(e => e.BeurteilId === el.ErfkritErreichungsgrad)
-      console.log(`erfkritWert:`, erfkritWert)
       const beurteilTxt = erfkritWert ? erfkritWert.BeurteilTxt : null
       const erfkritSort = erfkritWert ? erfkritWert.BeurteilOrd : null
       return {
