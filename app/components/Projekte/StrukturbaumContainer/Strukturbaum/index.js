@@ -78,7 +78,7 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
       }
       let symbol
       let symbolClassName = `symbol`
-      const nodeIsInActiveNodePath = isNodeInActiveNodePath(node, store.activeDataset)
+      const nodeIsInActiveNodePath = isNodeInActiveNodePath(node, store.url)
 
       if (nodeHasChildren && node.expanded) {
         props.onClick = onClick
