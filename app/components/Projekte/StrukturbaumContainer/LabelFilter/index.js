@@ -4,6 +4,7 @@ import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import TextField from 'material-ui/TextField'
 
+import tables from '../../../../modules/tables'
 import styles from './styles.css'
 
 @inject(`store`)
@@ -17,17 +18,23 @@ class LabelFilter extends Component { // eslint-disable-line react/prefer-statel
   render() {  // eslint-disable-line class-methods-use-this
     const { store } = this.props
     const { activeDataset, node } = store
+    let labelText = `filtern`
     let filterValue = ``
     let filteredTable
     if (activeDataset) {
       filteredTable = activeDataset.table
       if (filteredTable) {
         filterValue = node.nodeLabelFilter.get(filteredTable)
+        const table = tables.find(t => t.table === filteredTable)
+        const tableLabel = table ? table.label : null
+        if (tableLabel) {
+          labelText = `${tableLabel} filtern`
+        }
       }
     }
     return (
       <TextField
-        floatingLabelText="Filter"
+        floatingLabelText={labelText}
         value={filterValue || ``}
         onChange={(event, val) =>
           store.updateLabelFilter(filteredTable, val)

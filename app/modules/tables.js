@@ -7,67 +7,47 @@ export default [
   {
     database: `apflora`,
     table: `ap`,
+    label: `Arten`,
     idField: `ApArtId`,
     parentIdField: `ProjId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
-    label(row, data) {
-      if (!data || !data.aeEigenschaften) return noLabel
-      const ae = toJS(data.aeEigenschaften).get(row.ApArtId)
-      if (!ae) return noLabel
-      return ae.Artname || noLabel
-    },
-    folder: {
-      label(node) {
-        if (!node || !node.childrenFilteredByLabel) return `Arten`
-        return `Arten (${node.childrenFilteredByLabel.length})`
-      },
-    },
   },
   {
     database: `apflora`,
     table: `pop`,
+    label: `Populationen`,
     idField: `PopId`,
     parentIdField: `ApArtId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
-    label(row) {
+    label_(row) {
       if (!row) return noLabel
       return `${row.PopNr || `(keine Nr)`}: ${row.PopName || `(kein Name)`}`
-    },
-    folder: {
-      label(node) {
-        if (!node || !node.childrenFilteredByLabel) return `Populationen`
-        return `Populationen (${node.childrenFilteredByLabel.length})`
-      },
     },
   },
   {
     database: `apflora`,
     table: `tpop`,
+    label: `Teil-Populationen`,
     idField: `TPopId`,
     parentIdField: `PopId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
-    label(row) {
+    label_(row) {
       if (!row) return noLabel
       return `${row.TPopNr || `(keine Nr)`}: ${row.TPopFlurname || `(kein Flurname)`}`
-    },
-    folder: {
-      label(node) {
-        if (!node || !node.childrenFilteredByLabel) return `Teil-Populationen`
-        return `Teil-Populationen (${node.childrenFilteredByLabel.length})`
-      },
     },
   },
   {
     database: `apflora`,
     table: `tpopkontr`,
+    label: `Freiwilligen-Kontrollen`,
     idField: `TPopKontrId`,
     parentIdField: `TPopId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
-    label(row) {
+    label_(row) {
       if (!row) return noLabel
       if (row.TPopKontrTyp && row.TPopKontrTyp === `"Freiwilligen-Erfolgskontrolle"`) {
         return `${row.TPopKontrJahr || `(kein Jahr)`}`
@@ -97,11 +77,12 @@ export default [
   {
     database: `apflora`,
     table: `tpopkontrzaehl`,
+    label: `Zählungen`,
     idField: `TPopKontrZaehlId`,
     parentIdField: `TPopKontrId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
-    label(row, data) {
+    label_(row, data) {
       if (!row || !data || !data.tpopkontrzaehlEinheit || !data.tpopkontrzaehlMethode) return noLabel
       const zaehleinheit = data.tpopkontrzaehlEinheit.find(e => e.DomainCode === row.Zaehleinheit)
       if (!zaehleinheit) return noLabel
@@ -111,32 +92,21 @@ export default [
       const methodeTxt = methode.DomainTxt || noLabel
       return `${row.Anzahl || `(keine Anzahl)`} ${zaehleinheitTxt || `(keine Einheit)`} ${methodeTxt || `(keine Methode)`}`
     },
-    folder: {
-      label(node) {
-        if (!node || !node.childrenFilteredByLabel) return `Zählungen`
-        return `Zählungen (${node.childrenFilteredByLabel.length})`
-      },
-    },
   },
   {
     database: `apflora`,
     table: `tpopmassn`,
+    label: `Massnahmen`,
     idField: `TPopMassnId`,
     parentIdField: `TPopId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
-    label(row, data) {
+    label_(row, data) {
       if (!row || !data.tpopmassnTyp) return noLabel
       const massnTyp = data.tpopmassnTyp.find(e => e.DomainCode === row.TPopMassnTyp)
       if (!massnTyp) return noLabel
       const massnTypTxt = massnTyp.DomainTxt || noLabel
       return `${row.TPopMassnJahr || `(kein Jahr)`}: ${massnTypTxt || `(kein Typ)`}`
-    },
-    folder: {
-      label(node) {
-        if (!node || !node.childrenFilteredByLabel) return `Massnahmen`
-        return `Massnahmen (${node.childrenFilteredByLabel.length})`
-      },
     },
   },
   {
@@ -163,22 +133,17 @@ export default [
   {
     database: `apflora`,
     table: `ziel`,
+    label: `AP-Ziele`,
     idField: `ZielId`,
     parentIdField: `ApArtId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
-    label(row, data) {
+    label_(row, data) {
       if (!row || !data.zielTyp) return noLabel
       const zielTyp = data.zielTyp.find(e => e.DomainCode === row.ZielTyp)
       if (!zielTyp) return noLabel
       const zielTypTxt = zielTyp.DomainTxt || noLabel
       return `${row.ZielJahr || `(kein Jahr)`}: ${row.ZielBezeichnung} (${zielTypTxt})`
-    },
-    folder: {
-      label(node) {
-        if (!node || !node.childrenFilteredByLabel) return `AP-Ziele`
-        return `AP-Ziele (${node.childrenFilteredByLabel.length})`
-      },
     },
   },
   {
@@ -191,24 +156,20 @@ export default [
   {
     database: `apflora`,
     table: `zielber`,
+    label: `Ziel-Berichte`,
     idField: `ZielBerId`,
     parentIdField: `ZielId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
-    label(row) {
+    label_(row) {
       if (!row) return noLabel
       return `${row.ZielBerJahr || `(kein Jahr)`}: ${row.ZielBerErreichung || `(keine Entwicklung)`}`
-    },
-    folder: {
-      label(node) {
-        if (!node || !node.childrenFilteredByLabel) return `Berichte`
-        return `Berichte (${node.childrenFilteredByLabel.length})`
-      },
     },
   },
   {
     database: `apflora`,
     table: `erfkrit`,
+    label: `AP-Erfolgskriterien`,
     idField: `ErfkritId`,
     parentIdField: `ApArtId`,
     mutWannField: `MutWann`,
@@ -217,165 +178,104 @@ export default [
   {
     database: `apflora`,
     table: `apber`,
+    label: `AP-Berichte`,
     idField: `JBerId`,
     parentIdField: `ApArtId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
-    label(row) {
-      if (!row) return noLabel
-      return row.JBerJahr || `(kein Jahr)`
-    },
-    folder: {
-      label(node) {
-        if (!node || !node.childrenFilteredByLabel) return `AP-Berichte`
-        return `AP-Berichte (${node.childrenFilteredByLabel.length})`
-      },
-    },
   },
   {
     database: `apflora`,
     table: `apberuebersicht`,
+    label: `AP-Berichte`,
     idField: `JbuJahr`,
     parentIdField: `ProjId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
-    label(row) {
-      if (!row) return noLabel
-      return row.JbuJahr || noLabel
-    },
-    folder: {
-      label(node) {
-        if (!node || !node.childrenFilteredByLabel) return `AP-Berichte`
-        return `AP-Berichte (${node.childrenFilteredByLabel.length})`
-      },
-    },
   },
   {
     database: `apflora`,
     table: `ber`,
+    label: `Berichte`,
     idField: `BerId`,
     parentIdField: `ApArtId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
-    label(row) {
+    label_(row) {
       if (!row) return noLabel
       return `${row.BerJahr || `(kein Jahr)`}: ${row.BerTitel || `(kein Titel)`}`
-    },
-    folder: {
-      label(node) {
-        if (!node || !node.childrenFilteredByLabel) return `Berichte`
-        return `Berichte (${node.childrenFilteredByLabel.length})`
-      },
     },
   },
   {
     database: `apflora`,
     table: `idealbiotop`,
+    label: `Idealbiotop`,
     idField: `IbApArtId`,
     parentIdField: `IbApArtId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
-    label() {
-      return `Idealbiotop`
-    },
   },
   {
     database: `apflora`,
     table: `assozart`,
+    label: `assoziierte Arten`,
     idField: `AaId`,
     parentIdField: `AaApArtId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
-    label(row, data) {
-      if (!row) return noLabel
-      let label = `(keine Art gewählt)`
-      if (row.AaApArtId && data && data.aeEigenschaften) {
-        const ae = toJS(data.aeEigenschaften).get(row.AaApArtId)
-        if (ae) {
-          label = ae.Artname
-        }
-      }
-      return label
-    },
-    folder: {
-      label(node) {
-        if (!node || !node.childrenFilteredByLabel) return `assoziierte Arten`
-        return `assoziierte Arten (${node.childrenFilteredByLabel.length})`
-      },
-    },
   },
   {
     database: `apflora`,
     table: `popber`,
+    label: `Kontroll-Berichte`,
     idField: `PopBerId`,
     parentIdField: `PopId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
-    label(row) {
+    label_(row) {
       if (!row) return noLabel
       return `${row.PopBerJahr || `(kein Jahr)`}: ${row.EntwicklungTxt || `(nicht beurteilt)`}`
-    },
-    folder: {
-      label(node) {
-        if (!node || !node.childrenFilteredByLabel) return `Kontroll-Berichte`
-        return `Kontroll-Berichte (${node.childrenFilteredByLabel.length})`
-      },
     },
   },
   {
     database: `apflora`,
     table: `popmassnber`,
+    label: `Massnahmen-Berichte`,
     idField: `PopMassnBerId`,
     parentIdField: `PopId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
-    label(row) {
+    label_(row) {
       if (!row) return noLabel
       return `${row.PopMassnBerJahr || `(kein Jahr)`}: ${row.BeurteilTxt || `(nicht beurteilt)`}`
-    },
-    folder: {
-      label(node) {
-        if (!node || !node.childrenFilteredByLabel) return `Massnahmen-Berichte`
-        return `Massnahmen-Berichte (${node.childrenFilteredByLabel.length})`
-      },
     },
   },
   {
     database: `apflora`,
     table: `tpopber`,
+    label: `Kontroll-Berichte`,
     idField: `TPopBerId`,
     parentIdField: `TPopId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
-    label(row) {
+    label_(row) {
       if (!row) return noLabel
       return `${row.TPopBerJahr || `(kein Jahr)`}: ${row.EntwicklungTxt || `(nicht beurteilt)`}`
-    },
-    folder: {
-      label(node) {
-        if (!node || !node.childrenFilteredByLabel) return `Kontroll-Berichte`
-        return `Kontroll-Berichte (${node.childrenFilteredByLabel.length})`
-      },
     },
   },
   {
     database: `apflora`,
     table: `tpopmassnber`,
+    label: `Massnahmen-Berichte`,
     idField: `TPopMassnBerId`,
     parentIdField: `TPopId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
-    label(row, data) {
+    label_(row, data) {
       if (!row || !data || !data.tpopmassnErfbeurt) return noLabel
       const beurteil = data.tpopmassnErfbeurt.find(e => e.DomainCode === row.TPopMassnBerErfolgsbeurteilung)
       const beurteilTxt = beurteil.DomainTxt || noLabel
       return `${row.TPopMassnBerJahr || `(kein Jahr)`}: ${beurteilTxt || `(keine Beurteilung)`}`
-    },
-    folder: {
-      label(node) {
-        if (!node || !node.childrenFilteredByLabel) return `Massnahmen-Berichte`
-        return `Massnahmen-Berichte (${node.childrenFilteredByLabel.length})`
-      },
     },
   },
   {
@@ -388,7 +288,7 @@ export default [
     },
     mutWannField: `BeobMutWann`,
     mutWerField: `BeobMutWer`,
-    label(row) {
+    label_(row) {
       if (!row) return noLabel
       return `${row.Datum || `(kein Datum)`}: ${row.Autor || `(kein Autor)`} (${row.Quelle})`
     },
@@ -409,7 +309,7 @@ export default [
     },
     mutWannField: `BeobMutWann`,
     mutWerField: `BeobMutWer`,
-    label(row) {
+    label_(row) {
       if (!row) return noLabel
       return `${row.Datum || `(kein Datum)`}: ${row.Autor || `(kein Autor)`} (${row.Quelle})`
     },
@@ -433,7 +333,7 @@ export default [
     },
     mutWannField: `BeobMutWann`,
     mutWerField: `BeobMutWer`,
-    label(row) {
+    label_(row) {
       if (!row) return noLabel
       return `${row.Datum || `(kein Datum)`}: ${row.Autor || `(kein Autor)`} (${row.Quelle})`
     },
@@ -450,6 +350,7 @@ export default [
   {
     database: `apflora`,
     table: `projekt`,
+    label: `Projekte`,
     idField: `ProjId`,
     parentIdField: ``,
     mutWannField: `MutWann`,
@@ -461,7 +362,7 @@ export default [
     idField: `BeobId`,
     mutWannField: null,
     mutWerField: null,
-    label(row) {
+    label_(row) {
       if (!row) return noLabel
       return `${row.Datum || `(kein Datum)`}: ${row.Autor || `(kein Autor)`} (${row.Quelle})`
     },
