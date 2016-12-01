@@ -213,16 +213,6 @@ export default [
     parentIdField: `ApArtId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
-    label(row) {
-      if (!row) return noLabel
-      return `${row.BeurteilTxt || `(nicht beurteilt)`}: ${row.ErfkritTxt || `(keine Kriterien erfasst)`}`
-    },
-    folder: {
-      label(node) {
-        if (!node || !node.childrenFilteredByLabel) return `AP-Erfolgskriterien`
-        return `AP-Erfolgskriterien (${node.childrenFilteredByLabel.length})`
-      },
-    },
   },
   {
     database: `apflora`,

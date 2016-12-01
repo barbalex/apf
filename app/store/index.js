@@ -324,6 +324,42 @@ class Store extends singleton {
     })
   }
 
+  @computed get erfkritNodes() {
+    const { activeUrlElements } = this
+    // grab erfkrit as array and sort them by year
+    const erfkrit = Array.from(this.table.erfkrit.values())
+    // get erfkritWerte
+    const apErfkritWerte = Array.from(this.table.ap_erfkrit_werte.values())
+    console.log(`apErfkritWerte:`, apErfkritWerte)
+    // map through all projekt and create array of nodes
+    let nodes = erfkrit.map((el) => {
+      const projId = this.table.ap.get(el.ApArtId).ProjId
+      console.log(`el.ErfkritErreichungsgrad:`, el.ErfkritErreichungsgrad)
+      const erfkritWert = apErfkritWerte.find(e => e.BeurteilId === el.ErfkritErreichungsgrad)
+      console.log(`erfkritWert:`, erfkritWert)
+      const beurteilTxt = erfkritWert ? erfkritWert.BeurteilTxt : null
+      const erfkritSort = erfkritWert ? erfkritWert.BeurteilOrd : null
+      return {
+        type: `row`,
+        label: `${beurteilTxt || `(nicht beurteilt)`}: ${el.ErfkritTxt || `(keine Kriterien erfasst)`}`,
+        table: `erfkrit`,
+        row: el,
+        expanded: el.ErfkritId === activeUrlElements.erfkrit,
+        url: [`Projekte`, projId, `Arten`, el.ApArtId, `AP-Erfolgskriterien`, el.ErfkritId],
+        sort: erfkritSort,
+      }
+    })
+    // filter by node.nodeLabelFilter
+    const filterString = this.node.nodeLabelFilter.get(`erfkrit`)
+    if (filterString) {
+      nodes = nodes.filter(p =>
+        p.label.toLowerCase().includes(filterString.toLowerCase())
+      )
+    }
+    // sort by label and return
+    return sortBy(nodes, `sort`)
+  }
+
   @computed get apNodes() {
     const { activeUrlElements } = this
     // grab ape as array and sort them by name
@@ -368,13 +404,13 @@ class Store extends singleton {
           // erfkrit folder
           {
             type: `folder`,
-            label: `AP-Erfolgskriterien. TODO: add number`,
+            label: `AP-Erfolgskriterien (${this.erfkritNodes.length})`,
             table: `ap`,
             row: el,
             id: el.ApArtId,
             expanded: activeUrlElements.erfkritFolder,
             url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `AP-Erfolgskriterien`],
-            children: [],
+            children: this.erfkritNodes,
           },
           // apber folder
           {
