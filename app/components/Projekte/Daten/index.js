@@ -15,6 +15,7 @@ import Apber from './Apber'
 import Pop from './Pop'
 import Assozart from './Assozart'
 import Idealbiotop from './Idealbiotop'
+import Ber from './Ber'
 
 @inject(`store`)
 @observer
@@ -38,6 +39,7 @@ class Daten extends Component { // eslint-disable-line react/prefer-stateless-fu
       idealbiotop: <Idealbiotop />,
       erfkrit: <Erfkrit />,
       apber: <Apber />,
+      ber: <Ber />,
       pop: <Pop />,
     }
     const standardForm = (
