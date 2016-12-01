@@ -84,9 +84,6 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
         props.onClick = onClick
         symbol = symbolTypes.open
         symbolClassName = nodeIsInActiveNodePath ? `symbolOpenInActiveNodePath` : `symbolOpen`
-        // TODO:
-        // if nodes are stored as a map and data separately,
-        // fetch and combine it here
         // apply filter
         const childrenProperty = (
           node === store.activeDataset ?
