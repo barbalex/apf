@@ -37,7 +37,7 @@ class MyTextFieldWithUrl extends Component { // eslint-disable-line react/prefer
     return (
       <div className={styles.container}>
         <TextField
-          floatingLabelText={label}
+          floatingLabelText={`${label} (bitte "www." statt "http://" eingeben)`}
           type={type || `text`}
           multiLine={multiLine || false}
           value={value || ``}
