@@ -154,10 +154,6 @@ export default [
     parentIdField: `ZielId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
-    label_(row) {
-      if (!row) return noLabel
-      return `${row.ZielBerJahr || `(kein Jahr)`}: ${row.ZielBerErreichung || `(keine Entwicklung)`}`
-    },
   },
   {
     database: `apflora`,
