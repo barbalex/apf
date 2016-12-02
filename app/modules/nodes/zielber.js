@@ -14,7 +14,7 @@ export default (store, zielId) => {
       label: `${el.ZielBerJahr || `(kein Jahr)`}: ${el.ZielBerErreichung || `(keine Entwicklung)`}`,
       table: `zielber`,
       row: el,
-      expanded: el.ZielId === activeUrlElements.zielber,
+      expanded: el.ZielId === activeUrlElements.zielberFolder,
       url: [`Projekte`, projId, `Arten`, ApArtId, `AP-Ziele`, el.ZielJahr, el.ZielId, `Ziel-Berichte`, el.ZielBerId],
     }
   })
