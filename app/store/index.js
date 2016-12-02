@@ -26,6 +26,8 @@ import storeIsNew from '../modules/storeIsNew'
 import getActiveUrlElements from '../modules/getActiveUrlElements'
 import fetchDataForActiveUrlElements from '../modules/fetchDataForActiveUrlElements'
 
+import buildBerNodes from '../modules/nodes/ber'
+
 import NodeStore from './node'
 import UiStore from './ui'
 import AppStore from './app'
@@ -377,34 +379,7 @@ class Store extends singleton {
   }
 
   @computed get berNodes() {
-    const { activeUrlElements } = this
-    // grab ber as array and sort them by year
-    let ber = Array.from(this.table.ber.values())
-    // show only nodes of active ap
-    const activeAp = this.activeUrlElements.ap
-    ber = ber.filter(a => a.ApArtId === activeAp)
-    // filter by node.nodeLabelFilter
-    const filterString = this.node.nodeLabelFilter.get(`ber`)
-    if (filterString) {
-      ber = ber.filter((p) => {
-        const filterValue = `${p.BerJahr || `(kein Jahr)`}: ${p.BerTitel || `(kein Titel)`}`
-        return filterValue.includes(filterString)
-      })
-    }
-    // sort
-    ber = sortBy(ber, () => `${ber.BerJahr || `(kein Jahr)`}: ${ber.BerTitel || `(kein Titel)`}`)
-    // map through all projekt and create array of nodes
-    return ber.map((el) => {
-      const projId = this.table.ap.get(el.ApArtId).ProjId
-      return {
-        type: `row`,
-        label: `${el.BerJahr || `(kein Jahr)`}: ${el.BerTitel || `(kein Titel)`}`,
-        table: `ber`,
-        row: el,
-        expanded: el.BerId === activeUrlElements.ber,
-        url: [`Projekte`, projId, `Arten`, el.ApArtId, `Berichte`, el.BerId],
-      }
-    })
+    return buildBerNodes(this)
   }
 
   @computed get zielJahreNodes() {
