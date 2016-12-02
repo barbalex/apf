@@ -7,7 +7,7 @@ import getUrls from 'get-urls'
 import styles from './styles.css'
 
 @observer
-class MyTextField extends Component { // eslint-disable-line react/prefer-stateless-function
+class MyTextFieldWithUrl extends Component { // eslint-disable-line react/prefer-stateless-function
 
   static propTypes = {
     label: PropTypes.string.isRequired,
@@ -68,4 +68,4 @@ class MyTextField extends Component { // eslint-disable-line react/prefer-statel
   }
 }
 
-export default MyTextField
+export default MyTextFieldWithUrl
