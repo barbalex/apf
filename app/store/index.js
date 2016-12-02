@@ -10,7 +10,6 @@ import singleton from 'singleton'
 import axios from 'axios'
 import objectValues from 'lodash/values'
 import sortBy from 'lodash/sortBy'
-import uniq from 'lodash/uniq'
 import createHistory from 'history/createBrowserHistory'
 
 import fetchTableModule from '../modules/fetchTable'
@@ -30,7 +29,7 @@ import buildErfkritNodes from '../modules/nodes/erfkrit'
 import buildApberNodes from '../modules/nodes/apber'
 import buildAssozartNodes from '../modules/nodes/assozart'
 import buildApberuebersichtNodes from '../modules/nodes/apberuebersicht'
-import buildZielNodes from '../modules/nodes/ziel'
+import buildZieljahreNodes from '../modules/nodes/zieljahre'
 
 import NodeStore from './node'
 import UiStore from './ui'
@@ -269,43 +268,8 @@ class Store extends singleton {
     return buildBerNodes(this)
   }
 
-  @computed get zielJahreNodes() {
-    const { activeUrlElements } = this
-    // grab ziele as array and sort them by year
-    let ziele = Array.from(this.table.ziel.values())
-    // show only nodes of active ap
-    const activeAp = this.activeUrlElements.ap
-    ziele = ziele.filter(a => a.ApArtId === activeAp)
-    // filter by node.nodeLabelFilter
-    const filterString = this.node.nodeLabelFilter.get(`zieljahr`)
-    if (filterString) {
-      ziele = ziele.filter((p) => {
-        if (p.ZielJahr !== undefined && p.ZielJahr !== null) {
-          return p.ZielJahr.toString().includes(filterString)
-        }
-        return false
-      })
-    }
-    if (ziele.length > 0) {
-      const projId = this.table.ap.get(activeAp).ProjId
-      const zielJahre = uniq(ziele.map(z => z.ZielJahr))
-      // map through all and create array of nodes
-      const store = this
-      const nodes = zielJahre.map((jahr) => {
-        const zielNodes = buildZielNodes(store, jahr)
-        return {
-          type: `folder`,
-          label: `${jahr == null ? `kein Jahr` : jahr} (${zielNodes.length})`,
-          table: `ap`,
-          expanded: jahr && jahr === activeUrlElements.zieljahr,
-          url: [`Projekte`, projId, `Arten`, activeAp, `AP-Ziele`, jahr],
-          children: zielNodes,
-        }
-      })
-      // sort by label and return
-      return sortBy(nodes, `label`)
-    }
-    return []
+  @computed get zieljahreNodes() {
+    return buildZieljahreNodes(this)
   }
 
   @computed get apNodes() {
@@ -350,7 +314,7 @@ class Store extends singleton {
             id: el.ApArtId,
             expanded: activeUrlElements.zielFolder,
             url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `AP-Ziele`],
-            children: this.zielJahreNodes,
+            children: this.zieljahreNodes,
           },
           // erfkrit folder
           {
