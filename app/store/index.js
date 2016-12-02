@@ -30,6 +30,7 @@ import buildApberNodes from '../modules/nodes/apber'
 import buildAssozartNodes from '../modules/nodes/assozart'
 import buildApberuebersichtNodes from '../modules/nodes/apberuebersicht'
 import buildZieljahreNodes from '../modules/nodes/zieljahre'
+import buildProjektNodes from '../modules/nodes/projekt'
 
 import NodeStore from './node'
 import UiStore from './ui'
@@ -204,48 +205,7 @@ class Store extends singleton {
   )
 
   @computed get projektNodes() {
-    // grab projekte as array and sort them by name
-    let projekte = Array.from(this.table.projekt.values())
-    const { activeUrlElements } = this
-    // filter by node.nodeLabelFilter
-    const filterString = this.node.nodeLabelFilter.get(`projekt`)
-    if (filterString) {
-      projekte = projekte.filter(p => p.ProjName.toLowerCase().includes(filterString.toLowerCase()))
-    }
-    // sort
-    projekte = sortBy(projekte, `ProjName`)
-    // map through all projekt and create array of nodes
-    return projekte.map(el => ({
-      type: `row`,
-      label: el.ProjName || `(kein Name)`,
-      table: `projekt`,
-      row: el,
-      expanded: el.ProjId === activeUrlElements.projekt,
-      url: [`Projekte`, el.ProjId],
-      children: [
-        {
-          type: `folder`,
-          label: `Arten (${this.apNodes.length})`,
-          folder: `ap`,
-          table: `projekt`,
-          row: el,
-          expanded: activeUrlElements.apFolder,
-          url: [`Projekte`, el.ProjId, `Arten`],
-          children: this.apNodes,
-        },
-        {
-          type: `folder`,
-          label: `AP-Berichte (${this.apberuebersichtNodes.length})`,
-          folder: `apberuebersicht`,
-          table: `projekt`,
-          row: el,
-          id: el.ProjId,
-          expanded: activeUrlElements.apberuebersichtFolder,
-          url: [`Projekte`, el.ProjId, `AP-Berichte`],
-          children: this.apberuebersichtNodes,
-        },
-      ],
-    }))
+    return buildProjektNodes(this)
   }
 
   @computed get apberuebersichtNodes() {
