@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
-import Linkify from 'react-linkify'
 import TextField from '../../../shared/TextField'
 import styles from './styles.css'
 
@@ -46,19 +45,17 @@ class Ber extends Component { // eslint-disable-line react/prefer-stateless-func
           updateProperty={store.updateProperty}
           updatePropertyInDb={store.updatePropertyInDb}
         />
-        <Linkify>
-          <TextField
-            label="URL"
-            fieldName="BerURL"
-            value={activeDataset.row.BerURL}
-            errorText={activeDataset.valid.BerURL}
-            type="text"
-            multiLine
-            fullWidth
-            updateProperty={store.updateProperty}
-            updatePropertyInDb={store.updatePropertyInDb}
-          />
-        </Linkify>
+        <TextField
+          label="URL"
+          fieldName="BerURL"
+          value={activeDataset.row.BerURL}
+          errorText={activeDataset.valid.BerURL}
+          type="text"
+          multiLine
+          fullWidth
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
         <div style={{ height: `55px` }} />
       </div>
     )
