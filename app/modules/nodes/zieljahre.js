@@ -2,13 +2,12 @@ import uniq from 'lodash/uniq'
 import sortBy from 'lodash/sortBy'
 import buildZielNodes from './ziel'
 
-export default (store) => {
+export default (store, apArtId) => {
   const { activeUrlElements } = store
   // grab ziele as array
   let ziele = Array.from(store.table.ziel.values())
   // show only nodes of active ap
-  const activeAp = store.activeUrlElements.ap
-  ziele = ziele.filter(a => a.ApArtId === activeAp)
+  ziele = ziele.filter(a => a.ApArtId === apArtId)
   // filter by node.nodeLabelFilter
   const filterString = store.node.nodeLabelFilter.get(`zieljahr`)
   if (filterString) {
@@ -20,7 +19,7 @@ export default (store) => {
     })
   }
   if (ziele.length > 0) {
-    const projId = store.table.ap.get(activeAp).ProjId
+    const projId = store.table.ap.get(apArtId).ProjId
     const zielJahre = uniq(ziele.map(z => z.ZielJahr))
     // map through all and create array of nodes
     const nodes = zielJahre.map((jahr) => {
@@ -30,7 +29,7 @@ export default (store) => {
         label: `${jahr == null ? `kein Jahr` : jahr} (${zielNodes.length})`,
         table: `ap`,
         expanded: jahr && jahr === activeUrlElements.zieljahr,
-        url: [`Projekte`, projId, `Arten`, activeAp, `AP-Ziele`, jahr],
+        url: [`Projekte`, projId, `Arten`, apArtId, `AP-Ziele`, jahr],
         children: zielNodes,
       }
     })

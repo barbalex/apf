@@ -5,6 +5,5 @@ export default (node, activeUrl) => {
   if (!node.url) return false
   if (!activeUrl) return false
   const activeUrlPartWithEqualLength = activeUrl.slice(0, node.url.length)
-  const nodeIsInActiveNodePath = isEqual(activeUrlPartWithEqualLength, node.url)
-  return nodeIsInActiveNodePath
+  return isEqual(activeUrlPartWithEqualLength, node.url)
 }

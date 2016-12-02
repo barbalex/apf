@@ -1,12 +1,11 @@
 import sortBy from 'lodash/sortBy'
 
-export default (store) => {
+export default (store, apArtId) => {
   const { activeUrlElements } = store
   // grab erfkrit as array and sort them by year
   let erfkrit = Array.from(store.table.erfkrit.values())
   // show only nodes of active ap
-  const activeAp = store.activeUrlElements.ap
-  erfkrit = erfkrit.filter(a => a.ApArtId === activeAp)
+  erfkrit = erfkrit.filter(a => a.ApArtId === apArtId)
   // get erfkritWerte
   const apErfkritWerte = Array.from(store.table.ap_erfkrit_werte.values())
   // map through all projekt and create array of nodes

@@ -1,12 +1,11 @@
 import sortBy from 'lodash/sortBy'
 
-export default (store) => {
+export default (store, apArtId) => {
   const { activeUrlElements } = store
   // grab ber as array and sort them by year
   let ber = Array.from(store.table.ber.values())
   // show only nodes of active ap
-  const activeAp = store.activeUrlElements.ap
-  ber = ber.filter(a => a.ApArtId === activeAp)
+  ber = ber.filter(a => a.ApArtId === apArtId)
   // filter by node.nodeLabelFilter
   const filterString = store.node.nodeLabelFilter.get(`ber`)
   if (filterString) {

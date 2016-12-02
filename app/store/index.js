@@ -24,11 +24,8 @@ import getActiveUrlElements from '../modules/getActiveUrlElements'
 import fetchDataForActiveUrlElements from '../modules/fetchDataForActiveUrlElements'
 
 import buildBerNodes from '../modules/nodes/ber'
-import buildErfkritNodes from '../modules/nodes/erfkrit'
-import buildApberNodes from '../modules/nodes/apber'
 import buildAssozartNodes from '../modules/nodes/assozart'
 import buildApberuebersichtNodes from '../modules/nodes/apberuebersicht'
-import buildZieljahreNodes from '../modules/nodes/zieljahre'
 import buildProjektNodes from '../modules/nodes/projekt'
 import buildApNodes from '../modules/nodes/ap'
 
@@ -210,26 +207,6 @@ class Store extends singleton {
 
   @computed get apberuebersichtNodes() {
     return buildApberuebersichtNodes(this)
-  }
-
-  @computed get assozartNodes() {
-    return buildAssozartNodes(this)
-  }
-
-  @computed get apberNodes() {
-    return buildApberNodes(this)
-  }
-
-  @computed get erfkritNodes() {
-    return buildErfkritNodes(this)
-  }
-
-  @computed get berNodes() {
-    return buildBerNodes(this)
-  }
-
-  @computed get zieljahreNodes() {
-    return buildZieljahreNodes(this)
   }
 
   @computed get apNodes() {

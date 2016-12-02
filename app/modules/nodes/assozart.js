@@ -1,12 +1,11 @@
 import sortBy from 'lodash/sortBy'
 
-export default (store) => {
+export default (store, apArtId) => {
   const { activeUrlElements } = store
   // grab assozart as array and sort them by year
   let assozart = Array.from(store.table.assozart.values())
   // show only nodes of active ap
-  const activeAp = store.activeUrlElements.ap
-  assozart = assozart.filter(a => a.AaApArtId === activeAp)
+  assozart = assozart.filter(a => a.AaApArtId === apArtId)
   // map through all projekt and create array of nodes
   let nodes = assozart.map((el) => {
     let label = `...`

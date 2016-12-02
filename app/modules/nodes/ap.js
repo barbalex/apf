@@ -1,4 +1,9 @@
 import sortBy from 'lodash/sortBy'
+import zieljahreNodes from './zieljahre'
+import erfkritNodes from './erfkrit'
+import apberNodes from './apber'
+import berNodes from './ber'
+import assozartNodes from './assozart'
 
 export default (store) => {
   const { activeUrlElements } = store
@@ -15,6 +20,11 @@ export default (store) => {
       label = adb_eigenschaften.get(el.ApArtId).Artname
     }
     const ziele = Array.from(store.table.ziel.values()).filter(a => a.ApArtId === el.ApArtId)
+    const myErfkritNodes = erfkritNodes(store, el.ApArtId)
+    const myZieljahreNodes = zieljahreNodes(store, el.ApArtId)
+    const myApberNodes = apberNodes(store, el.ApArtId)
+    const myBerNodes = berNodes(store, el.ApArtId)
+    const myAssozartNodes = assozartNodes(store, el.ApArtId)
     return {
       type: `row`,
       label,
@@ -43,40 +53,40 @@ export default (store) => {
           id: el.ApArtId,
           expanded: activeUrlElements.zielFolder,
           url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `AP-Ziele`],
-          children: store.zieljahreNodes,
+          children: myZieljahreNodes,
         },
         // erfkrit folder
         {
           type: `folder`,
-          label: `AP-Erfolgskriterien (${store.erfkritNodes.length})`,
+          label: `AP-Erfolgskriterien (${myErfkritNodes.length})`,
           table: `ap`,
           row: el,
           id: el.ApArtId,
           expanded: activeUrlElements.erfkritFolder,
           url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `AP-Erfolgskriterien`],
-          children: store.erfkritNodes,
+          children: myErfkritNodes,
         },
         // apber folder
         {
           type: `folder`,
-          label: `AP-Berichte (${store.apberNodes.length})`,
+          label: `AP-Berichte (${myApberNodes.length})`,
           table: `ap`,
           row: el,
           id: el.ApArtId,
           expanded: activeUrlElements.apberFolder,
           url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `AP-Berichte`],
-          children: store.apberNodes,
+          children: myApberNodes,
         },
         // ber folder
         {
           type: `folder`,
-          label: `Berichte (${store.berNodes.length})`,
+          label: `Berichte (${myBerNodes.length})`,
           table: `ap`,
           row: el,
           id: el.ApArtId,
           expanded: activeUrlElements.berFolder,
           url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `Berichte`],
-          children: store.berNodes,
+          children: myBerNodes,
         },
         // beobNichtBeurteilt folder
         {
@@ -113,13 +123,13 @@ export default (store) => {
         // assozarten folder
         {
           type: `folder`,
-          label: `assoziierte Arten (${store.assozartNodes.length})`,
+          label: `assoziierte Arten (${myAssozartNodes.length})`,
           table: `ap`,
           row: el,
           id: el.ApArtId,
           expanded: activeUrlElements.assozartFolder,
           url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `assoziierte-Arten`],
-          children: store.assozartNodes,
+          children: myAssozartNodes,
         },
         // qk folder
         {
