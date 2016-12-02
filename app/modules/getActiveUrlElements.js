@@ -21,9 +21,10 @@ export default (url) => {
   const erfkritFolder = (ap && url.length > 4 && url[4] === `AP-Erfolgskriterien`) || false
   const erfkrit = erfkritFolder && url.length > 5 ? parseInt(url[5], 10) : null
   const zielFolder = (ap && url.length > 4 && url[4] === `AP-Ziele`) || false
-  const ziel = zielFolder && url.length > 5 ? parseInt(url[5], 10) : null
-  const zielberFolder = (ziel && url.length > 6 && url[6] === `Berichte`) || false
-  const zielber = zielberFolder && url.length > 7 ? parseInt(url[7], 10) : null
+  const zieljahr = zielFolder && url.length > 5 ? parseInt(url[5], 10) : null
+  const ziel = zieljahr && url.length > 6 ? parseInt(url[6], 10) : null
+  const zielberFolder = (ziel && url.length > 7 && url[7] === `Berichte`) || false
+  const zielber = zielberFolder && url.length > 8 ? parseInt(url[8], 10) : null
   const popFolder = (ap && url.length > 4 && url[4] === `Populationen`) || false
   const pop = popFolder && url.length > 5 ? parseInt(url[5], 10) : null
   const popberFolder = (pop && url.length > 6 && url[6] === `Kontroll-Berichte`) || false
@@ -70,6 +71,7 @@ export default (url) => {
     erfkritFolder,
     erfkrit,
     zielFolder,
+    zieljahr,
     ziel,
     zielberFolder,
     zielber,

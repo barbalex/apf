@@ -54,6 +54,9 @@ export default (store) => {
     zielFolder() {
       store.fetchTableByParentId(`apflora`, `ziel`, activeElements.ap)
     },
+    zieljahr() {
+      store.fetchTableByParentId(`apflora`, `ziel`, activeElements.ap)
+    },
     zielberFolder() {
       store.fetchTableByParentId(`apflora`, `zielber`, activeElements.ziel)
     },

@@ -12,6 +12,7 @@ import objectValues from 'lodash/values'
 import sortBy from 'lodash/sortBy'
 import groupBy from 'lodash/groupBy'
 import map from 'lodash/map'
+import clone from 'lodash/clone'
 import createHistory from 'history/createBrowserHistory'
 
 import fetchTableModule from '../modules/fetchTable'
@@ -30,6 +31,7 @@ import buildBerNodes from '../modules/nodes/ber'
 import buildErfkritNodes from '../modules/nodes/erfkrit'
 import buildApberNodes from '../modules/nodes/apber'
 import buildAssozartNodes from '../modules/nodes/assozart'
+import buildApberuebersichtNodes from '../modules/nodes/apberuebersicht'
 
 import NodeStore from './node'
 import UiStore from './ui'
@@ -249,28 +251,7 @@ class Store extends singleton {
   }
 
   @computed get apberuebersichtNodes() {
-    const { activeUrlElements } = this
-    // grab apberuebersicht as array and sort them by year
-    let apberuebersicht = Array.from(this.table.apberuebersicht.values())
-    // show only nodes of active projekt
-    const activeProjekt = this.activeUrlElements.projekt
-    apberuebersicht = apberuebersicht.filter(a => a.ProjId === activeProjekt)
-    // filter by node.nodeLabelFilter
-    const filterString = this.node.nodeLabelFilter.get(`apberuebersicht`)
-    if (filterString) {
-      apberuebersicht = apberuebersicht.filter(p => p.JbuJahr.toString().includes(filterString))
-    }
-    // sort
-    apberuebersicht = sortBy(apberuebersicht, `JbuJahr`)
-    // map through all projekt and create array of nodes
-    return apberuebersicht.map(el => ({
-      type: `row`,
-      label: el.JbuJahr,
-      table: `apberuebersicht`,
-      row: el,
-      expanded: el.JbuJahr === activeUrlElements.apberuebersicht,
-      url: [`Projekte`, el.ProjId, `AP-Berichte`, el.JbuJahr],
-    }))
+    return buildApberuebersichtNodes(this)
   }
 
   @computed get assozartNodes() {
@@ -293,32 +274,35 @@ class Store extends singleton {
     const { activeUrlElements } = this
     // grab ziele as array and sort them by year
     let ziele = Array.from(this.table.ziel.values())
+    console.log(`zielJahreNodes: ziele:`, clone(ziele))
     // show only nodes of active ap
     const activeAp = this.activeUrlElements.ap
+    console.log(`zielJahreNodes: activeAp:`, activeAp)
+    const projId = this.table.ap.get(activeAp).ProjId
+    console.log(`zielJahreNodes: projId:`, projId)
     ziele = ziele.filter(a => a.ApArtId === activeAp)
-    // get zielWerte
+    console.log(`zielJahreNodes: ziele filtered for ap:`, clone(ziele))
+    // filter by node.nodeLabelFilter
+    const filterString = this.node.nodeLabelFilter.get(`zieljahr`)
+    console.log(`zielJahreNodes: filterString:`, filterString)
+    if (filterString) {
+      ziele = ziele.filter((p) => {
+        if (p.ZielJahr !== undefined && p.ZielJahr !== null) {
+          return p.ZielJahr.toString().includes(filterString)
+        }
+        return false
+      })
+    }
     const zielJahre = groupBy(ziele, `ZielJahr`)
     // map through all and create array of nodes
-    let nodes = map(zielJahre, (el) => {
-      const projId = this.table.ap.get(el.ApArtId).ProjId
-      const zielWert = zieltypWerte.find(e => e.ZieltypId === el.ZielTyp)
-      const zieltypTxt = zielWert ? zielWert.ZieltypTxt : `kein Zieltyp`
-      return {
-        type: `folder`,
-        label: zielJahr,
-        table: `ap`,
-        row: el,
-        expanded: el.ZielId === activeUrlElements.ziel,
-        url: [`Projekte`, projId, `Arten`, el.ApArtId, `AP-Ziele`, el.ZielId],
-      }
-    })
-    // filter by node.nodeLabelFilter
-    const filterString = this.node.nodeLabelFilter.get(`ziel`)
-    if (filterString) {
-      nodes = nodes.filter(p =>
-        p.label.toLowerCase().includes(filterString.toLowerCase())
-      )
-    }
+    const nodes = map(zielJahre, (el, jahr) => ({
+      type: `folder`,
+      label: `${el[0].ZielJahr || `kein Jahr`} (${this.zielNodes.length})`,
+      table: `ap`,
+      expanded: jahr === activeUrlElements.zieljahr,
+      url: [`Projekte`, projId, `Arten`, activeAp, `AP-Ziele`, jahr],
+      children: this.zielNodes,
+    }))
     // sort by label and return
     return sortBy(nodes, `label`)
   }
@@ -343,7 +327,7 @@ class Store extends singleton {
         table: `ziel`,
         row: el,
         expanded: el.ZielId === activeUrlElements.ziel,
-        url: [`Projekte`, projId, `Arten`, el.ApArtId, `AP-Ziele`, el.ZielId],
+        url: [`Projekte`, projId, `Arten`, el.ApArtId, `AP-Ziele`, el.ZielJahr, el.ZielId],
       }
     })
     // filter by node.nodeLabelFilter
@@ -399,7 +383,7 @@ class Store extends singleton {
             id: el.ApArtId,
             expanded: activeUrlElements.zielFolder,
             url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `AP-Ziele`],
-            children: this.zielNodes,
+            children: this.zielJahreNodes,
           },
           // erfkrit folder
           {

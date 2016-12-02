@@ -12,6 +12,7 @@ export default (store) => {
       activeDataset = { table: `apberuebersicht`, row: store.table.apberuebersicht.get(aEl.apberuebersicht) }
       activeNode = store.apNodes.find(n => n.row.JbuJahr === aEl.apberuebersicht)
     } else if (aEl.ap) {
+      // TODO: integrate zieljahr?
       if (aEl.ziel) {
         if (aEl.zielber) {
           activeDataset = { table: `zielber`, row: store.table.zielber.get(aEl.zielber) }
