@@ -4,7 +4,7 @@ import buildZielNodes from './ziel'
 
 export default (store) => {
   const { activeUrlElements } = store
-  // grab ziele as array and sort them by year
+  // grab ziele as array
   let ziele = Array.from(store.table.ziel.values())
   // show only nodes of active ap
   const activeAp = store.activeUrlElements.ap

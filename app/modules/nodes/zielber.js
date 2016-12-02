@@ -7,15 +7,17 @@ export default (store, zielId) => {
   zielbere = zielbere.filter(a => a.ZielId === zielId)
   // map through all and create array of nodes
   let nodes = zielbere.map((el) => {
-    const ApArtId = store.table.ziel.get(el.ZielId).ApArtId
+    const ziel = store.table.ziel.get(el.ZielId)
+    const ApArtId = ziel.ApArtId
     const projId = store.table.ap.get(ApArtId).ProjId
+    const zielJahr = ziel.ZielJahr
     return {
       type: `row`,
       label: `${el.ZielBerJahr || `(kein Jahr)`}: ${el.ZielBerErreichung || `(keine Entwicklung)`}`,
       table: `zielber`,
       row: el,
-      expanded: el.ZielId === activeUrlElements.zielberFolder,
-      url: [`Projekte`, projId, `Arten`, ApArtId, `AP-Ziele`, el.ZielJahr, el.ZielId, `Ziel-Berichte`, el.ZielBerId],
+      expanded: el.ZielBerId === activeUrlElements.zielber,
+      url: [`Projekte`, projId, `Arten`, ApArtId, `AP-Ziele`, zielJahr, el.ZielId, `Berichte`, el.ZielBerId],
     }
   })
   // filter by node.nodeLabelFilter

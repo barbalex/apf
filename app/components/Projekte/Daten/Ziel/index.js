@@ -8,7 +8,7 @@ import styles from './styles.css'
 
 @inject(`store`)
 @observer
-class Apber extends Component { // eslint-disable-line react/prefer-stateless-function
+class Ziel extends Component { // eslint-disable-line react/prefer-stateless-function
 
   static propTypes = {
     store: PropTypes.object,
@@ -67,4 +67,4 @@ class Apber extends Component { // eslint-disable-line react/prefer-stateless-fu
   }
 }
 
-export default Apber
+export default Ziel

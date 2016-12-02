@@ -3,7 +3,7 @@ import zielberNodes from './zielber'
 
 export default (store, jahr) => {
   const { activeUrlElements } = store
-  // grab ziele as array and sort them by year
+  // grab ziele as array
   let ziele = Array.from(store.table.ziel.values())
   // show only nodes of active ap
   const activeAp = store.activeUrlElements.ap
@@ -33,11 +33,11 @@ export default (store, jahr) => {
       children: [
         {
           type: `folder`,
-          label: `Ziel-Berichte (${myZielberNodes.length})`,
+          label: `Berichte (${myZielberNodes.length})`,
           table: `ziel`,
           row: el,
           expanded: el.ZielId === activeUrlElements.ziel && activeUrlElements.zielberFolder,
-          url: [`Projekte`, projId, `Arten`, el.ApArtId, `AP-Ziele`, el.ZielJahr, el.ZielId, `Ziel-Berichte`],
+          url: [`Projekte`, projId, `Arten`, el.ApArtId, `AP-Ziele`, el.ZielJahr, el.ZielId, `Berichte`],
           children: myZielberNodes,
         },
       ],

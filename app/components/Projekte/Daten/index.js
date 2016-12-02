@@ -17,6 +17,7 @@ import Assozart from './Assozart'
 import Idealbiotop from './Idealbiotop'
 import Ber from './Ber'
 import Ziel from './Ziel'
+import Zielber from './Zielber'
 
 @inject(`store`)
 @observer
@@ -42,6 +43,7 @@ class Daten extends Component { // eslint-disable-line react/prefer-stateless-fu
       apber: <Apber />,
       ber: <Ber />,
       ziel: <Ziel />,
+      zielber: <Zielber />,
       pop: <Pop />,
     }
     const standardForm = (

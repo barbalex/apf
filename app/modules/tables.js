@@ -149,7 +149,7 @@ export default [
   {
     database: `apflora`,
     table: `zielber`,
-    label: `Ziel-Berichte`,
+    label: `Berichte`,
     idField: `ZielBerId`,
     parentIdField: `ZielId`,
     mutWannField: `MutWann`,

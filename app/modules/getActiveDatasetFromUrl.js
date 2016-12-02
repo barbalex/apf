@@ -16,8 +16,9 @@ export default (store) => {
       if (aEl.ziel) {
         if (aEl.zielber) {
           activeDataset = { table: `zielber`, row: store.table.zielber.get(aEl.zielber) }
+        } else {
+          activeDataset = { table: `ziel`, row: store.table.ziel.get(aEl.ziel) }
         }
-        activeDataset = { table: `ziel`, row: store.table.ziel.get(aEl.ziel) }
       } else if (aEl.erfkrit) {
         activeDataset = { table: `erfkrit`, row: store.table.erfkrit.get(aEl.erfkrit) }
       } else if (aEl.apber) {
