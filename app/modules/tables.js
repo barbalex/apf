@@ -138,13 +138,6 @@ export default [
     parentIdField: `ApArtId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
-    label_(row, data) {
-      if (!row || !data.zielTyp) return noLabel
-      const zielTyp = data.zielTyp.find(e => e.DomainCode === row.ZielTyp)
-      if (!zielTyp) return noLabel
-      const zielTypTxt = zielTyp.DomainTxt || noLabel
-      return `${row.ZielJahr || `(kein Jahr)`}: ${row.ZielBezeichnung} (${zielTypTxt})`
-    },
   },
   {
     database: `apflora`,
