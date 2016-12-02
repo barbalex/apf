@@ -9,7 +9,6 @@ import { action, autorun, transaction, computed, observable } from 'mobx'
 import singleton from 'singleton'
 import axios from 'axios'
 import objectValues from 'lodash/values'
-import sortBy from 'lodash/sortBy'
 import createHistory from 'history/createBrowserHistory'
 
 import fetchTableModule from '../modules/fetchTable'
@@ -31,6 +30,7 @@ import buildAssozartNodes from '../modules/nodes/assozart'
 import buildApberuebersichtNodes from '../modules/nodes/apberuebersicht'
 import buildZieljahreNodes from '../modules/nodes/zieljahre'
 import buildProjektNodes from '../modules/nodes/projekt'
+import buildApNodes from '../modules/nodes/ap'
 
 import NodeStore from './node'
 import UiStore from './ui'
@@ -233,147 +233,7 @@ class Store extends singleton {
   }
 
   @computed get apNodes() {
-    const { activeUrlElements } = this
-    // grab ape as array and sort them by name
-    let ap = Array.from(this.table.ap.values())
-    // show only ap of active projekt
-    const activeProjekt = this.activeUrlElements.projekt
-    ap = ap.filter(a => a.ProjId === activeProjekt)
-    // map through all ap and create array of nodes
-    let nodes = ap.map((el) => {
-      let label = `...`
-      const { adb_eigenschaften } = this.table
-      if (adb_eigenschaften.size > 0) {
-        label = adb_eigenschaften.get(el.ApArtId).Artname
-      }
-      return {
-        type: `row`,
-        label,
-        table: `ap`,
-        row: el,
-        expanded: el.ApArtId === activeUrlElements.ap,
-        url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId],
-        children: [
-          // pop folder
-          {
-            type: `folder`,
-            label: `Populationen. TODO: add number`,
-            table: `ap`,
-            row: el,
-            id: el.ApArtId,
-            expanded: activeUrlElements.popFolder,
-            url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `Populationen`],
-            children: [],
-          },
-          // ziel folder
-          {
-            type: `folder`,
-            label: `AP-Ziele`,
-            table: `ap`,
-            row: el,
-            id: el.ApArtId,
-            expanded: activeUrlElements.zielFolder,
-            url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `AP-Ziele`],
-            children: this.zieljahreNodes,
-          },
-          // erfkrit folder
-          {
-            type: `folder`,
-            label: `AP-Erfolgskriterien (${this.erfkritNodes.length})`,
-            table: `ap`,
-            row: el,
-            id: el.ApArtId,
-            expanded: activeUrlElements.erfkritFolder,
-            url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `AP-Erfolgskriterien`],
-            children: this.erfkritNodes,
-          },
-          // apber folder
-          {
-            type: `folder`,
-            label: `AP-Berichte (${this.apberNodes.length})`,
-            table: `ap`,
-            row: el,
-            id: el.ApArtId,
-            expanded: activeUrlElements.apberFolder,
-            url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `AP-Berichte`],
-            children: this.apberNodes,
-          },
-          // ber folder
-          {
-            type: `folder`,
-            label: `Berichte (${this.berNodes.length})`,
-            table: `ap`,
-            row: el,
-            id: el.ApArtId,
-            expanded: activeUrlElements.berFolder,
-            url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `Berichte`],
-            children: this.berNodes,
-          },
-          // beobNichtBeurteilt folder
-          {
-            type: `folder`,
-            label: `nicht beurteilte Beobachtungen. TODO: add number`,
-            table: `ap`,
-            row: el,
-            id: el.ApArtId,
-            expanded: activeUrlElements.beobzuordnungFolder,
-            url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `nicht-beurteilte-Beobachtungen`],
-            children: [],
-          },
-          // beobNichtZuzuordnen folder
-          {
-            type: `folder`,
-            label: `nicht zuzuordnende Beobachtungen. TODO: add number`,
-            table: `ap`,
-            row: el,
-            id: el.ApArtId,
-            expanded: activeUrlElements.beobNichtZuzuordnenFolder,
-            url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `nicht-zuzuordnende-Beobachtungen`],
-            children: [],
-          },
-          // idealbiotop folder
-          {
-            type: `folder`,
-            label: `Idealbiotop`,
-            table: `idealbiotop`,
-            row: el,
-            id: el.ApArtId,
-            expanded: activeUrlElements.idealbiotopFolder,
-            url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `Idealbiotop`],
-          },
-          // assozarten folder
-          {
-            type: `folder`,
-            label: `assoziierte Arten (${this.assozartNodes.length})`,
-            table: `ap`,
-            row: el,
-            id: el.ApArtId,
-            expanded: activeUrlElements.assozartFolder,
-            url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `assoziierte-Arten`],
-            children: this.assozartNodes,
-          },
-          // qk folder
-          {
-            type: `folder`,
-            label: `Qualitätskontrollen`,
-            table: `ap`,
-            row: el,
-            id: el.ApArtId,
-            expanded: false,
-            url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `Qualitätskontrollen`],
-          },
-        ],
-      }
-    })
-    // filter by node.nodeLabelFilter
-    const filterString = this.node.nodeLabelFilter.get(`ap`)
-    if (filterString) {
-      nodes = nodes.filter(p =>
-        p.label.toLowerCase().includes(filterString.toLowerCase())
-      )
-    }
-    // sort by label and return
-    return sortBy(nodes, `label`)
+    return buildApNodes(this)
   }
 }
 
