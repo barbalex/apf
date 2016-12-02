@@ -23,6 +23,9 @@ export default (store) => {
       store.fetchTable(`apflora`, `ap_erfkrit_werte`)
       store.fetchTableByParentId(`apflora`, `erfkrit`, activeElements.ap)
       store.fetchTableByParentId(`apflora`, `ber`, activeElements.ap)
+      store.fetchTable(`apflora`, `ziel_typ_werte`)
+      store.fetchTableByParentId(`apflora`, `ziel`, activeElements.ap)
+      store.fetchTableByParentId(`apflora`, `pop`, activeElements.ap)
       // TODO: add more folders
     },
     assozartFolder() {

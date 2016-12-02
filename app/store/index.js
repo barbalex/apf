@@ -390,6 +390,37 @@ class Store extends singleton {
     })
   }
 
+  @computed get zielNodes() {
+    const { activeUrlElements } = this
+    // grab ziele as array and sort them by year
+    const ziele = Array.from(this.table.ziel.values())
+    // get zielWerte
+    const zieltypWerte = Array.from(this.table.ziel_typ_werte.values())
+    // map through all and create array of nodes
+    let nodes = ziele.map((el) => {
+      const projId = this.table.ap.get(el.ApArtId).ProjId
+      const zielWert = zieltypWerte.find(e => e.ZieltypId === el.ZielTyp)
+      const zieltypTxt = zielWert ? zielWert.ZieltypTxt : `kein Zieltyp`
+      return {
+        type: `row`,
+        label: `${el.ZielJahr || `(kein Jahr)`}: ${el.ZielBezeichnung || `(kein Ziel)`} (${zieltypTxt})`,
+        table: `ziel`,
+        row: el,
+        expanded: el.ZielId === activeUrlElements.ziel,
+        url: [`Projekte`, projId, `Arten`, el.ApArtId, `AP-Ziele`, el.ZielId],
+      }
+    })
+    // filter by node.nodeLabelFilter
+    const filterString = this.node.nodeLabelFilter.get(`ziel`)
+    if (filterString) {
+      nodes = nodes.filter(p =>
+        p.label.toLowerCase().includes(filterString.toLowerCase())
+      )
+    }
+    // sort by label and return
+    return sortBy(nodes, `label`)
+  }
+
   @computed get apNodes() {
     const { activeUrlElements } = this
     // grab ape as array and sort them by name
@@ -423,13 +454,13 @@ class Store extends singleton {
           // ziel folder
           {
             type: `folder`,
-            label: `AP-Ziele. TODO: add number`,
+            label: `AP-Ziele (${this.zielNodes.length})`,
             table: `ap`,
             row: el,
             id: el.ApArtId,
             expanded: activeUrlElements.zielFolder,
             url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `AP-Ziele`],
-            children: [],
+            children: this.zielNodes,
           },
           // erfkrit folder
           {
@@ -499,7 +530,7 @@ class Store extends singleton {
           // assozarten folder
           {
             type: `folder`,
-            label: `assoziierte Arten. (${this.assozartNodes.length})`,
+            label: `assoziierte Arten (${this.assozartNodes.length})`,
             table: `ap`,
             row: el,
             id: el.ApArtId,
