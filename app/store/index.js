@@ -27,6 +27,7 @@ import getActiveUrlElements from '../modules/getActiveUrlElements'
 import fetchDataForActiveUrlElements from '../modules/fetchDataForActiveUrlElements'
 
 import buildBerNodes from '../modules/nodes/ber'
+import buildErfkritNodes from '../modules/nodes/erfkrit'
 
 import NodeStore from './node'
 import UiStore from './ui'
@@ -343,39 +344,7 @@ class Store extends singleton {
   }
 
   @computed get erfkritNodes() {
-    const { activeUrlElements } = this
-    // grab erfkrit as array and sort them by year
-    let erfkrit = Array.from(this.table.erfkrit.values())
-    // show only nodes of active ap
-    const activeAp = this.activeUrlElements.ap
-    erfkrit = erfkrit.filter(a => a.ApArtId === activeAp)
-    // get erfkritWerte
-    const apErfkritWerte = Array.from(this.table.ap_erfkrit_werte.values())
-    // map through all projekt and create array of nodes
-    let nodes = erfkrit.map((el) => {
-      const projId = this.table.ap.get(el.ApArtId).ProjId
-      const erfkritWert = apErfkritWerte.find(e => e.BeurteilId === el.ErfkritErreichungsgrad)
-      const beurteilTxt = erfkritWert ? erfkritWert.BeurteilTxt : null
-      const erfkritSort = erfkritWert ? erfkritWert.BeurteilOrd : null
-      return {
-        type: `row`,
-        label: `${beurteilTxt || `(nicht beurteilt)`}: ${el.ErfkritTxt || `(keine Kriterien erfasst)`}`,
-        table: `erfkrit`,
-        row: el,
-        expanded: el.ErfkritId === activeUrlElements.erfkrit,
-        url: [`Projekte`, projId, `Arten`, el.ApArtId, `AP-Erfolgskriterien`, el.ErfkritId],
-        sort: erfkritSort,
-      }
-    })
-    // filter by node.nodeLabelFilter
-    const filterString = this.node.nodeLabelFilter.get(`erfkrit`)
-    if (filterString) {
-      nodes = nodes.filter(p =>
-        p.label.toLowerCase().includes(filterString.toLowerCase())
-      )
-    }
-    // sort by label and return
-    return sortBy(nodes, `sort`)
+    return buildErfkritNodes(this)
   }
 
   @computed get berNodes() {
