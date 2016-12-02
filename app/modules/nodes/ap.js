@@ -4,6 +4,7 @@ import erfkritNodes from './erfkrit'
 import apberNodes from './apber'
 import berNodes from './ber'
 import assozartNodes from './assozart'
+import popNodes from './pop'
 
 export default (store) => {
   const { activeUrlElements } = store
@@ -25,6 +26,7 @@ export default (store) => {
     const myApberNodes = apberNodes(store, el.ApArtId)
     const myBerNodes = berNodes(store, el.ApArtId)
     const myAssozartNodes = assozartNodes(store, el.ApArtId)
+    const myPopNodes = popNodes(store, el.ApArtId)
     return {
       type: `row`,
       label,
@@ -36,13 +38,13 @@ export default (store) => {
         // pop folder
         {
           type: `folder`,
-          label: `Populationen. TODO: add number`,
+          label: `Populationen (${myPopNodes.length})`,
           table: `ap`,
           row: el,
           id: el.ApArtId,
           expanded: activeUrlElements.popFolder,
           url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `Populationen`],
-          children: [],
+          children: myPopNodes,
         },
         // ziel folder
         {
