@@ -52,12 +52,13 @@ class MyTextFieldWithUrl extends Component { // eslint-disable-line react/prefer
           }
         />
         {
-          urls.map(url => (
+          urls.map((url, index) => (
             <FontIcon
               className={[`material-icons`, styles.icon].join(` `)}
               onClick={() => window.open(url, `_blank`)}
               hoverColor={greenA200}
               title={`${url} öffnen`}
+              key={index}
             >
               open_in_new
             </FontIcon>
