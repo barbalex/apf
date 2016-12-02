@@ -14,6 +14,7 @@ export default (store) => {
     if (adb_eigenschaften.size > 0) {
       label = adb_eigenschaften.get(el.ApArtId).Artname
     }
+    const ziele = Array.from(store.table.ziel.values()).filter(a => a.ApArtId === el.ApArtId)
     return {
       type: `row`,
       label,
@@ -36,7 +37,7 @@ export default (store) => {
         // ziel folder
         {
           type: `folder`,
-          label: `AP-Ziele`,
+          label: `AP-Ziele (${ziele.length})`,
           table: `ap`,
           row: el,
           id: el.ApArtId,
