@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import TextField from '../../../shared/TextField'
+import TextFieldWithUrl from '../../../shared/TextFieldWithUrl'
 import styles from './styles.css'
 
 @inject(`store`)
@@ -46,6 +47,17 @@ class Ber extends Component { // eslint-disable-line react/prefer-stateless-func
           updatePropertyInDb={store.updatePropertyInDb}
         />
         <TextField
+          label="URL"
+          fieldName="BerURL"
+          value={activeDataset.row.BerURL}
+          errorText={activeDataset.valid.BerURL}
+          type="text"
+          multiLine
+          fullWidth
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+        <TextFieldWithUrl
           label="URL"
           fieldName="BerURL"
           value={activeDataset.row.BerURL}
