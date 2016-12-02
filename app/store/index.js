@@ -10,9 +10,7 @@ import singleton from 'singleton'
 import axios from 'axios'
 import objectValues from 'lodash/values'
 import sortBy from 'lodash/sortBy'
-import groupBy from 'lodash/groupBy'
-import map from 'lodash/map'
-import clone from 'lodash/clone'
+import uniq from 'lodash/uniq'
 import createHistory from 'history/createBrowserHistory'
 
 import fetchTableModule from '../modules/fetchTable'
@@ -32,6 +30,7 @@ import buildErfkritNodes from '../modules/nodes/erfkrit'
 import buildApberNodes from '../modules/nodes/apber'
 import buildAssozartNodes from '../modules/nodes/assozart'
 import buildApberuebersichtNodes from '../modules/nodes/apberuebersicht'
+import buildZielNodes from '../modules/nodes/ziel'
 
 import NodeStore from './node'
 import UiStore from './ui'
@@ -274,17 +273,12 @@ class Store extends singleton {
     const { activeUrlElements } = this
     // grab ziele as array and sort them by year
     let ziele = Array.from(this.table.ziel.values())
-    console.log(`zielJahreNodes: ziele:`, clone(ziele))
     // show only nodes of active ap
     const activeAp = this.activeUrlElements.ap
-    console.log(`zielJahreNodes: activeAp:`, activeAp)
     const projId = this.table.ap.get(activeAp).ProjId
-    console.log(`zielJahreNodes: projId:`, projId)
     ziele = ziele.filter(a => a.ApArtId === activeAp)
-    console.log(`zielJahreNodes: ziele filtered for ap:`, clone(ziele))
     // filter by node.nodeLabelFilter
     const filterString = this.node.nodeLabelFilter.get(`zieljahr`)
-    console.log(`zielJahreNodes: filterString:`, filterString)
     if (filterString) {
       ziele = ziele.filter((p) => {
         if (p.ZielJahr !== undefined && p.ZielJahr !== null) {
@@ -293,53 +287,28 @@ class Store extends singleton {
         return false
       })
     }
-    const zielJahre = groupBy(ziele, `ZielJahr`)
+    const zielJahre = uniq(ziele.map(z => z.ZielJahr))
     // map through all and create array of nodes
-    const nodes = map(zielJahre, (el, jahr) => ({
-      type: `folder`,
-      label: `${el[0].ZielJahr || `kein Jahr`} (${this.zielNodes.length})`,
-      table: `ap`,
-      expanded: jahr === activeUrlElements.zieljahr,
-      url: [`Projekte`, projId, `Arten`, activeAp, `AP-Ziele`, jahr],
-      children: this.zielNodes,
-    }))
+    const store = this
+    const nodes = zielJahre.map((jahr) => {
+      const zielNodes = buildZielNodes(store, jahr)
+      return {
+        type: `folder`,
+        label: `${jahr === `null` ? `kein Jahr` : jahr} (${zielNodes.length})`,
+        table: `ap`,
+        expanded: jahr === activeUrlElements.zieljahr,
+        url: [`Projekte`, projId, `Arten`, activeAp, `AP-Ziele`, jahr],
+        children: zielNodes,
+      }
+    })
     // sort by label and return
     return sortBy(nodes, `label`)
   }
 
+  /*
   @computed get zielNodes() {
-    const { activeUrlElements } = this
-    // grab ziele as array and sort them by year
-    let ziele = Array.from(this.table.ziel.values())
-    // show only nodes of active ap
-    const activeAp = this.activeUrlElements.ap
-    ziele = ziele.filter(a => a.ApArtId === activeAp)
-    // get zielWerte
-    const zieltypWerte = Array.from(this.table.ziel_typ_werte.values())
-    // map through all and create array of nodes
-    let nodes = ziele.map((el) => {
-      const projId = this.table.ap.get(el.ApArtId).ProjId
-      const zielWert = zieltypWerte.find(e => e.ZieltypId === el.ZielTyp)
-      const zieltypTxt = zielWert ? zielWert.ZieltypTxt : `kein Zieltyp`
-      return {
-        type: `row`,
-        label: `${el.ZielJahr || `(kein Jahr)`}: ${el.ZielBezeichnung || `(kein Ziel)`} (${zieltypTxt})`,
-        table: `ziel`,
-        row: el,
-        expanded: el.ZielId === activeUrlElements.ziel,
-        url: [`Projekte`, projId, `Arten`, el.ApArtId, `AP-Ziele`, el.ZielJahr, el.ZielId],
-      }
-    })
-    // filter by node.nodeLabelFilter
-    const filterString = this.node.nodeLabelFilter.get(`ziel`)
-    if (filterString) {
-      nodes = nodes.filter(p =>
-        p.label.toLowerCase().includes(filterString.toLowerCase())
-      )
-    }
-    // sort by label and return
-    return sortBy(nodes, `label`)
-  }
+    return buildZielNodes(this)
+  }*/
 
   @computed get apNodes() {
     const { activeUrlElements } = this
@@ -377,7 +346,7 @@ class Store extends singleton {
           // ziel folder
           {
             type: `folder`,
-            label: `AP-Ziele (${this.zielNodes.length})`,
+            label: `AP-Ziele`,
             table: `ap`,
             row: el,
             id: el.ApArtId,
