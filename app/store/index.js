@@ -28,6 +28,7 @@ import fetchDataForActiveUrlElements from '../modules/fetchDataForActiveUrlEleme
 
 import buildBerNodes from '../modules/nodes/ber'
 import buildErfkritNodes from '../modules/nodes/erfkrit'
+import buildApberNodes from '../modules/nodes/apber'
 
 import NodeStore from './node'
 import UiStore from './ui'
@@ -311,36 +312,7 @@ class Store extends singleton {
   }
 
   @computed get apberNodes() {
-    const { activeUrlElements } = this
-    // grab apber as array and sort them by year
-    let apber = Array.from(this.table.apber.values())
-    // show only nodes of active ap
-    const activeAp = this.activeUrlElements.ap
-    apber = apber.filter(a => a.ApArtId === activeAp)
-    // filter by node.nodeLabelFilter
-    const filterString = this.node.nodeLabelFilter.get(`apber`)
-    if (filterString) {
-      apber = apber.filter((p) => {
-        if (p.JBerJahr !== undefined && p.JBerJahr !== null) {
-          return p.JBerJahr.toString().includes(filterString)
-        }
-        return false
-      })
-    }
-    // sort
-    apber = sortBy(apber, `JBerJahr`)
-    // map through all projekt and create array of nodes
-    return apber.map((el) => {
-      const projId = this.table.ap.get(el.ApArtId).ProjId
-      return {
-        type: `row`,
-        label: el.JBerJahr || `(kein Jahr)`,
-        table: `apber`,
-        row: el,
-        expanded: el.JBerJahr === activeUrlElements.apber,
-        url: [`Projekte`, projId, `Arten`, el.ApArtId, `AP-Berichte`, el.JBerId],
-      }
-    })
+    return buildApberNodes(this)
   }
 
   @computed get erfkritNodes() {
