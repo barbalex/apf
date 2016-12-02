@@ -8,7 +8,12 @@ export default (store, jahr) => {
   const activeAp = store.activeUrlElements.ap
   ziele = ziele.filter(a => a.ApArtId === activeAp)
   // show only nodes of active zieljahr
-  ziele = ziele.filter(a => a.ZielJahr === jahr)
+  ziele = ziele.filter((a) => {
+    if (jahr === null || jahr === undefined) {
+      return a.ZielJahr !== 0 && !a.ZielJahr
+    }
+    return a.ZielJahr === jahr
+  })
   // get zielWerte
   const zieltypWerte = Array.from(store.table.ziel_typ_werte.values())
   // map through all and create array of nodes
