@@ -11,7 +11,13 @@ export default (store, schemaNamePassed, tableName, parentId) => {
     return new Error(`action fetchTableByParentId: parentId must be passed`)
   }
   const schemaName = schemaNamePassed || `apflora`
+
   // TODO: only fetch if not yet fetched?
+  const parentTable = tables.find(t => t.table === tableName).parentTable
+  if (store.previousActiveUrlElements[parentTable] === parentId) {
+    return
+  }
+
   const idField = tables.find(t => t.table === tableName).idField
   const parentIdField = tables.find(t => t.table === tableName).parentIdField
   store.table[`${tableName}Loading`] = true

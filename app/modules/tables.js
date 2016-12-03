@@ -1,5 +1,4 @@
 /* eslint-disable max-len */
-import { toJS } from 'mobx'
 
 const noLabel = `(kein Name)`
 
@@ -9,6 +8,7 @@ export default [
     table: `ap`,
     label: `Arten`,
     idField: `ApArtId`,
+    parentTable: `projekt`,
     parentIdField: `ProjId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
@@ -18,19 +18,17 @@ export default [
     table: `pop`,
     label: `Populationen`,
     idField: `PopId`,
+    parentTable: `ap`,
     parentIdField: `ApArtId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
-    label_(row) {
-      if (!row) return noLabel
-      return `${row.PopNr || `(keine Nr)`}: ${row.PopName || `(kein Name)`}`
-    },
   },
   {
     database: `apflora`,
     table: `tpop`,
     label: `Teil-Populationen`,
     idField: `TPopId`,
+    parentTable: `pop`,
     parentIdField: `PopId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
@@ -44,6 +42,7 @@ export default [
     table: `tpopkontr`,
     label: `Freiwilligen-Kontrollen`,
     idField: `TPopKontrId`,
+    parentTable: `tpop`,
     parentIdField: `TPopId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
@@ -79,6 +78,7 @@ export default [
     table: `tpopkontrzaehl`,
     label: `Zählungen`,
     idField: `TPopKontrZaehlId`,
+    parentTable: `tpopkontr`,
     parentIdField: `TPopKontrId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
@@ -98,6 +98,7 @@ export default [
     table: `tpopmassn`,
     label: `Massnahmen`,
     idField: `TPopMassnId`,
+    parentTable: `tpop`,
     parentIdField: `TPopId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
@@ -135,6 +136,7 @@ export default [
     table: `ziel`,
     label: `AP-Ziele`,
     idField: `ZielId`,
+    parentTable: `ap`,
     parentIdField: `ApArtId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
@@ -151,6 +153,7 @@ export default [
     table: `zielber`,
     label: `Berichte`,
     idField: `ZielBerId`,
+    parentTable: `ziel`,
     parentIdField: `ZielId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
@@ -160,6 +163,7 @@ export default [
     table: `erfkrit`,
     label: `AP-Erfolgskriterien`,
     idField: `ErfkritId`,
+    parentTable: `ap`,
     parentIdField: `ApArtId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
@@ -169,6 +173,7 @@ export default [
     table: `apber`,
     label: `AP-Berichte`,
     idField: `JBerId`,
+    parentTable: `ap`,
     parentIdField: `ApArtId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
@@ -178,6 +183,7 @@ export default [
     table: `apberuebersicht`,
     label: `AP-Berichte`,
     idField: `JbuJahr`,
+    parentTable: `projekt`,
     parentIdField: `ProjId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
@@ -187,19 +193,17 @@ export default [
     table: `ber`,
     label: `Berichte`,
     idField: `BerId`,
+    parentTable: `ap`,
     parentIdField: `ApArtId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
-    label_(row) {
-      if (!row) return noLabel
-      return `${row.BerJahr || `(kein Jahr)`}: ${row.BerTitel || `(kein Titel)`}`
-    },
   },
   {
     database: `apflora`,
     table: `idealbiotop`,
     label: `Idealbiotop`,
     idField: `IbApArtId`,
+    parentTable: `ap`,
     parentIdField: `IbApArtId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
@@ -209,6 +213,7 @@ export default [
     table: `assozart`,
     label: `assoziierte Arten`,
     idField: `AaId`,
+    parentTable: `ap`,
     parentIdField: `AaApArtId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
@@ -218,6 +223,7 @@ export default [
     table: `popber`,
     label: `Kontroll-Berichte`,
     idField: `PopBerId`,
+    parentTable: `pop`,
     parentIdField: `PopId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
@@ -231,6 +237,7 @@ export default [
     table: `popmassnber`,
     label: `Massnahmen-Berichte`,
     idField: `PopMassnBerId`,
+    parentTable: `pop`,
     parentIdField: `PopId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
@@ -244,6 +251,7 @@ export default [
     table: `tpopber`,
     label: `Kontroll-Berichte`,
     idField: `TPopBerId`,
+    parentTable: `tpop`,
     parentIdField: `TPopId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
@@ -257,6 +265,7 @@ export default [
     table: `tpopmassnber`,
     label: `Massnahmen-Berichte`,
     idField: `TPopMassnBerId`,
+    parentTable: `tpop`,
     parentIdField: `TPopId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
@@ -271,6 +280,7 @@ export default [
     database: `apflora`,
     table: `beobzuordnung`,
     idField: `NO_NOTE`,
+    parentTable: `tpop`,
     parentIdField: `TPopId`,
     filter(row) {
       return !!row.TPopId
@@ -292,6 +302,7 @@ export default [
     database: `apflora`,
     table: `beobzuordnung`,
     idField: `NO_NOTE`,
+    parentTable: ``,
     parentIdField: `NO_NOTE`,
     filter(row) {
       return row.BeobNichtZuordnen && row.BeobNichtZuordnen === 1
@@ -316,6 +327,7 @@ export default [
     database: `apflora`,
     table: `beobzuordnung`,
     idField: `NO_NOTE`,
+    parentTable: ``,
     parentIdField: `NO_NOTE`,
     filter(row) {
       return !row.TPopId && !(row.BeobNichtZuordnen && row.BeobNichtZuordnen === 1)
@@ -341,7 +353,6 @@ export default [
     table: `projekt`,
     label: `Projekte`,
     idField: `ProjId`,
-    parentIdField: ``,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
   },

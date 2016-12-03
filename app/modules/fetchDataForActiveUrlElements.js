@@ -26,20 +26,14 @@ export default (store) => {
       store.fetchTable(`apflora`, `projekt`)
     },
     projekt() {
-      if (!inPreviousActiveUrlElements(`projekt`)) {
-        store.fetchTableByParentId(`apflora`, `ap`, activeUrlElements.projekt)
-        store.fetchTableByParentId(`apflora`, `apberuebersicht`, activeUrlElements.projekt)
-      }
+      store.fetchTableByParentId(`apflora`, `ap`, activeUrlElements.projekt)
+      store.fetchTableByParentId(`apflora`, `apberuebersicht`, activeUrlElements.projekt)
     },
     apberuebersichtFolder() {
-      if (!inPreviousActiveUrlElements(`projekt`)) {
-        store.fetchTableByParentId(`apflora`, `apberuebersicht`, activeUrlElements.projekt)
-      }
+      store.fetchTableByParentId(`apflora`, `apberuebersicht`, activeUrlElements.projekt)
     },
     apFolder() {
-      if (!inPreviousActiveUrlElements(`projekt`)) {
-        store.fetchTableByParentId(`apflora`, `ap`, activeUrlElements.projekt)
-      }
+      store.fetchTableByParentId(`apflora`, `ap`, activeUrlElements.projekt)
       store.fetchTable(`beob`, `adb_eigenschaften`)
     },
     ap() {
