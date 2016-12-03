@@ -6,11 +6,7 @@
 
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
-import mobX from 'mobx'
-import sortBy from 'lodash/sortBy'
-import map from 'lodash/map'
-import SelectField from 'material-ui/SelectField'
-import MenuItem from 'material-ui/MenuItem'
+import TextField from '../../../shared/TextField'
 import styles from './styles.css'
 
 @inject(`store`)
@@ -21,45 +17,30 @@ class Pop extends Component { // eslint-disable-line react/prefer-stateless-func
     store: PropTypes.object,
   }
 
-  componentDidMount() {
-    // fetch dropdown data
-    const { store } = this.props
-  }
-
   render() {
     const { store } = this.props
-    const aeEigenschaften = sortBy(
-      map(
-        mobX.toJS(store.table.adb_eigenschaften).values(),
-        v => ({
-          id: v.TaxonomieId,
-          label: v.Artname,
-        })
-      ),
-      `label`
-    )
-    aeEigenschaften.unshift({
-      label: ``,
-      id: null,
-    })
+    const { activeDataset } = store
+
     return (
       <div className={styles.container}>
-        <SelectField
-          hintText={store.table.adb_eigenschaftenLoading ? `lade Daten...` : ``}
-          fullWidth
-          floatingLabelText="Art"
-          maxHeight={20}
-          value={store.activeDataset && store.activeDataset.row && store.activeDataset.row.ApArtId ? store.activeDataset.row.ApArtId : ``}
-          onChange={(element) => {
-            console.log(`element:`, element)
-          }}
-        >
-          {
-            aeEigenschaften.map((e, index) =>
-              <MenuItem value={e.id} primaryText={e.label} key={index} />
-            )
-          }
-        </SelectField>
+        <TextField
+          label="Nr."
+          fieldName="PopNr"
+          value={activeDataset.row.PopNr}
+          errorText={activeDataset.valid.PopNr}
+          type="number"
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+        <TextField
+          label="Name"
+          fieldName="PopName"
+          value={activeDataset.row.PopName}
+          errorText={activeDataset.valid.PopName}
+          type="text"
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
       </div>
     )
   }
