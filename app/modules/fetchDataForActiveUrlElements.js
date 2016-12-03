@@ -37,25 +37,19 @@ export default (store) => {
       store.fetchTable(`beob`, `adb_eigenschaften`)
     },
     ap() {
-      if (!inPreviousActiveUrlElements(`ap`)) {
-        store.fetchTableByParentId(`apflora`, `assozart`, activeUrlElements.ap)
-        store.fetchTableByParentId(`apflora`, `idealbiotop`, activeUrlElements.ap)
-        store.fetchTableByParentId(`apflora`, `apber`, activeUrlElements.ap)
-        store.fetchTableByParentId(`apflora`, `erfkrit`, activeUrlElements.ap)
-        store.fetchTableByParentId(`apflora`, `ber`, activeUrlElements.ap)
-        store.fetchTableByParentId(`apflora`, `ziel`, activeUrlElements.ap)
-        store.fetchTableByParentId(`apflora`, `pop`, activeUrlElements.ap)
-      }
+      store.fetchTableByParentId(`apflora`, `assozart`, activeUrlElements.ap)
+      store.fetchTableByParentId(`apflora`, `idealbiotop`, activeUrlElements.ap)
+      store.fetchTableByParentId(`apflora`, `apber`, activeUrlElements.ap)
+      store.fetchTableByParentId(`apflora`, `erfkrit`, activeUrlElements.ap)
+      store.fetchTableByParentId(`apflora`, `ber`, activeUrlElements.ap)
+      store.fetchTableByParentId(`apflora`, `ziel`, activeUrlElements.ap)
+      store.fetchTableByParentId(`apflora`, `pop`, activeUrlElements.ap)
     },
     assozartFolder() {
-      if (!inPreviousActiveUrlElements(`ap`)) {
-        store.fetchTableByParentId(`apflora`, `assozart`, activeUrlElements.ap)
-      }
+      store.fetchTableByParentId(`apflora`, `assozart`, activeUrlElements.ap)
     },
     idealbiotopFolder() {
-      if (!inPreviousActiveUrlElements(`ap`)) {
-        store.fetchTableByParentId(`apflora`, `idealbiotop`, activeUrlElements.ap)
-      }
+      store.fetchTableByParentId(`apflora`, `idealbiotop`, activeUrlElements.ap)
     },
     beobNichtZuzuordnenFolder() {
       // TODO
@@ -66,105 +60,67 @@ export default (store) => {
       store.fetchTableByParentId(`apflora`, `ap`, activeUrlElements.projekt)
     },
     berFolder() {
-      if (!inPreviousActiveUrlElements(`ap`)) {
-        store.fetchTableByParentId(`apflora`, `ber`, activeUrlElements.ap)
-      }
+      store.fetchTableByParentId(`apflora`, `ber`, activeUrlElements.ap)
     },
     apberFolder() {
-      if (!inPreviousActiveUrlElements(`ap`)) {
-        store.fetchTableByParentId(`apflora`, `apber`, activeUrlElements.ap)
-      }
+      store.fetchTableByParentId(`apflora`, `apber`, activeUrlElements.ap)
     },
     erfkritFolder() {
-      if (!inPreviousActiveUrlElements(`ap`)) {
-        store.fetchTableByParentId(`apflora`, `erfkrit`, activeUrlElements.ap)
-      }
+      store.fetchTableByParentId(`apflora`, `erfkrit`, activeUrlElements.ap)
       store.fetchTable(`apflora`, `ap_erfkrit_werte`)
     },
     zielFolder() {
-      if (!inPreviousActiveUrlElements(`ap`)) {
-        store.fetchTableByParentId(`apflora`, `ziel`, activeUrlElements.ap)
-      }
+      store.fetchTableByParentId(`apflora`, `ziel`, activeUrlElements.ap)
     },
     zieljahr() {
-      if (!inPreviousActiveUrlElements(`ap`)) {
-        store.fetchTableByParentId(`apflora`, `ziel`, activeUrlElements.ap)
-      }
+      store.fetchTableByParentId(`apflora`, `ziel`, activeUrlElements.ap)
       store.fetchTable(`apflora`, `ziel_typ_werte`)
     },
     ziel() {
-      if (!inPreviousActiveUrlElements(`ziel`)) {
-        store.fetchTableByParentId(`apflora`, `zielber`, activeUrlElements.ziel)
-      }
+      store.fetchTableByParentId(`apflora`, `zielber`, activeUrlElements.ziel)
     },
     zielberFolder() {
-      if (!inPreviousActiveUrlElements(`ziel`)) {
-        store.fetchTableByParentId(`apflora`, `zielber`, activeUrlElements.ziel)
-      }
+      store.fetchTableByParentId(`apflora`, `zielber`, activeUrlElements.ziel)
     },
     zielber() {
-      if (!inPreviousActiveUrlElements(`ziel`)) {
-        store.fetchTableByParentId(`apflora`, `zielber`, activeUrlElements.ziel)
-      }
+      store.fetchTableByParentId(`apflora`, `zielber`, activeUrlElements.ziel)
     },
     popFolder() {
-      if (!inPreviousActiveUrlElements(`pop`)) {
-        store.fetchTableByParentId(`apflora`, `pop`, activeUrlElements.ap)
-      }
+      store.fetchTableByParentId(`apflora`, `pop`, activeUrlElements.ap)
     },
     popberFolder() {
-      if (!inPreviousActiveUrlElements(`pop`)) {
-        store.fetchTableByParentId(`apflora`, `popber`, activeUrlElements.pop)
-      }
+      store.fetchTableByParentId(`apflora`, `popber`, activeUrlElements.pop)
     },
     popmassnberFolder() {
-      if (!inPreviousActiveUrlElements(`pop`)) {
-        store.fetchTableByParentId(`apflora`, `popmassnber`, activeUrlElements.pop)
-      }
+      store.fetchTableByParentId(`apflora`, `popmassnber`, activeUrlElements.pop)
     },
     tpopFolder() {
-      if (!inPreviousActiveUrlElements(`pop`)) {
-        store.fetchTableByParentId(`apflora`, `tpop`, activeUrlElements.pop)
-      }
+      store.fetchTableByParentId(`apflora`, `tpop`, activeUrlElements.pop)
     },
     tpopmassnFolder() {
-      if (!inPreviousActiveUrlElements(`tpop`)) {
-        store.fetchTableByParentId(`apflora`, `tpopmassn`, activeUrlElements.tpop)
-      }
+      store.fetchTableByParentId(`apflora`, `tpopmassn`, activeUrlElements.tpop)
       store.fetchTable(`apflora`, `tpopmassn_typ_werte`)
     },
     tpopmassnberFolder() {
-      if (!inPreviousActiveUrlElements(`tpop`)) {
-        store.fetchTableByParentId(`apflora`, `tpopmassnber`, activeUrlElements.tpop)
-      }
+      store.fetchTableByParentId(`apflora`, `tpopmassnber`, activeUrlElements.tpop)
       store.fetchTable(`apflora`, `tpopmassn_erfbeurt_werte`)
     },
     tpopfeldkontrFolder() {
-      if (!inPreviousActiveUrlElements(`tpop`)) {
-        store.fetchTableByParentId(`apflora`, `tpopkontr`, activeUrlElements.tpop)
-      }
+      store.fetchTableByParentId(`apflora`, `tpopkontr`, activeUrlElements.tpop)
     },
     tpopkontrzaehlFolder() {
-      if (!inPreviousActiveUrlElements(`tpopfeldkontr`)) {
-        store.fetchTableByParentId(`apflora`, `tpopkontrzaehl`, activeUrlElements.tpopfeldkontr)
-      }
+      store.fetchTableByParentId(`apflora`, `tpopkontrzaehl`, activeUrlElements.tpopfeldkontr)
       store.fetchTable(`apflora`, `tpopkontrzaehl_einheit_werte`)
     },
     tpopfreiwkontrFolder() {
-      if (!inPreviousActiveUrlElements(`tpop`)) {
-        store.fetchTableByParentId(`apflora`, `tpopkontr`, activeUrlElements.tpop)
-      }
+      store.fetchTableByParentId(`apflora`, `tpopkontr`, activeUrlElements.tpop)
     },
     tpopberFolder() {
-      if (!inPreviousActiveUrlElements(`tpop`)) {
-        store.fetchTableByParentId(`apflora`, `tpopber`, activeUrlElements.tpop)
-      }
+      store.fetchTableByParentId(`apflora`, `tpopber`, activeUrlElements.tpop)
     },
     tpopBeobzuordnungFolder() {
       // TODO
-      if (!inPreviousActiveUrlElements(`tpop`)) {
-        store.fetchTableByParentId(`apflora`, `ap`, activeUrlElements.tpop)
-      }
+      store.fetchTableByParentId(`apflora`, `ap`, activeUrlElements.tpop)
     },
   }
   // console.log(`reaction updateData: fetchingFromActiveElements:`, fetchingFromActiveElements)
