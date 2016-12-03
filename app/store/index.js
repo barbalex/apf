@@ -69,6 +69,7 @@ class Store extends singleton {
   }
 
   forwardToProjekte = autorun(
+    `forwardToProjekte`,
     () => {
       const { history } = this
       if (history.location.pathname === `/`) {
@@ -78,15 +79,17 @@ class Store extends singleton {
   )
 
   updateActiveUrlElements = autorun(
+    `updateActiveUrlElements`,
     () => {
       this.activeUrlElements = getActiveUrlElements(this.url)
     }
   )
 
   @observable activeUrlElements
-  previousActiveUrlElements
+  @observable previousActiveUrlElements
 
   updateData = autorun(
+    `updateData`,
     () => {
       // if new store, fetch all nodes
       if (storeIsNew(this)) {
@@ -195,6 +198,7 @@ class Store extends singleton {
   @observable activeNode
   @observable activeDataset
   updateActiveDataset = autorun(
+    `updateActiveDataset`,
     () => {
       const { activeDataset, activeNode } = getActiveDatasetFromUrl(this)
       this.activeDataset = activeDataset
