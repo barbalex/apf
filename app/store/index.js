@@ -84,6 +84,7 @@ class Store extends singleton {
   )
 
   @observable activeUrlElements
+  previousActiveUrlElements
 
   updateData = autorun(
     () => {
