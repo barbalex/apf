@@ -8,19 +8,7 @@ import forEach from 'lodash/forEach'
 import clone from 'lodash/clone'
 
 export default (store) => {
-  const { activeUrlElements, previousActiveUrlElements } = store
-  const inPreviousActiveUrlElements = (attribute) => {
-    // console.log(`previousActiveUrlElements:`, previousActiveUrlElements)
-    // console.log(`activeUrlElements:`, activeUrlElements)
-    // console.log(`attribute:`, attribute)
-    return (
-      previousActiveUrlElements &&
-      previousActiveUrlElements[attribute] &&
-      activeUrlElements &&
-      activeUrlElements[attribute] &&
-      previousActiveUrlElements[attribute] === activeUrlElements[attribute]
-    )
-  }
+  const { activeUrlElements } = store
   const fetchingFromActiveElements = {
     projektFolder() {
       store.fetchTable(`apflora`, `projekt`)
