@@ -13,8 +13,14 @@ export default (store, schemaNamePassed, tableName, parentId) => {
   const schemaName = schemaNamePassed || `apflora`
 
   // only fetch if not yet fetched
-  const parentTable = tables.find(t => t.table === tableName).parentTable
-  if (store.previousActiveUrlElements[parentTable] === parentId) {
+  const parentTableTable = tables.find(t => t.table === tableName)
+  const parentTable = parentTableTable ? parentTableTable.parentTable : null
+  if (
+    parentTable &&
+    store.previousActiveUrlElements &&
+    store.previousActiveUrlElements[parentTable] &&
+    store.previousActiveUrlElements[parentTable] === parentId
+  ) {
     return
   }
 
