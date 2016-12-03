@@ -21,12 +21,10 @@ export default (store) => {
       store.fetchTableByParentId(`apflora`, `assozart`, activeElements.ap)
       store.fetchTableByParentId(`apflora`, `idealbiotop`, activeElements.ap)
       store.fetchTableByParentId(`apflora`, `apber`, activeElements.ap)
-      store.fetchTable(`apflora`, `ap_erfkrit_werte`)
       store.fetchTableByParentId(`apflora`, `erfkrit`, activeElements.ap)
       store.fetchTableByParentId(`apflora`, `ber`, activeElements.ap)
       store.fetchTableByParentId(`apflora`, `ziel`, activeElements.ap)
       store.fetchTableByParentId(`apflora`, `pop`, activeElements.ap)
-      // TODO: add more folders
     },
     assozartFolder() {
       store.fetchTableByParentId(`apflora`, `assozart`, activeElements.ap)
@@ -50,6 +48,7 @@ export default (store) => {
     },
     erfkritFolder() {
       store.fetchTableByParentId(`apflora`, `erfkrit`, activeElements.ap)
+      store.fetchTable(`apflora`, `ap_erfkrit_werte`)
     },
     zielFolder() {
       store.fetchTableByParentId(`apflora`, `ziel`, activeElements.ap)
