@@ -47,6 +47,7 @@ const theme = Object.assign({}, darkBaseTheme, {
 window.app = {}
 window.app.store = store
 
+// load immediately because is used to validate active dataset
 store.fetchFields()
 
 ReactDOM.render(
