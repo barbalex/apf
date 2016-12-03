@@ -14,12 +14,6 @@ class Ziel extends Component { // eslint-disable-line react/prefer-stateless-fun
     store: PropTypes.object,
   }
 
-  componentDidMount() {
-    // fetch dropdown data
-    const { store } = this.props
-    store.fetchTable(`apflora`, `ziel_typ_werte`)
-  }
-
   render() {
     const { store } = this.props
     const { activeDataset } = store

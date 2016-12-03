@@ -14,12 +14,6 @@ class Erfkrit extends Component { // eslint-disable-line react/prefer-stateless-
     store: PropTypes.object,
   }
 
-  componentDidMount() {
-    // fetch dropdown data
-    const { store } = this.props
-    store.fetchTable(`apflora`, `ap_erfkrit_werte`)
-  }
-
   render() {
     const { store } = this.props
     let apErfkritWerte = Array.from(store.table.ap_erfkrit_werte.values())

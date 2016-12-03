@@ -16,12 +16,6 @@ class Apber extends Component { // eslint-disable-line react/prefer-stateless-fu
     store: PropTypes.object,
   }
 
-  componentDidMount() {
-    // fetch dropdown data
-    const { store } = this.props
-    store.fetchTable(`apflora`, `ap_erfkrit_werte`)
-  }
-
   render() {
     const { store } = this.props
     const { activeDataset } = store
