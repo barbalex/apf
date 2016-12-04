@@ -9,6 +9,8 @@ import { observer, inject } from 'mobx-react'
 import TextField from '../../../shared/TextField'
 import InfoWithPopover from '../../../shared/InfoWithPopover'
 import Status from '../../../shared/Status'
+import RadioButton from '../../../shared/RadioButton'
+import Label from '../../../shared/Label'
 import styles from './styles.css'
 
 @inject(`store`)
@@ -59,6 +61,12 @@ class Pop extends Component { // eslint-disable-line react/prefer-stateless-func
           bekanntSeitValue={activeDataset.row.PopBekanntSeit}
           bekanntSeitValid={activeDataset.valid.PopBekanntSeit}
           updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+        <Label label="Status unklar" />
+        <RadioButton
+          fieldName="PopHerkunftUnklar"
+          value={activeDataset.row.PopHerkunftUnklar}
           updatePropertyInDb={store.updatePropertyInDb}
         />
       </div>
