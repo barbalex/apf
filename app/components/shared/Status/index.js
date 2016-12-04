@@ -12,7 +12,6 @@ class Status extends Component { // eslint-disable-line react/prefer-stateless-f
     apJahr: PropTypes.number.isRequired,
     herkunftFieldName: PropTypes.string.isRequired,
     herkunftValue: PropTypes.number,
-    herkunftValid: PropTypes.string,
     bekanntSeitFieldName: PropTypes.string,
     bekanntSeitValue: PropTypes.number,
     bekanntSeitValid: PropTypes.string,
@@ -25,7 +24,6 @@ class Status extends Component { // eslint-disable-line react/prefer-stateless-f
       apJahr,
       herkunftFieldName,
       herkunftValue,
-      herkunftValid,
       bekanntSeitFieldName,
       bekanntSeitValue,
       bekanntSeitValid,
@@ -37,25 +35,11 @@ class Status extends Component { // eslint-disable-line react/prefer-stateless-f
       herkunftValue :
       ``
     )
-    const showHerkunft200 = (
-      bekanntSeitValue &&
-      apJahr &&
-      (apJahr <= bekanntSeitValue)
-    )
-    const showHerkunft210 = (
-      bekanntSeitValue &&
-      apJahr &&
-      (apJahr > bekanntSeitValue)
-    )
     const showVorBeginnAp = (
       bekanntSeitValue &&
       apJahr &&
       (apJahr > bekanntSeitValue)
     )
-    console.log(`Status: apJahr:`, apJahr)
-    console.log(`Status: bekanntSeitValue:`, bekanntSeitValue)
-    console.log(`Status: showHerkunft200 (angesiedelt nach Beginn AP):`, showHerkunft200)
-    console.log(`Status: showHerkunft210 (angesiedelt vor Beginn AP):`, showHerkunft210)
     return (
       <div>
         <TextField

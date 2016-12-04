@@ -24,10 +24,6 @@ class Pop extends Component { // eslint-disable-line react/prefer-stateless-func
     const { activeDataset } = store
     const apJahr = store.table.ap.get(activeDataset.row.ApArtId).ApJahr
 
-    console.log(`Pop: apJahr:`, apJahr)
-    console.log(`Pop: activeDataset.row.PopBekanntSeit:`, activeDataset.row.PopBekanntSeit)
-    console.log(`Pop: activeDataset.row.PopHerkunft:`, activeDataset.row.PopHerkunft)
-
     return (
       <div className={styles.container}>
         <TextField
@@ -59,7 +55,6 @@ class Pop extends Component { // eslint-disable-line react/prefer-stateless-func
           apJahr={apJahr}
           herkunftFieldName="PopHerkunft"
           herkunftValue={activeDataset.row.PopHerkunft}
-          herkunftValid={activeDataset.valid.PopHerkunft}
           bekanntSeitFieldName="PopBekanntSeit"
           bekanntSeitValue={activeDataset.row.PopBekanntSeit}
           bekanntSeitValid={activeDataset.valid.PopBekanntSeit}
