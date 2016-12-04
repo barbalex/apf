@@ -43,14 +43,9 @@ class Pop extends Component { // eslint-disable-line react/prefer-stateless-func
             updateProperty={store.updateProperty}
             updatePropertyInDb={store.updatePropertyInDb}
           />
-          <InfoWithPopover className={styles.info}>
-            <div className={styles.popoverTitleRow}>
-              Legende
-            </div>
+          <InfoWithPopover>
             <div className={styles.popoverContentRow}>
-              <div className={styles.popoverRowColumnLeft}>
-                Dieses Feld möglichst immer ausfüllen
-              </div>
+              Dieses Feld möglichst immer ausfüllen
             </div>
           </InfoWithPopover>
         </div>

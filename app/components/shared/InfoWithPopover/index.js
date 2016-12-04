@@ -25,7 +25,7 @@ class InfoWithPopover extends Component {
       popupAnchorEl,
     } = this.state
     return (
-      <div>
+      <div className={styles.container}>
         <FontIcon
           id="iconEl"
           className={[`material-icons`, styles.icon].join(` `)}
@@ -37,7 +37,7 @@ class InfoWithPopover extends Component {
             })
           }}
         >
-          open_in_new
+          info_outline
         </FontIcon>
         <Popover
           open={popupOpen}
