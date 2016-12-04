@@ -1,0 +1,16 @@
+.info {
+  margin-top: 10px;
+  cursor: text;
+  font-size: 12px;
+  pointer-events: none;
+  color: rgba(255, 255, 255, 0.498039);
+  user-select: none;
+  padding-bottom: 8px;
+}
+
+.infoWithPopover {
+  composes: info;
+  cursor: pointer;
+  pointer-events: auto;
+  text-decoration: underline;
+}

@@ -7,6 +7,7 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import TextField from '../../../shared/TextField'
+import InfoWithPopover from '../../../shared/InfoWithPopover'
 import styles from './styles.css'
 
 @inject(`store`)
@@ -32,15 +33,27 @@ class Pop extends Component { // eslint-disable-line react/prefer-stateless-func
           updateProperty={store.updateProperty}
           updatePropertyInDb={store.updatePropertyInDb}
         />
-        <TextField
-          label="Name"
-          fieldName="PopName"
-          value={activeDataset.row.PopName}
-          errorText={activeDataset.valid.PopName}
-          type="text"
-          updateProperty={store.updateProperty}
-          updatePropertyInDb={store.updatePropertyInDb}
-        />
+        <div className={styles.fieldWithInfoContainer}>
+          <TextField
+            label="Name"
+            fieldName="PopName"
+            value={activeDataset.row.PopName}
+            errorText={activeDataset.valid.PopName}
+            type="text"
+            updateProperty={store.updateProperty}
+            updatePropertyInDb={store.updatePropertyInDb}
+          />
+          <InfoWithPopover className={styles.info}>
+            <div className={styles.popoverTitleRow}>
+              Legende
+            </div>
+            <div className={styles.popoverContentRow}>
+              <div className={styles.popoverRowColumnLeft}>
+                Dieses Feld möglichst immer ausfüllen
+              </div>
+            </div>
+          </InfoWithPopover>
+        </div>
       </div>
     )
   }
