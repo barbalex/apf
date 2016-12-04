@@ -8,6 +8,7 @@ import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import TextField from '../../../shared/TextField'
 import InfoWithPopover from '../../../shared/InfoWithPopover'
+import Status from '../../../shared/Status'
 import styles from './styles.css'
 
 @inject(`store`)
@@ -49,6 +50,16 @@ class Pop extends Component { // eslint-disable-line react/prefer-stateless-func
             </div>
           </InfoWithPopover>
         </div>
+        <Status
+          herkunftFieldName="PopHerkunft"
+          herkunftValue={activeDataset.row.PopHerkunft}
+          herkunftValid={activeDataset.valid}
+          bekanntSeitFieldName="PopBekanntSeit"
+          bekanntSeitValue={activeDataset.row.PopBekanntSeit}
+          bekanntSeitValid={activeDataset.valid}
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
       </div>
     )
   }
