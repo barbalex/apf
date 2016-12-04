@@ -129,7 +129,6 @@ class Status extends Component { // eslint-disable-line react/prefer-stateless-f
             </RadioButtonGroup>
           </div>
         </div>
-        <div style={{ height: `55px` }} />
       </div>
     )
   }

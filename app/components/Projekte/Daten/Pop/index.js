@@ -69,6 +69,7 @@ class Pop extends Component { // eslint-disable-line react/prefer-stateless-func
           value={activeDataset.row.PopHerkunftUnklar}
           updatePropertyInDb={store.updatePropertyInDb}
         />
+        <div style={{ height: `55px` }} />
       </div>
     )
   }
