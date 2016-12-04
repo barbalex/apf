@@ -8,7 +8,7 @@ import styles from './styles.css'
 class InfoWithPopover extends Component {
 
   static propTypes = {
-    children: PropTypes.array.isRequired,
+    children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired,
   }
 
   constructor() {
