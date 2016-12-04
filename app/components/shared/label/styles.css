@@ -2,8 +2,8 @@
   margin-top: 10px;
   cursor: text;
   font-size: 12px;
-  pointer-events: none;
   color: rgba(255, 255, 255, 0.498039);
+  pointer-events: none;
   user-select: none;
   padding-bottom: 8px;
 }

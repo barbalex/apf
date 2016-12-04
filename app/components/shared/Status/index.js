@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { observer } from 'mobx-react'
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton'
 import TextField from '../TextField'
+import Label from '../Label'
 import styles from './styles.css'
 
 @observer
@@ -41,9 +42,10 @@ class Status extends Component { // eslint-disable-line react/prefer-stateless-f
           updateProperty={updateProperty}
           updatePropertyInDb={updatePropertyInDb}
         />
+        <Label label="Status" />
         <div className={styles.herkunft}>
-          <div>
-            <h4>ursprünglich</h4>
+          <div className={styles.herkunftColumn}>
+            <div className={styles.groupLabel}>ursprünglich:</div>
             <RadioButtonGroup
               name={herkunftFieldName}
               valueSelected={valueSelected}
@@ -65,8 +67,8 @@ class Status extends Component { // eslint-disable-line react/prefer-stateless-f
               />
             </RadioButtonGroup>
           </div>
-          <div>
-            <h4>angesiedelt</h4>
+          <div className={styles.herkunftColumn}>
+            <div className={styles.groupLabel}>angesiedelt:</div>
             <RadioButtonGroup
               name={herkunftFieldName}
               valueSelected={valueSelected}
@@ -93,8 +95,8 @@ class Status extends Component { // eslint-disable-line react/prefer-stateless-f
               />
             </RadioButtonGroup>
           </div>
-          <div>
-            <h4>potenziell</h4>
+          <div className={styles.herkunftColumn}>
+            <div className={styles.groupLabel}>potenziell:</div>
             <RadioButtonGroup
               name={herkunftFieldName}
               valueSelected={valueSelected}
@@ -112,6 +114,7 @@ class Status extends Component { // eslint-disable-line react/prefer-stateless-f
             </RadioButtonGroup>
           </div>
         </div>
+        <div style={{ height: `55px` }} />
       </div>
     )
   }

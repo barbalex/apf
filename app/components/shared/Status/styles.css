@@ -4,4 +4,15 @@
 
 .herkunft {
   display: flex;
+  margin-top: -2px;
+}
+
+.herkunftColumn {
+  padding-right: 10px;
+}
+
+.groupLabel {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.498039);
+  padding-bottom: 12px;
 }
