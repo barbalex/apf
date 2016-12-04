@@ -105,41 +105,24 @@ class Status extends Component { // eslint-disable-line react/prefer-stateless-f
                 updatePropertyInDb(herkunftFieldName, val)
               }}
             >
-              {
-                showVorBeginnAp ?
-                  <RadioButton
-                    value={210}
-                    label="aktuell"
-                    key={1}
-                    disabled={!bekanntSeitValue && bekanntSeitValue !== 0}
-                  /> :
-                    <RadioButton
-                      value={200}
-                      label="aktuell"
-                      key={2}
-                      disabled={!bekanntSeitValue && bekanntSeitValue !== 0}
-                    />
-              }
+              <RadioButton
+                value={showVorBeginnAp ? 210 : 200}
+                label="aktuell"
+                key={1}
+                disabled={!bekanntSeitValue && bekanntSeitValue !== 0}
+              />
               <RadioButton
                 value={201}
                 label="Ansaatversuch"
                 key={3}
                 disabled={!bekanntSeitValue && bekanntSeitValue !== 0}
-              />{
-                showVorBeginnAp ?
-                  <RadioButton
-                    value={211}
-                    label="erloschen / nicht etabliert"
-                    key={4}
-                    disabled={!bekanntSeitValue && bekanntSeitValue !== 0}
-                  /> :
-                    <RadioButton
-                      value={202}
-                      label="erloschen / nicht etabliert"
-                      key={5}
-                      disabled={!bekanntSeitValue && bekanntSeitValue !== 0}
-                    />
-              }
+              />
+              <RadioButton
+                value={showVorBeginnAp ? 211 : 202}
+                label="erloschen / nicht etabliert"
+                key={4}
+                disabled={!bekanntSeitValue && bekanntSeitValue !== 0}
+              />
             </RadioButtonGroup>
           </div>
           <div className={styles.herkunftColumn}>
