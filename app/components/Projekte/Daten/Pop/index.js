@@ -53,10 +53,10 @@ class Pop extends Component { // eslint-disable-line react/prefer-stateless-func
         <Status
           herkunftFieldName="PopHerkunft"
           herkunftValue={activeDataset.row.PopHerkunft}
-          herkunftValid={activeDataset.valid}
+          herkunftValid={activeDataset.valid.PopHerkunft}
           bekanntSeitFieldName="PopBekanntSeit"
           bekanntSeitValue={activeDataset.row.PopBekanntSeit}
-          bekanntSeitValid={activeDataset.valid}
+          bekanntSeitValid={activeDataset.valid.PopBekanntSeit}
           updateProperty={store.updateProperty}
           updatePropertyInDb={store.updatePropertyInDb}
         />
