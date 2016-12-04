@@ -9,18 +9,20 @@ import styles from './styles.css'
 class Status extends Component { // eslint-disable-line react/prefer-stateless-function
 
   static propTypes = {
+    apJahr: PropTypes.number.isRequired,
     herkunftFieldName: PropTypes.string.isRequired,
     herkunftValue: PropTypes.number,
-    herkunftValid: PropTypes.object,
+    herkunftValid: PropTypes.string,
     bekanntSeitFieldName: PropTypes.string,
     bekanntSeitValue: PropTypes.number,
-    bekanntSeitValid: PropTypes.object,
+    bekanntSeitValid: PropTypes.string,
     updateProperty: PropTypes.func.isRequired,
     updatePropertyInDb: PropTypes.func.isRequired,
   }
 
   render() {
     const {
+      apJahr,
       herkunftFieldName,
       herkunftValue,
       herkunftValid,
@@ -30,7 +32,25 @@ class Status extends Component { // eslint-disable-line react/prefer-stateless-f
       updateProperty,
       updatePropertyInDb,
     } = this.props
-    const valueSelected = (herkunftValue !== null && herkunftValue !== undefined) ? herkunftValue : ``
+    const valueSelected = (
+      (herkunftValue !== null && herkunftValue !== undefined) ?
+      herkunftValue :
+      ``
+    )
+    const showHerkunft200 = (
+      bekanntSeitValue &&
+      apJahr &&
+      (apJahr <= bekanntSeitValue)
+    )
+    const showHerkunft210 = (
+      bekanntSeitValue &&
+      apJahr &&
+      (apJahr > bekanntSeitValue)
+    )
+    console.log(`Status: apJahr:`, apJahr)
+    console.log(`Status: bekanntSeitValue:`, bekanntSeitValue)
+    console.log(`Status: showHerkunft200 (angesiedelt nach Beginn AP):`, showHerkunft200)
+    console.log(`Status: showHerkunft210 (angesiedelt vor Beginn AP):`, showHerkunft210)
     return (
       <div>
         <TextField
@@ -59,11 +79,13 @@ class Status extends Component { // eslint-disable-line react/prefer-stateless-f
                 value={100}
                 label="aktuell"
                 key={1}
+                disabled={!bekanntSeitValue && bekanntSeitValue !== 0}
               />
               <RadioButton
                 value={101}
                 label="erloschen"
                 key={2}
+                disabled={!bekanntSeitValue && bekanntSeitValue !== 0}
               />
             </RadioButtonGroup>
           </div>
@@ -78,20 +100,35 @@ class Status extends Component { // eslint-disable-line react/prefer-stateless-f
                 updatePropertyInDb(herkunftFieldName, val)
               }}
             >
-              <RadioButton
-                value={200}
-                label="aktuell"
-                key={1}
-              />
+              {
+                showHerkunft200 &&
+                  <RadioButton
+                    value={200}
+                    label="aktuell (angesiedelt nach Beginn AP)"
+                    key={1}
+                    disabled={!bekanntSeitValue && bekanntSeitValue !== 0}
+                  />
+              }
+              {
+                showHerkunft210 &&
+                  <RadioButton
+                    value={210}
+                    label="aktuell (angesiedelt vor Beginn AP)"
+                    key={2}
+                    disabled={!bekanntSeitValue && bekanntSeitValue !== 0}
+                  />
+              }
               <RadioButton
                 value={201}
                 label="Ansaatversuch"
-                key={2}
+                key={3}
+                disabled={!bekanntSeitValue && bekanntSeitValue !== 0}
               />
               <RadioButton
                 value={211}
                 label="erloschen / nicht etabliert"
-                key={3}
+                key={4}
+                disabled={!bekanntSeitValue && bekanntSeitValue !== 0}
               />
             </RadioButtonGroup>
           </div>
@@ -110,6 +147,7 @@ class Status extends Component { // eslint-disable-line react/prefer-stateless-f
                 value={300}
                 label="potenzieller Wuchs-/Ansiedlungsort"
                 key={1}
+                disabled={!bekanntSeitValue && bekanntSeitValue !== 0}
               />
             </RadioButtonGroup>
           </div>

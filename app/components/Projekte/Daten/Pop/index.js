@@ -22,6 +22,11 @@ class Pop extends Component { // eslint-disable-line react/prefer-stateless-func
   render() {
     const { store } = this.props
     const { activeDataset } = store
+    const apJahr = store.table.ap.get(activeDataset.row.ApArtId).ApJahr
+
+    console.log(`Pop: apJahr:`, apJahr)
+    console.log(`Pop: activeDataset.row.PopBekanntSeit:`, activeDataset.row.PopBekanntSeit)
+    console.log(`Pop: activeDataset.row.PopHerkunft:`, activeDataset.row.PopHerkunft)
 
     return (
       <div className={styles.container}>
@@ -51,6 +56,7 @@ class Pop extends Component { // eslint-disable-line react/prefer-stateless-func
           </InfoWithPopover>
         </div>
         <Status
+          apJahr={apJahr}
           herkunftFieldName="PopHerkunft"
           herkunftValue={activeDataset.row.PopHerkunft}
           herkunftValid={activeDataset.valid.PopHerkunft}
