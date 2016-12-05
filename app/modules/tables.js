@@ -404,4 +404,11 @@ export default [
     mutWannField: `MutWann`,
     mitWerField: `MutWer`,
   },
+  {
+    database: `apflora`,
+    table: `gemeinde`,
+    idField: `BfsNr`,
+    mutWannField: `MutWann`,
+    mitWerField: `MutWer`,
+  },
 ]
