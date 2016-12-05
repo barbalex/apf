@@ -69,6 +69,35 @@ class Pop extends Component { // eslint-disable-line react/prefer-stateless-func
           value={activeDataset.row.PopHerkunftUnklar}
           updatePropertyInDb={store.updatePropertyInDb}
         />
+        <TextField
+          label="Begründung"
+          fieldName="PopHerkunftUnklarBegruendung"
+          value={activeDataset.row.PopHerkunftUnklarBegruendung}
+          errorText={activeDataset.valid.PopHerkunftUnklarBegruendung}
+          type="text"
+          multiLine
+          fullWidth
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+        <TextField
+          label="X-Koordinaten"
+          fieldName="PopXKoord"
+          value={activeDataset.row.PopXKoord}
+          errorText={activeDataset.valid.PopXKoord}
+          type="number"
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+        <TextField
+          label="Y-Koordinaten"
+          fieldName="PopYKoord"
+          value={activeDataset.row.PopYKoord}
+          errorText={activeDataset.valid.PopYKoord}
+          type="number"
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
         <div style={{ height: `55px` }} />
       </div>
     )
