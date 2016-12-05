@@ -1,6 +1,7 @@
 import sortBy from 'lodash/sortBy'
 import massnberNodes from './popmassnber'
 import popberNodes from './popber'
+import tpopNodes from './tpop'
 
 export default (store, apArtId) => {
   const { activeUrlElements } = store
@@ -14,7 +15,7 @@ export default (store, apArtId) => {
     const projId = store.table.ap.get(el.ApArtId).ProjId
     const myMassnberNodes = massnberNodes({ store, projId, apArtId: el.ApArtId, popId: el.PopId })
     const myPopberNodes = popberNodes({ store, projId, apArtId: el.ApArtId, popId: el.PopId })
-    const myTpopNodes = []
+    const myTpopNodes = popberNodes({ store, projId, apArtId: el.ApArtId, popId: el.PopId })
     return {
       type: `row`,
       label: `${el.PopNr || `(keine Nr)`}: ${el.PopName || `(kein Name)`}`,
