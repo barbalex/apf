@@ -1,5 +1,6 @@
 import sortBy from 'lodash/sortBy'
-import massnberNodes from './massnber'
+import massnberNodes from './popmassnber'
+import popberNodes from './popber'
 
 export default (store, apArtId) => {
   const { activeUrlElements } = store
@@ -12,6 +13,7 @@ export default (store, apArtId) => {
   let nodes = pop.map((el) => {
     const projId = store.table.ap.get(el.ApArtId).ProjId
     const myMassnberNodes = massnberNodes({ store, projId, apArtId: el.ApArtId, popId: el.PopId })
+    const myPopberNodes = popberNodes({ store, projId, apArtId: el.ApArtId, popId: el.PopId })
     return {
       type: `row`,
       label: `${el.PopNr || `(keine Nr)`}: ${el.PopName || `(kein Name)`}`,
@@ -20,6 +22,15 @@ export default (store, apArtId) => {
       expanded: el.PopId === activeUrlElements.pop,
       url: [`Projekte`, projId, `Arten`, el.ApArtId, `Populationen`, el.PopId],
       children: [
+        {
+          type: `folder`,
+          label: `Kontroll-Berichte (${myPopberNodes.length})`,
+          table: `pop`,
+          row: `el`,
+          expanded: activeUrlElements.popberFolder,
+          url: [`Projekte`, projId, `Arten`, el.ApArtId, `Populationen`, el.PopId, `Kontroll-Berichte`],
+          children: myPopberNodes,
+        },
         {
           type: `folder`,
           label: `Massnahmen-Berichte (${myMassnberNodes.length})`,

@@ -227,10 +227,6 @@ export default [
     parentIdField: `PopId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
-    label_(row) {
-      if (!row) return noLabel
-      return `${row.PopBerJahr || `(kein Jahr)`}: ${row.EntwicklungTxt || `(nicht beurteilt)`}`
-    },
   },
   {
     database: `apflora`,
@@ -395,6 +391,13 @@ export default [
     database: `apflora`,
     table: `ap_erfkrit_werte`,
     idField: `BeurteilId`,
+    mutWannField: `MutWann`,
+    mitWerField: `MutWer`,
+  },
+  {
+    database: `apflora`,
+    table: `pop_entwicklung_werte`,
+    idField: `EntwicklungId`,
     mutWannField: `MutWann`,
     mitWerField: `MutWer`,
   },
