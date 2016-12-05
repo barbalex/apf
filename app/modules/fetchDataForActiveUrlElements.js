@@ -76,13 +76,19 @@ export default (store) => {
     popFolder() {
       store.fetchTableByParentId(`apflora`, `pop`, activeUrlElements.ap)
     },
-    popberFolder() {
+    pop() {
       store.fetchTableByParentId(`apflora`, `popber`, activeUrlElements.pop)
       store.fetchTable(`apflora`, `pop_entwicklung_werte`)
-    },
-    popmassnberFolder() {
       store.fetchTableByParentId(`apflora`, `popmassnber`, activeUrlElements.pop)
       store.fetchTable(`apflora`, `tpopmassn_erfbeurt_werte`)
+    },
+    popberFolder() {
+      // store.fetchTableByParentId(`apflora`, `popber`, activeUrlElements.pop)
+      // store.fetchTable(`apflora`, `pop_entwicklung_werte`)
+    },
+    popmassnberFolder() {
+      // store.fetchTableByParentId(`apflora`, `popmassnber`, activeUrlElements.pop)
+      // store.fetchTable(`apflora`, `tpopmassn_erfbeurt_werte`)
     },
     tpopFolder() {
       store.fetchTableByParentId(`apflora`, `tpop`, activeUrlElements.pop)
