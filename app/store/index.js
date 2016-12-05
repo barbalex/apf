@@ -23,8 +23,6 @@ import storeIsNew from '../modules/storeIsNew'
 import getActiveUrlElements from '../modules/getActiveUrlElements'
 import fetchDataForActiveUrlElements from '../modules/fetchDataForActiveUrlElements'
 
-import buildBerNodes from '../modules/nodes/ber'
-import buildAssozartNodes from '../modules/nodes/assozart'
 import buildApberuebersichtNodes from '../modules/nodes/apberuebersicht'
 import buildProjektNodes from '../modules/nodes/projekt'
 import buildApNodes from '../modules/nodes/ap'
@@ -210,6 +208,9 @@ class Store extends singleton {
     return buildProjektNodes(this)
   }
 
+  // TODO: make these called from higher level nodes?
+  // drawback: harder to find active node of level
+  // watch zieljahre, that was where computed did not work
   @computed get apberuebersichtNodes() {
     return buildApberuebersichtNodes(this)
   }
