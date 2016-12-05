@@ -14,6 +14,7 @@ export default (store, apArtId) => {
     const projId = store.table.ap.get(el.ApArtId).ProjId
     const myMassnberNodes = massnberNodes({ store, projId, apArtId: el.ApArtId, popId: el.PopId })
     const myPopberNodes = popberNodes({ store, projId, apArtId: el.ApArtId, popId: el.PopId })
+    const myTpopNodes = []
     return {
       type: `row`,
       label: `${el.PopNr || `(keine Nr)`}: ${el.PopName || `(kein Name)`}`,
@@ -22,6 +23,15 @@ export default (store, apArtId) => {
       expanded: el.PopId === activeUrlElements.pop,
       url: [`Projekte`, projId, `Arten`, el.ApArtId, `Populationen`, el.PopId],
       children: [
+        {
+          type: `folder`,
+          label: `Teil-Populationen (${myTpopNodes.length})`,
+          table: `pop`,
+          row: `el`,
+          expanded: activeUrlElements.tpopFolder,
+          url: [`Projekte`, projId, `Arten`, el.ApArtId, `Populationen`, el.PopId, `Teil-Populationen`],
+          children: myTpopNodes,
+        },
         {
           type: `folder`,
           label: `Kontroll-Berichte (${myPopberNodes.length})`,
