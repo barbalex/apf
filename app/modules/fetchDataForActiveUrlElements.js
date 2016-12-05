@@ -94,6 +94,9 @@ export default (store) => {
     },
     tpopFolder() {
     },
+    tpop() {
+      store.fetchTable(`apflora`, `gemeinde`)
+    },
     tpopmassnFolder() {
       store.fetchTableByParentId(`apflora`, `tpopmassn`, activeUrlElements.tpop)
       store.fetchTable(`apflora`, `tpopmassn_typ_werte`)
