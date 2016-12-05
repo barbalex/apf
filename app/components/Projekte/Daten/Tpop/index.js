@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
+import sortBy from 'lodash/sortBy'
+import AutoComplete from 'material-ui/AutoComplete'
 import TextField from '../../../shared/TextField'
 import InfoWithPopover from '../../../shared/InfoWithPopover'
 import Status from '../../../shared/Status'
@@ -52,6 +54,9 @@ class Tpop extends Component { // eslint-disable-line react/prefer-stateless-fun
         </div>
       </div>
     )
+    let gemeinden = Array.from(store.table.gemeinde.values())
+    gemeinden = sortBy(gemeinden, `GmdName`)
+    gemeinden = gemeinden.map(el => el.GmdName)
 
     return (
       <div className={styles.container}>
@@ -132,6 +137,29 @@ class Tpop extends Component { // eslint-disable-line react/prefer-stateless-fun
           dataSource={tpopApBerichtRelevantWerte}
           updatePropertyInDb={store.updatePropertyInDb}
           popover={tpopAbBerRelevantInfoPopover}
+        />
+        <AutoComplete
+          hintText={gemeinden.length === 0 ? `lade Daten...` : ``}
+          fullWidth
+          floatingLabelText="Gemeinde"
+          openOnFocus
+          dataSource={gemeinden}
+          searchText={activeDataset.row.TPopGemeinde || ``}
+          filter={AutoComplete.caseInsensitiveFilter}
+          maxSearchResults={20}
+          onUpdateInput={(val) => {
+            console.log(`onUpdateInput, val:`, val)
+            this.setState({ searchText: val })
+          }}
+          onNewRequest={(val) => {
+            console.log(`onNewRequest, val:`, val)
+            store.updatePropertyInDb(`TPopGemeinde`, val)
+          }}
+          onBlur={(e) => {
+            console.log(`blur, e.target.value:`, e.target.value)
+            store.updatePropertyInDb(`TPopGemeinde`, e.target.value)
+          }}
+          value={activeDataset.row.TPopGemeinde || ``}
         />
         <div style={{ height: `55px` }} />
       </div>
