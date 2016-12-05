@@ -33,10 +33,10 @@ export default (store) => {
       } else if (aEl.idealbiotopFolder) {
         activeDataset = { table: `idealbiotop`, row: store.table.idealbiotop.get(aEl.ap) }
       } else if (aEl.pop) {
-        if (aEl.tpopmassnber) {
-          activeDataset = { table: `tpopmassnber`, row: store.table.tpopmassnber.get(aEl.tpopmassnber) }
-        } else if (aEl.tpopber) {
-          activeDataset = { table: `tpopber`, row: store.table.tpopber.get(aEl.tpopber) }
+        if (aEl.popmassnber) {
+          activeDataset = { table: `popmassnber`, row: store.table.popmassnber.get(aEl.popmassnber) }
+        } else if (aEl.popber) {
+          activeDataset = { table: `popber`, row: store.table.popber.get(aEl.popber) }
         } else if (aEl.tpop) {
           if (aEl.tpopBeobzuordnung) {
             activeDataset = { table: `tpopBeobzuordnung`, row: store.table.tpopBeobzuordnung.get(aEl.tpopBeobzuordnung) }

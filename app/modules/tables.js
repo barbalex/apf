@@ -241,10 +241,6 @@ export default [
     parentIdField: `PopId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
-    label_(row) {
-      if (!row) return noLabel
-      return `${row.PopMassnBerJahr || `(kein Jahr)`}: ${row.BeurteilTxt || `(nicht beurteilt)`}`
-    },
   },
   {
     database: `apflora`,
