@@ -397,4 +397,11 @@ export default [
     mutWannField: `MutWann`,
     mitWerField: `MutWer`,
   },
+  {
+    database: `apflora`,
+    table: `tpop_apberrelevant_werte`,
+    idField: `DomainCode`,
+    mutWannField: `MutWann`,
+    mitWerField: `MutWer`,
+  },
 ]

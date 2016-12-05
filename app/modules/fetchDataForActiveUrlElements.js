@@ -82,6 +82,7 @@ export default (store) => {
       store.fetchTable(`apflora`, `pop_entwicklung_werte`)
       store.fetchTableByParentId(`apflora`, `popmassnber`, activeUrlElements.pop)
       store.fetchTable(`apflora`, `tpopmassn_erfbeurt_werte`)
+      store.fetchTable(`apflora`, `tpop_apberrelevant_werte`)
     },
     popberFolder() {
       // store.fetchTableByParentId(`apflora`, `popber`, activeUrlElements.pop)

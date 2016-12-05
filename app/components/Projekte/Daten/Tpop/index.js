@@ -4,6 +4,7 @@ import TextField from '../../../shared/TextField'
 import InfoWithPopover from '../../../shared/InfoWithPopover'
 import Status from '../../../shared/Status'
 import RadioButton from '../../../shared/RadioButton'
+import RadioButtonGroupWithInfo from '../../../shared/RadioButtonGroupWithInfo'
 import Label from '../../../shared/Label'
 import styles from './styles.css'
 
@@ -20,6 +21,37 @@ class Tpop extends Component { // eslint-disable-line react/prefer-stateless-fun
     const { activeDataset } = store
     const apArtId = store.table.pop.get(activeDataset.row.PopId).ApArtId
     const apJahr = store.table.ap.get(apArtId).ApJahr
+    let tpopApBerichtRelevantWerte = Array.from(store.table.tpop_apberrelevant_werte.values())
+    tpopApBerichtRelevantWerte = tpopApBerichtRelevantWerte.map(t => ({
+      value: t.DomainCode,
+      label: t.DomainTxt,
+    }))
+    const tpopAbBerRelevantInfoPopover = (
+      <div>
+        <div className={styles.labelPopoverTitleRow}>
+          Legende
+        </div>
+        <div className={styles.labelPopoverContentRow}>
+          Dieses Feld möglichst immer ausfüllen.
+        </div>
+        <div className={styles.labelPopoverContentRow}>
+          <div className={styles.labelPopoverRowColumnLeft}>
+            nein (historisch):
+          </div>
+          <div className={styles.labelPopoverRowColumnRight}>
+            erloschen, vor 1950 ohne Kontrolle
+          </div>
+        </div>
+        <div className={styles.labelPopoverContentRow}>
+          <div className={styles.labelPopoverRowColumnLeft}>
+            nein (kein Vorkommen):
+          </div>
+          <div className={styles.labelPopoverRowColumnRight}>
+            {`siehe bei Populationen "überprüft, kein Vorkommen"`}
+          </div>
+        </div>
+      </div>
+    )
 
     return (
       <div className={styles.container}>
@@ -92,6 +124,14 @@ class Tpop extends Component { // eslint-disable-line react/prefer-stateless-fun
           type="number"
           updateProperty={store.updateProperty}
           updatePropertyInDb={store.updatePropertyInDb}
+        />
+        <Label label="Für AP-Bericht relevant" />
+        <RadioButtonGroupWithInfo
+          fieldName="TPopApBerichtRelevant"
+          value={activeDataset.row.TPopApBerichtRelevant}
+          dataSource={tpopApBerichtRelevantWerte}
+          updatePropertyInDb={store.updatePropertyInDb}
+          popover={tpopAbBerRelevantInfoPopover}
         />
         <div style={{ height: `55px` }} />
       </div>

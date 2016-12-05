@@ -15,24 +15,35 @@
   flex-direction: row;
 }
 
-.popoverRow {
+.labelPopoverRow {
   padding: 2px 5px 2px 5px;
 }
 
-.popoverContentRow {
-  composes: popoverRow;
+.labelPopoverTitleRow {
+  composes: labelPopoverRow;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  background-color: grey;
+}
+
+.labelPopoverContentRow {
+  composes: labelPopoverRow;
   display: flex;
   border-color: grey;
   border-width: thin;
   border-style: solid;
+  border-top-style: none;
 }
 
-.popoverContentRow:first-child {
-  border-top-right-radius: 4px;
-  border-top-left-radius: 4px;
-}
-
-.popoverContentRow:last-child {
+.labelPopoverContentRow:last-child {
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;
+}
+
+.labelPopoverRowColumnLeft {
+  width: 170px;
+}
+
+.labelPopoverRowColumnRight {
+  padding-left: 5px;
 }
