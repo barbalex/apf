@@ -15,7 +15,7 @@ export default (store, apArtId) => {
     const projId = store.table.ap.get(el.ApArtId).ProjId
     const myMassnberNodes = massnberNodes({ store, projId, apArtId: el.ApArtId, popId: el.PopId })
     const myPopberNodes = popberNodes({ store, projId, apArtId: el.ApArtId, popId: el.PopId })
-    const myTpopNodes = popberNodes({ store, projId, apArtId: el.ApArtId, popId: el.PopId })
+    const myTpopNodes = tpopNodes({ store, projId, apArtId: el.ApArtId, popId: el.PopId })
     return {
       type: `row`,
       label: `${el.PopNr || `(keine Nr)`}: ${el.PopName || `(kein Name)`}`,

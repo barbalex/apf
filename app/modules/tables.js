@@ -32,10 +32,6 @@ export default [
     parentIdField: `PopId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
-    label_(row) {
-      if (!row) return noLabel
-      return `${row.TPopNr || `(keine Nr)`}: ${row.TPopFlurname || `(kein Flurname)`}`
-    },
   },
   {
     database: `apflora`,

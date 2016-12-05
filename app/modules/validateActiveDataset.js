@@ -36,24 +36,48 @@ export default (table, row, allFields) => {
           break
         }
         case `character varying`: {
-          validDataType = Joi.validate(value, Joi.string().allow(``))
+          validDataType = Joi.validate(
+            value,
+            Joi.string()
+              .allow(``)
+              .allow(null)
+          )
           // - if field type is varchar: check if value length complies to character_maximum_length
           const maxLen = field.character_maximum_length
           if (!validDataType.error && maxLen) {
-            validDataType = Joi.validate(value, Joi.string().max(maxLen).allow(null))
+            validDataType = Joi.validate(
+              value,
+              Joi.string()
+                .max(maxLen)
+                .allow(null)
+            )
           }
           break
         }
         case `uuid`: {
-          validDataType = Joi.validate(value, Joi.string().guid().allow(null))
+          validDataType = Joi.validate(
+            value,
+            Joi.string()
+              .guid()
+              .allow(null)
+          )
           break
         }
         case `date`: {
-          validDataType = Joi.validate(value, Joi.string().allow(null))
+          validDataType = Joi.validate(
+            value,
+            Joi.string()
+              .allow(null)
+          )
           break
         }
         case `text`: {
-          validDataType = Joi.validate(value, Joi.string().allow(``).allow(null))
+          validDataType = Joi.validate(
+            value,
+            Joi.string()
+              .allow(``)
+              .allow(null)
+          )
           break
         }
         default:

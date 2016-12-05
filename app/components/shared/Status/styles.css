@@ -2,6 +2,10 @@
 
 }
 
+.status {
+  padding-top: 10px;
+}
+
 .herkunft {
   display: flex;
   margin-top: -2px;

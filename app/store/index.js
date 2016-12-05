@@ -125,23 +125,36 @@ class Store extends singleton {
   }
 
   @action
-  updateProperty = (key, value) => {
+  updateProperty = (key, valuePassed) => {
     const { table, row } = this.activeDataset
+    let value = valuePassed
     // ensure primary data exists
     if (!key || !table || !row) {
       return console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
+    }
+    // ensure numbers saved as numbers
+    if (!isNaN(value)) {
+      value = +value
     }
     row[key] = value
   }
 
   @action
-  updatePropertyInDb = (key, value) => {
+  updatePropertyInDb = (key, valuePassed) => {
     const { table, row, valid } = this.activeDataset
+    console.log(`key:`, key)
+    console.log(`valuePassed:`, valuePassed)
+    let value = valuePassed
 
     // ensure primary data exists
     if (!key || !table || !row) {
       return
     }
+    // ensure numbers saved as numbers
+    if (!isNaN(value)) {
+      value = +value
+    }
+    console.log(`value:`, value)
 
     // ensure derived data exists
     const tabelle = tables.find(t => t.table === table)
@@ -157,6 +170,7 @@ class Store extends singleton {
     // update if no validation messages exist
     const combinedValidationMessages = objectValues(valid).join(``)
     // console.log(`updatePropertyInDb, combinedValidationMessages:`, combinedValidationMessages)
+    console.log(`combinedValidationMessages:`, combinedValidationMessages)
     if (combinedValidationMessages.length === 0) {
       const { user } = this.app
       const oldValue = row[key]
