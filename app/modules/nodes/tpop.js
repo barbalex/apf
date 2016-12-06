@@ -1,4 +1,5 @@
 import sortBy from 'lodash/sortBy'
+import tpopberNodes from './tpopber'
 
 export default ({ store, projId, apArtId, popId }) => {
   const { activeUrlElements } = store
@@ -9,13 +10,11 @@ export default ({ store, projId, apArtId, popId }) => {
   tpop = sortBy(tpop, `TPopNr`)
   // map through all projekt and create array of nodes
   let nodes = tpop.map((el) => {
-    // const myMassnberNodes = massnberNodes({ store, projId, apArtId, popId, tpopId: el.TPopId })
-    // const myPopberNodes = popberNodes({ store, projId, apArtId, popId, tpopId: el.TPopId })
     const myMassnNodes = []
     const myMassnberNodes = []
     const myFeldkontrNodes = []
     const myFreiwkontrNodes = []
-    const myPopberNodes = []
+    const myTpopberNodes = tpopberNodes({ store, projId, apArtId, popId, tpopId: el.TPopId })
     const myBeobNodes = []
     return {
       type: `row`,
@@ -63,12 +62,12 @@ export default ({ store, projId, apArtId, popId }) => {
         },
         {
           type: `folder`,
-          label: `Kontroll-Berichte (${myPopberNodes.length})`,
+          label: `Kontroll-Berichte (${myTpopberNodes.length})`,
           table: `tpop`,
           row: `el`,
           expanded: activeUrlElements.tpopberFolder,
           url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, el.PopId, `Teil-Populationen`, el.TPopId, `Kontroll-Berichte`],
-          children: myPopberNodes,
+          children: myTpopberNodes,
         },
         {
           type: `folder`,

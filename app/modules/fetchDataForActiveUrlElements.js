@@ -96,6 +96,7 @@ export default (store) => {
     },
     tpop() {
       store.fetchTable(`apflora`, `gemeinde`)
+      store.fetchTableByParentId(`apflora`, `tpopber`, activeUrlElements.tpop)
     },
     tpopmassnFolder() {
       store.fetchTableByParentId(`apflora`, `tpopmassn`, activeUrlElements.tpop)
@@ -115,9 +116,7 @@ export default (store) => {
     tpopfreiwkontrFolder() {
       store.fetchTableByParentId(`apflora`, `tpopkontr`, activeUrlElements.tpop)
     },
-    tpopberFolder() {
-      store.fetchTableByParentId(`apflora`, `tpopber`, activeUrlElements.tpop)
-    },
+    tpopberFolder() {},
     tpopBeobzuordnungFolder() {
       // TODO
       store.fetchTableByParentId(`apflora`, `ap`, activeUrlElements.tpop)
