@@ -56,7 +56,11 @@ export default (table, row, allFields) => {
         case `character varying`: {
           validDataType = Joi.validate(
             value,
-            Joi.alternatives().try(Joi.number(), Joi.string())
+            Joi.alternatives()
+              .try(
+                Joi.number(),
+                Joi.string()
+              )
               .allow(``)
               .allow(null)
           )
@@ -72,7 +76,7 @@ export default (table, row, allFields) => {
                   Joi.number()
                 )
                 .allow(``)
-                .allow(null),
+                .allow(null)
             )
           }
           break
@@ -97,7 +101,11 @@ export default (table, row, allFields) => {
         case `text`: {
           validDataType = Joi.validate(
             value,
-            Joi.alternatives().try(Joi.number(), Joi.string())
+            Joi.alternatives()
+              .try(
+                Joi.number(),
+                Joi.string()
+              )
               .allow(``)
               .allow(null)
           )
