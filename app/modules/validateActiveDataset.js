@@ -49,6 +49,7 @@ export default (table, row, allFields) => {
               value,
               Joi.string()
                 .max(maxLen)
+                .allow(``)
                 .allow(null)
             )
           }
