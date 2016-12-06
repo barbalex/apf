@@ -30,6 +30,7 @@ export default (table, row, allFields) => {
               .integer()
               .min(-2147483648)
               .max(+2147483647)
+              .allow(``)
               .allow(null)
           )
           break
@@ -41,6 +42,7 @@ export default (table, row, allFields) => {
               .integer()
               .min(-32768)
               .max(+32767)
+              .allow(``)
               .allow(null)
           )
           break
@@ -49,6 +51,7 @@ export default (table, row, allFields) => {
           validDataType = Joi.validate(
             value, Joi.number()
               .precision(15)
+              .allow(``)
               .allow(null)
           )
           break
