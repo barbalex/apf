@@ -10,7 +10,7 @@ export default ({ store, projId, apArtId, popId, tpopId }) => {
   const tpopEntwicklungWerte = Array.from(store.table.tpop_entwicklung_werte.values())
   // map through all projekt and create array of nodes
   let nodes = tpopber.map((el) => {
-    const tpopEntwicklungWert = tpopEntwicklungWerte.find(e => e.EntwicklungId === el.PopBerEntwicklung)
+    const tpopEntwicklungWert = tpopEntwicklungWerte.find(e => e.EntwicklungCode === el.TPopBerEntwicklung)
     const entwicklungTxt = tpopEntwicklungWert ? tpopEntwicklungWert.EntwicklungTxt : null
     return {
       type: `row`,

@@ -411,4 +411,11 @@ export default [
     mutWannField: `MutWann`,
     mitWerField: `MutWer`,
   },
+  {
+    database: `apflora`,
+    table: `tpop_entwicklung_werte`,
+    idField: `EntwicklungCode`,
+    mutWannField: `MutWann`,
+    mitWerField: `MutWer`,
+  },
 ]
