@@ -11,8 +11,12 @@ export default ({ store, projId, apArtId, popId }) => {
   let nodes = tpop.map((el) => {
     // const myMassnberNodes = massnberNodes({ store, projId, apArtId, popId, tpopId: el.TPopId })
     // const myPopberNodes = popberNodes({ store, projId, apArtId, popId, tpopId: el.TPopId })
+    const myMassnNodes = []
     const myMassnberNodes = []
+    const myFeldkontrNodes = []
+    const myFreiwkontrNodes = []
     const myPopberNodes = []
+    const myBeobNodes = []
     return {
       type: `row`,
       label: `${el.TPopNr || `(keine Nr)`}: ${el.TPopFlurname || `(kein Flurname)`}`,
@@ -21,6 +25,42 @@ export default ({ store, projId, apArtId, popId }) => {
       expanded: el.TPopId === activeUrlElements.tpop,
       url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, el.PopId, `Teil-Populationen`, el.TPopId],
       children: [
+        {
+          type: `folder`,
+          label: `Massnahmen (${myMassnNodes.length})`,
+          table: `tpop`,
+          row: `el`,
+          expanded: activeUrlElements.tpopmassnFolder,
+          url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, el.PopId, `Teil-Populationen`, el.TPopId, `Massnahmen`],
+          children: myMassnNodes,
+        },
+        {
+          type: `folder`,
+          label: `Massnahmen-Berichte (${myMassnberNodes.length})`,
+          table: `tpop`,
+          row: `el`,
+          expanded: activeUrlElements.tpopmassnberFolder,
+          url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, el.PopId, `Teil-Populationen`, el.TPopId, `Massnahmen-Berichte`],
+          children: myMassnberNodes,
+        },
+        {
+          type: `folder`,
+          label: `Feld-Kontrollen (${myFeldkontrNodes.length})`,
+          table: `tpop`,
+          row: `el`,
+          expanded: activeUrlElements.tpopfeldkontrFolder,
+          url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, el.PopId, `Teil-Populationen`, el.TPopId, `Feld-Kontrollen`],
+          children: myFeldkontrNodes,
+        },
+        {
+          type: `folder`,
+          label: `Freiwilligen-Kontrollen (${myFreiwkontrNodes.length})`,
+          table: `tpop`,
+          row: `el`,
+          expanded: activeUrlElements.tpopfeldkontrFolder,
+          url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, el.PopId, `Teil-Populationen`, el.TPopId, `Freiwilligen-Kontrollen`],
+          children: myFreiwkontrNodes,
+        },
         {
           type: `folder`,
           label: `Kontroll-Berichte (${myPopberNodes.length})`,
@@ -32,12 +72,12 @@ export default ({ store, projId, apArtId, popId }) => {
         },
         {
           type: `folder`,
-          label: `Massnahmen-Berichte (${myMassnberNodes.length})`,
+          label: `Beobachtungen (${myBeobNodes.length})`,
           table: `tpop`,
           row: `el`,
-          expanded: activeUrlElements.tpopmassnberFolder,
-          url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, el.PopId, `Teil-Populationen`, el.TPopId, `Massnahmen-Berichte`],
-          children: myMassnberNodes,
+          expanded: activeUrlElements.tpopbeobFolder,
+          url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, el.PopId, `Teil-Populationen`, el.TPopId, `Beobachtungen`],
+          children: myBeobNodes,
         },
       ],
     }
