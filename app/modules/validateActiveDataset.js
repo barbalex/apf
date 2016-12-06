@@ -65,10 +65,14 @@ export default (table, row, allFields) => {
           if (!validDataType.error && maxLen) {
             validDataType = Joi.validate(
               value,
-              Joi.string()
-                .max(maxLen)
+              Joi.alternatives()
+                .try(
+                  Joi.string()
+                    .max(maxLen),
+                  Joi.number()
+                )
                 .allow(``)
-                .allow(null)
+                .allow(null),
             )
           }
           break
