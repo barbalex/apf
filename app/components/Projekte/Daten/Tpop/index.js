@@ -155,6 +155,61 @@ class Tpop extends Component { // eslint-disable-line react/prefer-stateless-fun
           }
           value={activeDataset.row.TPopGemeinde || ``}
         />
+        <TextField
+          label="Radius (m)"
+          fieldName="TPopRadius"
+          value={activeDataset.row.TPopRadius}
+          errorText={activeDataset.valid.TPopRadius}
+          type="number"
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+        <TextField
+          label="Höhe (m.ü.M.)"
+          fieldName="TPopHoehe"
+          value={activeDataset.row.TPopHoehe}
+          errorText={activeDataset.valid.TPopHoehe}
+          type="number"
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+        <TextField
+          label="Exposition, Besonnung"
+          fieldName="TPopExposition"
+          value={activeDataset.row.TPopExposition}
+          errorText={activeDataset.valid.TPopExposition}
+          type="text"
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+        <TextField
+          label="Klima"
+          fieldName="TPopKlima"
+          value={activeDataset.row.TPopKlima}
+          errorText={activeDataset.valid.TPopKlima}
+          type="text"
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+        <TextField
+          label="Hangneigung"
+          fieldName="TPopNeigung"
+          value={activeDataset.row.TPopNeigung}
+          errorText={activeDataset.valid.TPopNeigung}
+          type="text"
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+        <TextField
+          label="Beschreibung"
+          fieldName="TPopBeschr"
+          value={activeDataset.row.TPopBeschr}
+          errorText={activeDataset.valid.TPopBeschr}
+          type="text"
+          multiline
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
         <div style={{ height: `55px` }} />
       </div>
     )
