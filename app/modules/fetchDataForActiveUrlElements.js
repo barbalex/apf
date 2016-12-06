@@ -32,6 +32,7 @@ export default (store) => {
       store.fetchTableByParentId(`apflora`, `ber`, activeUrlElements.ap)
       store.fetchTableByParentId(`apflora`, `ziel`, activeUrlElements.ap)
       store.fetchTableByParentId(`apflora`, `pop`, activeUrlElements.ap)
+      store.fetchTable(`apflora`, `adresse`)
     },
     assozartFolder() {
       store.fetchTableByParentId(`apflora`, `assozart`, activeUrlElements.ap)

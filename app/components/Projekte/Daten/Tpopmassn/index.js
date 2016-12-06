@@ -5,6 +5,8 @@ import RadioButtonGroup from '../../../shared/RadioButtonGroup'
 import Label from '../../../shared/Label'
 import DatePicker from '../../../shared/DatePicker'
 import TextField from '../../../shared/TextField'
+import SelectField from '../../../shared/SelectField'
+import RadioButton from '../../../shared/RadioButton'
 import styles from './styles.css'
 
 @inject(`store`)
@@ -24,6 +26,11 @@ class Tpopmassn extends Component { // eslint-disable-line react/prefer-stateles
       value: el.MassnTypCode,
       label: el.MassnTypTxt,
     }))
+    const adressen = Array.from(store.table.adresse.values())
+    adressen.unshift({
+      id: null,
+      AdrName: ``,
+    })
     return (
       <div className={styles.container}>
         <TextField
@@ -55,6 +62,25 @@ class Tpopmassn extends Component { // eslint-disable-line react/prefer-stateles
           />
         </div>
         <TextField
+          label="Massnahme"
+          fieldName="TPopMassnTxt"
+          value={activeDataset.row.TPopMassnTxt}
+          errorText={activeDataset.valid.TPopMassnTxt}
+          type="text"
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+        <SelectField
+          label="BearbeiterIn"
+          fieldName="TPopMassnBearb"
+          value={activeDataset.row.TPopMassnBearb}
+          errorText={activeDataset.valid.TPopMassnBearb}
+          dataSource={adressen}
+          valueProp="AdrId"
+          labelProp="AdrName"
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+        <TextField
           label="Bemerkungen"
           fieldName="TPopMassnBemTxt"
           value={activeDataset.row.TPopMassnBemTxt}
@@ -62,6 +88,30 @@ class Tpopmassn extends Component { // eslint-disable-line react/prefer-stateles
           type="text"
           multiLine
           fullWidth
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+        <Label label="Plan vorhanden" />
+        <RadioButton
+          fieldName="TPopMassnPlan"
+          value={activeDataset.row.TPopMassnPlan}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+        <TextField
+          label="Plan Bezeichnung"
+          fieldName="TPopMassnPlanBez"
+          value={activeDataset.row.TPopMassnPlanBez}
+          errorText={activeDataset.valid.TPopMassnPlanBez}
+          type="text"
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+        <TextField
+          label="Fläche (m2)"
+          fieldName="TPopMassnFlaeche"
+          value={activeDataset.row.TPopMassnFlaeche}
+          errorText={activeDataset.valid.TPopMassnFlaeche}
+          type="number"
           updateProperty={store.updateProperty}
           updatePropertyInDb={store.updatePropertyInDb}
         />
