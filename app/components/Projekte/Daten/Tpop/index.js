@@ -210,6 +210,70 @@ class Tpop extends Component { // eslint-disable-line react/prefer-stateless-fun
           updateProperty={store.updateProperty}
           updatePropertyInDb={store.updatePropertyInDb}
         />
+        <TextField
+          label="Kataster-Nr."
+          fieldName="TPopKatNr"
+          value={activeDataset.row.TPopKatNr}
+          errorText={activeDataset.valid.TPopKatNr}
+          type="text"
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+        <TextField
+          label="EigentümerIn"
+          fieldName="TPopEigen"
+          value={activeDataset.row.TPopEigen}
+          errorText={activeDataset.valid.TPopEigen}
+          type="text"
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+        <TextField
+          label="Kontakt vor Ort"
+          fieldName="TPopKontakt"
+          value={activeDataset.row.TPopKontakt}
+          errorText={activeDataset.valid.TPopKontakt}
+          type="text"
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+        <TextField
+          label="Nutzungszone"
+          fieldName="TPopNutzungszone"
+          value={activeDataset.row.TPopNutzungszone}
+          errorText={activeDataset.valid.TPopNutzungszone}
+          type="text"
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+        <TextField
+          label="BewirtschafterIn"
+          fieldName="TPopBewirtschafterIn"
+          value={activeDataset.row.TPopBewirtschafterIn}
+          errorText={activeDataset.valid.TPopBewirtschafterIn}
+          type="text"
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+        <TextField
+          label="Bewirtschaftung"
+          fieldName="TPopBewirtschaftung"
+          value={activeDataset.row.TPopBewirtschaftung}
+          errorText={activeDataset.valid.TPopBewirtschaftung}
+          type="text"
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+        <TextField
+          label="Bemerkungen"
+          fieldName="TPopTxt"
+          value={activeDataset.row.TPopTxt}
+          errorText={activeDataset.valid.TPopTxt}
+          type="text"
+          multiline
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
         <div style={{ height: `55px` }} />
       </div>
     )
