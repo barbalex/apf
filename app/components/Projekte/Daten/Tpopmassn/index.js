@@ -213,7 +213,6 @@ class Tpopmassn extends Component { // eslint-disable-line react/prefer-stateles
         <Label label="GUID" />
         <StringToCopy text={activeDataset.row.TPopMassnGuid} />
         <div style={{ height: `55px` }} />
-        <div style={{ height: `55px` }} />
       </div>
     )
   }
