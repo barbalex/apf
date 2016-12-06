@@ -23,7 +23,6 @@ export default (store) => {
       {
         type: `folder`,
         label: `Arten (${store.apNodes.length})`,
-        folder: `ap`,
         table: `projekt`,
         row: el,
         expanded: activeUrlElements.apFolder,
@@ -33,10 +32,8 @@ export default (store) => {
       {
         type: `folder`,
         label: `AP-Berichte (${store.apberuebersichtNodes.length})`,
-        folder: `apberuebersicht`,
         table: `projekt`,
         row: el,
-        id: el.ProjId,
         expanded: activeUrlElements.apberuebersichtFolder,
         url: [`Projekte`, el.ProjId, `AP-Berichte`],
         children: store.apberuebersichtNodes,

@@ -84,47 +84,33 @@ export default (store) => {
       store.fetchTable(`apflora`, `tpopmassn_erfbeurt_werte`)
       store.fetchTable(`apflora`, `tpop_apberrelevant_werte`)
     },
-    popberFolder() {
-      // store.fetchTableByParentId(`apflora`, `popber`, activeUrlElements.pop)
-      // store.fetchTable(`apflora`, `pop_entwicklung_werte`)
-    },
-    popmassnberFolder() {
-      // store.fetchTableByParentId(`apflora`, `popmassnber`, activeUrlElements.pop)
-      // store.fetchTable(`apflora`, `tpopmassn_erfbeurt_werte`)
-    },
-    tpopFolder() {
-    },
+    popberFolder() {},
+    popmassnberFolder() {},
+    tpopFolder() {},
     tpop() {
       store.fetchTable(`apflora`, `gemeinde`)
       store.fetchTable(`apflora`, `tpop_entwicklung_werte`)
       store.fetchTableByParentId(`apflora`, `tpopber`, activeUrlElements.tpop)
-    },
-    tpopmassnFolder() {
+      store.fetchTableByParentId(`apflora`, `tpopmassnber`, activeUrlElements.tpop)
       store.fetchTableByParentId(`apflora`, `tpopmassn`, activeUrlElements.tpop)
       store.fetchTable(`apflora`, `tpopmassn_typ_werte`)
-    },
-    tpopmassnberFolder() {
-      store.fetchTableByParentId(`apflora`, `tpopmassnber`, activeUrlElements.tpop)
-      store.fetchTable(`apflora`, `tpopmassn_erfbeurt_werte`)
-    },
-    tpopfeldkontrFolder() {
       store.fetchTableByParentId(`apflora`, `tpopkontr`, activeUrlElements.tpop)
     },
+    tpopmassnFolder() {},
+    tpopmassnberFolder() {},
+    tpopfeldkontrFolder() {},
     tpopkontrzaehlFolder() {
       store.fetchTableByParentId(`apflora`, `tpopkontrzaehl`, activeUrlElements.tpopfeldkontr)
       store.fetchTable(`apflora`, `tpopkontrzaehl_einheit_werte`)
     },
-    tpopfreiwkontrFolder() {
-      store.fetchTableByParentId(`apflora`, `tpopkontr`, activeUrlElements.tpop)
-    },
+    tpopfreiwkontrFolder() {},
     tpopberFolder() {},
     tpopBeobzuordnungFolder() {
       // TODO
       store.fetchTableByParentId(`apflora`, `ap`, activeUrlElements.tpop)
     },
   }
-  // console.log(`reaction updateData: fetchingFromActiveElements:`, fetchingFromActiveElements)
-  // console.log(`reaction updateData: activeUrlElements:`, activeUrlElements)
+
   forEach(fetchingFromActiveElements, (func, key) => {
     if (activeUrlElements[key]) func()
   })

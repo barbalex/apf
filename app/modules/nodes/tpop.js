@@ -1,5 +1,6 @@
 import sortBy from 'lodash/sortBy'
 import tpopberNodes from './tpopber'
+import tpopmassnberNodes from './tpopmassnber'
 
 export default ({ store, projId, apArtId, popId }) => {
   const { activeUrlElements } = store
@@ -11,7 +12,7 @@ export default ({ store, projId, apArtId, popId }) => {
   // map through all projekt and create array of nodes
   let nodes = tpop.map((el) => {
     const myMassnNodes = []
-    const myMassnberNodes = []
+    const myMassnberNodes = tpopmassnberNodes({ store, projId, apArtId, popId, tpopId: el.TPopId })
     const myFeldkontrNodes = []
     const myFreiwkontrNodes = []
     const myTpopberNodes = tpopberNodes({ store, projId, apArtId, popId, tpopId: el.TPopId })
