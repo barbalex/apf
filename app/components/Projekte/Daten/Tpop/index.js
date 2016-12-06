@@ -112,6 +112,14 @@ class Tpop extends Component { // eslint-disable-line react/prefer-stateless-fun
           updateProperty={store.updateProperty}
           updatePropertyInDb={store.updatePropertyInDb}
         />
+        <Label label="Für AP-Bericht relevant" />
+        <RadioButtonGroupWithInfo
+          fieldName="TPopApBerichtRelevant"
+          value={activeDataset.row.TPopApBerichtRelevant}
+          dataSource={tpopApBerichtRelevantWerte}
+          updatePropertyInDb={store.updatePropertyInDb}
+          popover={tpopAbBerRelevantInfoPopover}
+        />
         <TextField
           label="X-Koordinaten"
           fieldName="TPopXKoord"
@@ -130,14 +138,6 @@ class Tpop extends Component { // eslint-disable-line react/prefer-stateless-fun
           updateProperty={store.updateProperty}
           updatePropertyInDb={store.updatePropertyInDb}
         />
-        <Label label="Für AP-Bericht relevant" />
-        <RadioButtonGroupWithInfo
-          fieldName="TPopApBerichtRelevant"
-          value={activeDataset.row.TPopApBerichtRelevant}
-          dataSource={tpopApBerichtRelevantWerte}
-          updatePropertyInDb={store.updatePropertyInDb}
-          popover={tpopAbBerRelevantInfoPopover}
-        />
         <AutoComplete
           hintText={gemeinden.length === 0 ? `lade Daten...` : ``}
           fullWidth
@@ -147,18 +147,12 @@ class Tpop extends Component { // eslint-disable-line react/prefer-stateless-fun
           searchText={activeDataset.row.TPopGemeinde || ``}
           filter={AutoComplete.caseInsensitiveFilter}
           maxSearchResults={20}
-          onUpdateInput={(val) => {
-            console.log(`onUpdateInput, val:`, val)
-            this.setState({ searchText: val })
-          }}
-          onNewRequest={(val) => {
-            console.log(`onNewRequest, val:`, val)
+          onNewRequest={val =>
             store.updatePropertyInDb(`TPopGemeinde`, val)
-          }}
-          onBlur={(e) => {
-            console.log(`blur, e.target.value:`, e.target.value)
+          }
+          onBlur={e =>
             store.updatePropertyInDb(`TPopGemeinde`, e.target.value)
-          }}
+          }
           value={activeDataset.row.TPopGemeinde || ``}
         />
         <div style={{ height: `55px` }} />
