@@ -3,6 +3,7 @@ import { observer, inject } from 'mobx-react'
 import sortBy from 'lodash/sortBy'
 import RadioButtonGroup from '../../../shared/RadioButtonGroup'
 import Label from '../../../shared/Label'
+import DatePicker from '../../../shared/DatePicker'
 import TextField from '../../../shared/TextField'
 import styles from './styles.css'
 
@@ -31,6 +32,15 @@ class Tpopmassn extends Component { // eslint-disable-line react/prefer-stateles
           value={activeDataset.row.TPopMassnJahr}
           errorText={activeDataset.valid.TPopMassnJahr}
           type="number"
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+        <DatePicker
+          label="Datum"
+          fieldName="TPopMassnDatum"
+          value={activeDataset.row.TPopMassnDatum}
+          errorText={activeDataset.valid.TPopMassnDatum}
+          fullWidth
           updateProperty={store.updateProperty}
           updatePropertyInDb={store.updatePropertyInDb}
         />
