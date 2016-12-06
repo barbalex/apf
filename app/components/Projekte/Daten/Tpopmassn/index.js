@@ -1,12 +1,14 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import sortBy from 'lodash/sortBy'
+import AutoComplete from 'material-ui/AutoComplete'
 import RadioButtonGroup from '../../../shared/RadioButtonGroup'
 import Label from '../../../shared/Label'
 import DatePicker from '../../../shared/DatePicker'
 import TextField from '../../../shared/TextField'
 import SelectField from '../../../shared/SelectField'
 import RadioButton from '../../../shared/RadioButton'
+import StringToCopy from '../../../shared/StringToCopy'
 import styles from './styles.css'
 
 @inject(`store`)
@@ -31,6 +33,7 @@ class Tpopmassn extends Component { // eslint-disable-line react/prefer-stateles
       id: null,
       AdrName: ``,
     })
+    const artnamen = Array.from(store.table.adb_eigenschaften.values()).map(a => a.Artname).sort()
     return (
       <div className={styles.container}>
         <TextField
@@ -115,6 +118,101 @@ class Tpopmassn extends Component { // eslint-disable-line react/prefer-stateles
           updateProperty={store.updateProperty}
           updatePropertyInDb={store.updatePropertyInDb}
         />
+        <TextField
+          label="Form der Ansiedlung"
+          fieldName="TPopMassnAnsiedForm"
+          value={activeDataset.row.TPopMassnAnsiedForm}
+          errorText={activeDataset.valid.TPopMassnAnsiedForm}
+          type="text"
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+        <TextField
+          label="Pflanzanordnung"
+          fieldName="TPopMassnAnsiedPflanzanordnung"
+          value={activeDataset.row.TPopMassnAnsiedPflanzanordnung}
+          errorText={activeDataset.valid.TPopMassnAnsiedPflanzanordnung}
+          type="text"
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+        <TextField
+          label="Markierung"
+          fieldName="TPopMassnMarkierung"
+          value={activeDataset.row.TPopMassnMarkierung}
+          errorText={activeDataset.valid.TPopMassnMarkierung}
+          type="text"
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+        <TextField
+          label="Anzahl Triebe"
+          fieldName="TPopMassnAnsiedAnzTriebe"
+          value={activeDataset.row.TPopMassnAnsiedAnzTriebe}
+          errorText={activeDataset.valid.TPopMassnAnsiedAnzTriebe}
+          type="number"
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+        <TextField
+          label="Anzahl Pflanzen"
+          fieldName="TPopMassnAnsiedAnzPfl"
+          value={activeDataset.row.TPopMassnAnsiedAnzPfl}
+          errorText={activeDataset.valid.TPopMassnAnsiedAnzPfl}
+          type="number"
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+        <TextField
+          label="Anzahl Pflanzstellen"
+          fieldName="TPopMassnAnzPflanzstellen"
+          value={activeDataset.row.TPopMassnAnzPflanzstellen}
+          errorText={activeDataset.valid.TPopMassnAnzPflanzstellen}
+          type="number"
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+        <AutoComplete
+          floatingLabelText="Wirtspflanze"
+          fullWidth
+          openOnFocus
+          value={activeDataset.row.TPopMassnAnsiedWirtspfl || ``}
+          searchText={activeDataset.row.TPopMassnAnsiedWirtspfl || ``}
+          errorText={activeDataset.valid.TPopMassnAnsiedWirtspfl}
+          filter={AutoComplete.caseInsensitiveFilter}
+          dataSource={artnamen}
+          maxSearchResults={20}
+          onUpdateInput={(val) => {
+            this.setState({ searchText: val })
+          }}
+          onNewRequest={val =>
+            store.updatePropertyInDb(`TPopMassnAnsiedWirtspfl`, val)
+          }
+          onBlur={e =>
+            store.updatePropertyInDb(`TPopMassnAnsiedWirtspfl`, e.target.value)
+          }
+        />
+        <TextField
+          label="Herkunftspopulation"
+          fieldName="TPopMassnAnsiedHerkunftPop"
+          value={activeDataset.row.TPopMassnAnsiedHerkunftPop}
+          errorText={activeDataset.valid.TPopMassnAnsiedHerkunftPop}
+          type="text"
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+        <TextField
+          label="Sammeldatum"
+          fieldName="TPopMassnAnsiedDatSamm"
+          value={activeDataset.row.TPopMassnAnsiedDatSamm}
+          errorText={activeDataset.valid.TPopMassnAnsiedDatSamm}
+          type="text"
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+        <Label label="GUID" />
+        <StringToCopy text={activeDataset.row.TPopMassnGuid} />
+        <div style={{ height: `55px` }} />
         <div style={{ height: `55px` }} />
       </div>
     )

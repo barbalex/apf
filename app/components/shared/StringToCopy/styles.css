@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.guid {
+  flex-grow: 1;
+}
+
+.copyButton {
+  margin-top: -6px;
+}
