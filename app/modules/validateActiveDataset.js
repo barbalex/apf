@@ -24,21 +24,39 @@ export default (table, row, allFields) => {
       const dataType = field.data_type
       switch (dataType) {
         case `integer`: {
-          validDataType = Joi.validate(value, Joi.number().integer().min(-2147483648).max(+2147483647).allow(null))
+          validDataType = Joi.validate(
+            value,
+            Joi.number()
+              .integer()
+              .min(-2147483648)
+              .max(+2147483647)
+              .allow(null)
+          )
           break
         }
         case `smallint`: {
-          validDataType = Joi.validate(value, Joi.number().integer().min(-32768).max(+32767).allow(null))
+          validDataType = Joi.validate(
+            value,
+            Joi.number()
+              .integer()
+              .min(-32768)
+              .max(+32767)
+              .allow(null)
+          )
           break
         }
         case `double precision`: {
-          validDataType = Joi.validate(value, Joi.number().precision(15).allow(null))
+          validDataType = Joi.validate(
+            value, Joi.number()
+              .precision(15)
+              .allow(null)
+          )
           break
         }
         case `character varying`: {
           validDataType = Joi.validate(
             value,
-            Joi.string()
+            Joi.alternatives().try(Joi.number(), Joi.string())
               .allow(``)
               .allow(null)
           )
@@ -75,7 +93,7 @@ export default (table, row, allFields) => {
         case `text`: {
           validDataType = Joi.validate(
             value,
-            Joi.string()
+            Joi.alternatives().try(Joi.number(), Joi.string())
               .allow(``)
               .allow(null)
           )
