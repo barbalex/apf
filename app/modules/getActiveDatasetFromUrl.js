@@ -50,8 +50,9 @@ export default (store) => {
             activeDataset = { table: `tpopmassnber`, row: store.table.tpopmassnber.get(aEl.tpopmassnber) }
           } else if (aEl.tpopmassn) {
             activeDataset = { table: `tpopmassn`, row: store.table.tpopmassn.get(aEl.tpopmassn) }
+          } else {
+            activeDataset = { table: `tpop`, row: store.table.tpop.get(aEl.tpop) }
           }
-          activeDataset = { table: `tpop`, row: store.table.tpop.get(aEl.tpop) }
         } else {
           // none of the tpop folders is active
           activeDataset = { table: `pop`, row: store.table.pop.get(aEl.pop) }

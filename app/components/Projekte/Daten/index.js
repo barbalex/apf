@@ -21,6 +21,7 @@ import Zielber from './Zielber'
 import Popmassnber from './Popmassnber'
 import Popber from './Popber'
 import Tpop from './Tpop'
+import Tpopber from './Tpopber'
 
 @inject(`store`)
 @observer
@@ -51,6 +52,7 @@ class Daten extends Component { // eslint-disable-line react/prefer-stateless-fu
       popmassnber: <Popmassnber />,
       popber: <Popber />,
       tpop: <Tpop />,
+      tpopber: <Tpopber />,
     }
     const standardForm = (
       <div>
