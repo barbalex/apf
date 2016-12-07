@@ -231,7 +231,17 @@ class Tpopfeldkontr extends Component { // eslint-disable-line react/prefer-stat
           </Tab>
           <Tab label="Biotop">
             <div className={styles.formContainer}>
-
+              <TextField
+                label="Fläche"
+                fieldName="TPopKontrFlaeche"
+                value={activeDataset.row.TPopKontrFlaeche}
+                errorText={activeDataset.valid.TPopKontrFlaeche}
+                type="number"
+                updateProperty={store.updateProperty}
+                updatePropertyInDb={store.updatePropertyInDb}
+              />
+              <div className={styles.section}>Vegetation</div>
+              <div className={styles.section}>Boden</div>
             </div>
           </Tab>
         </Tabs>

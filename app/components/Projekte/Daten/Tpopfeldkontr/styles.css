@@ -8,6 +8,19 @@
   padding-right: 10px;
 }
 
+.section {
+  padding-top: 20px;
+  margin-bottom: -7px;
+  color: rgba(255, 255, 255, 0.298039);
+  font-weight: bold;
+}
+
+.section::after {
+  content: ":"
+}
+
+/* for popover: */
+
 .labelPopoverRow {
   padding: 2px 5px 2px 5px;
 }
