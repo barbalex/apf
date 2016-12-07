@@ -1,0 +1,9 @@
+.container {
+  overflow-x: auto;
+  height: 100%;
+}
+
+.formContainer {
+  padding-left: 10px;
+  padding-right: 10px;
+}
