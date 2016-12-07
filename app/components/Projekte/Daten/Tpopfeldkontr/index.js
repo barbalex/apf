@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import sortBy from 'lodash/sortBy'
 import { Tabs, Tab } from 'material-ui/Tabs'
+import AutoComplete from 'material-ui/AutoComplete'
 import RadioButtonGroup from '../../../shared/RadioButtonGroup'
 import Label from '../../../shared/Label'
 import TextField from '../../../shared/TextField'
@@ -90,6 +91,16 @@ class Tpopfeldkontr extends Component { // eslint-disable-line react/prefer-stat
     tpopEntwicklungWerte = tpopEntwicklungWerte.map(el => ({
       value: el.EntwicklungCode,
       label: el.EntwicklungTxt,
+    }))
+    // prepare lr
+    const lrArray = Array.from(store.table.adb_lr.values())
+    const lr = lrArray.map(e => e.Einheit.replace(/  +/g, ` `)) // eslint-disable-line no-regex-spaces
+    // prepare tpopkontr_idbiotuebereinst_werte
+    let idbiotopuebereinstWerte = Array.from(store.table.tpopkontr_idbiotuebereinst_werte.values())
+    idbiotopuebereinstWerte = sortBy(idbiotopuebereinstWerte, `DomainOrd`)
+    idbiotopuebereinstWerte = idbiotopuebereinstWerte.map(el => ({
+      value: el.DomainCode,
+      label: el.DomainTxt,
     }))
 
     return (
@@ -241,7 +252,176 @@ class Tpopfeldkontr extends Component { // eslint-disable-line react/prefer-stat
                 updatePropertyInDb={store.updatePropertyInDb}
               />
               <div className={styles.section}>Vegetation</div>
+              <AutoComplete
+                floatingLabelText="Lebensraum nach Delarze"
+                openOnFocus
+                fullWidth
+                searchText={activeDataset.row.TPopKontrLeb || ``}
+                errorText={activeDataset.valid.TPopKontrLeb}
+                dataSource={lr}
+                filter={AutoComplete.caseInsensitiveFilter}
+                maxSearchResults={20}
+                onNewRequest={val =>
+                  store.updatePropertyInDb(`TPopKontrLeb`, val)
+                }
+                onBlur={e =>
+                  store.updatePropertyInDb(`TPopKontrLeb`, e.target.value)
+                }
+              />
+              <AutoComplete
+                floatingLabelText="Umgebung nach Delarze"
+                openOnFocus
+                fullWidth
+                searchText={activeDataset.row.TPopKontrLebUmg || ``}
+                errorText={activeDataset.valid.TPopKontrLebUmg}
+                dataSource={lr}
+                filter={AutoComplete.caseInsensitiveFilter}
+                maxSearchResults={20}
+                onNewRequest={val =>
+                  store.updatePropertyInDb(`TPopKontrLebUmg`, val)
+                }
+                onBlur={e =>
+                  store.updatePropertyInDb(`TPopKontrLebUmg`, e.target.value)
+                }
+              />
+              <TextField
+                label="Vegetationstyp"
+                fieldName="TPopKontrVegTyp"
+                value={activeDataset.row.TPopKontrVegTyp}
+                errorText={activeDataset.valid.TPopKontrVegTyp}
+                type="text"
+                updateProperty={store.updateProperty}
+                updatePropertyInDb={store.updatePropertyInDb}
+              />
+              <TextField
+                label="Konkurrenz"
+                fieldName="TPopKontrKonkurrenz"
+                value={activeDataset.row.TPopKontrKonkurrenz}
+                errorText={activeDataset.valid.TPopKontrKonkurrenz}
+                type="text"
+                updateProperty={store.updateProperty}
+                updatePropertyInDb={store.updatePropertyInDb}
+              />
+              <TextField
+                label="Moosschicht"
+                fieldName="TPopKontrMoosschicht"
+                value={activeDataset.row.TPopKontrMoosschicht}
+                errorText={activeDataset.valid.TPopKontrMoosschicht}
+                type="text"
+                updateProperty={store.updateProperty}
+                updatePropertyInDb={store.updatePropertyInDb}
+              />
+              <TextField
+                label="Krautschicht"
+                fieldName="TPopKontrKrautschicht"
+                value={activeDataset.row.TPopKontrKrautschicht}
+                errorText={activeDataset.valid.TPopKontrKrautschicht}
+                type="text"
+                updateProperty={store.updateProperty}
+                updatePropertyInDb={store.updatePropertyInDb}
+              />
+              <TextField
+                label="Strauchschicht"
+                fieldName="TPopKontrStrauchschicht"
+                value={activeDataset.row.TPopKontrStrauchschicht}
+                errorText={activeDataset.valid.TPopKontrStrauchschicht}
+                type="text"
+                updateProperty={store.updateProperty}
+                updatePropertyInDb={store.updatePropertyInDb}
+              />
+              <TextField
+                label="Baumschicht"
+                fieldName="TPopKontrBaumschicht"
+                value={activeDataset.row.TPopKontrBaumschicht}
+                errorText={activeDataset.valid.TPopKontrBaumschicht}
+                type="text"
+                updateProperty={store.updateProperty}
+                updatePropertyInDb={store.updatePropertyInDb}
+              />
               <div className={styles.section}>Boden</div>
+              <TextField
+                label="Typ"
+                fieldName="TPopKontrBodenTyp"
+                value={activeDataset.row.TPopKontrBodenTyp}
+                errorText={activeDataset.valid.TPopKontrBodenTyp}
+                type="text"
+                updateProperty={store.updateProperty}
+                updatePropertyInDb={store.updatePropertyInDb}
+              />
+              <TextField
+                label="Kalkgehalt"
+                fieldName="TPopKontrBodenKalkgehalt"
+                value={activeDataset.row.TPopKontrBodenKalkgehalt}
+                errorText={activeDataset.valid.TPopKontrBodenKalkgehalt}
+                type="text"
+                updateProperty={store.updateProperty}
+                updatePropertyInDb={store.updatePropertyInDb}
+              />
+              <TextField
+                label="Durchlässigkeit"
+                fieldName="TPopKontrBodenDurchlaessigkeit"
+                value={activeDataset.row.TPopKontrBodenDurchlaessigkeit}
+                errorText={activeDataset.valid.TPopKontrBodenDurchlaessigkeit}
+                type="text"
+                updateProperty={store.updateProperty}
+                updatePropertyInDb={store.updatePropertyInDb}
+              />
+              <TextField
+                label="Humusgehalt"
+                fieldName="TPopKontrBodenHumus"
+                value={activeDataset.row.TPopKontrBodenHumus}
+                errorText={activeDataset.valid.TPopKontrBodenHumus}
+                type="text"
+                updateProperty={store.updateProperty}
+                updatePropertyInDb={store.updatePropertyInDb}
+              />
+              <TextField
+                label="Nährstoffgehalt"
+                fieldName="TPopKontrBodenNaehrstoffgehalt"
+                value={activeDataset.row.TPopKontrBodenNaehrstoffgehalt}
+                errorText={activeDataset.valid.TPopKontrBodenNaehrstoffgehalt}
+                type="text"
+                updateProperty={store.updateProperty}
+                updatePropertyInDb={store.updatePropertyInDb}
+              />
+              <TextField
+                label="Bodenabtrag"
+                fieldName="TPopKontrBodenAbtrag"
+                value={activeDataset.row.TPopKontrBodenAbtrag}
+                errorText={activeDataset.valid.TPopKontrBodenAbtrag}
+                type="text"
+                updateProperty={store.updateProperty}
+                updatePropertyInDb={store.updatePropertyInDb}
+              />
+              <TextField
+                label="Wasserhaushalt"
+                fieldName="TPopKontrWasserhaushalt"
+                value={activeDataset.row.TPopKontrWasserhaushalt}
+                errorText={activeDataset.valid.TPopKontrWasserhaushalt}
+                type="text"
+                updateProperty={store.updateProperty}
+                updatePropertyInDb={store.updatePropertyInDb}
+              />
+              <div className={styles.section}>Beurteilung</div>
+              <TextField
+                label="Handlungsbedarf"
+                fieldName="TPopKontrHandlungsbedarf"
+                value={activeDataset.row.TPopKontrHandlungsbedarf}
+                errorText={activeDataset.valid.TPopKontrHandlungsbedarf}
+                type="text"
+                multiline
+                updateProperty={store.updateProperty}
+                updatePropertyInDb={store.updatePropertyInDb}
+              />
+              <Label label="Übereinstimmung mit Idealbiotop" />
+              <RadioButtonGroup
+                fieldName="TPopKontrIdealBiotopUebereinst"
+                value={activeDataset.row.TPopKontrIdealBiotopUebereinst}
+                errorText={activeDataset.valid.TPopKontrIdealBiotopUebereinst}
+                dataSource={idbiotopuebereinstWerte}
+                updatePropertyInDb={store.updatePropertyInDb}
+              />
+              <div style={{ height: `55px` }} />
             </div>
           </Tab>
         </Tabs>

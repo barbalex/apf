@@ -8,11 +8,11 @@ class MyAutocomplete extends Component { // eslint-disable-line react/prefer-sta
   static propTypes = {
     label: PropTypes.string.isRequired,
     fieldName: PropTypes.string.isRequired,
-    value: PropTypes.number,
+    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     valueText: PropTypes.string,
     dataSource: PropTypes.arrayOf(PropTypes.object).isRequired,
     dataSourceConfig: PropTypes.shape({
-      value: PropTypes.number,
+      value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
       text: PropTypes.string,
     }),
     updatePropertyInDb: PropTypes.func.isRequired,

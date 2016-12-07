@@ -421,4 +421,16 @@ export default [
     mutWannField: `MutWann`,
     mitWerField: `MutWer`,
   },
+  {
+    database: `apflora`,
+    table: `tpopkontr_idbiotuebereinst_werte`,
+    idField: `DomainCode`,
+    mutWannField: `MutWann`,
+    mitWerField: `MutWer`,
+  },
+  {
+    database: `beob`,
+    table: `adb_lr`,
+    idField: `id`,
+  },
 ]

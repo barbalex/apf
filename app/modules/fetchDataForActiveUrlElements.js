@@ -99,7 +99,10 @@ export default (store) => {
     },
     tpopmassnFolder() {},
     tpopmassnberFolder() {},
-    tpopfeldkontrFolder() {},
+    tpopfeldkontrFolder() {
+      store.fetchTable(`apflora`, `tpopkontr_idbiotuebereinst_werte`)
+      store.fetchTable(`beob`, `adb_lr`)
+    },
     tpopkontrzaehlFolder() {
       store.fetchTableByParentId(`apflora`, `tpopkontrzaehl`, activeUrlElements.tpopfeldkontr)
       store.fetchTable(`apflora`, `tpopkontrzaehl_einheit_werte`)

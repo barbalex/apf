@@ -13,7 +13,11 @@ export default (store, schemaNamePassed, tableName) => {
   if (store.table[tableName].size === 0 && !store.table[`${tableName}Loading`]) {
     const idField = tables.find(t => t.table === tableName).idField
     store.table[`${tableName}Loading`] = true
-    return axios.get(`${apiBaseUrl}/schema/${schemaName}/table/${tableName}`)
+    let url = `${apiBaseUrl}/schema/${schemaName}/table/${tableName}`
+    if (tableName === `adb_lr`) {
+      url = `${apiBaseUrl}/lrDelarze`
+    }
+    return axios.get(url)
       .then(({ data }) => {
         transaction(() => {
           data.forEach(d =>
