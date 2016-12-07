@@ -6,7 +6,7 @@ export default ({ store, projId, apArtId, popId, tpopId }) => {
   let tpopber = Array.from(store.table.tpopber.values())
   // show only nodes of active ap
   tpopber = tpopber.filter(a => a.TPopId === tpopId)
-  // get erfkritWerte
+  // get entwicklungWerte
   const tpopEntwicklungWerte = Array.from(store.table.tpop_entwicklung_werte.values())
   // map through all projekt and create array of nodes
   let nodes = tpopber.map((el) => {

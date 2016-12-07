@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
+import sortBy from 'lodash/sortBy'
 import { Tabs, Tab } from 'material-ui/Tabs'
 import RadioButtonGroup from '../../../shared/RadioButtonGroup'
 import Label from '../../../shared/Label'
@@ -7,6 +8,7 @@ import TextField from '../../../shared/TextField'
 import DatePicker from '../../../shared/DatePicker'
 import SelectField from '../../../shared/SelectField'
 import RadioButtonGroupWithInfo from '../../../shared/RadioButtonGroupWithInfo'
+import StringToCopy from '../../../shared/StringToCopy'
 import styles from './styles.css'
 
 @inject(`store`)
@@ -38,26 +40,58 @@ class Tpopfeldkontr extends Component { // eslint-disable-line react/prefer-stat
           Legende
         </div>
         <div className={styles.labelPopoverContentRow}>
-          Dieses Feld möglichst immer ausfüllen.
+          Im 1. Jahr der Beobachtung die Entwicklung an der Massnahme beurteilen, nachher an vorhergehenden EK.
         </div>
         <div className={styles.labelPopoverContentRow}>
           <div className={styles.labelPopoverRowColumnLeft}>
-            nein (historisch):
+            {`zunehmend:`}
           </div>
           <div className={styles.labelPopoverRowColumnRight}>
-            erloschen, vor 1950 ohne Kontrolle
+            {`> 10% Zunahme`}
           </div>
         </div>
         <div className={styles.labelPopoverContentRow}>
           <div className={styles.labelPopoverRowColumnLeft}>
-            nein (kein Vorkommen):
+            stabil:
           </div>
           <div className={styles.labelPopoverRowColumnRight}>
-            {`siehe bei Populationen "überprüft, kein Vorkommen"`}
+            {`± 10%`}
+          </div>
+        </div>
+        <div className={styles.labelPopoverContentRow}>
+          <div className={styles.labelPopoverRowColumnLeft}>
+            abnehmend:
+          </div>
+          <div className={styles.labelPopoverRowColumnRight}>
+            {`> 10% Abnahme`}
+          </div>
+        </div>
+        <div className={styles.labelPopoverContentRow}>
+          <div className={styles.labelPopoverRowColumnLeft}>
+            erloschen / nicht etabliert:
+          </div>
+          <div className={styles.labelPopoverRowColumnRight}>
+            {`nach 2 aufeinander folgenden Kontrollen ohne Funde oder nach Einschätzung AP-VerantwortlicheR`}
+          </div>
+        </div>
+        <div className={styles.labelPopoverContentRow}>
+          <div className={styles.labelPopoverRowColumnLeft}>
+            unsicher:
+          </div>
+          <div className={styles.labelPopoverRowColumnRight}>
+            {`keine Funde aber noch nicht erloschen (nach zwei Kontrollen ohne Funde kann Status erloschen/nicht etabliert gewählt werden)`}
           </div>
         </div>
       </div>
     )
+    // get entwicklungWerte
+    let tpopEntwicklungWerte = Array.from(store.table.tpop_entwicklung_werte.values())
+    tpopEntwicklungWerte = sortBy(tpopEntwicklungWerte, `EntwicklungOrd`)
+    tpopEntwicklungWerte = tpopEntwicklungWerte.map(el => ({
+      value: el.EntwicklungCode,
+      label: el.EntwicklungTxt,
+    }))
+
     return (
       <div className={styles.container}>
         <Tabs>
@@ -126,6 +160,73 @@ class Tpopfeldkontr extends Component { // eslint-disable-line react/prefer-stat
                 updateProperty={store.updateProperty}
                 updatePropertyInDb={store.updatePropertyInDb}
               />
+              <Label label="Entwicklung" />
+              <RadioButtonGroupWithInfo
+                fieldName="TPopKontrEntwicklung"
+                value={activeDataset.row.TPopKontrEntwicklung}
+                dataSource={tpopEntwicklungWerte}
+                updatePropertyInDb={store.updatePropertyInDb}
+                popover={entwicklungPopover}
+              />
+              <TextField
+                label="Ursachen"
+                fieldName="TPopKontrUrsach"
+                value={activeDataset.row.TPopKontrUrsach}
+                errorText={activeDataset.valid.TPopKontrUrsach}
+                hintText="Standort: ..., Klima: ..., anderes: ..."
+                type="text"
+                multiLine
+                fullWidth
+                updateProperty={store.updateProperty}
+                updatePropertyInDb={store.updatePropertyInDb}
+              />
+              <TextField
+                label="Erfolgsbeurteilung"
+                fieldName="TPopKontrUrteil"
+                value={activeDataset.row.TPopKontrUrteil}
+                errorText={activeDataset.valid.TPopKontrUrteil}
+                type="text"
+                multiLine
+                fullWidth
+                updateProperty={store.updateProperty}
+                updatePropertyInDb={store.updatePropertyInDb}
+              />
+              <TextField
+                label="Änderungs-Vorschläge Umsetzung"
+                fieldName="TPopKontrAendUms"
+                value={activeDataset.row.TPopKontrAendUms}
+                errorText={activeDataset.valid.TPopKontrAendUms}
+                type="text"
+                multiLine
+                fullWidth
+                updateProperty={store.updateProperty}
+                updatePropertyInDb={store.updatePropertyInDb}
+              />
+              <TextField
+                label="Änderungs-Vorschläge Kontrolle"
+                fieldName="TPopKontrAendKontr"
+                value={activeDataset.row.TPopKontrAendKontr}
+                errorText={activeDataset.valid.TPopKontrAendKontr}
+                type="text"
+                multiLine
+                fullWidth
+                updateProperty={store.updateProperty}
+                updatePropertyInDb={store.updatePropertyInDb}
+              />
+              <TextField
+                label="Bemerkungen"
+                fieldName="TPopKontrTxt"
+                value={activeDataset.row.TPopKontrTxt}
+                errorText={activeDataset.valid.TPopKontrTxt}
+                type="text"
+                multiLine
+                fullWidth
+                updateProperty={store.updateProperty}
+                updatePropertyInDb={store.updatePropertyInDb}
+              />
+              <Label label="GUID" />
+              <StringToCopy text={activeDataset.row.TPopKontrGuid} />
+              <div style={{ height: `55px` }} />
             </div>
           </Tab>
           <Tab label="Biotop">

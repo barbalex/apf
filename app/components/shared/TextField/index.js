@@ -15,6 +15,7 @@ class MyTextField extends Component { // eslint-disable-line react/prefer-statel
     disabled: PropTypes.bool,
     updateProperty: PropTypes.func,
     updatePropertyInDb: PropTypes.func,
+    hintText: PropTypes.string,
   }
 
   render() {
@@ -28,11 +29,13 @@ class MyTextField extends Component { // eslint-disable-line react/prefer-statel
       updateProperty,
       updatePropertyInDb,
       disabled,
+      hintText,
     } = this.props
 
     return (
       <TextField
         floatingLabelText={label}
+        hintText={hintText || ``}
         type={type || `text`}
         multiLine={multiLine || false}
         value={value || ``}
