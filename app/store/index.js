@@ -50,6 +50,9 @@ class Store extends singleton {
   app = AppStore
   table = TableStore
 
+  /**
+   * url paths are used to control tree and forms
+   */
   @computed get url() {
     const pathNamePassed = this.history.location.pathname
     const pathName = pathNamePassed.replace(`/`, ``)
@@ -68,6 +71,10 @@ class Store extends singleton {
     return pathElements
   }
 
+  /**
+   * urlQueries are used to control tabs
+   * for instance: Entwicklung or Biotop in tpopfeldkontr
+   */
   @computed get urlQuery() {
     return queryString.parse(this.history.location.search)
   }
@@ -219,6 +226,10 @@ class Store extends singleton {
     }
   }
 
+  /**
+   * urlQueries are used to control tabs
+   * for instance: Entwicklung or Biotop in tpopfeldkontr
+   */
   @action
   setUrlQuery = (key, value) => {
     const urlQuery = clone(this.urlQuery)
