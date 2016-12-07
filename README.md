@@ -17,3 +17,4 @@ verwendet:
 - Infrastruktur für Tests bereitstellen
 - Nach und nach Tests einführen
 - Sicherheit erhöhen
+- URL steuert UI > fast alles ist verlinkbar
