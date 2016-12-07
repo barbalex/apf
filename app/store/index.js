@@ -11,6 +11,7 @@ import axios from 'axios'
 import objectValues from 'lodash/values'
 import clone from 'lodash/clone'
 import isEqual from 'lodash/isEqual'
+import isString from 'lodash/isString'
 import createHistory from 'history/createBrowserHistory'
 import queryString from 'query-string'
 
@@ -77,7 +78,15 @@ class Store extends singleton {
    * for instance: Entwicklung or Biotop in tpopfeldkontr
    */
   @computed get urlQuery() {
-    return queryString.parse(this.history.location.search)
+    const urlQuery = queryString.parse(this.history.location.search)
+    /**
+     * arrays are converted to strings in url if only one element is contained
+     * need to convert it to array
+     */
+    if (urlQuery.projekteTabs && isString(urlQuery.projekteTabs)) {
+      urlQuery.projekteTabs = [urlQuery.projekteTabs]
+    }
+    return urlQuery
   }
 
   manipulateUrl = autorun(

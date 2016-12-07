@@ -32,7 +32,7 @@ class Projekte extends React.Component { // eslint-disable-line react/prefer-sta
 
   onClickButton(name) {
     const { store } = this.props
-    const projekteTabs = clone(store.urlQuery.projekteTabs)
+    const projekteTabs = store.urlQuery.projekteTabs ? clone(store.urlQuery.projekteTabs) : []
     const isVisible = projekteTabs.includes(name)
     if (isVisible) {
       remove(projekteTabs, el => el === name)
@@ -49,7 +49,6 @@ class Projekte extends React.Component { // eslint-disable-line react/prefer-sta
     const strukturbaum2IsVisible = projekteTabs.includes(`strukturbaum2`)
     const datenIsVisible = projekteTabs.includes(`daten`)
     const karteIsVisible = projekteTabs.includes(`karte`)
-    // const { strukturbaum, strukturbaum2, daten, karte } = store.ui.projekte
 
     return (
       <div className={styles.container}>
