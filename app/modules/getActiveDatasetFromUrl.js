@@ -43,9 +43,9 @@ export default (store) => {
           } else if (aEl.tpopber) {
             activeDataset = { table: `tpopber`, row: store.table.tpopber.get(aEl.tpopber) }
           } else if (aEl.tpopfreiwkontr) {
-            activeDataset = { table: `tpopfreiwkontr`, row: store.table.tpopfreiwkontr.get(aEl.tpopfreiwkontr) }
+            activeDataset = { table: `tpopfreiwkontr`, row: store.table.tpopkontr.get(aEl.tpopfreiwkontr) }
           } else if (aEl.tpopfeldkontr) {
-            activeDataset = { table: `tpopfeldkontr`, row: store.table.tpopfeldkontr.get(aEl.tpopfeldkontr) }
+            activeDataset = { table: `tpopfeldkontr`, row: store.table.tpopkontr.get(aEl.tpopfeldkontr) }
           } else if (aEl.tpopmassnber) {
             activeDataset = { table: `tpopmassnber`, row: store.table.tpopmassnber.get(aEl.tpopmassnber) }
           } else if (aEl.tpopmassn) {

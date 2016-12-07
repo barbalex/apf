@@ -3,6 +3,7 @@ import tpopberNodes from './tpopber'
 import tpopmassnberNodes from './tpopmassnber'
 import tpopmassnNodes from './tpopmassn'
 import tpopfeldkontrNodes from './tpopfeldkontr'
+import tpopfreiwkontrNodes from './tpopfreiwkontr'
 
 export default ({ store, projId, apArtId, popId }) => {
   const { activeUrlElements } = store
@@ -16,7 +17,7 @@ export default ({ store, projId, apArtId, popId }) => {
     const myMassnNodes = tpopmassnNodes({ store, projId, apArtId, popId, tpopId: el.TPopId })
     const myMassnberNodes = tpopmassnberNodes({ store, projId, apArtId, popId, tpopId: el.TPopId })
     const myFeldkontrNodes = tpopfeldkontrNodes({ store, projId, apArtId, popId, tpopId: el.TPopId })
-    const myFreiwkontrNodes = []
+    const myFreiwkontrNodes = tpopfreiwkontrNodes({ store, projId, apArtId, popId, tpopId: el.TPopId })
     const myTpopberNodes = tpopberNodes({ store, projId, apArtId, popId, tpopId: el.TPopId })
     const myBeobNodes = []
     return {
@@ -59,7 +60,7 @@ export default ({ store, projId, apArtId, popId }) => {
           label: `Freiwilligen-Kontrollen (${myFreiwkontrNodes.length})`,
           table: `tpop`,
           row: `el`,
-          expanded: activeUrlElements.tpopfeldkontrFolder,
+          expanded: activeUrlElements.tpopfreiwkontrFolder,
           url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, el.PopId, `Teil-Populationen`, el.TPopId, `Freiwilligen-Kontrollen`],
           children: myFreiwkontrNodes,
         },

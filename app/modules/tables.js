@@ -36,31 +36,32 @@ export default [
   {
     database: `apflora`,
     table: `tpopkontr`,
+    label: `Kontrollen`,
+    idField: `TPopKontrId`,
+    parentTable: `tpop`,
+    parentIdField: `TPopId`,
+    mutWannField: `MutWann`,
+    mutWerField: `MutWer`,
+  },
+  {
+    database: `apflora`,
+    table: `tpopfeldkontr`,
+    label: `Feld-Kontrollen`,
+    idField: `TPopKontrId`,
+    parentTable: `tpop`,
+    parentIdField: `TPopId`,
+    mutWannField: `MutWann`,
+    mutWerField: `MutWer`,
+  },
+  {
+    database: `apflora`,
+    table: `tpopfreiwkontr`,
     label: `Freiwilligen-Kontrollen`,
     idField: `TPopKontrId`,
     parentTable: `tpop`,
     parentIdField: `TPopId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
-    label_(row) {
-      if (!row) return noLabel
-      if (row.TPopKontrTyp && row.TPopKontrTyp === `"Freiwilligen-Erfolgskontrolle"`) {
-        return `${row.TPopKontrJahr || `(kein Jahr)`}`
-      }
-      return `${row.TPopKontrJahr || `(kein Jahr)`}: ${row.TPopKontrTyp || `(kein Typ)`}`
-    },
-    folder: {
-      label(node) {
-        if (!node || !node.row || !node.row.TPopKontrTyp) return `Kontrollen`
-        const row = node.row
-        if (row.TPopKontrTyp && row.TPopKontrTyp === `"Freiwilligen-Erfolgskontrolle"`) {
-          if (!node.childrenFilteredByLabel) return `Freiwilligen-Kontrollen`
-          return `Freiwilligen-Kontrollen (${node.childrenFilteredByLabel.length})`
-        }
-        if (!node.childrenFilteredByLabel) return `Feld-Kontrollen`
-        return `Feld-Kontrollen (${node.childrenFilteredByLabel.length})`
-      },
-    },
   },
   {
     database: `apflora`,
