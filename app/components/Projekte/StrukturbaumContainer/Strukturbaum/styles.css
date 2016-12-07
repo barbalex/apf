@@ -1,13 +1,19 @@
 .container {
   height: 100%;
-  font-family: monospace;
+  /*font-family: monospace;*/
+  font-family: 'Roboto Mono', monospace;
 }
 
 .listContainer {
-  font-family: monospace;
+  /*font-family: monospace;*/
+  font-family: 'Roboto Mono', monospace;
+  font-size: 15px;
+  font-weight: normal;
 }
 .listContainer * {
   box-sizing: border-box;
+  font-size: 15px;
+  font-weight: normal;
 }
 
 .topUl {
@@ -37,6 +43,8 @@
   composes: node;
   font-weight: 900;
   color: rgb(255, 94, 94);
+  padding-left: .5em;
+  font-size: 15px;
 }
 
 .node:hover {
