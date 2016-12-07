@@ -14,7 +14,7 @@ verwendet:
 - Grundlage schaffen, um auf das Access-Admin-Tool zu verzichten
 - Architektur modernisieren
 - Unterhalt- und Erweiterbarkeit verbessern
-- Infrastruktur für Tests bereitstellen
+- (Infra-)Struktur für Tests bereitstellen
 - Nach und nach Tests einführen
 - Sicherheit erhöhen
 - URL ist Teil des Flux-Stores, steuert UI. Vorteile:
