@@ -9,7 +9,9 @@ import { action, autorun, transaction, computed, observable } from 'mobx'
 import singleton from 'singleton'
 import axios from 'axios'
 import objectValues from 'lodash/values'
+import clone from 'lodash/clone'
 import createHistory from 'history/createBrowserHistory'
+import queryString from 'query-string'
 
 import fetchTableModule from '../modules/fetchTable'
 import fetchTableByParentId from '../modules/fetchTableByParentId'
@@ -66,6 +68,10 @@ class Store extends singleton {
     return pathElements
   }
 
+  @computed get urlQuery() {
+    return queryString.parse(this.history.location.search)
+  }
+
   forwardToProjekte = autorun(
     `forwardToProjekte`,
     () => {
@@ -79,6 +85,7 @@ class Store extends singleton {
   updateActiveUrlElements = autorun(
     `updateActiveUrlElements`,
     () => {
+      console.log(`this.history.location:`, this.history.location)
       this.activeUrlElements = getActiveUrlElements(this.url)
     }
   )
@@ -209,6 +216,22 @@ class Store extends singleton {
       }
       this.history.push(`/${newUrl.join(`/`)}`)
       node.expanded = !node.expanded
+    }
+  }
+
+  @action
+  setUrlQuery = (key, value) => {
+    const urlQuery = clone(this.urlQuery)
+    if (!value && value !== 0) {
+      delete urlQuery[key]
+    } else {
+      urlQuery[key] = value
+    }
+    if (Object.keys(urlQuery).length === 0) {
+      this.history.push(`/${this.url.join(`/`)}`)
+    } else {
+      const search = queryString.stringify(urlQuery)
+      this.history.push(`/${this.url.join(`/`)}?${search}`)
     }
   }
 

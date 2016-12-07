@@ -20,6 +20,16 @@ class Tpopfeldkontr extends Component { // eslint-disable-line react/prefer-stat
     store: PropTypes.object,
   }
 
+  constructor() {
+    super()
+    this.onChangeTab = this.onChangeTab.bind(this)
+  }
+
+  onChangeTab(value) {
+    const { store } = this.props
+    store.setUrlQuery(`feldkontrTab`, value)
+  }
+
   render() {
     const { store } = this.props
     const { activeDataset } = store
@@ -102,11 +112,18 @@ class Tpopfeldkontr extends Component { // eslint-disable-line react/prefer-stat
       value: el.DomainCode,
       label: el.DomainTxt,
     }))
+    const tab = store.urlQuery.feldkontrTab || `entwicklung`
 
     return (
       <div className={styles.container}>
-        <Tabs>
-          <Tab label="Entwicklung">
+        <Tabs
+          value={tab}
+          onChange={this.onChangeTab}
+        >
+          <Tab
+            label="Entwicklung"
+            value="entwicklung"
+          >
             <div className={styles.formContainer}>
               <TextField
                 label="Jahr"
@@ -240,7 +257,10 @@ class Tpopfeldkontr extends Component { // eslint-disable-line react/prefer-stat
               <div style={{ height: `55px` }} />
             </div>
           </Tab>
-          <Tab label="Biotop">
+          <Tab
+            label="Biotop"
+            value="biotop"
+          >
             <div className={styles.formContainer}>
               <TextField
                 label="Fläche"
