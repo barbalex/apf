@@ -7,12 +7,12 @@
 .listContainer {
   /*font-family: monospace;*/
   font-family: 'Roboto Mono', monospace;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: normal;
 }
 .listContainer * {
   box-sizing: border-box;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: normal;
 }
 
@@ -43,7 +43,7 @@
   composes: node;
   font-weight: 900;
   color: rgb(255, 94, 94);
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .node:hover {
