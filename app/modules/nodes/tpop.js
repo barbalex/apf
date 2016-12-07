@@ -2,6 +2,7 @@ import sortBy from 'lodash/sortBy'
 import tpopberNodes from './tpopber'
 import tpopmassnberNodes from './tpopmassnber'
 import tpopmassnNodes from './tpopmassn'
+import tpopfeldkontrNodes from './tpopfeldkontr'
 
 export default ({ store, projId, apArtId, popId }) => {
   const { activeUrlElements } = store
@@ -14,7 +15,7 @@ export default ({ store, projId, apArtId, popId }) => {
   let nodes = tpop.map((el) => {
     const myMassnNodes = tpopmassnNodes({ store, projId, apArtId, popId, tpopId: el.TPopId })
     const myMassnberNodes = tpopmassnberNodes({ store, projId, apArtId, popId, tpopId: el.TPopId })
-    const myFeldkontrNodes = []
+    const myFeldkontrNodes = tpopfeldkontrNodes({ store, projId, apArtId, popId, tpopId: el.TPopId })
     const myFreiwkontrNodes = []
     const myTpopberNodes = tpopberNodes({ store, projId, apArtId, popId, tpopId: el.TPopId })
     const myBeobNodes = []
