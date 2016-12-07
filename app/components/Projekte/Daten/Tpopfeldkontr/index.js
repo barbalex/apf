@@ -19,12 +19,13 @@ class Tpopfeldkontr extends Component { // eslint-disable-line react/prefer-stat
   render() {
     const { store } = this.props
     const { activeDataset } = store
-    let tpopEntwicklungWerte = Array.from(store.table.tpop_entwicklung_werte.values())
-    tpopEntwicklungWerte = sortBy(tpopEntwicklungWerte, `EntwicklungOrd`)
-    tpopEntwicklungWerte = tpopEntwicklungWerte.map(el => ({
-      value: el.EntwicklungCode,
-      label: el.EntwicklungTxt,
-    }))
+    const tpopkontrTypWerte = [{
+      value: `Ausgangszustand`,
+      label: `Ausgangszustand`,
+    }, {
+      value: `Zwischenbeurteilung`,
+      label: `Zwischenbeurteilung`,
+    }]
     return (
       <div className={styles.container}>
         <Tabs>
@@ -46,6 +47,14 @@ class Tpopfeldkontr extends Component { // eslint-disable-line react/prefer-stat
                 errorText={activeDataset.valid.TPopKontrDatum}
                 fullWidth
                 updateProperty={store.updateProperty}
+                updatePropertyInDb={store.updatePropertyInDb}
+              />
+              <Label label="Kontrolltyp" />
+              <RadioButtonGroup
+                fieldName="TPopKontrTyp"
+                value={activeDataset.row.TPopKontrTyp}
+                errorText={activeDataset.valid.TPopKontrTyp}
+                dataSource={tpopkontrTypWerte}
                 updatePropertyInDb={store.updatePropertyInDb}
               />
             </div>

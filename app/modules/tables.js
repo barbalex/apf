@@ -46,6 +46,7 @@ export default [
   {
     database: `apflora`,
     table: `tpopfeldkontr`,
+    dbTable: `tpopkontr`,
     label: `Feld-Kontrollen`,
     idField: `TPopKontrId`,
     parentTable: `tpop`,
@@ -56,6 +57,7 @@ export default [
   {
     database: `apflora`,
     table: `tpopfreiwkontr`,
+    dbTable: `tpopkontr`,
     label: `Freiwilligen-Kontrollen`,
     idField: `TPopKontrId`,
     parentTable: `tpop`,

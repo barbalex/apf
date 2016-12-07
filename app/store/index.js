@@ -141,8 +141,10 @@ class Store extends singleton {
 
   @action
   updatePropertyInDb = (key, valuePassed) => {
-    const { table, row, valid } = this.activeDataset
+    const { row, valid } = this.activeDataset
+    const tablePassed = this.activeDataset.table
     let value = valuePassed
+    let table = tablePassed
 
     // ensure primary data exists
     if (!key || !table || !row) {
@@ -155,7 +157,13 @@ class Store extends singleton {
     }
 
     // ensure derived data exists
-    const tabelle = tables.find(t => t.table === table)
+    const tabelle = tables.find(t =>
+      t.table === table
+    )
+    // in tpopfeldkontr and tpopfreiwkontr need to find dbTable
+    if (tabelle.dbTable) {
+      table = tabelle.dbTable
+    }
     const idField = tabelle ? tabelle.idField : undefined
     if (!idField) {
       return console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)

@@ -54,16 +54,14 @@ class Tpopmassn extends Component { // eslint-disable-line react/prefer-stateles
           updateProperty={store.updateProperty}
           updatePropertyInDb={store.updatePropertyInDb}
         />
-        <div className={styles.fieldContainer}>
-          <Label label="Typ" />
-          <RadioButtonGroup
-            fieldName="TPopMassnTyp"
-            value={activeDataset.row.TPopMassnTyp}
-            errorText={activeDataset.valid.TPopMassnTyp}
-            dataSource={tpopMassnTypWerte}
-            updatePropertyInDb={store.updatePropertyInDb}
-          />
-        </div>
+        <Label label="Typ" />
+        <RadioButtonGroup
+          fieldName="TPopMassnTyp"
+          value={activeDataset.row.TPopMassnTyp}
+          errorText={activeDataset.valid.TPopMassnTyp}
+          dataSource={tpopMassnTypWerte}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
         <TextField
           label="Massnahme"
           fieldName="TPopMassnTxt"
