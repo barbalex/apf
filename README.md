@@ -8,7 +8,7 @@ verwendet:
 ##Ziele:
 
 - veraltete Abhängikeiten loswerden (z.B. jsTree)
-- Mehrere Projekte verwalten
+- mehrere Projekte verwalten
 - Grundlage schaffen, um Berichte direkt aus der Webanwendung heraus produzieren zu können
 - Berichte pro Projekt individualisieren
 - Grundlage schaffen, um auf das Access-Admin-Tool zu verzichten
@@ -17,4 +17,6 @@ verwendet:
 - Infrastruktur für Tests bereitstellen
 - Nach und nach Tests einführen
 - Sicherheit erhöhen
-- URL steuert UI > fast alles ist verlinkbar
+- URL ist Teil des Flux-Stores, steuert UI. Vorteile:
+  - fast alles ist verlinkbar
+  - auf einen Router kann verzichtet werden
