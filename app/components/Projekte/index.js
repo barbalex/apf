@@ -9,6 +9,8 @@ import { observer, inject } from 'mobx-react'
 import Helmet from 'react-helmet'
 import { Toolbar } from 'material-ui/Toolbar'
 import FlatButton from 'material-ui/FlatButton'
+import clone from 'lodash/clone'
+import remove from 'lodash/remove'
 
 import styles from './styles.css'
 import StrukturbaumContainer from './StrukturbaumContainer'
@@ -23,9 +25,31 @@ class Projekte extends React.Component { // eslint-disable-line react/prefer-sta
     store: PropTypes.object,
   }
 
+  constructor() {
+    super()
+    this.onClickButton = this.onClickButton.bind(this)
+  }
+
+  onClickButton(name) {
+    const { store } = this.props
+    const projekteTabs = clone(store.urlQuery.projekteTabs)
+    const isVisible = projekteTabs.includes(name)
+    if (isVisible) {
+      remove(projekteTabs, el => el === name)
+    } else {
+      projekteTabs.push(name)
+    }
+    store.setUrlQuery(`projekteTabs`, projekteTabs)
+  }
+
   render() {
     const { store } = this.props
-    const { strukturbaum, strukturbaum2, daten, karte } = store.ui.projekte
+    const projekteTabs = clone(store.urlQuery.projekteTabs)
+    const strukturbaumIsVisible = projekteTabs.includes(`strukturbaum`)
+    const strukturbaum2IsVisible = projekteTabs.includes(`strukturbaum2`)
+    const datenIsVisible = projekteTabs.includes(`daten`)
+    const karteIsVisible = projekteTabs.includes(`karte`)
+    // const { strukturbaum, strukturbaum2, daten, karte } = store.ui.projekte
 
     return (
       <div className={styles.container}>
@@ -38,45 +62,45 @@ class Projekte extends React.Component { // eslint-disable-line react/prefer-sta
         <Toolbar className={styles.toolbar} >
           <FlatButton
             label="Strukturbaum"
-            primary={strukturbaum.visible}
-            onClick={() => {
-              strukturbaum.visible = !strukturbaum.visible
-            }}
+            primary={strukturbaumIsVisible}
+            onClick={() =>
+              this.onClickButton(`strukturbaum`)
+            }
           />
           <FlatButton
             label="Strukturbaum 2"
-            primary={strukturbaum2.visible}
-            onClick={() => {
-              strukturbaum2.visible = !strukturbaum2.visible
-            }}
+            primary={strukturbaum2IsVisible}
+            onClick={() =>
+              this.onClickButton(`strukturbaum2`)
+            }
             disabled
           />
           <FlatButton
             label="Daten"
-            primary={daten.visible}
+            primary={datenIsVisible}
             onClick={() => {
-              daten.visible = !daten.visible
+              this.onClickButton(`daten`)
             }}
           />
           <FlatButton
             label="Karte"
-            primary={karte.visible}
-            onClick={() => {
-              karte.visible = !karte.visible
-            }}
+            primary={karteIsVisible}
+            onClick={() =>
+              this.onClickButton(`karte`)
+            }
           />
         </Toolbar>
         <div className={styles.content} >
           {
-            strukturbaum.visible
+            strukturbaumIsVisible
               && <StrukturbaumContainer />
           }
           {
-            daten.visible
+            datenIsVisible
               && <Daten />
           }
           {
-            karte.visible
+            karteIsVisible
               && <Karte />
           }
         </div>

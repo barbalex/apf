@@ -10,6 +10,7 @@ import singleton from 'singleton'
 import axios from 'axios'
 import objectValues from 'lodash/values'
 import clone from 'lodash/clone'
+import isEqual from 'lodash/isEqual'
 import createHistory from 'history/createBrowserHistory'
 import queryString from 'query-string'
 
@@ -79,12 +80,22 @@ class Store extends singleton {
     return queryString.parse(this.history.location.search)
   }
 
-  forwardToProjekte = autorun(
-    `forwardToProjekte`,
+  manipulateUrl = autorun(
+    `manipulateUrl`,
     () => {
-      const { history } = this
-      if (history.location.pathname === `/`) {
-        history.push(`Projekte`)
+      const url = clone(this.url)
+      if (url.length === 0) {
+        url.push(`Projekte`)
+      }
+      const urlQuery = clone(this.urlQuery)
+      // if new store, set projekte tabs
+      if ((url.length === 0 || url[0] === `Projekte`) && !urlQuery.projekteTabs) {
+        urlQuery.projekteTabs = [`strukturbaum`, `daten`]
+      }
+
+      const search = queryString.stringify(urlQuery)
+      if (!isEqual(url, this.url) || !isEqual(urlQuery, this.urlQuery)) {
+        this.history.push(`/${url.join(`/`)}${Object.keys(urlQuery).length > 0 ? `?${search}` : ``}`)
       }
     }
   )
@@ -92,7 +103,6 @@ class Store extends singleton {
   updateActiveUrlElements = autorun(
     `updateActiveUrlElements`,
     () => {
-      console.log(`this.history.location:`, this.history.location)
       this.activeUrlElements = getActiveUrlElements(this.url)
     }
   )
@@ -238,12 +248,8 @@ class Store extends singleton {
     } else {
       urlQuery[key] = value
     }
-    if (Object.keys(urlQuery).length === 0) {
-      this.history.push(`/${this.url.join(`/`)}`)
-    } else {
-      const search = queryString.stringify(urlQuery)
-      this.history.push(`/${this.url.join(`/`)}?${search}`)
-    }
+    const search = queryString.stringify(urlQuery)
+    this.history.push(`/${this.url.join(`/`)}${Object.keys(urlQuery).length > 0 ? `?${search}` : ``}`)
   }
 
   @observable activeNode
