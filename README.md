@@ -20,3 +20,4 @@ verwendet:
 - URL ist Teil des Flux-Stores, steuert UI. Vorteile:
   - fast alles ist verlinkbar
   - auf einen Router kann verzichtet werden
+- real-time Update der Daten, wenn mehrere Personen gleichzeitig arbeiten
