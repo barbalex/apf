@@ -17,7 +17,7 @@ class Ber extends Component { // eslint-disable-line react/prefer-stateless-func
     const { store } = this.props
     const { activeDataset } = store
     return (
-      <div>
+      <div className={styles.container}>
         <FormTitle title="Bericht" />
         <div className={styles.fieldsContainer}>
           <TextField
@@ -71,7 +71,6 @@ class Ber extends Component { // eslint-disable-line react/prefer-stateless-func
             updateProperty={store.updateProperty}
             updatePropertyInDb={store.updatePropertyInDb}
           />
-          <div style={{ height: `55px` }} />
         </div>
       </div>
     )

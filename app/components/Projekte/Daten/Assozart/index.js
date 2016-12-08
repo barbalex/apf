@@ -32,7 +32,7 @@ class Assozart extends Component { // eslint-disable-line react/prefer-stateless
       return name || ``
     }
     return (
-      <div>
+      <div className={styles.container}>
         <FormTitle title="assoziierte Art" />
         <div className={styles.fieldsContainer}>
           <AutoComplete

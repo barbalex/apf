@@ -1,11 +1,9 @@
 .container {
   height: 100%;
-  /*font-family: monospace;*/
   font-family: 'Roboto Mono', monospace;
 }
 
 .listContainer {
-  /*font-family: monospace;*/
   font-family: 'Roboto Mono', monospace;
   font-size: 14px;
   font-weight: normal;

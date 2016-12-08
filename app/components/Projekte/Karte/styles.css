@@ -2,7 +2,9 @@
   border-color: #424242;
   border-width: 1px;
   border-style: solid;
-  flex-grow: 1;
+  flex-basis: 600px;
+  flex-grow: 4;
+  flex-shrink: 2;
 }
 
 .map {

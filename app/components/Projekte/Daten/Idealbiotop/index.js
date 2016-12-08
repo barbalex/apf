@@ -24,7 +24,7 @@ class Idealbiotop extends Component { // eslint-disable-line react/prefer-statel
     const { activeDataset } = store
 
     return (
-      <div>
+      <div className={styles.container}>
         <FormTitle title="Idealbiotop" />
         <div className={styles.fieldsContainer}>
           <DatePicker
@@ -226,7 +226,6 @@ class Idealbiotop extends Component { // eslint-disable-line react/prefer-statel
             updateProperty={store.updateProperty}
             updatePropertyInDb={store.updatePropertyInDb}
           />
-          <div style={{ height: `55px` }} />
         </div>
       </div>
     )

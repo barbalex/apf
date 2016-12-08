@@ -36,7 +36,7 @@ class Apber extends Component { // eslint-disable-line react/prefer-stateless-fu
       AdrName: ``,
     })
     return (
-      <div>
+      <div className={styles.container}>
         <FormTitle title="AP-Bericht" />
         <div className={styles.fieldsContainer}>
           <TextField
@@ -164,7 +164,6 @@ class Apber extends Component { // eslint-disable-line react/prefer-stateless-fu
             labelProp="AdrName"
             updatePropertyInDb={store.updatePropertyInDb}
           />
-          <div style={{ height: `55px` }} />
         </div>
       </div>
     )

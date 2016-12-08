@@ -35,6 +35,7 @@ class LabelFilter extends Component { // eslint-disable-line react/prefer-statel
     return (
       <TextField
         floatingLabelText={labelText}
+        fullWidth
         value={filterValue || ``}
         onChange={(event, val) =>
           store.updateLabelFilter(filteredTable, val)

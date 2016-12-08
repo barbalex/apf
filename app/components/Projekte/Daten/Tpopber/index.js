@@ -25,7 +25,7 @@ class Tpopber extends Component { // eslint-disable-line react/prefer-stateless-
       label: el.EntwicklungTxt,
     }))
     return (
-      <div>
+      <div className={styles.container}>
         <FormTitle title="Kontroll-Bericht Teil-Population" />
         <div className={styles.fieldsContainer}>
           <TextField
@@ -58,7 +58,6 @@ class Tpopber extends Component { // eslint-disable-line react/prefer-stateless-
             updateProperty={store.updateProperty}
             updatePropertyInDb={store.updatePropertyInDb}
           />
-          <div style={{ height: `55px` }} />
         </div>
       </div>
     )

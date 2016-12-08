@@ -16,7 +16,7 @@ class Apberuebersicht extends Component { // eslint-disable-line react/prefer-st
     const { store } = this.props
     const { activeDataset } = store
     return (
-      <div>
+      <div className={styles.container}>
         <FormTitle title="AP-Bericht Jahresübersicht" />
         <div className={styles.fieldsContainer}>
           <TextField

@@ -36,7 +36,7 @@ class Tpopmassn extends Component { // eslint-disable-line react/prefer-stateles
     })
     const artnamen = Array.from(store.table.adb_eigenschaften.values()).map(a => a.Artname).sort()
     return (
-      <div>
+      <div className={styles.container}>
         <FormTitle title="Massnahme" />
         <div className={styles.fieldsContainer}>
           <TextField
@@ -213,7 +213,6 @@ class Tpopmassn extends Component { // eslint-disable-line react/prefer-stateles
           />
           <Label label="GUID" />
           <StringToCopy text={activeDataset.row.TPopMassnGuid} />
-          <div style={{ height: `55px` }} />
         </div>
       </div>
     )

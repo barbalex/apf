@@ -22,7 +22,7 @@ class Pop extends Component { // eslint-disable-line react/prefer-stateless-func
     const apJahr = store.table.ap.get(activeDataset.row.ApArtId).ApJahr
 
     return (
-      <div>
+      <div className={styles.container}>
         <FormTitle title="Population" />
         <div className={styles.fieldsContainer}>
           <TextField
@@ -95,7 +95,6 @@ class Pop extends Component { // eslint-disable-line react/prefer-stateless-func
             updateProperty={store.updateProperty}
             updatePropertyInDb={store.updatePropertyInDb}
           />
-          <div style={{ height: `55px` }} />
         </div>
       </div>
     )

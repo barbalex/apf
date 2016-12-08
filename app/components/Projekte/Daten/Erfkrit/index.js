@@ -25,7 +25,7 @@ class Erfkrit extends Component { // eslint-disable-line react/prefer-stateless-
     }))
     const { activeDataset } = store
     return (
-      <div>
+      <div className={styles.container}>
         <FormTitle title="Erfolgs-Kriterium" />
         <div className={styles.fieldsContainer}>
           <div className={styles.fieldContainer}>

@@ -1,9 +1,3 @@
-/*
- *
- * Projekte
- *
- */
-
 import React, { PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import Helmet from 'react-helmet'

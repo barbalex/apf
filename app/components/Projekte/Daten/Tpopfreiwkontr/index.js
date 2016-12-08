@@ -27,7 +27,7 @@ class Tpopfreiwkontr extends Component { // eslint-disable-line react/prefer-sta
     })
 
     return (
-      <div>
+      <div className={styles.container}>
         <FormTitle title="Freiwilligen-Kontrolle" />
         <div className={styles.fieldsContainer}>
           <TextField
@@ -139,7 +139,6 @@ class Tpopfreiwkontr extends Component { // eslint-disable-line react/prefer-sta
           />
           <Label label="GUID" />
           <StringToCopy text={activeDataset.row.TPopKontrGuid} />
-          <div style={{ height: `55px` }} />
         </div>
       </div>
     )

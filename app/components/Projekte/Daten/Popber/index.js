@@ -25,7 +25,7 @@ class Popber extends Component { // eslint-disable-line react/prefer-stateless-f
       label: el.EntwicklungTxt,
     }))
     return (
-      <div>
+      <div className={styles.container}>
         <FormTitle title="Kontroll-Bericht Population" />
         <div className={styles.fieldsContainer}>
           <TextField
@@ -58,7 +58,6 @@ class Popber extends Component { // eslint-disable-line react/prefer-stateless-f
             updateProperty={store.updateProperty}
             updatePropertyInDb={store.updatePropertyInDb}
           />
-          <div style={{ height: `55px` }} />
         </div>
       </div>
     )

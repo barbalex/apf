@@ -17,7 +17,7 @@ class Projekt extends Component { // eslint-disable-line react/prefer-stateless-
     const { activeDataset } = store
 
     return (
-      <div>
+      <div className={styles.container}>
         <FormTitle title="Projekt" />
         <div className={styles.fieldsContainer}>
           <TextField

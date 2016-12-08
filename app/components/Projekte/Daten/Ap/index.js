@@ -71,7 +71,7 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
     }
 
     return (
-      <div>
+      <div className={styles.container}>
         <FormTitle title="Art" />
         <div className={styles.fieldsContainer}>
           <AutoComplete

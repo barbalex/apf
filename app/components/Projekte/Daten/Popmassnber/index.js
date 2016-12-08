@@ -25,7 +25,7 @@ class Popmassnber extends Component { // eslint-disable-line react/prefer-statel
       label: el.BeurteilTxt,
     }))
     return (
-      <div>
+      <div className={styles.container}>
         <FormTitle title="Massnahmen-Bericht Population" />
         <div className={styles.fieldsContainer}>
           <TextField
@@ -58,7 +58,6 @@ class Popmassnber extends Component { // eslint-disable-line react/prefer-statel
             updateProperty={store.updateProperty}
             updatePropertyInDb={store.updatePropertyInDb}
           />
-          <div style={{ height: `55px` }} />
         </div>
       </div>
     )

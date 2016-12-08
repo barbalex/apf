@@ -1,8 +1,5 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
-import sortBy from 'lodash/sortBy'
-import RadioButtonGroup from '../../../shared/RadioButtonGroup'
-import Label from '../../../shared/Label'
 import TextField from '../../../shared/TextField'
 import FormTitle from '../../../shared/FormTitle'
 import styles from './styles.css'
@@ -19,7 +16,7 @@ class Zielber extends Component { // eslint-disable-line react/prefer-stateless-
     const { store } = this.props
     const { activeDataset } = store
     return (
-      <div>
+      <div className={styles.container}>
         <FormTitle title="Ziel-Bericht" />
         <div className={styles.fieldsContainer}>
           <TextField
@@ -52,7 +49,6 @@ class Zielber extends Component { // eslint-disable-line react/prefer-stateless-
             updateProperty={store.updateProperty}
             updatePropertyInDb={store.updatePropertyInDb}
           />
-          <div style={{ height: `55px` }} />
         </div>
       </div>
     )

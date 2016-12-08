@@ -30,7 +30,7 @@ class Tpop extends Component { // eslint-disable-line react/prefer-stateless-fun
       label: t.DomainTxt,
     }))
     const tpopAbBerRelevantInfoPopover = (
-      <div>
+      <div className={styles.container}>
         <div className={styles.labelPopoverTitleRow}>
           Legende
         </div>
@@ -277,7 +277,6 @@ class Tpop extends Component { // eslint-disable-line react/prefer-stateless-fun
             updateProperty={store.updateProperty}
             updatePropertyInDb={store.updatePropertyInDb}
           />
-          <div style={{ height: `55px` }} />
         </div>
       </div>
     )

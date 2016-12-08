@@ -25,7 +25,7 @@ class Tpopmassnber extends Component { // eslint-disable-line react/prefer-state
       label: el.BeurteilTxt,
     }))
     return (
-      <div>
+      <div className={styles.container}>
         <FormTitle title="Massnahmen-Bericht Teil-Population" />
         <div className={styles.fieldsContainer}>
           <TextField
@@ -58,7 +58,6 @@ class Tpopmassnber extends Component { // eslint-disable-line react/prefer-state
             updateProperty={store.updateProperty}
             updatePropertyInDb={store.updatePropertyInDb}
           />
-          <div style={{ height: `55px` }} />
         </div>
       </div>
     )

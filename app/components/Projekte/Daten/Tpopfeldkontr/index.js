@@ -116,7 +116,7 @@ class Tpopfeldkontr extends Component { // eslint-disable-line react/prefer-stat
     const tab = store.urlQuery.feldkontrTab || `entwicklung`
 
     return (
-      <div>
+      <div className={styles.container}>
         <FormTitle title="Feld-Kontrolle" />
         <div className={styles.fieldsContainer}>
           <Tabs
@@ -444,7 +444,6 @@ class Tpopfeldkontr extends Component { // eslint-disable-line react/prefer-stat
                   dataSource={idbiotopuebereinstWerte}
                   updatePropertyInDb={store.updatePropertyInDb}
                 />
-                <div style={{ height: `55px` }} />
               </div>
             </Tab>
           </Tabs>

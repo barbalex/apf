@@ -25,7 +25,7 @@ class Ziel extends Component { // eslint-disable-line react/prefer-stateless-fun
       label: el.ZieltypTxt,
     }))
     return (
-      <div>
+      <div className={styles.container}>
         <FormTitle title="Ziel" />
         <div className={styles.fieldsContainer}>
           <TextField
@@ -58,7 +58,6 @@ class Ziel extends Component { // eslint-disable-line react/prefer-stateless-fun
             updateProperty={store.updateProperty}
             updatePropertyInDb={store.updatePropertyInDb}
           />
-          <div style={{ height: `55px` }} />
         </div>
       </div>
     )
