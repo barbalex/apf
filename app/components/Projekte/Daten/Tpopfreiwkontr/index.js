@@ -1,9 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
-import sortBy from 'lodash/sortBy'
-import { Tabs, Tab } from 'material-ui/Tabs'
-import AutoComplete from 'material-ui/AutoComplete'
-import RadioButtonGroup from '../../../shared/RadioButtonGroup'
+import RadioButton from '../../../shared/RadioButton'
 import Label from '../../../shared/Label'
 import TextField from '../../../shared/TextField'
 import DatePicker from '../../../shared/DatePicker'
@@ -59,6 +56,74 @@ class Tpopfreiwkontr extends Component { // eslint-disable-line react/prefer-sta
             labelProp="AdrName"
             updatePropertyInDb={store.updatePropertyInDb}
           />
+          <Label label="Auf Plan eingezeichnet" />
+          <RadioButton
+            fieldName="TPopKontrPlan"
+            value={activeDataset.row.TPopKontrPlan}
+            updatePropertyInDb={store.updatePropertyInDb}
+          />
+          <TextField
+            label="Überprüfte Fläche in m2"
+            fieldName="TPopKontrUebFlaeche"
+            value={activeDataset.row.TPopKontrUebFlaeche}
+            errorText={activeDataset.valid.TPopKontrUebFlaeche}
+            type="number"
+            updateProperty={store.updateProperty}
+            updatePropertyInDb={store.updatePropertyInDb}
+          />
+          <TextField
+            label="Deckung überprüfte Art (%)"
+            fieldName="TPopKontrUebPfl"
+            value={activeDataset.row.TPopKontrUebPfl}
+            errorText={activeDataset.valid.TPopKontrUebPfl}
+            type="number"
+            updateProperty={store.updateProperty}
+            updatePropertyInDb={store.updatePropertyInDb}
+          />
+          <TextField
+            label="Deckung nackter Boden (%)"
+            fieldName="TPopKontrNaBo"
+            value={activeDataset.row.TPopKontrNaBo}
+            errorText={activeDataset.valid.TPopKontrNaBo}
+            type="number"
+            updateProperty={store.updateProperty}
+            updatePropertyInDb={store.updatePropertyInDb}
+          />
+          <Label label="Auch junge Pflanzen vorhanden" />
+          <RadioButton
+            fieldName="TPopKontrJungPflJN"
+            value={activeDataset.row.TPopKontrJungPflJN}
+            updatePropertyInDb={store.updatePropertyInDb}
+          />
+          <TextField
+            label="Maximum der Vegetationshöhe in cm"
+            fieldName="TPopKontrVegHoeMax"
+            value={activeDataset.row.TPopKontrVegHoeMax}
+            errorText={activeDataset.valid.TPopKontrVegHoeMax}
+            type="number"
+            updateProperty={store.updateProperty}
+            updatePropertyInDb={store.updatePropertyInDb}
+          />
+          <TextField
+            label="Mittelwert der Vegetationshöhe in cm"
+            fieldName="TPopKontrVegHoeMit"
+            value={activeDataset.row.TPopKontrVegHoeMit}
+            errorText={activeDataset.valid.TPopKontrVegHoeMit}
+            type="number"
+            updateProperty={store.updateProperty}
+            updatePropertyInDb={store.updatePropertyInDb}
+          />
+          <TextField
+            label="Gefährdung"
+            fieldName="TPopKontrGefaehrdung"
+            value={activeDataset.row.TPopKontrGefaehrdung}
+            errorText={activeDataset.valid.TPopKontrGefaehrdung}
+            type="text"
+            multiLine
+            fullWidth
+            updateProperty={store.updateProperty}
+            updatePropertyInDb={store.updatePropertyInDb}
+          />
           <TextField
             label="Bemerkungen"
             fieldName="TPopKontrTxt"
@@ -67,15 +132,6 @@ class Tpopfreiwkontr extends Component { // eslint-disable-line react/prefer-sta
             type="text"
             multiLine
             fullWidth
-            updateProperty={store.updateProperty}
-            updatePropertyInDb={store.updatePropertyInDb}
-          />
-          <TextField
-            label="Fläche"
-            fieldName="TPopKontrFlaeche"
-            value={activeDataset.row.TPopKontrFlaeche}
-            errorText={activeDataset.valid.TPopKontrFlaeche}
-            type="number"
             updateProperty={store.updateProperty}
             updatePropertyInDb={store.updatePropertyInDb}
           />

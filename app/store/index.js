@@ -206,6 +206,14 @@ class Store extends singleton {
       return console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
     }
 
+    // some fields contain 1 for true, 0 for false
+    // not necessary: done by RadioButton component
+    /*
+    const booleanFields = [`TPopKontrJungPflJN`, `TPopKontrPlan`]
+    if (booleanFields.includes(key)) {
+      value = value === 1
+    }*/
+
     // update if no validation messages exist
     const combinedValidationMessages = objectValues(valid).join(``)
     // console.log(`updatePropertyInDb, combinedValidationMessages:`, combinedValidationMessages)
