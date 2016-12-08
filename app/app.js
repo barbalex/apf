@@ -33,6 +33,9 @@ import store from './store'
 import styles from './app.css'  // eslint-disable-line no-unused-vars
 import Router from './components/Router'
 
+import apiBaseUrl from './modules/apiBaseUrl'
+import updateFromSocket from './modules/updateFromSocket'
+
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin()
@@ -49,6 +52,9 @@ window.app.store = store
 
 // load immediately because is used to validate active dataset
 store.fetchFields()
+
+const socket = window.io(apiBaseUrl)
+socket.on(`tabelle_update`, payload => updateFromSocket(store, payload))
 
 ReactDOM.render(
   <Provider store={store}>
