@@ -5,7 +5,7 @@ import DatePicker from 'material-ui/DatePicker'
 import moment from 'moment'
 
 @observer
-class JearDatePair extends Component { // eslint-disable-line react/prefer-stateless-function
+class YearDatePair extends Component { // eslint-disable-line react/prefer-stateless-function
 
   static propTypes = {
     yearLabel: PropTypes.string.isRequired,
@@ -104,4 +104,4 @@ class JearDatePair extends Component { // eslint-disable-line react/prefer-state
   }
 }
 
-export default JearDatePair
+export default YearDatePair
