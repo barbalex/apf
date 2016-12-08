@@ -7,6 +7,7 @@ import RadioButtonGroup from '../../../shared/RadioButtonGroup'
 import LabelWithPopover from '../../../shared/LabelWithPopover'
 import TextField from '../../../shared/TextField'
 import SelectField from '../../../shared/SelectField'
+import FormTitle from '../../../shared/FormTitle'
 import styles from './styles.css'
 
 @inject(`store`)
@@ -70,103 +71,106 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
     }
 
     return (
-      <div className={styles.container}>
-        <AutoComplete
-          label="Art"
-          fieldName="ApArtId"
-          value={ApArtId}
-          valueText={artname()}
-          errorText={activeDataset.valid.ApArtId}
-          dataSource={dataSource}
-          updatePropertyInDb={store.updatePropertyInDb}
-        />
-        <div className={styles.fieldContainer}>
-          <LabelWithPopover label="Aktionsplan">
-            <div className={styles.labelPopoverTitleRow}>
-              Legende
-            </div>
-            <div className={styles.labelPopoverContentRow}>
-              <div className={styles.labelPopoverRowColumnLeft}>
-                keiner:
-              </div>
-              <div className={styles.labelPopoverRowColumnRight}>
-                kein Aktionsplan vorgesehen
-              </div>
-            </div>
-            <div className={styles.labelPopoverContentRow}>
-              <div className={styles.labelPopoverRowColumnLeft}>
-                erstellt:
-              </div>
-              <div className={styles.labelPopoverRowColumnRight}>
-                Aktionsplan fertig, auf der Webseite der FNS
-              </div>
-            </div>
-          </LabelWithPopover>
-          <RadioButtonGroup
-            fieldName="ApStatus"
-            value={activeDataset.row.ApStatus}
-            errorText={activeDataset.valid.ApStatus}
-            dataSource={apStati}
+      <div>
+        <FormTitle title="Art" />
+        <div className={styles.fieldsContainer}>
+          <AutoComplete
+            label="Art"
+            fieldName="ApArtId"
+            value={ApArtId}
+            valueText={artname()}
+            errorText={activeDataset.valid.ApArtId}
+            dataSource={dataSource}
             updatePropertyInDb={store.updatePropertyInDb}
           />
-        </div>
-        <TextField
-          label="Start im Jahr"
-          fieldName="ApJahr"
-          value={activeDataset.row.ApJahr}
-          errorText={activeDataset.valid.ApJahr}
-          type="number"
-          updateProperty={store.updateProperty}
-          updatePropertyInDb={store.updatePropertyInDb}
-        />
-        <div className={styles.fieldContainer}>
-          <LabelWithPopover label="Stand Umsetzung">
-            <div className={styles.labelPopoverTitleRow}>
-              Legende
-            </div>
-            <div className={styles.labelPopoverContentRow}>
-              <div className={styles.labelPopoverRowColumnLeft}>
-                noch keine<br />Umsetzung:
+          <div className={styles.fieldContainer}>
+            <LabelWithPopover label="Aktionsplan">
+              <div className={styles.labelPopoverTitleRow}>
+                Legende
               </div>
-              <div className={styles.labelPopoverRowColumnRight}>
-                noch keine Massnahmen ausgeführt
+              <div className={styles.labelPopoverContentRow}>
+                <div className={styles.labelPopoverRowColumnLeft}>
+                  keiner:
+                </div>
+                <div className={styles.labelPopoverRowColumnRight}>
+                  kein Aktionsplan vorgesehen
+                </div>
               </div>
-            </div>
-            <div className={styles.labelPopoverContentRow}>
-              <div className={styles.labelPopoverRowColumnLeft}>
-                in Umsetzung:
+              <div className={styles.labelPopoverContentRow}>
+                <div className={styles.labelPopoverRowColumnLeft}>
+                  erstellt:
+                </div>
+                <div className={styles.labelPopoverRowColumnRight}>
+                  Aktionsplan fertig, auf der Webseite der FNS
+                </div>
               </div>
-              <div className={styles.labelPopoverRowColumnRight}>
-                bereits Massnahmen ausgeführt (auch wenn AP noch nicht erstellt)
-              </div>
-            </div>
-          </LabelWithPopover>
-          <RadioButtonGroup
-            fieldName="ApUmsetzung"
-            value={activeDataset.row.ApUmsetzung}
-            errorText={activeDataset.valid.ApUmsetzung}
-            dataSource={apUmsetzungen}
-            updatePropertyInDb={store.updatePropertyInDb}
-          />
-        </div>
-        <SelectField
-          label="Verantwortlich"
-          fieldName="ApBearb"
-          value={activeDataset.row.ApBearb}
-          errorText={activeDataset.valid.ApBearb}
-          dataSource={adressen}
-          valueProp="AdrId"
-          labelProp="AdrName"
-          updatePropertyInDb={store.updatePropertyInDb}
-        />
-        <div className={styles.fieldContainer}>
+            </LabelWithPopover>
+            <RadioButtonGroup
+              fieldName="ApStatus"
+              value={activeDataset.row.ApStatus}
+              errorText={activeDataset.valid.ApStatus}
+              dataSource={apStati}
+              updatePropertyInDb={store.updatePropertyInDb}
+            />
+          </div>
           <TextField
-            label="Artwert"
+            label="Start im Jahr"
             fieldName="ApJahr"
-            value={artwert}
+            value={activeDataset.row.ApJahr}
+            errorText={activeDataset.valid.ApJahr}
             type="number"
-            disabled
+            updateProperty={store.updateProperty}
+            updatePropertyInDb={store.updatePropertyInDb}
           />
+          <div className={styles.fieldContainer}>
+            <LabelWithPopover label="Stand Umsetzung">
+              <div className={styles.labelPopoverTitleRow}>
+                Legende
+              </div>
+              <div className={styles.labelPopoverContentRow}>
+                <div className={styles.labelPopoverRowColumnLeft}>
+                  noch keine<br />Umsetzung:
+                </div>
+                <div className={styles.labelPopoverRowColumnRight}>
+                  noch keine Massnahmen ausgeführt
+                </div>
+              </div>
+              <div className={styles.labelPopoverContentRow}>
+                <div className={styles.labelPopoverRowColumnLeft}>
+                  in Umsetzung:
+                </div>
+                <div className={styles.labelPopoverRowColumnRight}>
+                  bereits Massnahmen ausgeführt (auch wenn AP noch nicht erstellt)
+                </div>
+              </div>
+            </LabelWithPopover>
+            <RadioButtonGroup
+              fieldName="ApUmsetzung"
+              value={activeDataset.row.ApUmsetzung}
+              errorText={activeDataset.valid.ApUmsetzung}
+              dataSource={apUmsetzungen}
+              updatePropertyInDb={store.updatePropertyInDb}
+            />
+          </div>
+          <SelectField
+            label="Verantwortlich"
+            fieldName="ApBearb"
+            value={activeDataset.row.ApBearb}
+            errorText={activeDataset.valid.ApBearb}
+            dataSource={adressen}
+            valueProp="AdrId"
+            labelProp="AdrName"
+            updatePropertyInDb={store.updatePropertyInDb}
+          />
+          <div className={styles.fieldContainer}>
+            <TextField
+              label="Artwert"
+              fieldName="ApJahr"
+              value={artwert}
+              type="number"
+              disabled
+            />
+          </div>
         </div>
       </div>
     )

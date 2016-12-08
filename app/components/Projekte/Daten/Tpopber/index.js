@@ -4,6 +4,7 @@ import sortBy from 'lodash/sortBy'
 import RadioButtonGroup from '../../../shared/RadioButtonGroup'
 import Label from '../../../shared/Label'
 import TextField from '../../../shared/TextField'
+import FormTitle from '../../../shared/FormTitle'
 import styles from './styles.css'
 
 @inject(`store`)
@@ -24,38 +25,41 @@ class Tpopber extends Component { // eslint-disable-line react/prefer-stateless-
       label: el.EntwicklungTxt,
     }))
     return (
-      <div className={styles.container}>
-        <TextField
-          label="Jahr"
-          fieldName="TPopBerJahr"
-          value={activeDataset.row.TPopBerJahr}
-          errorText={activeDataset.valid.TPopBerJahr}
-          type="number"
-          updateProperty={store.updateProperty}
-          updatePropertyInDb={store.updatePropertyInDb}
-        />
-        <div className={styles.fieldContainer}>
-          <Label label="Entwicklung" />
-          <RadioButtonGroup
-            fieldName="TPopBerEntwicklung"
-            value={activeDataset.row.TPopBerEntwicklung}
-            errorText={activeDataset.valid.TPopBerEntwicklung}
-            dataSource={tpopEntwicklungWerte}
+      <div>
+        <FormTitle title="Kontroll-Bericht Teil-Population" />
+        <div className={styles.fieldsContainer}>
+          <TextField
+            label="Jahr"
+            fieldName="TPopBerJahr"
+            value={activeDataset.row.TPopBerJahr}
+            errorText={activeDataset.valid.TPopBerJahr}
+            type="number"
+            updateProperty={store.updateProperty}
             updatePropertyInDb={store.updatePropertyInDb}
           />
+          <div className={styles.fieldContainer}>
+            <Label label="Entwicklung" />
+            <RadioButtonGroup
+              fieldName="TPopBerEntwicklung"
+              value={activeDataset.row.TPopBerEntwicklung}
+              errorText={activeDataset.valid.TPopBerEntwicklung}
+              dataSource={tpopEntwicklungWerte}
+              updatePropertyInDb={store.updatePropertyInDb}
+            />
+          </div>
+          <TextField
+            label="Bemerkungen"
+            fieldName="TPopBerTxt"
+            value={activeDataset.row.TPopBerTxt}
+            errorText={activeDataset.valid.TPopBerTxt}
+            type="text"
+            multiLine
+            fullWidth
+            updateProperty={store.updateProperty}
+            updatePropertyInDb={store.updatePropertyInDb}
+          />
+          <div style={{ height: `55px` }} />
         </div>
-        <TextField
-          label="Bemerkungen"
-          fieldName="TPopBerTxt"
-          value={activeDataset.row.TPopBerTxt}
-          errorText={activeDataset.valid.TPopBerTxt}
-          type="text"
-          multiLine
-          fullWidth
-          updateProperty={store.updateProperty}
-          updatePropertyInDb={store.updatePropertyInDb}
-        />
-        <div style={{ height: `55px` }} />
       </div>
     )
   }

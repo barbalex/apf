@@ -4,6 +4,7 @@ import sortBy from 'lodash/sortBy'
 import RadioButtonGroup from '../../../shared/RadioButtonGroup'
 import Label from '../../../shared/Label'
 import TextField from '../../../shared/TextField'
+import FormTitle from '../../../shared/FormTitle'
 import styles from './styles.css'
 
 @inject(`store`)
@@ -24,38 +25,41 @@ class Ziel extends Component { // eslint-disable-line react/prefer-stateless-fun
       label: el.ZieltypTxt,
     }))
     return (
-      <div className={styles.container}>
-        <TextField
-          label="Jahr"
-          fieldName="ZielJahr"
-          value={activeDataset.row.ZielJahr}
-          errorText={activeDataset.valid.ZielJahr}
-          type="number"
-          updateProperty={store.updateProperty}
-          updatePropertyInDb={store.updatePropertyInDb}
-        />
-        <div className={styles.fieldContainer}>
-          <Label label="Zieltyp" />
-          <RadioButtonGroup
-            fieldName="ZielTyp"
-            value={activeDataset.row.ZielTyp}
-            errorText={activeDataset.valid.ZielTyp}
-            dataSource={zielTypWerte}
+      <div>
+        <FormTitle title="Ziel" />
+        <div className={styles.fieldsContainer}>
+          <TextField
+            label="Jahr"
+            fieldName="ZielJahr"
+            value={activeDataset.row.ZielJahr}
+            errorText={activeDataset.valid.ZielJahr}
+            type="number"
+            updateProperty={store.updateProperty}
             updatePropertyInDb={store.updatePropertyInDb}
           />
+          <div className={styles.fieldContainer}>
+            <Label label="Zieltyp" />
+            <RadioButtonGroup
+              fieldName="ZielTyp"
+              value={activeDataset.row.ZielTyp}
+              errorText={activeDataset.valid.ZielTyp}
+              dataSource={zielTypWerte}
+              updatePropertyInDb={store.updatePropertyInDb}
+            />
+          </div>
+          <TextField
+            label="Ziel"
+            fieldName="ZielBezeichnung"
+            value={activeDataset.row.ZielBezeichnung}
+            errorText={activeDataset.valid.ZielBezeichnung}
+            type="text"
+            multiLine
+            fullWidth
+            updateProperty={store.updateProperty}
+            updatePropertyInDb={store.updatePropertyInDb}
+          />
+          <div style={{ height: `55px` }} />
         </div>
-        <TextField
-          label="Ziel"
-          fieldName="ZielBezeichnung"
-          value={activeDataset.row.ZielBezeichnung}
-          errorText={activeDataset.valid.ZielBezeichnung}
-          type="text"
-          multiLine
-          fullWidth
-          updateProperty={store.updateProperty}
-          updatePropertyInDb={store.updatePropertyInDb}
-        />
-        <div style={{ height: `55px` }} />
       </div>
     )
   }

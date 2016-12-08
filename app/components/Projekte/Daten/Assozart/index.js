@@ -3,6 +3,7 @@ import { observer, inject } from 'mobx-react'
 import filter from 'lodash/filter'
 import TextField from '../../../shared/TextField'
 import AutoComplete from '../../../shared/Autocomplete'
+import FormTitle from '../../../shared/FormTitle'
 import styles from './styles.css'
 
 @inject(`store`)
@@ -31,27 +32,30 @@ class Assozart extends Component { // eslint-disable-line react/prefer-stateless
       return name || ``
     }
     return (
-      <div className={styles.container}>
-        <AutoComplete
-          label="Art"
-          fieldName="AaSisfNr"
-          value={activeDataset.row.AaSisfNr}
-          valueText={artname()}
-          errorText={activeDataset.valid.ApArtId}
-          dataSource={dataSource}
-          updatePropertyInDb={store.updatePropertyInDb}
-        />
-        <TextField
-          label="Bemerkungen zur Assoziation"
-          fieldName="AaBem"
-          value={activeDataset.row.AaBem}
-          errorText={activeDataset.valid.AaBem}
-          type="text"
-          multiLine
-          fullWidth
-          updateProperty={store.updateProperty}
-          updatePropertyInDb={store.updatePropertyInDb}
-        />
+      <div>
+        <FormTitle title="assoziierte Art" />
+        <div className={styles.fieldsContainer}>
+          <AutoComplete
+            label="Art"
+            fieldName="AaSisfNr"
+            value={activeDataset.row.AaSisfNr}
+            valueText={artname()}
+            errorText={activeDataset.valid.ApArtId}
+            dataSource={dataSource}
+            updatePropertyInDb={store.updatePropertyInDb}
+          />
+          <TextField
+            label="Bemerkungen zur Assoziation"
+            fieldName="AaBem"
+            value={activeDataset.row.AaBem}
+            errorText={activeDataset.valid.AaBem}
+            type="text"
+            multiLine
+            fullWidth
+            updateProperty={store.updateProperty}
+            updatePropertyInDb={store.updatePropertyInDb}
+          />
+        </div>
       </div>
     )
   }

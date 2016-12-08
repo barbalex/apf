@@ -6,6 +6,7 @@ import TextField from '../../../shared/TextField'
 import DatePicker from '../../../shared/DatePicker'
 import SelectField from '../../../shared/SelectField'
 import StringToCopy from '../../../shared/StringToCopy'
+import FormTitle from '../../../shared/FormTitle'
 import styles from './styles.css'
 
 @inject(`store`)
@@ -26,8 +27,9 @@ class Tpopfreiwkontr extends Component { // eslint-disable-line react/prefer-sta
     })
 
     return (
-      <div className={styles.container}>
-        <div className={styles.formContainer}>
+      <div>
+        <FormTitle title="Freiwilligen-Kontrolle" />
+        <div className={styles.fieldsContainer}>
           <TextField
             label="Jahr"
             fieldName="TPopKontrJahr"

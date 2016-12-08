@@ -4,6 +4,7 @@ import sortBy from 'lodash/sortBy'
 import RadioButtonGroup from '../../../shared/RadioButtonGroup'
 import Label from '../../../shared/Label'
 import TextField from '../../../shared/TextField'
+import FormTitle from '../../../shared/FormTitle'
 import styles from './styles.css'
 
 @inject(`store`)
@@ -24,38 +25,41 @@ class Popmassnber extends Component { // eslint-disable-line react/prefer-statel
       label: el.BeurteilTxt,
     }))
     return (
-      <div className={styles.container}>
-        <TextField
-          label="Jahr"
-          fieldName="PopMassnBerJahr"
-          value={activeDataset.row.PopMassnBerJahr}
-          errorText={activeDataset.valid.PopMassnBerJahr}
-          type="number"
-          updateProperty={store.updateProperty}
-          updatePropertyInDb={store.updatePropertyInDb}
-        />
-        <div className={styles.fieldContainer}>
-          <Label label="Entwicklung" />
-          <RadioButtonGroup
-            fieldName="PopMassnBerErfolgsbeurteilung"
-            value={activeDataset.row.PopMassnBerErfolgsbeurteilung}
-            errorText={activeDataset.valid.PopMassnBerErfolgsbeurteilung}
-            dataSource={tpopmassnErfbeurtWerte}
+      <div>
+        <FormTitle title="Massnahmen-Bericht Population" />
+        <div className={styles.fieldsContainer}>
+          <TextField
+            label="Jahr"
+            fieldName="PopMassnBerJahr"
+            value={activeDataset.row.PopMassnBerJahr}
+            errorText={activeDataset.valid.PopMassnBerJahr}
+            type="number"
+            updateProperty={store.updateProperty}
             updatePropertyInDb={store.updatePropertyInDb}
           />
+          <div className={styles.fieldContainer}>
+            <Label label="Entwicklung" />
+            <RadioButtonGroup
+              fieldName="PopMassnBerErfolgsbeurteilung"
+              value={activeDataset.row.PopMassnBerErfolgsbeurteilung}
+              errorText={activeDataset.valid.PopMassnBerErfolgsbeurteilung}
+              dataSource={tpopmassnErfbeurtWerte}
+              updatePropertyInDb={store.updatePropertyInDb}
+            />
+          </div>
+          <TextField
+            label="Interpretation"
+            fieldName="PopMassnBerTxt"
+            value={activeDataset.row.PopMassnBerTxt}
+            errorText={activeDataset.valid.PopMassnBerTxt}
+            type="text"
+            multiLine
+            fullWidth
+            updateProperty={store.updateProperty}
+            updatePropertyInDb={store.updatePropertyInDb}
+          />
+          <div style={{ height: `55px` }} />
         </div>
-        <TextField
-          label="Interpretation"
-          fieldName="PopMassnBerTxt"
-          value={activeDataset.row.PopMassnBerTxt}
-          errorText={activeDataset.valid.PopMassnBerTxt}
-          type="text"
-          multiLine
-          fullWidth
-          updateProperty={store.updateProperty}
-          updatePropertyInDb={store.updatePropertyInDb}
-        />
-        <div style={{ height: `55px` }} />
       </div>
     )
   }

@@ -4,6 +4,7 @@ import sortBy from 'lodash/sortBy'
 import RadioButtonGroup from '../../../shared/RadioButtonGroup'
 import Label from '../../../shared/Label'
 import TextField from '../../../shared/TextField'
+import FormTitle from '../../../shared/FormTitle'
 import styles from './styles.css'
 
 @inject(`store`)
@@ -24,28 +25,31 @@ class Erfkrit extends Component { // eslint-disable-line react/prefer-stateless-
     }))
     const { activeDataset } = store
     return (
-      <div className={styles.container}>
-        <div className={styles.fieldContainer}>
-          <Label label="Beurteilung" />
-          <RadioButtonGroup
-            fieldName="ErfkritErreichungsgrad"
-            value={activeDataset.row.ErfkritErreichungsgrad}
-            errorText={activeDataset.valid.ErfkritErreichungsgrad}
-            dataSource={apErfkritWerte}
+      <div>
+        <FormTitle title="Erfolgs-Kriterium" />
+        <div className={styles.fieldsContainer}>
+          <div className={styles.fieldContainer}>
+            <Label label="Beurteilung" />
+            <RadioButtonGroup
+              fieldName="ErfkritErreichungsgrad"
+              value={activeDataset.row.ErfkritErreichungsgrad}
+              errorText={activeDataset.valid.ErfkritErreichungsgrad}
+              dataSource={apErfkritWerte}
+              updatePropertyInDb={store.updatePropertyInDb}
+            />
+          </div>
+          <TextField
+            label="Kriterien"
+            fieldName="ErfkritTxt"
+            value={activeDataset.row.ErfkritTxt}
+            errorText={activeDataset.valid.ErfkritTxt}
+            type="text"
+            multiLine
+            fullWidth
+            updateProperty={store.updateProperty}
             updatePropertyInDb={store.updatePropertyInDb}
           />
         </div>
-        <TextField
-          label="Kriterien"
-          fieldName="ErfkritTxt"
-          value={activeDataset.row.ErfkritTxt}
-          errorText={activeDataset.valid.ErfkritTxt}
-          type="text"
-          multiLine
-          fullWidth
-          updateProperty={store.updateProperty}
-          updatePropertyInDb={store.updatePropertyInDb}
-        />
       </div>
     )
   }
