@@ -1,9 +1,3 @@
-/*
- *
- * StrukturbaumContainer
- *
- */
-
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import styles from './styles.css'

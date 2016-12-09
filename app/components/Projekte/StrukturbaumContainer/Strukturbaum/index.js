@@ -5,7 +5,6 @@
  * https://github.com/bvaughn/react-virtualized/blob/master/playground/tree.js
  *
  */
-/* eslint-disable no-console, jsx-a11y/no-static-element-interactions */
 
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
