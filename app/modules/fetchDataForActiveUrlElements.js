@@ -103,10 +103,12 @@ export default (store) => {
       store.fetchTable(`apflora`, `tpopkontr_idbiotuebereinst_werte`)
       store.fetchTable(`beob`, `adb_lr`)
     },
-    tpopkontrzaehlFolder() {
+    tpopfeldkontr() {
       store.fetchTableByParentId(`apflora`, `tpopkontrzaehl`, activeUrlElements.tpopfeldkontr)
       store.fetchTable(`apflora`, `tpopkontrzaehl_einheit_werte`)
+      store.fetchTable(`apflora`, `tpopkontrzaehl_methode_werte`)
     },
+    tpopkontrzaehlFolder() {},
     tpopfreiwkontrFolder() {},
     tpopberFolder() {},
     tpopBeobzuordnungFolder() {
