@@ -106,13 +106,13 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
 
       childNodes.unshift(
         <ContextMenuTrigger
-          id={`menu_${node.table}`}
+          id={node.menuType}
           key={`${index}-child`}
           data-table={node.table}
         >
           <div
             className={nodeIsInActiveNodePath ? styles.nodeIsInActiveNodePath : styles.node}
-            data-table={node.table}
+            data-id={node.id || null}
           >
             <span className={styles[symbolClassName]}>
               {symbol}

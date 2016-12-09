@@ -4,6 +4,7 @@ import { ContextMenu, MenuItem } from 'react-contextmenu'
 import styles from './styles.css'
 import LabelFilter from './LabelFilter'
 import Strukturbaum from './Strukturbaum'
+import cmProjekt from '../contextmenu/Projekt'
 
 @inject(`store`)
 @observer
@@ -25,12 +26,8 @@ class StrukturbaumContainer extends Component { // eslint-disable-line react/pre
     store.ui.treeTopPosition = treeRect.top
   }
 
-  handleClick(e, data, element) {
-    console.log(`click, data:`, data)
-    console.log(`click, table:`, element.firstElementChild.getAttribute(`data-table`))
-  }
-
   render() {
+    const { store } = this.props
     const MENU_TYPE = `simple`
     return (
       <div className={styles.container}>
@@ -40,9 +37,7 @@ class StrukturbaumContainer extends Component { // eslint-disable-line react/pre
         <div className={styles.strukturbaum} ref={(c) => { this.tree = c }}>
           <Strukturbaum menuType={MENU_TYPE} />
         </div>
-        <ContextMenu id={`menu_pop`}>
-          <MenuItem onClick={this.handleClick} data={{ item: `item 1` }}>Menu Item 1</MenuItem>
-        </ContextMenu>
+        <cmProjekt store={store} />
       </div>
     )
   }
