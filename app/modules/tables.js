@@ -98,13 +98,6 @@ export default [
     parentIdField: `TPopId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
-    label_(row, data) {
-      if (!row || !data.tpopmassnTyp) return noLabel
-      const massnTyp = data.tpopmassnTyp.find(e => e.DomainCode === row.TPopMassnTyp)
-      if (!massnTyp) return noLabel
-      const massnTypTxt = massnTyp.DomainTxt || noLabel
-      return `${row.TPopMassnJahr || `(kein Jahr)`}: ${massnTypTxt || `(kein Typ)`}`
-    },
   },
   {
     database: `apflora`,
@@ -243,10 +236,6 @@ export default [
     parentIdField: `TPopId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
-    label_(row) {
-      if (!row) return noLabel
-      return `${row.TPopBerJahr || `(kein Jahr)`}: ${row.EntwicklungTxt || `(nicht beurteilt)`}`
-    },
   },
   {
     database: `apflora`,
@@ -257,12 +246,6 @@ export default [
     parentIdField: `TPopId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
-    label_(row, data) {
-      if (!row || !data || !data.tpopmassnErfbeurt) return noLabel
-      const beurteil = data.tpopmassnErfbeurt.find(e => e.DomainCode === row.TPopMassnBerErfolgsbeurteilung)
-      const beurteilTxt = beurteil.DomainTxt || noLabel
-      return `${row.TPopMassnBerJahr || `(kein Jahr)`}: ${beurteilTxt || `(keine Beurteilung)`}`
-    },
   },
   {
     database: `apflora`,
