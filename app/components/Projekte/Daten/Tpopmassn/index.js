@@ -4,12 +4,12 @@ import sortBy from 'lodash/sortBy'
 import AutoComplete from 'material-ui/AutoComplete'
 import RadioButtonGroup from '../../../shared/RadioButtonGroup'
 import Label from '../../../shared/Label'
-import DatePicker from '../../../shared/DatePicker'
 import TextField from '../../../shared/TextField'
 import SelectField from '../../../shared/SelectField'
 import RadioButton from '../../../shared/RadioButton'
 import StringToCopy from '../../../shared/StringToCopy'
 import FormTitle from '../../../shared/FormTitle'
+import YearDatePair from '../../../shared/YearDatePair'
 import styles from './styles.css'
 
 @inject(`store`)
@@ -39,21 +39,15 @@ class Tpopmassn extends Component { // eslint-disable-line react/prefer-stateles
       <div className={styles.container}>
         <FormTitle title="Massnahme" />
         <div className={styles.fieldsContainer}>
-          <TextField
-            label="Jahr"
-            fieldName="TPopMassnJahr"
-            value={activeDataset.row.TPopMassnJahr}
-            errorText={activeDataset.valid.TPopMassnJahr}
-            type="number"
-            updateProperty={store.updateProperty}
-            updatePropertyInDb={store.updatePropertyInDb}
-          />
-          <DatePicker
-            label="Datum"
-            fieldName="TPopMassnDatum"
-            value={activeDataset.row.TPopMassnDatum}
-            errorText={activeDataset.valid.TPopMassnDatum}
-            fullWidth
+          <YearDatePair
+            yearLabel="Jahr"
+            yearFieldName="TPopMassnJahr"
+            yearValue={activeDataset.row.TPopMassnJahr}
+            yearErrorText={activeDataset.valid.TPopMassnJahr}
+            dateLabel="Datum"
+            dateFieldName="TPopMassnDatum"
+            dateValue={activeDataset.row.TPopMassnDatum}
+            dateErrorText={activeDataset.valid.TPopMassnDatum}
             updateProperty={store.updateProperty}
             updatePropertyInDb={store.updatePropertyInDb}
           />

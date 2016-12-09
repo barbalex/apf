@@ -73,12 +73,13 @@ class YearDatePair extends Component { // eslint-disable-line react/prefer-state
       dateErrorText,
       updateProperty,
     } = this.props
+    const dateValueObject = new Date(dateValue)
 
     return (
       <div>
         <TextField
           floatingLabelText={yearLabel}
-          type="text"
+          type="number"
           value={yearValue || ``}
           errorText={yearErrorText || ``}
           fullWidth
@@ -89,7 +90,7 @@ class YearDatePair extends Component { // eslint-disable-line react/prefer-state
         />
         <DatePicker
           floatingLabelText={dateLabel}
-          value={dateValue || ``}
+          value={dateValueObject || ``}
           errorText={dateErrorText || ``}
           DateTimeFormat={window.Intl.DateTimeFormat}
           locale="de-CH-1996"
