@@ -29,12 +29,12 @@ class MyDatePicker extends Component { // eslint-disable-line react/prefer-state
       disabled,
     } = this.props
 
-    const valueDate = new Date(value)
+    const valueDate = value ? new Date(value) : {}
 
     return (
       <DatePicker
         floatingLabelText={label}
-        value={valueDate || ``}
+        value={valueDate}
         errorText={errorText || ``}
         disabled={disabled || false}
         DateTimeFormat={window.Intl.DateTimeFormat}

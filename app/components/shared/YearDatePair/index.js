@@ -41,6 +41,9 @@ class YearDatePair extends Component { // eslint-disable-line react/prefer-state
     } = this.props
 
     updatePropertyInDb(yearFieldName, event.target.value)
+    // nullify date
+    updateProperty(dateFieldName, null)
+    updatePropertyInDb(dateFieldName, null)
 
   }
 
@@ -73,14 +76,14 @@ class YearDatePair extends Component { // eslint-disable-line react/prefer-state
       dateErrorText,
       updateProperty,
     } = this.props
-    const dateValueObject = new Date(dateValue)
+    const dateValueObject = dateValue ? new Date(dateValue) : {}
 
     return (
       <div>
         <TextField
           floatingLabelText={yearLabel}
           type="number"
-          value={yearValue || ``}
+          value={yearValue}
           errorText={yearErrorText || ``}
           fullWidth
           onChange={(event, val) =>
