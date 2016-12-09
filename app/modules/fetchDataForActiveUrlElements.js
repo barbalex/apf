@@ -110,7 +110,7 @@ export default (store) => {
     },
     tpopfreiwkontrFolder() {},
     tpopfreiwkontr() {
-      store.fetchTableByParentId(`apflora`, `tpopkontrzaehl`, activeUrlElements.tpopfeldkontr)
+      store.fetchTableByParentId(`apflora`, `tpopkontrzaehl`, activeUrlElements.tpopfreiwkontr)
       store.fetchTable(`apflora`, `tpopkontrzaehl_einheit_werte`)
       store.fetchTable(`apflora`, `tpopkontrzaehl_methode_werte`)
     },
