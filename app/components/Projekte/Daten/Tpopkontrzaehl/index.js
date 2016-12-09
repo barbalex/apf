@@ -36,48 +36,36 @@ class Tpopkontrzaehl extends Component { // eslint-disable-line react/prefer-sta
 
     return (
       <div className={styles.container}>
-        <FormTitle title="Massnahmen-Bericht Teil-Population" />
+        <FormTitle title="Zählung" />
         <div className={styles.fieldsContainer}>
+          <TextField
+            label="Anzahl"
+            fieldName="Anzahl"
+            value={activeDataset.row.Anzahl}
+            errorText={activeDataset.valid.Anzahl}
+            type="number"
+            updateProperty={store.updateProperty}
+            updatePropertyInDb={store.updatePropertyInDb}
+          />
           <SelectField
             label="Einheit"
-            fieldName="Einheit"
-            value={activeDataset.row.Einheit}
-            errorText={activeDataset.valid.Einheit}
+            fieldName="Zaehleinheit"
+            value={activeDataset.row.Zaehleinheit}
+            errorText={activeDataset.valid.Zaehleinheit}
             dataSource={zaehleinheitWerte}
             valueProp="value"
             labelProp="label"
             updatePropertyInDb={store.updatePropertyInDb}
           />
-          <div className={styles.fieldContainer}>
-            <Label label="Einheit" />
-            <RadioButtonGroup
-              fieldName="Einheit"
-              value={activeDataset.row.Einheit}
-              errorText={activeDataset.valid.Einheit}
-              dataSource={zaehleinheitWerte}
-              updatePropertyInDb={store.updatePropertyInDb}
-            />
-          </div>
-          <div className={styles.fieldContainer}>
-            <Label label="Methode" />
-            <RadioButtonGroup
-              fieldName="Methode"
-              value={activeDataset.row.Methode}
-              errorText={activeDataset.valid.Methode}
-              dataSource={methodeWerte}
-              updatePropertyInDb={store.updatePropertyInDb}
-            />
-          </div>
+          <Label label="Methode" />
+          <RadioButtonGroup
+            fieldName="Methode"
+            value={activeDataset.row.Methode}
+            errorText={activeDataset.valid.Methode}
+            dataSource={methodeWerte}
+            updatePropertyInDb={store.updatePropertyInDb}
+          />
         </div>
-        <TextField
-          label="Anzahl"
-          fieldName="Anzahl"
-          value={activeDataset.row.Anzahl}
-          errorText={activeDataset.valid.Anzahl}
-          type="number"
-          updateProperty={store.updateProperty}
-          updatePropertyInDb={store.updatePropertyInDb}
-        />
       </div>
     )
   }
