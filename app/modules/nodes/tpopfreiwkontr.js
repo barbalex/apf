@@ -1,4 +1,5 @@
 import sortBy from 'lodash/sortBy'
+import tpopkontrzaehlNodes from './tpopfreiwkontrzaehl'
 
 export default ({ store, projId, apArtId, popId, tpopId }) => {
   const { activeUrlElements } = store
@@ -8,16 +9,28 @@ export default ({ store, projId, apArtId, popId, tpopId }) => {
   // show only nodes of active ap
   tpopkontr = tpopkontr.filter(a => a.TPopId === tpopId)
   // map through all projekt and create array of nodes
-  let nodes = tpopkontr.map(el =>
-    ({
+  let nodes = tpopkontr.map((el) => {
+    const myZaehlNodes = tpopkontrzaehlNodes({ store, projId, apArtId, popId, tpopId, tpopkontrId: el.TPopKontrId })
+    return {
       type: `row`,
       label: `${el.TPopKontrJahr || `(kein Jahr)`}`,
       table: `tpopkontr`,
       row: el,
       expanded: el.TPopKontrId === activeUrlElements.tpopfreiwkontr,
       url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, popId, `Teil-Populationen`, tpopId, `Freiwilligen-Kontrollen`, el.TPopKontrId],
-    })
-  )
+      children: [
+        {
+          type: `folder`,
+          label: `Zählungen (${myZaehlNodes.length})`,
+          table: `tpopkontr`,
+          row: el,
+          expanded: activeUrlElements.tpopfreiwkontrzaehlFolder,
+          url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, popId, `Teil-Populationen`, tpopId, `Freiwilligen-Kontrollen`, el.TPopKontrId, `Zählungen`],
+          children: myZaehlNodes,
+        },
+      ],
+    }
+  })
   // filter by node.nodeLabelFilter
   const filterString = store.node.nodeLabelFilter.get(`tpopfreiwkontr`)
   if (filterString) {
