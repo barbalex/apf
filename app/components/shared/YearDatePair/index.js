@@ -28,41 +28,37 @@ class YearDatePair extends Component { // eslint-disable-line react/prefer-state
 
   onBlurYear(event) {
     const {
-      yearLabel,
       yearFieldName,
-      yearValue,
-      yearErrorText,
-      dateLabel,
       dateFieldName,
       dateValue,
-      dateErrorText,
       updateProperty,
       updatePropertyInDb,
     } = this.props
 
     updatePropertyInDb(yearFieldName, event.target.value)
     // nullify date
-    updateProperty(dateFieldName, null)
-    updatePropertyInDb(dateFieldName, null)
-
+    if (dateValue) {
+      updateProperty(dateFieldName, null)
+      updatePropertyInDb(dateFieldName, null)
+    }
   }
 
   onChangeDate(event, value) {
     const {
-      yearLabel,
       yearFieldName,
       yearValue,
-      yearErrorText,
-      dateLabel,
       dateFieldName,
-      dateValue,
-      dateErrorText,
       updateProperty,
       updatePropertyInDb,
     } = this.props
 
     updateProperty(dateFieldName, format(value, `YYYY-MM-DD`))
     updatePropertyInDb(dateFieldName, format(value, `YYYY-MM-DD`))
+    // set year
+    const year = format(value, `YYYY`)
+    if (yearValue !== year) {
+      updatePropertyInDb(yearFieldName, year)
+    }
   }
 
   render() {
