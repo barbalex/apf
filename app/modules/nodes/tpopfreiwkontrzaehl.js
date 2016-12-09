@@ -20,7 +20,7 @@ export default ({ store, projId, apArtId, popId, tpopId, tpopkontrId }) => {
 
     return {
       type: `row`,
-      label: `${el.Anzahl || `(keine Anzahl)`} ${zaehleinheitTxt || `(keine Einheit)`} ${methodeTxt || `(keine Methode)`}`,
+      label: `${el.Anzahl || `(keine Anzahl)`} ${zaehleinheitTxt || `(keine Einheit)`} (${methodeTxt || `keine Methode`})`,
       table: `tpopkontrzaehl`,
       row: el,
       expanded: el.TPopKontrZaehlId === activeUrlElements.tpopfreiwkontrzaehl,
