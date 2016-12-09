@@ -25,7 +25,7 @@ export default ({ store, projId, apArtId, popId, tpopId }) => {
           table: `tpopkontr`,
           row: el,
           expanded: activeUrlElements.tpopfeldkontrzaehlFolder,
-          url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, popId, `Teil-Populationen`, tpopId, `Feld-Kontrollen`, el.TPopKontrId, `Zählungen`],
+          url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, popId, `Teil-Populationen`, tpopId, `Feld-Kontrollen`, el.TPopKontrId, `Zaehlungen`],
           children: myZaehlNodes,
         },
       ],

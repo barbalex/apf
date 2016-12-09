@@ -16,7 +16,7 @@ export default (table) => {
     tpop: `Teil-Populationen`,
     tpopber: `Kontroll-Berichte`,
     tpopkontr: `Kontrollen`,
-    tpopkontrzaehl: `Zählungen`,
+    tpopkontrzaehl: `Zaehlungen`,
     tpopmassn: `Massnahmen`,
     tpopmassnber: `Massnahmen-Berichte`,
     user: `Benutzer`,

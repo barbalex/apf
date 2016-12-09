@@ -24,7 +24,7 @@ export default ({ store, projId, apArtId, popId, tpopId, tpopkontrId }) => {
       table: `tpopkontrzaehl`,
       row: el,
       expanded: el.TPopKontrZaehlId === activeUrlElements.tpopfreiwkontrzaehl,
-      url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, popId, `Teil-Populationen`, tpopId, `Freiwilligen-Kontrollen`, tpopkontrId, `Zählungen`, el.TPopKontrZaehlId],
+      url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, popId, `Teil-Populationen`, tpopId, `Freiwilligen-Kontrollen`, tpopkontrId, `Zaehlungen`, el.TPopKontrZaehlId],
     }
   })
   // filter by node.nodeLabelFilter
