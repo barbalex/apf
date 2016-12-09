@@ -74,6 +74,13 @@ export default [
   },
   {
     database: `apflora`,
+    table: `tpopkontrzaehl_methode_werte`,
+    idField: `BeurteilCode`,
+    mutWannField: `MutWann`,
+    mutWerField: `MutWer`,
+  },
+  {
+    database: `apflora`,
     table: `tpopkontrzaehl`,
     label: `Zählungen`,
     idField: `TPopKontrZaehlId`,
@@ -81,16 +88,6 @@ export default [
     parentIdField: `TPopKontrId`,
     mutWannField: `MutWann`,
     mutWerField: `MutWer`,
-    label_(row, data) {
-      if (!row || !data || !data.tpopkontrzaehlEinheit || !data.tpopkontrzaehlMethode) return noLabel
-      const zaehleinheit = data.tpopkontrzaehlEinheit.find(e => e.DomainCode === row.Zaehleinheit)
-      if (!zaehleinheit) return noLabel
-      const zaehleinheitTxt = zaehleinheit.DomainTxt || noLabel
-      const methode = data.tpopkontrzaehlMethode.find(e => e.DomainCode === row.Methode)
-      if (!methode) return noLabel
-      const methodeTxt = methode.DomainTxt || noLabel
-      return `${row.Anzahl || `(keine Anzahl)`} ${zaehleinheitTxt || `(keine Einheit)`} ${methodeTxt || `(keine Methode)`}`
-    },
   },
   {
     database: `apflora`,

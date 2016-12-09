@@ -1,5 +1,5 @@
 import sortBy from 'lodash/sortBy'
-import tpopkontrzaehlNodes from './tpopkontrzaehl'
+import tpopkontrzaehlNodes from './tpopfeldkontrzaehl'
 
 export default ({ store, projId, apArtId, popId, tpopId }) => {
   const { activeUrlElements } = store
@@ -10,8 +10,7 @@ export default ({ store, projId, apArtId, popId, tpopId }) => {
   tpopkontr = tpopkontr.filter(a => a.TPopId === tpopId)
   // map through all projekt and create array of nodes
   let nodes = tpopkontr.map((el) => {
-    // const myZaehlNodes = tpopkontrzaehlNodes({ store, projId, apArtId, popId, tpopId, tpopkontrId: el.TPopKontrId })
-    const myZaehlNodes = []
+    const myZaehlNodes = tpopkontrzaehlNodes({ store, projId, apArtId, popId, tpopId, tpopkontrId: el.TPopKontrId })
     return {
       type: `row`,
       label: `${el.TPopKontrJahr || `(kein Jahr)`}: ${el.TPopKontrTyp || `(kein Typ)`}`,
@@ -25,8 +24,8 @@ export default ({ store, projId, apArtId, popId, tpopId }) => {
           label: `Zählungen (${myZaehlNodes.length})`,
           table: `tpopkontr`,
           row: el,
-          expanded: activeUrlElements.tpopkontrzaehlFolder,
-          url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, el.PopId, `Teil-Populationen`, tpopId, `Feld-Kontrollen`, el.TPopKontrId, `Zählungen`],
+          expanded: activeUrlElements.tpopfeldkontrzaehlFolder,
+          url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, popId, `Teil-Populationen`, tpopId, `Feld-Kontrollen`, el.TPopKontrId, `Zählungen`],
           children: myZaehlNodes,
         },
       ],

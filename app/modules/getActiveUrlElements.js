@@ -39,10 +39,12 @@ export default (url) => {
   const tpopmassnber = tpopmassnberFolder && url.length > 9 ? parseInt(url[9], 10) : null
   const tpopfeldkontrFolder = (tpop && url.length > 8 && url[8] === `Feld-Kontrollen`) || false
   const tpopfeldkontr = tpopfeldkontrFolder && url.length > 9 ? parseInt(url[9], 10) : null
-  const tpopkontrzaehlFolder = (tpopfeldkontr && url.length > 10 && url[10] === `Zählungen`) || false
-  const tpopkontrzaehl = tpopkontrzaehlFolder && url.length > 11 ? parseInt(url[11], 10) : null
+  const tpopfeldkontrzaehlFolder = (tpopfeldkontr && url.length > 10 && url[10] === `Zählungen`) || false
+  const tpopfeldkontrzaehl = tpopfeldkontrzaehlFolder && url.length > 11 ? parseInt(url[11], 10) : null
   const tpopfreiwkontrFolder = (tpop && url.length > 8 && url[8] === `Freiwilligen-Kontrollen`) || false
   const tpopfreiwkontr = tpopfreiwkontrFolder && url.length > 9 ? parseInt(url[9], 10) : null
+  const tpopfreiwkontrzaehlFolder = (tpopfreiwkontr && url.length > 10 && url[10] === `Zählungen`) || false
+  const tpopfreiwkontrzaehl = tpopfreiwkontrzaehlFolder && url.length > 11 ? parseInt(url[11], 10) : null
   const tpopberFolder = (tpop && url.length > 8 && url[8] === `Kontroll-Berichte`) || false
   const tpopber = tpopberFolder && url.length > 9 ? parseInt(url[9], 10) : null
   const tpopBeobzuordnungFolder = (tpop && url.length > 8 && url[8] === `zugeordnete-Beobachtungen`) || false
@@ -89,10 +91,12 @@ export default (url) => {
     tpopmassnber,
     tpopfeldkontrFolder,
     tpopfeldkontr,
-    tpopkontrzaehlFolder,
-    tpopkontrzaehl,
+    tpopfeldkontrzaehlFolder,
+    tpopfeldkontrzaehl,
     tpopfreiwkontrFolder,
     tpopfreiwkontr,
+    tpopfreiwkontrzaehlFolder,
+    tpopfreiwkontrzaehl,
     tpopberFolder,
     tpopber,
     tpopBeobzuordnungFolder,
