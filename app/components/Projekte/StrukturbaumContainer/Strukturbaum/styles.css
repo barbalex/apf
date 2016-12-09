@@ -14,6 +14,10 @@
   font-weight: normal;
 }
 
+.listContainer:focus {
+  outline-color: rgb(48, 48, 48) !important;
+}
+
 .topUl {
   padding: 0 0 0 0.5em !important;
 }
