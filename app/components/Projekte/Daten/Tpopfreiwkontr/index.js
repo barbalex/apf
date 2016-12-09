@@ -3,10 +3,10 @@ import { observer, inject } from 'mobx-react'
 import RadioButton from '../../../shared/RadioButton'
 import Label from '../../../shared/Label'
 import TextField from '../../../shared/TextField'
-import DatePicker from '../../../shared/DatePicker'
 import SelectField from '../../../shared/SelectField'
 import StringToCopy from '../../../shared/StringToCopy'
 import FormTitle from '../../../shared/FormTitle'
+import YearDatePair from '../../../shared/YearDatePair'
 import styles from './styles.css'
 
 @inject(`store`)
@@ -30,21 +30,15 @@ class Tpopfreiwkontr extends Component { // eslint-disable-line react/prefer-sta
       <div className={styles.container}>
         <FormTitle title="Freiwilligen-Kontrolle" />
         <div className={styles.fieldsContainer}>
-          <TextField
-            label="Jahr"
-            fieldName="TPopKontrJahr"
-            value={activeDataset.row.TPopKontrJahr}
-            errorText={activeDataset.valid.TPopKontrJahr}
-            type="number"
-            updateProperty={store.updateProperty}
-            updatePropertyInDb={store.updatePropertyInDb}
-          />
-          <DatePicker
-            label="Datum"
-            fieldName="TPopKontrDatum"
-            value={activeDataset.row.TPopKontrDatum}
-            errorText={activeDataset.valid.TPopKontrDatum}
-            fullWidth
+          <YearDatePair
+            yearLabel="Jahr"
+            yearFieldName="TPopKontrJahr"
+            yearValue={activeDataset.row.TPopKontrJahr}
+            yearErrorText={activeDataset.valid.TPopKontrJahr}
+            dateLabel="Datum"
+            dateFieldName="TPopKontrDatum"
+            dateValue={activeDataset.row.TPopKontrDatum}
+            dateErrorText={activeDataset.valid.TPopKontrDatum}
             updateProperty={store.updateProperty}
             updatePropertyInDb={store.updatePropertyInDb}
           />

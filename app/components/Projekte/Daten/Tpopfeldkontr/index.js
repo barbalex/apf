@@ -6,11 +6,11 @@ import AutoComplete from 'material-ui/AutoComplete'
 import RadioButtonGroup from '../../../shared/RadioButtonGroup'
 import Label from '../../../shared/Label'
 import TextField from '../../../shared/TextField'
-import DatePicker from '../../../shared/DatePicker'
 import SelectField from '../../../shared/SelectField'
 import RadioButtonGroupWithInfo from '../../../shared/RadioButtonGroupWithInfo'
 import StringToCopy from '../../../shared/StringToCopy'
 import FormTitle from '../../../shared/FormTitle'
+import YearDatePair from '../../../shared/YearDatePair'
 import styles from './styles.css'
 
 @inject(`store`)
@@ -128,21 +128,15 @@ class Tpopfeldkontr extends Component { // eslint-disable-line react/prefer-stat
               value="entwicklung"
             >
               <div className={styles.formContainer}>
-                <TextField
-                  label="Jahr"
-                  fieldName="TPopKontrJahr"
-                  value={activeDataset.row.TPopKontrJahr}
-                  errorText={activeDataset.valid.TPopKontrJahr}
-                  type="number"
-                  updateProperty={store.updateProperty}
-                  updatePropertyInDb={store.updatePropertyInDb}
-                />
-                <DatePicker
-                  label="Datum"
-                  fieldName="TPopKontrDatum"
-                  value={activeDataset.row.TPopKontrDatum}
-                  errorText={activeDataset.valid.TPopKontrDatum}
-                  fullWidth
+                <YearDatePair
+                  yearLabel="Jahr"
+                  yearFieldName="TPopKontrJahr"
+                  yearValue={activeDataset.row.TPopKontrJahr}
+                  yearErrorText={activeDataset.valid.TPopKontrJahr}
+                  dateLabel="Datum"
+                  dateFieldName="TPopKontrDatum"
+                  dateValue={activeDataset.row.TPopKontrDatum}
+                  dateErrorText={activeDataset.valid.TPopKontrDatum}
                   updateProperty={store.updateProperty}
                   updatePropertyInDb={store.updatePropertyInDb}
                 />
