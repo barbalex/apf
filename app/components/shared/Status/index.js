@@ -9,7 +9,7 @@ import styles from './styles.css'
 class Status extends Component { // eslint-disable-line react/prefer-stateless-function
 
   static propTypes = {
-    apJahr: PropTypes.number.isRequired,
+    apJahr: PropTypes.number,
     herkunftFieldName: PropTypes.string.isRequired,
     herkunftValue: PropTypes.number,
     bekanntSeitFieldName: PropTypes.string,
