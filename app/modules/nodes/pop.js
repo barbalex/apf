@@ -17,36 +17,29 @@ export default (store, apArtId) => {
     const myPopberNodes = popberNodes({ store, projId, apArtId: el.ApArtId, popId: el.PopId })
     const myTpopNodes = tpopNodes({ store, projId, apArtId: el.ApArtId, popId: el.PopId })
     return {
-      type: `row`,
+      menuType: `pop`,
+      id: el.PopId,
       label: `${el.PopNr || `(keine Nr)`}: ${el.PopName || `(kein Name)`}`,
-      table: `pop`,
-      row: el,
       expanded: el.PopId === activeUrlElements.pop,
       url: [`Projekte`, projId, `Arten`, el.ApArtId, `Populationen`, el.PopId],
       children: [
         {
-          type: `folder`,
+          menuType: `tpopFolder`,
           label: `Teil-Populationen (${myTpopNodes.length})`,
-          table: `pop`,
-          row: `el`,
           expanded: activeUrlElements.tpopFolder,
           url: [`Projekte`, projId, `Arten`, el.ApArtId, `Populationen`, el.PopId, `Teil-Populationen`],
           children: myTpopNodes,
         },
         {
-          type: `folder`,
+          menuType: `popberFolder`,
           label: `Kontroll-Berichte (${myPopberNodes.length})`,
-          table: `pop`,
-          row: `el`,
           expanded: activeUrlElements.popberFolder,
           url: [`Projekte`, projId, `Arten`, el.ApArtId, `Populationen`, el.PopId, `Kontroll-Berichte`],
           children: myPopberNodes,
         },
         {
-          type: `folder`,
+          menuType: `popmassnberFolder`,
           label: `Massnahmen-Berichte (${myMassnberNodes.length})`,
-          table: `pop`,
-          row: `el`,
           expanded: activeUrlElements.popmassnberFolder,
           url: [`Projekte`, projId, `Arten`, el.ApArtId, `Populationen`, el.PopId, `Massnahmen-Berichte`],
           children: myMassnberNodes,

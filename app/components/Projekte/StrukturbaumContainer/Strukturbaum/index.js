@@ -9,6 +9,7 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import { AutoSizer, List } from 'react-virtualized'
+import { ContextMenuTrigger } from 'react-contextmenu'
 
 import getNrOfNodeRows from '../../../../modules/getNrOfNodeRows'
 import isNodeInActiveNodePath from '../../../../modules/isNodeInActiveNodePath'
@@ -19,11 +20,12 @@ import styles from './styles.css'
 class Strukturbaum extends Component { // eslint-disable-line react/prefer-stateless-function
 
   static propTypes = {
+    menuType: PropTypes.string,
     store: PropTypes.object,
   }
 
   render() {  // eslint-disable-line class-methods-use-this
-    const { store } = this.props
+    const { store, menuType } = this.props
 
     if (
       !store
@@ -103,17 +105,23 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
       }
 
       childNodes.unshift(
-        <div
-          className={nodeIsInActiveNodePath ? styles.nodeIsInActiveNodePath : styles.node}
+        <ContextMenuTrigger
+          id={`menu_${node.table}`}
           key={`${index}-child`}
+          data-table={node.table}
         >
-          <span className={styles[symbolClassName]}>
-            {symbol}
-          </span>
-          <span className={nodeIsInActiveNodePath ? styles.textInActiveNodePath : styles.text}>
-            {node.label}
-          </span>
-        </div>
+          <div
+            className={nodeIsInActiveNodePath ? styles.nodeIsInActiveNodePath : styles.node}
+            data-table={node.table}
+          >
+            <span className={styles[symbolClassName]}>
+              {symbol}
+            </span>
+            <span className={nodeIsInActiveNodePath ? styles.textInActiveNodePath : styles.text}>
+              {node.label}
+            </span>
+          </div>
+        </ContextMenuTrigger>
       )
 
       return (

@@ -12,10 +12,9 @@ export default (store, zielId) => {
     const projId = store.table.ap.get(ApArtId).ProjId
     const zielJahr = ziel.ZielJahr
     return {
-      type: `row`,
+      menuType: `zielber`,
+      id: el.ZielBerId,
       label: `${el.ZielBerJahr || `(kein Jahr)`}: ${el.ZielBerErreichung || `(keine Entwicklung)`}`,
-      table: `zielber`,
-      row: el,
       expanded: el.ZielBerId === activeUrlElements.zielber,
       url: [`Projekte`, projId, `Arten`, ApArtId, `AP-Ziele`, zielJahr, el.ZielId, `Berichte`, el.ZielBerId],
     }

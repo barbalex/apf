@@ -15,10 +15,9 @@ export default (store, apArtId) => {
     const beurteilTxt = erfkritWert ? erfkritWert.BeurteilTxt : null
     const erfkritSort = erfkritWert ? erfkritWert.BeurteilOrd : null
     return {
-      type: `row`,
+      menuType: `erfkrit`,
+      id: el.ErfkritId,
       label: `${beurteilTxt || `(nicht beurteilt)`}: ${el.ErfkritTxt || `(keine Kriterien erfasst)`}`,
-      table: `erfkrit`,
-      row: el,
       expanded: el.ErfkritId === activeUrlElements.erfkrit,
       url: [`Projekte`, projId, `Arten`, el.ApArtId, `AP-Erfolgskriterien`, el.ErfkritId],
       sort: erfkritSort,

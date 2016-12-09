@@ -19,10 +19,9 @@ export default (store, apArtId) => {
     }
     const projId = store.table.ap.get(el.AaApArtId).ProjId
     return {
-      type: `row`,
+      menuType: `assozart`,
+      id: el.AaId,
       label,
-      table: `assozart`,
-      row: el,
       expanded: el.AaId === activeUrlElements.assozart,
       url: [`Projekte`, projId, `Arten`, el.AaApArtId, `assoziierte-Arten`, el.AaId],
     }

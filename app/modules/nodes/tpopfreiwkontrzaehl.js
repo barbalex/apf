@@ -19,10 +19,9 @@ export default ({ store, projId, apArtId, popId, tpopId, tpopkontrId }) => {
     const methodeTxt = methodeWert ? methodeWert.BeurteilTxt : null
 
     return {
-      type: `row`,
+      menuType: `tpopfreiwkontrzaehl`,
+      id: el.TPopKontrZaehlId,
       label: `${el.Anzahl || `(keine Anzahl)`} ${zaehleinheitTxt || `(keine Einheit)`} (${methodeTxt || `keine Methode`})`,
-      table: `tpopkontrzaehl`,
-      row: el,
       expanded: el.TPopKontrZaehlId === activeUrlElements.tpopfreiwkontrzaehl,
       url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, popId, `Teil-Populationen`, tpopId, `Freiwilligen-Kontrollen`, tpopkontrId, `Zaehlungen`, el.TPopKontrZaehlId],
     }

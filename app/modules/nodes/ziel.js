@@ -24,18 +24,15 @@ export default (store, jahr) => {
     const zieltypTxt = zielWert ? zielWert.ZieltypTxt : `kein Zieltyp`
     const myZielberNodes = zielberNodes(store, el.ZielId)
     return {
-      type: `row`,
+      menuType: `ziel`,
+      id: el.ZielId,
       label: `${el.ZielBezeichnung || `(kein Ziel)`} (${zieltypTxt})`,
-      table: `ziel`,
-      row: el,
       expanded: el.ZielId === activeUrlElements.ziel,
       url: [`Projekte`, projId, `Arten`, el.ApArtId, `AP-Ziele`, el.ZielJahr, el.ZielId],
       children: [
         {
-          type: `folder`,
+          menuType: `zielberFolder`,
           label: `Berichte (${myZielberNodes.length})`,
-          table: `ziel`,
-          row: el,
           expanded: el.ZielId === activeUrlElements.ziel && activeUrlElements.zielberFolder,
           url: [`Projekte`, projId, `Arten`, el.ApArtId, `AP-Ziele`, el.ZielJahr, el.ZielId, `Berichte`],
           children: myZielberNodes,

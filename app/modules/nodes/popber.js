@@ -13,10 +13,9 @@ export default ({ store, projId, apArtId, popId }) => {
     const popEntwicklungWert = popEntwicklungWerte.find(e => e.EntwicklungId === el.PopBerEntwicklung)
     const entwicklungTxt = popEntwicklungWert ? popEntwicklungWert.EntwicklungTxt : null
     return {
-      type: `row`,
+      menuType: `popber`,
+      id: el.PopBerId,
       label: `${el.PopBerJahr || `(kein Jahr)`}: ${entwicklungTxt || `(nicht beurteilt)`}`,
-      table: `popber`,
-      row: el,
       expanded: el.PopBerId === activeUrlElements.popber,
       url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, popId, `Kontroll-Berichte`, el.PopBerId],
     }

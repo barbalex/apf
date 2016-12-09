@@ -13,10 +13,9 @@ export default ({ store, projId, apArtId, popId }) => {
     const tpopmassnErfbeurtWert = tpopmassnErfbeurtWerte.find(e => e.BeurteilId === el.PopMassnBerErfolgsbeurteilung)
     const beurteilTxt = tpopmassnErfbeurtWert ? tpopmassnErfbeurtWert.BeurteilTxt : null
     return {
-      type: `row`,
+      menuType: `popmassnber`,
+      id: el.PopMassnBerId,
       label: `${el.PopMassnBerJahr || `(kein Jahr)`}: ${beurteilTxt || `(nicht beurteilt)`}`,
-      table: `popmassnber`,
-      row: el,
       expanded: el.PopMassnBerId === activeUrlElements.popmassnber,
       url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, popId, `Massnahmen-Berichte`, el.PopMassnBerId],
     }

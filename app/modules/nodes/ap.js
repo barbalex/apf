@@ -28,108 +28,87 @@ export default (store) => {
     const myAssozartNodes = assozartNodes(store, el.ApArtId)
     const myPopNodes = popNodes(store, el.ApArtId)
     return {
-      type: `row`,
+      menuType: `ap`,
+      id: el.ApArtId,
       label,
-      table: `ap`,
-      row: el,
       expanded: el.ApArtId === activeUrlElements.ap,
       url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId],
       children: [
         // pop folder
         {
-          type: `folder`,
+          menuType: `popFolder`,
           label: `Populationen (${myPopNodes.length})`,
-          table: `ap`,
-          row: el,
           expanded: activeUrlElements.popFolder,
           url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `Populationen`],
           children: myPopNodes,
         },
         // ziel folder
         {
-          type: `folder`,
+          menuType: `zielFolder`,
           label: `AP-Ziele (${ziele.length})`,
-          table: `ap`,
-          row: el,
           expanded: activeUrlElements.zielFolder,
           url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `AP-Ziele`],
           children: myZieljahreNodes,
         },
         // erfkrit folder
         {
-          type: `folder`,
+          menuType: `erfkritFolder`,
           label: `AP-Erfolgskriterien (${myErfkritNodes.length})`,
-          table: `ap`,
-          row: el,
           expanded: activeUrlElements.erfkritFolder,
           url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `AP-Erfolgskriterien`],
           children: myErfkritNodes,
         },
         // apber folder
         {
-          type: `folder`,
+          menuType: `apberFolder`,
           label: `AP-Berichte (${myApberNodes.length})`,
-          table: `ap`,
-          row: el,
           expanded: activeUrlElements.apberFolder,
           url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `AP-Berichte`],
           children: myApberNodes,
         },
         // ber folder
         {
-          type: `folder`,
+          menuType: `berFolder`,
           label: `Berichte (${myBerNodes.length})`,
-          table: `ap`,
-          row: el,
           expanded: activeUrlElements.berFolder,
           url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `Berichte`],
           children: myBerNodes,
         },
         // beobNichtBeurteilt folder
         {
-          type: `folder`,
+          menuType: `beobzuordnungFolder`,
           label: `nicht beurteilte Beobachtungen. TODO: add number`,
-          table: `ap`,
-          row: el,
           expanded: activeUrlElements.beobzuordnungFolder,
           url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `nicht-beurteilte-Beobachtungen`],
           children: [],
         },
         // beobNichtZuzuordnen folder
         {
-          type: `folder`,
+          menuType: `beobNichtZuzuordnenFolder`,
           label: `nicht zuzuordnende Beobachtungen. TODO: add number`,
-          table: `ap`,
-          row: el,
           expanded: activeUrlElements.beobNichtZuzuordnenFolder,
           url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `nicht-zuzuordnende-Beobachtungen`],
           children: [],
         },
         // idealbiotop folder
         {
-          type: `folder`,
+          menuType: `idealbiotopFolder`,
           label: `Idealbiotop`,
-          table: `idealbiotop`,
-          row: el,
           expanded: activeUrlElements.idealbiotopFolder,
           url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `Idealbiotop`],
         },
         // assozarten folder
         {
-          type: `folder`,
+          menuType: `assozartFolder`,
           label: `assoziierte Arten (${myAssozartNodes.length})`,
-          table: `ap`,
-          row: el,
           expanded: activeUrlElements.assozartFolder,
           url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `assoziierte-Arten`],
           children: myAssozartNodes,
         },
         // qk folder
         {
-          type: `folder`,
+          menuType: `qkFolder`,
           label: `Qualitätskontrollen`,
-          table: `ap`,
-          row: el,
           expanded: false,
           url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `Qualitätskontrollen`],
         },

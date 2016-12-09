@@ -13,10 +13,9 @@ export default ({ store, projId, apArtId, popId, tpopId }) => {
     const tpopEntwicklungWert = tpopEntwicklungWerte.find(e => e.EntwicklungCode === el.TPopBerEntwicklung)
     const entwicklungTxt = tpopEntwicklungWert ? tpopEntwicklungWert.EntwicklungTxt : null
     return {
-      type: `row`,
+      menuType: `tpopber`,
+      id: el.TPopBerId,
       label: `${el.TPopBerJahr || `(kein Jahr)`}: ${entwicklungTxt || `(nicht beurteilt)`}`,
-      table: `tpopber`,
-      row: el,
       expanded: el.TPopBerId === activeUrlElements.tpopber,
       url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, popId, `Teil-Populationen`, tpopId, `Kontroll-Berichte`, el.TPopBerId],
     }

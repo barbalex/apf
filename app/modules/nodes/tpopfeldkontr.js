@@ -12,18 +12,15 @@ export default ({ store, projId, apArtId, popId, tpopId }) => {
   let nodes = tpopkontr.map((el) => {
     const myZaehlNodes = tpopkontrzaehlNodes({ store, projId, apArtId, popId, tpopId, tpopkontrId: el.TPopKontrId })
     return {
-      type: `row`,
+      menuType: `tpopfeldkontr`,
+      id: el.TPopKontrId,
       label: `${el.TPopKontrJahr || `(kein Jahr)`}: ${el.TPopKontrTyp || `(kein Typ)`}`,
-      table: `tpopkontr`,
-      row: el,
       expanded: el.TPopKontrId === activeUrlElements.tpopfeldkontr,
       url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, popId, `Teil-Populationen`, tpopId, `Feld-Kontrollen`, el.TPopKontrId],
       children: [
         {
-          type: `folder`,
+          menuType: `tpopfeldkontrzaehlFolder`,
           label: `Zählungen (${myZaehlNodes.length})`,
-          table: `tpopkontr`,
-          row: el,
           expanded: activeUrlElements.tpopfeldkontrzaehlFolder,
           url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, popId, `Teil-Populationen`, tpopId, `Feld-Kontrollen`, el.TPopKontrId, `Zaehlungen`],
           children: myZaehlNodes,

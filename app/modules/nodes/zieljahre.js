@@ -25,9 +25,8 @@ export default (store, apArtId) => {
     const nodes = zielJahre.map((jahr) => {
       const zielNodes = buildZielNodes(store, jahr)
       return {
-        type: `folder`,
+        menuType: `zieljahr`,
         label: `${jahr == null ? `kein Jahr` : jahr} (${zielNodes.length})`,
-        table: `ap`,
         expanded: jahr && jahr === activeUrlElements.zieljahr,
         url: [`Projekte`, projId, `Arten`, apArtId, `AP-Ziele`, jahr],
         children: zielNodes,

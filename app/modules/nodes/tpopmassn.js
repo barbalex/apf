@@ -13,10 +13,9 @@ export default ({ store, projId, apArtId, popId, tpopId }) => {
     const tpopmassntypWert = tpopmassntypWerte.find(e => e.MassnTypCode === el.TPopMassnTyp)
     const massnTypTxt = tpopmassntypWert ? tpopmassntypWert.MassnTypTxt : null
     return {
-      type: `row`,
+      menuType: `tpopmassn`,
+      id: el.TPopMassnId,
       label: `${el.TPopMassnJahr || `(kein Jahr)`}: ${massnTypTxt || `(kein Typ)`}`,
-      table: `tpopmassn`,
-      row: el,
       expanded: el.TPopMassnId === activeUrlElements.tpopmassn,
       url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, popId, `Teil-Populationen`, tpopId, `Massnahmen`, el.TPopMassnId],
     }

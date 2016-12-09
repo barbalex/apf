@@ -20,10 +20,9 @@ export default (store, apArtId) => {
   return ber.map((el) => {
     const projId = store.table.ap.get(el.ApArtId).ProjId
     return {
-      type: `row`,
+      menuType: `ber`,
+      id: el.BerId,
       label: `${el.BerJahr || `(kein Jahr)`}: ${el.BerTitel || `(kein Titel)`}`,
-      table: `ber`,
-      row: el,
       expanded: el.BerId === activeUrlElements.ber,
       url: [`Projekte`, projId, `Arten`, el.ApArtId, `Berichte`, el.BerId],
     }
