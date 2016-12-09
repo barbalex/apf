@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { observer } from 'mobx-react'
 import TextField from 'material-ui/TextField'
 import DatePicker from 'material-ui/DatePicker'
-import moment from 'moment'
+import format from 'date-fns/format'
 
 @observer
 class YearDatePair extends Component { // eslint-disable-line react/prefer-stateless-function
@@ -58,8 +58,8 @@ class YearDatePair extends Component { // eslint-disable-line react/prefer-state
       updatePropertyInDb,
     } = this.props
 
-    updateProperty(dateFieldName, moment(value).format(`YYYY-MM-DD`))
-    updatePropertyInDb(dateFieldName, moment(value).format(`YYYY-MM-DD`))
+    updateProperty(dateFieldName, format(value, `YYYY-MM-DD`))
+    updatePropertyInDb(dateFieldName, format(value, `YYYY-MM-DD`))
   }
 
   render() {
@@ -94,7 +94,7 @@ class YearDatePair extends Component { // eslint-disable-line react/prefer-state
           errorText={dateErrorText || ``}
           DateTimeFormat={window.Intl.DateTimeFormat}
           locale="de-CH-1996"
-          formatDate={v => moment(v).format(`DD.MM.YYYY`)}
+          formatDate={v => format(v, `DD.MM.YYYY`)}
           autoOk
           fullWidth
           cancelLabel="schliessen"
