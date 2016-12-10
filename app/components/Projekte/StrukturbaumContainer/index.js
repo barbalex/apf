@@ -6,6 +6,8 @@ import Strukturbaum from './Strukturbaum'
 import CmProjekt from './contextmenu/Projekt'
 import CmApFolder from './contextmenu/ApFolder'
 import CmAp from './contextmenu/Ap'
+import CmApberuebersichtFolder from './contextmenu/ApberuebersichtFolder'
+import CmApberuebersicht from './contextmenu/Apberuebersicht'
 
 @inject(`store`)
 @observer
@@ -45,6 +47,8 @@ class StrukturbaumContainer extends Component { // eslint-disable-line react/pre
         <CmProjekt onClick={this.handleClick} />
         <CmApFolder onClick={this.handleClick} />
         <CmAp onClick={this.handleClick} />
+        <CmApberuebersichtFolder onClick={this.handleClick} />
+        <CmApberuebersicht onClick={this.handleClick} />
       </div>
     )
   }
