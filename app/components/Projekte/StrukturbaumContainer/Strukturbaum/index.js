@@ -20,12 +20,11 @@ import styles from './styles.css'
 class Strukturbaum extends Component { // eslint-disable-line react/prefer-stateless-function
 
   static propTypes = {
-    menuType: PropTypes.string,
     store: PropTypes.object,
   }
 
   render() {  // eslint-disable-line class-methods-use-this
-    const { store, menuType } = this.props
+    const { store } = this.props
 
     if (
       !store

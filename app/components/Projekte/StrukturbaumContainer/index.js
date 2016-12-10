@@ -1,10 +1,11 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
-import { ContextMenu, MenuItem } from 'react-contextmenu'
 import styles from './styles.css'
 import LabelFilter from './LabelFilter'
 import Strukturbaum from './Strukturbaum'
-import cmProjekt from '../contextmenu/Projekt'
+import CmProjekt from './contextmenu/Projekt'
+import CmApFolder from './contextmenu/ApFolder'
+import CmAp from './contextmenu/Ap'
 
 @inject(`store`)
 @observer
@@ -26,18 +27,24 @@ class StrukturbaumContainer extends Component { // eslint-disable-line react/pre
     store.ui.treeTopPosition = treeRect.top
   }
 
+  handleClick(e, data, element) {
+    console.log(`table:`, data.table)
+    console.log(`id:`, element.firstElementChild.getAttribute(`data-id`))
+    console.log(`action:`, data.action)
+  }
+
   render() {
-    const { store } = this.props
-    const MENU_TYPE = `simple`
     return (
       <div className={styles.container}>
         <div className={styles.labelFilter}>
           <LabelFilter />
         </div>
         <div className={styles.strukturbaum} ref={(c) => { this.tree = c }}>
-          <Strukturbaum menuType={MENU_TYPE} />
+          <Strukturbaum />
         </div>
-        <cmProjekt store={store} />
+        <CmProjekt onClick={this.handleClick} />
+        <CmApFolder onClick={this.handleClick} />
+        <CmAp onClick={this.handleClick} />
       </div>
     )
   }

@@ -1,21 +1,21 @@
 import React, { PropTypes } from 'react'
 import { ContextMenu, MenuItem } from 'react-contextmenu'
 
-const Projekt = ({ onClick }) =>
-  <ContextMenu id="projekt" >
+const Apfolder = ({ onClick }) =>
+  <ContextMenu id="apFolder" >
     <MenuItem
       onClick={onClick}
       data={{
-        action: `do something`,
-        table: `projekt`,
+        action: `insert`,
+        table: `ap`,
       }}
     >
-      Projektmenu 1
+      neue Art
     </MenuItem>
   </ContextMenu>
 
-Projekt.propTypes = {
+Apfolder.propTypes = {
   onClick: PropTypes.func.isRequired,
 }
 
-export default Projekt
+export default Apfolder
