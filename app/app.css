@@ -34,12 +34,12 @@ body.fontLoaded {
   min-width: 160px;
   padding: 5px 0;
   margin: 2px 0 0;
-  font-size: 16px;
-  color: #373a3c;
+  font-size: 14px;
+  color: white;
   text-align: left;
-  background-color: #fff;
+  background-color: rgb(66, 66, 66);
   background-clip: padding-box;
-  border: 1px solid rgba(0,0,0,.15);
+  border: 1px solid grey;
   border-radius: .25rem;
   outline: none;
   opacity: 0;
@@ -49,6 +49,8 @@ body.fontLoaded {
 :global .react-contextmenu.react-contextmenu--visible {
   opacity: 1;
   pointer-events: auto;
+  background-color: rgb(66, 66, 66);
+  z-index: 10;
 }
 
 :global .react-contextmenu-link {
@@ -58,17 +60,17 @@ body.fontLoaded {
   clear: both;
   font-weight: 400;
   line-height: 1.5;
-  color: #373a3c;
+  color: white;
   text-align: inherit;
   white-space: nowrap;
   background: 0 0;
   border: 0;
+  text-decoration: none;
 }
 
 :global .react-contextmenu-link.active,
 :global .react-contextmenu-link:hover {
-  color: #fff;
-  background-color: #0275d8;
+  color: orange;
   border-color: #0275d8;
   text-decoration: none;
 }
