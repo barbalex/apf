@@ -44,13 +44,22 @@ body.fontLoaded {
   outline: none;
   opacity: 0;
   pointer-events: none;
+  font-family: 'Roboto', sans-serif;
 }
 
 :global .react-contextmenu.react-contextmenu--visible {
   opacity: 1;
   pointer-events: auto;
-  background-color: rgb(66, 66, 66);
   z-index: 10;
+}
+
+:global .react-contextmenu-title {
+  color: #b3b3b3;
+  font-weight: bold;
+  padding-left: 10px;
+}
+:global .react-contextmenu-title::after {
+  content: ":";
 }
 
 :global .react-contextmenu-link {
