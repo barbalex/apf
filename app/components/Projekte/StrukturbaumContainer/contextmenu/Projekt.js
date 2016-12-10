@@ -6,11 +6,12 @@ const Projekt = ({ onClick }) =>
     <MenuItem
       onClick={onClick}
       data={{
-        action: `do something`,
+        action: `karte`,
         table: `projekt`,
       }}
+      disabled
     >
-      Projektmenu 1
+      auf Karte zeigen
     </MenuItem>
   </ContextMenu>
 
