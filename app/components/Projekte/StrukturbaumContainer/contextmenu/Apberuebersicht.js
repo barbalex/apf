@@ -3,6 +3,7 @@ import { ContextMenu, MenuItem } from 'react-contextmenu'
 
 const Apberuebersicht = ({ onClick }) =>
   <ContextMenu id="apberuebersicht" >
+    <div className="react-contextmenu-title">AP-Bericht</div>
     <MenuItem
       onClick={onClick}
       data={{
@@ -10,7 +11,7 @@ const Apberuebersicht = ({ onClick }) =>
         table: `apberuebersicht`,
       }}
     >
-      neuer AP-Bericht
+      neu
     </MenuItem>
     <MenuItem
       onClick={onClick}
@@ -19,7 +20,7 @@ const Apberuebersicht = ({ onClick }) =>
         table: `apberuebersicht`,
       }}
     >
-      AP-Bericht löschen
+      löschen
     </MenuItem>
   </ContextMenu>
 

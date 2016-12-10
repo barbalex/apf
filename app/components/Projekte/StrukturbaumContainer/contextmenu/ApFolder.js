@@ -3,6 +3,7 @@ import { ContextMenu, MenuItem } from 'react-contextmenu'
 
 const Apfolder = ({ onClick }) =>
   <ContextMenu id="apFolder" >
+    <div className="react-contextmenu-title">Art</div>
     <MenuItem
       onClick={onClick}
       data={{
@@ -10,7 +11,7 @@ const Apfolder = ({ onClick }) =>
         table: `ap`,
       }}
     >
-      neue Art
+      neu
     </MenuItem>
     <MenuItem
       onClick={onClick}

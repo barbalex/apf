@@ -55,8 +55,7 @@ body.fontLoaded {
 
 :global .react-contextmenu-title {
   color: #b3b3b3;
-  font-weight: bold;
-  padding-left: 10px;
+  padding-left: 20px;
 }
 :global .react-contextmenu-title::after {
   content: ":";
