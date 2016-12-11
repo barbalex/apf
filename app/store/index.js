@@ -23,10 +23,10 @@ import apiBaseUrl from '../modules/apiBaseUrl'
 import tables from '../modules/tables'
 // import countRowsAboveActiveNode from '../modules/countRowsAboveActiveNode'
 import getActiveDatasetFromUrl from '../modules/getActiveDatasetFromUrl'
-import storeIsNew from '../modules/storeIsNew'
 import getActiveUrlElements from '../modules/getActiveUrlElements'
 import fetchDataForActiveUrlElements from '../modules/fetchDataForActiveUrlElements'
 
+import buildRootNodes from '../modules/nodes/root'
 import buildApberuebersichtNodes from '../modules/nodes/apberuebersicht'
 import buildProjektNodes from '../modules/nodes/projekt'
 import buildApNodes from '../modules/nodes/ap'
@@ -93,15 +93,16 @@ class Store extends singleton {
     `manipulateUrl`,
     () => {
       const url = clone(this.url)
+      // forward apflora.ch to Projekte
       if (url.length === 0) {
         url.push(`Projekte`)
       }
+
+      // if new store set projekte tabs
       const urlQuery = clone(this.urlQuery)
-      // if new store, set projekte tabs
       if ((url.length === 0 || url[0] === `Projekte`) && !urlQuery.projekteTabs) {
         urlQuery.projekteTabs = [`strukturbaum`, `daten`]
       }
-
       const search = queryString.stringify(urlQuery)
       if (!isEqual(url, this.url) || !isEqual(urlQuery, this.urlQuery)) {
         this.history.push(`/${url.join(`/`)}${Object.keys(urlQuery).length > 0 ? `?${search}` : ``}`)
@@ -119,20 +120,10 @@ class Store extends singleton {
   @observable activeUrlElements
   @observable previousActiveUrlElements
 
+  // make sure all data needed for this url is fetched
   updateData = autorun(
     `updateData`,
-    () => {
-      // if new store, fetch all nodes
-      if (storeIsNew(this)) {
-        // this.node.loadingAllNodes = true
-        fetchDataForActiveUrlElements(this)
-      } else {
-        // else if url longer: load new table
-        // get previous pathname
-        fetchDataForActiveUrlElements(this)
-      }
-      // else dont load data
-    }
+    () => fetchDataForActiveUrlElements(this)
   )
 
   @action
@@ -157,6 +148,7 @@ class Store extends singleton {
     this.node.nodeLabelFilter.set(table, value)
   }
 
+  // updates data in store
   @action
   updateProperty = (key, valuePassed) => {
     const { table, row } = this.activeDataset
@@ -172,6 +164,7 @@ class Store extends singleton {
     row[key] = value
   }
 
+  // updates data in database
   @action
   updatePropertyInDb = (key, valuePassed) => {
     const { row, valid } = this.activeDataset
@@ -216,7 +209,6 @@ class Store extends singleton {
 
     // update if no validation messages exist
     const combinedValidationMessages = objectValues(valid).join(``)
-    // console.log(`updatePropertyInDb, combinedValidationMessages:`, combinedValidationMessages)
     if (combinedValidationMessages.length === 0) {
       const { user } = this.app
       const oldValue = row[key]
@@ -233,14 +225,19 @@ class Store extends singleton {
     }
   }
 
+  // fetch all data of a table
+  // primarily used for werte (domain) tables
   @action
   fetchTable = (schemaName, tableName) =>
     fetchTableModule(this, schemaName, tableName)
 
+  // fetch data of table for id of parent table
+  // used for actual apflora data
   @action
   fetchTableByParentId = (schemaName, tableName, parentId) =>
     fetchTableByParentId(this, schemaName, tableName, parentId)
 
+  // action when user clicks on a node in the tree
   @action
   toggleNode = (node) => {
     if (node) {
@@ -256,6 +253,7 @@ class Store extends singleton {
   /**
    * urlQueries are used to control tabs
    * for instance: Entwicklung or Biotop in tpopfeldkontr
+   * or: strukturbaum, daten and karte in projekte
    */
   @action
   setUrlQuery = (key, value) => {
