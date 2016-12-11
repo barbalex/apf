@@ -24,13 +24,16 @@ import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import { Provider } from 'mobx-react'
 
+import DevTools from 'mobx-react-devtools'
+
 // Import the CSS reset, which HtmlWebpackPlugin transfers to the build folder
 import 'sanitize.css/sanitize.css'
 
 // import components
 import store from './store'
 import styles from './app.css'  // eslint-disable-line no-unused-vars
-import Router from './components/Router'
+import AppBar from './components/AppBar'
+import Projekte from './components/Projekte'
 
 import apiBaseUrl from './modules/apiBaseUrl'
 import updateFromSocket from './modules/updateFromSocket'
@@ -60,7 +63,11 @@ ReactDOM.render(
     <MuiThemeProvider
       muiTheme={getMuiTheme(theme)}
     >
-      <Router />
+      <div>
+        <DevTools />
+        <AppBar />
+        <Projekte />
+      </div>
     </MuiThemeProvider>
   </Provider>,
   document.getElementById(`app`)
