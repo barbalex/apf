@@ -25,6 +25,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import { Provider } from 'mobx-react'
 
 import DevTools from 'mobx-react-devtools'
+import Helmet from 'react-helmet'
 
 // Import the CSS reset, which HtmlWebpackPlugin transfers to the build folder
 import 'sanitize.css/sanitize.css'
@@ -64,6 +65,12 @@ ReactDOM.render(
       muiTheme={getMuiTheme(theme)}
     >
       <div>
+        <Helmet
+          title="AP Flora"
+          meta={[
+            { name: `description`, content: `Aktionspläne für Flora-Projekte` },
+          ]}
+        />
         <DevTools />
         <AppBar />
         <Projekte />

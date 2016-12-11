@@ -6,6 +6,7 @@
 
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
+
 import styles from './styles.css'
 import Projekt from './Projekt'
 import Ap from './Ap'
@@ -27,6 +28,7 @@ import Tpopmassnber from './Tpopmassnber'
 import Tpopfeldkontr from './Tpopfeldkontr'
 import Tpopfreiwkontr from './Tpopfreiwkontr'
 import Tpopkontrzaehl from './Tpopkontrzaehl'
+import Exporte from './Exporte'
 
 @inject(`store`)
 @observer
@@ -38,7 +40,7 @@ class Daten extends Component { // eslint-disable-line react/prefer-stateless-fu
 
   render() {
     const { store } = this.props
-    const { activeDataset } = store
+    const { activeDataset, activeUrlElements } = store
     if (!activeDataset || !activeDataset.table || !activeDataset.row) {
       return <div />
     }
@@ -63,6 +65,7 @@ class Daten extends Component { // eslint-disable-line react/prefer-stateless-fu
       tpopfeldkontr: <Tpopfeldkontr />,
       tpopfreiwkontr: <Tpopfreiwkontr />,
       tpopkontrzaehl: <Tpopkontrzaehl />,
+      exporte: <Exporte />,
     }
     const standardForm = (
       <div>
@@ -72,7 +75,8 @@ class Daten extends Component { // eslint-disable-line react/prefer-stateless-fu
         </pre>
       </div>
     )
-    const form = formObject[activeDataset.table] || standardForm
+    const key = activeUrlElements.exporte ? `exporte` : activeDataset.table
+    const form = formObject[key] || standardForm
     return (
       <div className={styles.container}>
         {form}

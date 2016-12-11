@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
-import Helmet from 'react-helmet'
 import { Toolbar } from 'material-ui/Toolbar'
 import FlatButton from 'material-ui/FlatButton'
 import clone from 'lodash/clone'
@@ -46,12 +45,6 @@ class Projekte extends React.Component { // eslint-disable-line react/prefer-sta
 
     return (
       <div className={styles.container}>
-        <Helmet
-          title="AP Flora: Projekte"
-          meta={[
-            { name: `description`, content: `Description of Projekte` },
-          ]}
-        />
         <Toolbar className={styles.toolbar} >
           <FlatButton
             label="Strukturbaum"
