@@ -10,7 +10,7 @@ export default (store) => {
   if (aEl.projektFolder) {
     if (aEl.apberuebersicht) {
       activeDataset = { table: `apberuebersicht`, row: store.table.apberuebersicht.get(aEl.apberuebersicht) }
-      activeNode = store.apNodes.find(n => n.row.JbuJahr === aEl.apberuebersicht)
+      // activeNode = store.apNodes.find(n => n.row.JbuJahr === aEl.apberuebersicht)
     } else if (aEl.ap) {
       if (aEl.ziel) {
         if (aEl.zielber) {
