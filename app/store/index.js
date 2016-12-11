@@ -26,7 +26,6 @@ import getActiveDatasetFromUrl from '../modules/getActiveDatasetFromUrl'
 import getActiveUrlElements from '../modules/getActiveUrlElements'
 import fetchDataForActiveUrlElements from '../modules/fetchDataForActiveUrlElements'
 
-import buildRootNodes from '../modules/nodes/root'
 import buildApberuebersichtNodes from '../modules/nodes/apberuebersicht'
 import buildProjektNodes from '../modules/nodes/projekt'
 import buildApNodes from '../modules/nodes/ap'
