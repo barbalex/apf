@@ -10,6 +10,13 @@
   border-style: solid;
 }
 
+.containerExporte {
+  composes: container;
+  flex-basis: 200px;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
 .labelFilter {
   padding-right: 30px;
 }

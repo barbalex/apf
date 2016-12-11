@@ -2,9 +2,6 @@
   border-color: #424242;
   border-width: 1px;
   border-style: solid;
-  /*display: flex;
-  align-items: stretch;
-  flex-direction: column;*/
   flex-basis: 600px;
   flex-grow: 2;
   flex-shrink: 2;
