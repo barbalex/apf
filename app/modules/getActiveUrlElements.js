@@ -1,9 +1,8 @@
 export default (url) => {
-  const exporte = (url.length > 0 && url[0] === `Exporte`) || false
-  const benutzer = (url.length > 0 && url[0] === `Benutzer`) || false
   const projektFolder = (url.length > 0 && url[0] === `Projekte`) || false
   const projekt = projektFolder && url.length > 1 ? parseInt(url[1], 10) : null
   const apberuebersichtFolder = (projekt && url.length > 2 && url[2] === `AP-Berichte`) || false
+  const exporte = (projekt && url.length > 2 && url[2] === `Exporte`) || false
   const apberuebersicht = apberuebersichtFolder && url.length > 3 ? parseInt(url[3], 10) : null
   const apFolder = (projekt && url.length > 2 && url[2] === `Arten`) || false
   const ap = apFolder && url.length > 3 ? parseInt(url[3], 10) : null
@@ -52,7 +51,6 @@ export default (url) => {
 
   return {
     exporte,
-    benutzer,
     projektFolder,
     projekt,
     apberuebersichtFolder,

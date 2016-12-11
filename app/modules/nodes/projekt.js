@@ -33,6 +33,12 @@ export default (store) => {
         url: [`Projekte`, el.ProjId, `AP-Berichte`],
         children: store.apberuebersichtNodes,
       },
+      {
+        menuType: `exporte`,
+        label: `Exporte`,
+        expanded: activeUrlElements.exporte,
+        url: [`Projekte`, el.ProjId, `Exporte`],
+      },
     ],
   }))
 }
