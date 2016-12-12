@@ -1,17 +1,26 @@
 import React, { PropTypes } from 'react'
 import { ContextMenu, MenuItem } from 'react-contextmenu'
 
-const Apfolder = ({ onClick }) =>
-  <ContextMenu id="apFolder" >
-    <div className="react-contextmenu-title">Art</div>
+const Pop = ({ onClick }) =>
+  <ContextMenu id="pop" >
+    <div className="react-contextmenu-title">Population</div>
     <MenuItem
       onClick={onClick}
       data={{
         action: `insert`,
-        table: `ap`,
+        table: `pop`,
       }}
     >
       neu
+    </MenuItem>
+    <MenuItem
+      onClick={onClick}
+      data={{
+        action: `delete`,
+        table: `pop`,
+      }}
+    >
+      löschen
     </MenuItem>
     <MenuItem
       onClick={onClick}
@@ -25,8 +34,8 @@ const Apfolder = ({ onClick }) =>
     </MenuItem>
   </ContextMenu>
 
-Apfolder.propTypes = {
+Pop.propTypes = {
   onClick: PropTypes.func.isRequired,
 }
 
-export default Apfolder
+export default Pop
