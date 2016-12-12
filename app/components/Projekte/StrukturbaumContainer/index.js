@@ -29,6 +29,8 @@ import CmPopberFolder from './contextmenu/PopberFolder'
 import CmPopber from './contextmenu/Popber'
 import CmTpopFolder from './contextmenu/TpopFolder'
 import CmTpop from './contextmenu/Tpop'
+import CmTpopberFolder from './contextmenu/TpopberFolder'
+import CmTpopber from './contextmenu/Tpopber'
 
 @inject(`store`)
 @observer
@@ -92,6 +94,8 @@ class StrukturbaumContainer extends Component { // eslint-disable-line react/pre
         <CmPopber onClick={this.handleClick} />
         <CmTpopFolder onClick={this.handleClick} />
         <CmTpop onClick={this.handleClick} />
+        <CmTpopberFolder onClick={this.handleClick} />
+        <CmTpopber onClick={this.handleClick} />
       </div>
     )
   }
