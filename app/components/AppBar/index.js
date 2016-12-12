@@ -37,6 +37,7 @@ class MyAppBar extends React.Component { // eslint-disable-line react/prefer-sta
   }
   render() {
     const { store } = this.props
+    const { activeUrlElements } = store
     const projekteTabs = clone(store.urlQuery.projekteTabs)
     const strukturbaumIsVisible = projekteTabs.includes(`strukturbaum`)
     const datenIsVisible = projekteTabs.includes(`daten`)
@@ -66,6 +67,7 @@ class MyAppBar extends React.Component { // eslint-disable-line react/prefer-sta
             <FlatButton
               label="Karte"
               secondary={!karteIsVisible}
+              disabled={activeUrlElements.exporte}
               onClick={() =>
                 this.onClickButton(`karte`)
               }

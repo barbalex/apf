@@ -3,8 +3,8 @@
   border-width: 1px;
   border-style: solid;
   flex-basis: 600px;
-  flex-grow: 4;
-  flex-shrink: 2;
+  flex-grow: 6;
+  flex-shrink: 1;
 }
 
 .map {
