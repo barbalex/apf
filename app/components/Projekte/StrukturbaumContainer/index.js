@@ -8,6 +8,8 @@ import CmApFolder from './contextmenu/ApFolder'
 import CmAp from './contextmenu/Ap'
 import CmApberuebersichtFolder from './contextmenu/ApberuebersichtFolder'
 import CmApberuebersicht from './contextmenu/Apberuebersicht'
+import CmAssozartFolder from './contextmenu/AssozartFolder'
+import CmAssozart from './contextmenu/Assozart'
 
 @inject(`store`)
 @observer
@@ -50,6 +52,8 @@ class StrukturbaumContainer extends Component { // eslint-disable-line react/pre
         <CmAp onClick={this.handleClick} />
         <CmApberuebersichtFolder onClick={this.handleClick} />
         <CmApberuebersicht onClick={this.handleClick} />
+        <CmAssozartFolder onClick={this.handleClick} />
+        <CmAssozart onClick={this.handleClick} />
       </div>
     )
   }
