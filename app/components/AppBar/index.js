@@ -1,64 +1,94 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import AppBar from 'material-ui/AppBar'
-import { Tabs, Tab } from 'material-ui/Tabs'
 import IconMenu from 'material-ui/IconMenu'
 import MenuItem from 'material-ui/MenuItem'
 import IconButton from 'material-ui/IconButton/IconButton'
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
+import FlatButton from 'material-ui/FlatButton'
+import clone from 'lodash/clone'
+import remove from 'lodash/remove'
 
 import styles from './styles.css'
 
-const MyAppBar = ({ store }) =>
-  <AppBar
-    title="AP Flora"
-    className={styles.menuDiv}
-    iconElementRight={
-      <div
-        className={styles.menuDiv}
-      >
-        <Tabs
-          value={store.history.location.pathname}
-          onChange={path =>
-            store.history.push(path)
-          }
-        >
-          <Tab
-            label="Projekte"
-            value="/Projekte"
-            className={styles.tab}
-          />
-          <Tab
-            label="Exporte"
-            value="/Exporte"
-            className={styles.tab}
-          />
-          <Tab
-            label="Benutzer"
-            value="/Benutzer"
-            className={styles.tab}
-          />
-        </Tabs>
-        <IconMenu
-          iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-          anchorOrigin={{ horizontal: `left`, vertical: `bottom` }}
-          targetOrigin={{ horizontal: `left`, vertical: `top` }}
-          style={{ paddingLeft: 10 }}
-        >
-          <MenuItem
-            primaryText="Über apflora.ch"
-            onTouchTap={() =>
-              window.open(`https://github.com/FNSKtZH/apflora/wiki`)
-            }
-          />
-        </IconMenu>
-      </div>
-    }
-    showMenuIconButton={false}
-  />
+@inject(`store`)
+@observer
+class MyAppBar extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
-MyAppBar.propTypes = {
-  store: React.PropTypes.object,
+  static propTypes = {
+    store: PropTypes.object,
+  }
+
+  constructor() {
+    super()
+    this.onClickButton = this.onClickButton.bind(this)
+  }
+
+  onClickButton(name) {
+    const { store } = this.props
+    const projekteTabs = store.urlQuery.projekteTabs ? clone(store.urlQuery.projekteTabs) : []
+    const isVisible = projekteTabs.includes(name)
+    if (isVisible) {
+      remove(projekteTabs, el => el === name)
+    } else {
+      projekteTabs.push(name)
+    }
+    store.setUrlQuery(`projekteTabs`, projekteTabs)
+  }
+  render() {
+    const { store } = this.props
+    const projekteTabs = clone(store.urlQuery.projekteTabs)
+    const strukturbaumIsVisible = projekteTabs.includes(`strukturbaum`)
+    const datenIsVisible = projekteTabs.includes(`daten`)
+    const karteIsVisible = projekteTabs.includes(`karte`)
+    return (
+      <AppBar
+        title="AP Flora"
+        className={styles.menuDiv}
+        iconElementRight={
+          <div
+            className={styles.menuDiv}
+          >
+            <FlatButton
+              label="Strukturbaum"
+              secondary={!strukturbaumIsVisible}
+              onClick={() =>
+                this.onClickButton(`strukturbaum`)
+              }
+            />
+            <FlatButton
+              label="Daten"
+              secondary={!datenIsVisible}
+              onClick={() => {
+                this.onClickButton(`daten`)
+              }}
+            />
+            <FlatButton
+              label="Karte"
+              secondary={!karteIsVisible}
+              onClick={() =>
+                this.onClickButton(`karte`)
+              }
+            />
+            <IconMenu
+              iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+              anchorOrigin={{ horizontal: `left`, vertical: `bottom` }}
+              targetOrigin={{ horizontal: `left`, vertical: `top` }}
+              style={{ paddingLeft: 10 }}
+            >
+              <MenuItem
+                primaryText="Über apflora.ch"
+                onTouchTap={() =>
+                  window.open(`https://github.com/FNSKtZH/apflora/wiki`)
+                }
+              />
+            </IconMenu>
+          </div>
+        }
+        showMenuIconButton={false}
+      />
+    )
+  }
 }
 
-export default inject(`store`)(observer(MyAppBar))
+export default MyAppBar

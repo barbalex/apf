@@ -39,43 +39,11 @@ class Projekte extends React.Component { // eslint-disable-line react/prefer-sta
     const { store } = this.props
     const projekteTabs = clone(store.urlQuery.projekteTabs)
     const strukturbaumIsVisible = projekteTabs.includes(`strukturbaum`)
-    const strukturbaum2IsVisible = projekteTabs.includes(`strukturbaum2`)
     const datenIsVisible = projekteTabs.includes(`daten`)
     const karteIsVisible = projekteTabs.includes(`karte`)
 
     return (
       <div className={styles.container}>
-        <Toolbar className={styles.toolbar} >
-          <FlatButton
-            label="Strukturbaum"
-            primary={strukturbaumIsVisible}
-            onClick={() =>
-              this.onClickButton(`strukturbaum`)
-            }
-          />
-          <FlatButton
-            label="Strukturbaum 2"
-            primary={strukturbaum2IsVisible}
-            onClick={() =>
-              this.onClickButton(`strukturbaum2`)
-            }
-            disabled
-          />
-          <FlatButton
-            label="Daten"
-            primary={datenIsVisible}
-            onClick={() => {
-              this.onClickButton(`daten`)
-            }}
-          />
-          <FlatButton
-            label="Karte"
-            primary={karteIsVisible}
-            onClick={() =>
-              this.onClickButton(`karte`)
-            }
-          />
-        </Toolbar>
         <div className={styles.content} >
           {
             strukturbaumIsVisible
