@@ -23,6 +23,8 @@ import CmZielBerFolder from './contextmenu/ZielBerFolder'
 import CmZielBer from './contextmenu/Zielber'
 import CmPopFolder from './contextmenu/PopFolder'
 import CmPop from './contextmenu/Pop'
+import CmPopmassnberFolder from './contextmenu/PopmassnberFolder'
+import CmPopmassnber from './contextmenu/Popmassnber'
 
 @inject(`store`)
 @observer
@@ -80,6 +82,8 @@ class StrukturbaumContainer extends Component { // eslint-disable-line react/pre
         <CmZielBer onClick={this.handleClick} />
         <CmPopFolder onClick={this.handleClick} />
         <CmPop onClick={this.handleClick} />
+        <CmPopmassnberFolder onClick={this.handleClick} />
+        <CmPopmassnber onClick={this.handleClick} />
       </div>
     )
   }
