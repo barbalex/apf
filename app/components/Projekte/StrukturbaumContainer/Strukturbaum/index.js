@@ -107,7 +107,6 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
         <ContextMenuTrigger
           id={node.menuType}
           key={`${index}-child`}
-          data-table={node.table}
         >
           <div
             className={nodeIsInActiveNodePath ? styles.nodeIsInActiveNodePath : styles.node}

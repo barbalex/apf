@@ -22,6 +22,16 @@ const Ap = ({ onClick }) =>
     >
       löschen
     </MenuItem>
+    <MenuItem
+      onClick={onClick}
+      data={{
+        action: `karte`,
+        table: `ap`,
+      }}
+      disabled
+    >
+      auf Karte zeigen
+    </MenuItem>
   </ContextMenu>
 
 Ap.propTypes = {
