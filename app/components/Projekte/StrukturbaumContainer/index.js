@@ -19,6 +19,8 @@ import CmErfkrit from './contextmenu/Erfkrit'
 import CmZielFolder from './contextmenu/ZielFolder'
 import CmZielJahrFolder from './contextmenu/ZielJahrFolder'
 import CmZiel from './contextmenu/Ziel'
+import CmZielBerFolder from './contextmenu/ZielBerFolder'
+import CmZielBer from './contextmenu/Zielber'
 
 @inject(`store`)
 @observer
@@ -72,6 +74,8 @@ class StrukturbaumContainer extends Component { // eslint-disable-line react/pre
         <CmZielFolder onClick={this.handleClick} />
         <CmZielJahrFolder onClick={this.handleClick} />
         <CmZiel onClick={this.handleClick} />
+        <CmZielBerFolder onClick={this.handleClick} />
+        <CmZielBer onClick={this.handleClick} />
       </div>
     )
   }
