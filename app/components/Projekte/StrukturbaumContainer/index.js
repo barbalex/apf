@@ -39,6 +39,10 @@ import CmTpopfeldkontrFolder from './contextmenu/TpopfeldkontrFolder'
 import CmTpopfeldkontr from './contextmenu/Tpopfeldkontr'
 import CmTpopfeldkontrzaehlFolder from './contextmenu/TpopfeldkontrzaehlFolder'
 import CmTpopfeldkontrzaehl from './contextmenu/Tpopfeldkontrzaehl'
+import CmTpopmassnberFolder from './contextmenu/TpopmassnberFolder'
+import CmTpopmassnber from './contextmenu/Tpopmassnber'
+import CmTpopmassnFolder from './contextmenu/TpopmassnFolder'
+import CmTpopmassn from './contextmenu/Tpopmassn'
 
 @inject(`store`)
 @observer
@@ -112,6 +116,10 @@ class StrukturbaumContainer extends Component { // eslint-disable-line react/pre
         <CmTpopfeldkontr onClick={this.handleClick} />
         <CmTpopfeldkontrzaehlFolder onClick={this.handleClick} />
         <CmTpopfeldkontrzaehl onClick={this.handleClick} />
+        <CmTpopmassnberFolder onClick={this.handleClick} />
+        <CmTpopmassnber onClick={this.handleClick} />
+        <CmTpopmassnFolder onClick={this.handleClick} />
+        <CmTpopmassn onClick={this.handleClick} />
       </div>
     )
   }
