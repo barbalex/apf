@@ -224,6 +224,34 @@ class Store extends singleton {
     }
   }
 
+  @action
+  newDataset = (schemaPassed, tablePassed) => {
+    const schema = schemaPassed || `apflora`
+    let table = tablePassed
+    if (!table) {
+      return console.log(`new dataset not created: table missing`)
+    }
+    // lookup idField
+    const tabelle = tables.find(t =>
+      t.table === table
+    )
+    // in tpopfeldkontr and tpopfreiwkontr need to find dbTable
+    if (tabelle.dbTable) {
+      table = tabelle.dbTable
+    }
+    const idField = tabelle ? tabelle.idField : undefined
+    if (!idField) {
+      return console.log(`new dataset not created as no idField could be found`)
+    }
+    const parentTable = tabelle ? tabelle.parentTable : undefined
+    if (!idField) {
+      return console.log(`new dataset not created as no idField could be found`)
+    }
+    // insert
+    const url = `${apiBaseUrl}/insert/apflora/tabelle=${table}/feld={feld}/wert={wert}/user={user}`
+    // set url and activeDataset
+  }
+
   // fetch all data of a table
   // primarily used for werte (domain) tables
   @action
