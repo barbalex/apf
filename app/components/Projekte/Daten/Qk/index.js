@@ -157,8 +157,8 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
     )
     Promise.all(dataFetchingPromises)
       .then(() => {
-        console.log(`messages:`, messages)
-        // TODO: map result
+        console.log(`check finished`)
+        // TODO: if no messages: tell user
       })
       .catch(error => console.log(error))
     // TODO: kontrolliereRelevanzAusserkantonalerTpop()
@@ -166,7 +166,6 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
 
   render() {
     const { berichtjahr, messages } = this.state
-    console.log(`render: messages:`, messages)
     return (
       <div className={styles.container}>
         <FormTitle title="Qualitätskontrollen" />
