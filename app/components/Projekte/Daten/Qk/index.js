@@ -3,10 +3,14 @@ import { observer, inject } from 'mobx-react'
 import axios from 'axios'
 import dateFns from 'date-fns'
 import TextField from 'material-ui/TextField'
-import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card'
+import Linkify from 'react-linkify'
+import isArray from 'lodash/isArray'
+import groupBy from 'lodash/groupBy'
+import { Card, CardText } from 'material-ui/Card'
 import FormTitle from '../../../shared/FormTitle'
 import styles from './styles.css'
 import apiBaseUrl from '../../../../modules/apiBaseUrl'
+import appBaseUrl from '../../../../modules/appBaseUrl'
 
 @inject(`store`)
 @observer
@@ -46,9 +50,9 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
       // pop mit mehrdeutiger Nr
       { type: `view`, name: `v_qk2_pop_popnrmehrdeutig` },
       // Pop ohne verlangten Pop-Bericht im Berichtjahr
-      { type: `query`, name: `qkPopOhnePopber`, berichtjahr },
+      { type: `query`, name: `qk2PopOhnePopber`, berichtjahr },
       // Pop ohne verlangten Pop-Massn-Bericht im Berichtjahr
-      { type: `query`, name: `qkPopOhnePopmassnber`, berichtjahr },
+      { type: `query`, name: `qk2PopOhnePopmassnber`, berichtjahr },
       // Entsprechen Koordinaten der Pop einer der TPops?
       { type: `view`, name: `v_qk2_pop_koordentsprechenkeinertpop` },
       // pop mit Status ansaatversuch, es gibt tpop mit status aktuell
@@ -89,9 +93,9 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
       // tpop mit mehrdeutiger Kombination von PopNr und TPopNr
       { type: `view`, name: `v_qk2_tpop_popnrtpopnrmehrdeutig` },
       // TPop ohne verlangten TPop-Bericht im Berichtjahr
-      { type: `query`, name: `qkTpopOhneTpopber`, berichtjahr },
+      { type: `query`, name: `qk2TpopOhneTpopber`, berichtjahr },
       // TPop ohne verlangten TPop-Massn.-Bericht im Berichtjahr
-      { type: `query`, name: `qkTpopOhneMassnber`, berichtjahr },
+      { type: `query`, name: `qk2TpopOhneMassnber`, berichtjahr },
       // Teilpopulation mit Status "Ansaatversuch", bei denen in einer Kontrolle eine Anzahl festgestellt wurde:
       { type: `view`, name: `v_qk2_tpop_mitstatusansaatversuchundzaehlungmitanzahl` },
       // Teilpopulation mit Status "potentieller Wuchs-/Ansiedlungsort",
@@ -166,6 +170,12 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
 
   render() {
     const { berichtjahr, messages } = this.state
+    const messagesGrouped = groupBy(messages, `hw`)
+    console.log(`messagesGrouped:`, messagesGrouped)
+    Object.keys(messagesGrouped).forEach((key) => {
+      messagesGrouped[key] = messagesGrouped[key].map(v => v.url)
+    })
+    console.log(`messagesGrouped with url:`, messagesGrouped)
     return (
       <div className={styles.container}>
         <FormTitle title="Qualitätskontrollen" />
@@ -182,12 +192,35 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
               this.check()
             }
           />
-          {messages.map(m => (
-            <Card>
-              <CardText>{m.hw}</CardText>
-              <CardText>{m.link}</CardText>
-            </Card>
-          ))}
+          {messages.map((m, index) => {
+            let link = (
+              <CardText className={styles.link}>
+                <Linkify properties={{ target: `_blank`, style: { color: `white` } }}>
+                  {`${appBaseUrl}/${m.url.join(`/`)}`}
+                </Linkify>
+              </CardText>
+            )
+            if (m.url[0] && isArray(m.url[0])) {
+              // an array of arrays was returned
+              link = (
+                <CardText className={styles.link}>
+                  <Linkify properties={{ target: `_blank`, style: { color: `white` } }}>
+                    {m.url.map((u, i) => (
+                      `${appBaseUrl}/${u.join(`/`)}${i === m.url.length ? `, ` : ``}`
+                    ))}
+                  </Linkify>
+                </CardText>
+              )
+            }
+            return (
+              <Card key={index} className={styles.card}>
+                <CardText className={styles.text}>
+                  {m.hw}
+                </CardText>
+                {link}
+              </Card>
+            )
+          })}
         </div>
       </div>
     )
