@@ -35,111 +35,111 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
     let { messages } = this.state
     const qkTypes = [
       // pop ohne Nr/Name/Status/bekannt seit/Koordinaten/tpop
-      { type: `view`, name: `v_qk_pop_ohnepopnr` },
-      { type: `view`, name: `v_qk_pop_ohnepopname` },
-      { type: `view`, name: `v_qk_pop_ohnepopstatus` },
-      { type: `view`, name: `v_qk_pop_ohnebekanntseit` },
-      { type: `view`, name: `v_qk_pop_ohnekoord` },
-      { type: `view`, name: `v_qk_pop_ohnetpop` },
+      { type: `view`, name: `v_qk2_pop_ohnepopnr` },
+      { type: `view`, name: `v_qk2_pop_ohnepopname` },
+      { type: `view`, name: `v_qk2_pop_ohnepopstatus` },
+      { type: `view`, name: `v_qk2_pop_ohnebekanntseit` },
+      { type: `view`, name: `v_qk2_pop_ohnekoord` },
+      { type: `view`, name: `v_qk2_pop_ohnetpop` },
       // pop mit Status unklar, ohne Begründung
-      { type: `view`, name: `v_qk_pop_mitstatusunklarohnebegruendung` },
+      { type: `view`, name: `v_qk2_pop_mitstatusunklarohnebegruendung` },
       // pop mit mehrdeutiger Nr
-      { type: `view`, name: `v_qk_pop_popnrmehrdeutig` },
+      { type: `view`, name: `v_qk2_pop_popnrmehrdeutig` },
       // Pop ohne verlangten Pop-Bericht im Berichtjahr
       { type: `query`, name: `qkPopOhnePopber`, berichtjahr },
       // Pop ohne verlangten Pop-Massn-Bericht im Berichtjahr
       { type: `query`, name: `qkPopOhnePopmassnber`, berichtjahr },
       // Entsprechen Koordinaten der Pop einer der TPops?
-      { type: `view`, name: `v_qk_pop_koordentsprechenkeinertpop` },
+      { type: `view`, name: `v_qk2_pop_koordentsprechenkeinertpop` },
       // pop mit Status ansaatversuch, es gibt tpop mit status aktuell
-      { type: `view`, name: `v_qk_pop_statusansaatversuchmitaktuellentpop` },
+      { type: `view`, name: `v_qk2_pop_statusansaatversuchmitaktuellentpop` },
       // pop mit Status ansaatversuch, es gibt tpop mit status ursprünglich erloschen
-      { type: `view`, name: `v_qk_pop_statusansaatversuchmittpopursprerloschen` },
+      { type: `view`, name: `v_qk2_pop_statusansaatversuchmittpopursprerloschen` },
       // Population: Status ist "erloschen" (ursprünglich oder angesiedelt),
       // es gibt aber eine Teilpopulation mit Status "aktuell" (ursprünglich oder angesiedelt)
-      { type: `view`, name: `v_qk_pop_statuserloschenmittpopaktuell` },
+      { type: `view`, name: `v_qk2_pop_statuserloschenmittpopaktuell` },
       // Population: Status ist "erloschen" (ursprünglich oder angesiedelt),
       // es gibt aber eine Teilpopulation mit Status "angesiedelt, Ansaatversuch":
-      { type: `view`, name: `v_qk_pop_statuserloschenmittpopansaatversuch` },
+      { type: `view`, name: `v_qk2_pop_statuserloschenmittpopansaatversuch` },
       // Population: Status ist "angesiedelt", es gibt aber eine Teilpopulation mit Status "ursprünglich":
-      { type: `view`, name: `v_qk_pop_statusangesiedeltmittpopurspruenglich` },
+      { type: `view`, name: `v_qk2_pop_statusangesiedeltmittpopurspruenglich` },
       // Population: Status ist "aktuell", der letzte Populations-Bericht meldet aber "erloschen"
-      { type: `view`, name: `v_qk_pop_statusaktuellletzterpopbererloschen` },
+      { type: `view`, name: `v_qk2_pop_statusaktuellletzterpopbererloschen` },
       // Population: Status ist "erloschen", der letzte Populations-Bericht meldet aber "aktuell"
-      { type: `view`, name: `v_qk_pop_statuserloschenletzterpopberaktuell` },
+      { type: `view`, name: `v_qk2_pop_statuserloschenletzterpopberaktuell` },
       // Teilpopulation: Status ist "aktuell", der letzte Teilpopulations-Bericht meldet aber "erloschen"
-      { type: `view`, name: `v_qk_tpop_statusaktuellletzterpopbererloschen` },
+      { type: `view`, name: `v_qk2_tpop_statusaktuellletzterpopbererloschen` },
       // Teilpopulation: Status ist "erloschen", der letzte Teilpopulations-Bericht meldet aber "aktuell"
-      { type: `view`, name: `v_qk_tpop_statuserloschenletzterpopberaktuell` },
+      { type: `view`, name: `v_qk2_tpop_statuserloschenletzterpopberaktuell` },
       // Population: Status ist "potenzieller Wuchs-/Ansiedlungsort",
       // es gibt aber eine Teilpopulation mit Status "angesiedelt" oder "ursprünglich":
-      { type: `view`, name: `v_qk_pop_statusaktuellletzterpopbererloschen` },
+      { type: `view`, name: `v_qk2_pop_statusaktuellletzterpopbererloschen` },
       // tpop ohne Nr/Flurname/Status/bekannt seit/Koordinaten
-      { type: `view`, name: `v_qk_tpop_ohnenr` },
-      { type: `view`, name: `v_qk_tpop_ohneflurname` },
-      { type: `view`, name: `v_qk_tpop_ohnestatus` },
-      { type: `view`, name: `v_qk_tpop_ohnebekanntseit` },
-      { type: `view`, name: `v_qk_tpop_ohneapberrelevant` },
-      { type: `view`, name: `v_qk_tpop_ohnekoordinaten` },
+      { type: `view`, name: `v_qk2_tpop_ohnenr` },
+      { type: `view`, name: `v_qk2_tpop_ohneflurname` },
+      { type: `view`, name: `v_qk2_tpop_ohnestatus` },
+      { type: `view`, name: `v_qk2_tpop_ohnebekanntseit` },
+      { type: `view`, name: `v_qk2_tpop_ohneapberrelevant` },
+      { type: `view`, name: `v_qk2_tpop_ohnekoordinaten` },
       // tpop relevant, die nicht relevant sein sollten
-      { type: `view`, name: `v_qk_tpop_statuspotentiellfuerapberrelevant` },
-      { type: `view`, name: `v_qk_tpop_erloschenundrelevantaberletztebeobvor1950` },
+      { type: `view`, name: `v_qk2_tpop_statuspotentiellfuerapberrelevant` },
+      { type: `view`, name: `v_qk2_tpop_erloschenundrelevantaberletztebeobvor1950` },
       // pop/tpop mit Status unklar ohne Begründung
-      { type: `view`, name: `v_qk_tpop_mitstatusunklarohnebegruendung` },
+      { type: `view`, name: `v_qk2_tpop_mitstatusunklarohnebegruendung` },
       // tpop mit mehrdeutiger Kombination von PopNr und TPopNr
-      { type: `view`, name: `v_qk_tpop_popnrtpopnrmehrdeutig` },
+      { type: `view`, name: `v_qk2_tpop_popnrtpopnrmehrdeutig` },
       // TPop ohne verlangten TPop-Bericht im Berichtjahr
       { type: `query`, name: `qkTpopOhneTpopber`, berichtjahr },
       // TPop ohne verlangten TPop-Massn.-Bericht im Berichtjahr
       { type: `query`, name: `qkTpopOhneMassnber`, berichtjahr },
       // Teilpopulation mit Status "Ansaatversuch", bei denen in einer Kontrolle eine Anzahl festgestellt wurde:
-      { type: `view`, name: `v_qk_tpop_mitstatusansaatversuchundzaehlungmitanzahl` },
+      { type: `view`, name: `v_qk2_tpop_mitstatusansaatversuchundzaehlungmitanzahl` },
       // Teilpopulation mit Status "potentieller Wuchs-/Ansiedlungsort",
       // bei der eine Massnahme des Typs "Ansiedlung" existiert:
-      { type: `view`, name: `v_qk_tpop_mitstatuspotentiellundmassnansiedlung` },
+      { type: `view`, name: `v_qk2_tpop_mitstatuspotentiellundmassnansiedlung` },
       // Massn ohne Jahr/Typ
-      { type: `view`, name: `v_qk_massn_ohnejahr` },
-      { type: `view`, name: `v_qk_massn_ohnetyp`, berichtjahr },
+      { type: `view`, name: `v_qk2_massn_ohnejahr` },
+      { type: `view`, name: `v_qk2_massn_ohnetyp`, berichtjahr },
       // Massn.-Bericht ohne Jahr/Entwicklung
-      { type: `view`, name: `v_qk_massnber_ohnejahr` },
-      { type: `view`, name: `v_qk_massnber_ohneerfbeurt`, berichtjahr },
+      { type: `view`, name: `v_qk2_massnber_ohnejahr` },
+      { type: `view`, name: `v_qk2_massnber_ohneerfbeurt`, berichtjahr },
       // Kontrolle ohne Jahr/Zählung/Kontrolltyp
-      { type: `view`, name: `v_qk_feldkontr_ohnejahr` },
-      { type: `view`, name: `v_qk_freiwkontr_ohnejahr` },
-      { type: `view`, name: `v_qk_feldkontr_ohnezaehlung`, berichtjahr },
-      { type: `view`, name: `v_qk_freiwkontr_ohnezaehlung`, berichtjahr },
-      { type: `view`, name: `v_qk_feldkontr_ohnetyp`, berichtjahr },
+      { type: `view`, name: `v_qk2_feldkontr_ohnejahr` },
+      { type: `view`, name: `v_qk2_freiwkontr_ohnejahr` },
+      { type: `view`, name: `v_qk2_feldkontr_ohnezaehlung`, berichtjahr },
+      { type: `view`, name: `v_qk2_freiwkontr_ohnezaehlung`, berichtjahr },
+      { type: `view`, name: `v_qk2_feldkontr_ohnetyp`, berichtjahr },
       // Zählung ohne Einheit/Methode/Anzahl
-      { type: `view`, name: `v_qk_feldkontrzaehlung_ohneeinheit`, berichtjahr },
-      { type: `view`, name: `v_qk_freiwkontrzaehlung_ohneeinheit`, berichtjahr },
-      { type: `view`, name: `v_qk_feldkontrzaehlung_ohnemethode`, berichtjahr },
-      { type: `view`, name: `v_qk_freiwkontrzaehlung_ohnemethode`, berichtjahr },
-      { type: `view`, name: `v_qk_feldkontrzaehlung_ohneanzahl`, berichtjahr },
-      { type: `view`, name: `v_qk_freiwkontrzaehlung_ohneanzahl`, berichtjahr },
+      { type: `view`, name: `v_qk2_feldkontrzaehlung_ohneeinheit`, berichtjahr },
+      { type: `view`, name: `v_qk2_freiwkontrzaehlung_ohneeinheit`, berichtjahr },
+      { type: `view`, name: `v_qk2_feldkontrzaehlung_ohnemethode`, berichtjahr },
+      { type: `view`, name: `v_qk2_freiwkontrzaehlung_ohnemethode`, berichtjahr },
+      { type: `view`, name: `v_qk2_feldkontrzaehlung_ohneanzahl`, berichtjahr },
+      { type: `view`, name: `v_qk2_freiwkontrzaehlung_ohneanzahl`, berichtjahr },
       // TPop-Bericht ohne Jahr/Entwicklung
-      { type: `view`, name: `v_qk_tpopber_ohnejahr` },
-      { type: `view`, name: `v_qk_tpopber_ohneentwicklung`, berichtjahr },
+      { type: `view`, name: `v_qk2_tpopber_ohnejahr` },
+      { type: `view`, name: `v_qk2_tpopber_ohneentwicklung`, berichtjahr },
       // Pop-Bericht/Pop-Massn.-Bericht ohne Jahr/Entwicklung
-      { type: `view`, name: `v_qk_popber_ohnejahr` },
-      { type: `view`, name: `v_qk_popber_ohneentwicklung`, berichtjahr },
-      { type: `view`, name: `v_qk_popmassnber_ohnejahr` },
-      { type: `view`, name: `v_qk_popmassnber_ohneentwicklung`, berichtjahr },
+      { type: `view`, name: `v_qk2_popber_ohnejahr` },
+      { type: `view`, name: `v_qk2_popber_ohneentwicklung`, berichtjahr },
+      { type: `view`, name: `v_qk2_popmassnber_ohnejahr` },
+      { type: `view`, name: `v_qk2_popmassnber_ohneentwicklung`, berichtjahr },
       // Ziel ohne Jahr/Zieltyp/Ziel
-      { type: `view`, name: `v_qk_ziel_ohnejahr` },
-      { type: `view`, name: `v_qk_ziel_ohnetyp` },
-      { type: `view`, name: `v_qk_ziel_ohneziel` },
+      { type: `view`, name: `v_qk2_ziel_ohnejahr` },
+      { type: `view`, name: `v_qk2_ziel_ohnetyp` },
+      { type: `view`, name: `v_qk2_ziel_ohneziel` },
       // Ziel-Bericht ohne Jahr/Entwicklung
-      { type: `view`, name: `v_qk_zielber_ohnejahr` },
-      { type: `view`, name: `v_qk_zielber_ohneentwicklung`, berichtjahr },
+      { type: `view`, name: `v_qk2_zielber_ohnejahr` },
+      { type: `view`, name: `v_qk2_zielber_ohneentwicklung`, berichtjahr },
       // AP-Erfolgskriterium ohne Beurteilung/Kriterien
-      { type: `view`, name: `v_qk_erfkrit_ohnebeurteilung` },
-      { type: `view`, name: `v_qk_erfkrit_ohnekriterien` },
+      { type: `view`, name: `v_qk2_erfkrit_ohnebeurteilung` },
+      { type: `view`, name: `v_qk2_erfkrit_ohnekriterien` },
       // AP-Bericht ohne Jahr/Vergleich Vorjahr-Gesamtziel/Beurteilung
-      { type: `view`, name: `v_qk_apber_ohnejahr` },
-      { type: `view`, name: `v_qk_apber_ohnevergleichvorjahrgesamtziel`, berichtjahr },
-      { type: `view`, name: `v_qk_apber_ohnebeurteilung`, berichtjahr },
+      { type: `view`, name: `v_qk2_apber_ohnejahr` },
+      { type: `view`, name: `v_qk2_apber_ohnevergleichvorjahrgesamtziel`, berichtjahr },
+      { type: `view`, name: `v_qk2_apber_ohnebeurteilung`, berichtjahr },
       // assoziierte Art ohne Art
-      { type: `view`, name: `v_qk_assozart_ohneart` },
+      { type: `view`, name: `v_qk2_assozart_ohneart` },
     ]
     const urls = qkTypes.map(t =>
       `${apiBaseUrl}/${t.type === `view` ? `qkView/` : ``}${t.name}/${store.activeUrlElements.ap}${t.berichtjahr ? `/${t.berichtjahr}` : ``}`
