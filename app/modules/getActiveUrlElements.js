@@ -7,6 +7,7 @@ export default (url) => {
   const apFolder = (projekt && url.length > 2 && url[2] === `Arten`) || false
   const ap = apFolder && url.length > 3 ? parseInt(url[3], 10) : null
   const assozartFolder = (ap && url.length > 4 && url[4] === `assoziierte-Arten`) || false
+  const qk = (ap && url.length > 4 && url[4] === `Qualitätskontrollen`) || false
   const assozart = assozartFolder && url.length > 5 ? parseInt(url[5], 10) : null
   const idealbiotopFolder = (ap && url.length > 4 && url[4] === `Idealbiotop`) || false
   const beobNichtZuzuordnenFolder = (ap && url.length > 4 && url[4] === `nicht-zuzuordnende-Beobachtungen`) || false
@@ -59,6 +60,7 @@ export default (url) => {
     ap,
     assozartFolder,
     assozart,
+    qk,
     idealbiotopFolder,
     beobNichtZuzuordnenFolder,
     beobNichtZuzuordnen,

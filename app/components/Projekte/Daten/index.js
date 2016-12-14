@@ -29,6 +29,7 @@ import Tpopfeldkontr from './Tpopfeldkontr'
 import Tpopfreiwkontr from './Tpopfreiwkontr'
 import Tpopkontrzaehl from './Tpopkontrzaehl'
 import Exporte from './Exporte'
+import Qk from './Qk'
 
 @inject(`store`)
 @observer
@@ -66,6 +67,7 @@ class Daten extends Component { // eslint-disable-line react/prefer-stateless-fu
       tpopfreiwkontr: <Tpopfreiwkontr />,
       tpopkontrzaehl: <Tpopkontrzaehl />,
       exporte: <Exporte />,
+      qk: <Qk />,
     }
     const standardForm = (
       <div>
@@ -75,7 +77,14 @@ class Daten extends Component { // eslint-disable-line react/prefer-stateless-fu
         </pre>
       </div>
     )
-    const key = activeUrlElements.exporte ? `exporte` : activeDataset.table
+    let key
+    if (activeUrlElements.exporte) {
+      key = `exporte`
+    } else if (activeUrlElements.qk) {
+      key = `qk`
+    } else {
+      key = activeDataset.table
+    }
     const form = formObject[key] || standardForm
     return (
       <div className={styles.container}>

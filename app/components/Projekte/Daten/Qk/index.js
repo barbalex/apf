@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import axios from 'axios'
-import dateFns from 'data-fns'
+import dateFns from 'date-fns'
 import TextField from 'material-ui/TextField'
+import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card'
 import FormTitle from '../../../shared/FormTitle'
 import styles from './styles.css'
 import apiBaseUrl from '../../../../modules/apiBaseUrl'
@@ -19,6 +20,7 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
     super()
     this.state = {
       berichtjahr: dateFns.format(new Date(), `YYYY`),
+      messages: [],
     }
     this.check = this.check.bind(this)
   }
@@ -30,6 +32,7 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
   check() {
     const { store } = this.props
     const { berichtjahr } = this.state
+    let { messages } = this.state
     const qkTypes = [
       // pop ohne Nr/Name/Status/bekannt seit/Koordinaten/tpop
       { type: `view`, name: `v_qk_pop_ohnepopnr` },
@@ -143,11 +146,18 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
     )
     const dataFetchingPromises = urls.map(url =>
       axios.get(url)
+        .then((res) => {
+          if (res.data.length > 0) {
+            messages = messages.concat(res.data)
+            this.setState({ messages })
+          }
+          return null
+        })
         .catch(e => e)
     )
     Promise.all(dataFetchingPromises)
-      .then((result) => {
-        console.log(`result:`, result)
+      .then(() => {
+        console.log(`messages:`, messages)
         // TODO: map result
       })
       .catch(error => console.log(error))
@@ -155,8 +165,8 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
   }
 
   render() {
-    const { store } = this.props
-    const { berichtjahr } = this.state
+    const { berichtjahr, messages } = this.state
+    console.log(`render: messages:`, messages)
     return (
       <div className={styles.container}>
         <FormTitle title="Qualitätskontrollen" />
@@ -164,7 +174,7 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
           <TextField
             floatingLabelText="Berichtjahr"
             type="number"
-            value={value || ``}
+            value={berichtjahr || ``}
             fullWidth
             onChange={(event, val) =>
               this.setState({ berichtjahr: val })
@@ -173,6 +183,12 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
               this.check()
             }
           />
+          {messages.map(m => (
+            <Card>
+              <CardText>{m.hw}</CardText>
+              <CardText>{m.link}</CardText>
+            </Card>
+          ))}
         </div>
       </div>
     )
