@@ -212,40 +212,37 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
             onChange={(event, val) =>
               this.setState({ filter: val })
             }
+            className={styles.filter}
           />
           {
             messagesFiltered.map((m, index) => {
               let links = null
+              let children
               if (m.url) {
-                links = (
-                  <Linkify properties={{ target: `_blank`, style: { color: `white` } }}>
-                    {`${appBaseUrl}/${m.url.join(`/`)}`}
-                  </Linkify>
-                )
+                children = `${appBaseUrl}/${m.url.join(`/`)}`
                 if (m.url[0] && isArray(m.url[0])) {
                   // an array of arrays was returned
-                  links = (
-                    <Linkify properties={{ target: `_blank`, style: { color: `white` } }}>
-                      {m.url.map((u, i) => (
-                        <div key={i}>{`${appBaseUrl}/${u.join(`/`)}`}</div>
-                      ))}
-                    </Linkify>
-                  )
+                  children = m.url.map((u, i) => (
+                    <div key={i}>{`${appBaseUrl}/${u.join(`/`)}`}</div>
+                  ))
                   if (m.url[0][0] && isArray(m.url[0][0])) {
-                    links = (
-                      <Linkify properties={{ target: `_blank`, style: { color: `white` } }}>
-                        {m.url.map((u, i) => u.map((uu, ii) => (
-                          <div key={`${i}/${ii}`}>{`${appBaseUrl}/${uu.join(`/`)}`}</div>
-                        )))}
-                      </Linkify>
-                    )
+                    children = m.url.map((u, i) => u.map((uu, ii) => (
+                      <div key={`${i}/${ii}`}>{`${appBaseUrl}/${uu.join(`/`)}`}</div>
+                    )))
                   }
                 }
+                links = (
+                  <Linkify properties={{ target: `_blank`, style: { color: `white`, fontWeight: 100 } }}>
+                    {children}
+                  </Linkify>
+                )
               }
               return (
                 <Card key={index} className={styles.card}>
                   <CardText>
-                    {m.hw}
+                    <div className={styles.title}>
+                      {m.hw}
+                    </div>
                     <div>
                       {links}
                     </div>
