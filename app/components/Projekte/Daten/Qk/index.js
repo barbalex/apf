@@ -6,6 +6,7 @@ import TextField from 'material-ui/TextField'
 import Linkify from 'react-linkify'
 import isArray from 'lodash/isArray'
 import groupBy from 'lodash/groupBy'
+import map from 'lodash/map'
 import { Card, CardText } from 'material-ui/Card'
 import FormTitle from '../../../shared/FormTitle'
 import styles from './styles.css'
@@ -148,11 +149,13 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
     const urls = qkTypes.map(t =>
       `${apiBaseUrl}/${t.type === `view` ? `qkView/` : ``}${t.name}/${store.activeUrlElements.ap}${t.berichtjahr ? `/${t.berichtjahr}` : ``}`
     )
-    const dataFetchingPromises = urls.map(url =>
-      axios.get(url)
+    const dataFetchingPromises = urls.map(dataUrl =>
+      axios.get(dataUrl)
         .then((res) => {
           if (res.data.length > 0) {
-            messages = messages.concat(res.data)
+            const hw = res.data[0].hw
+            const url = res.data.map(d => d.url)
+            messages.push({ hw, url })
             this.setState({ messages })
           }
           return null
@@ -161,8 +164,11 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
     )
     Promise.all(dataFetchingPromises)
       .then(() => {
-        console.log(`check finished`)
-        // TODO: if no messages: tell user
+        // if no messages: tell user
+        if (messages.length === 0) {
+          messages.push({ hw: `Wow: Scheint alles i.O. zu sein!` })
+          this.setState({ messages })
+        }
       })
       .catch(error => console.log(error))
     // TODO: kontrolliereRelevanzAusserkantonalerTpop()
@@ -170,12 +176,6 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
 
   render() {
     const { berichtjahr, messages } = this.state
-    const messagesGrouped = groupBy(messages, `hw`)
-    console.log(`messagesGrouped:`, messagesGrouped)
-    Object.keys(messagesGrouped).forEach((key) => {
-      messagesGrouped[key] = messagesGrouped[key].map(v => v.url)
-    })
-    console.log(`messagesGrouped with url:`, messagesGrouped)
     return (
       <div className={styles.container}>
         <FormTitle title="Qualitätskontrollen" />
@@ -192,35 +192,47 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
               this.check()
             }
           />
-          {messages.map((m, index) => {
-            let link = (
-              <CardText className={styles.link}>
-                <Linkify properties={{ target: `_blank`, style: { color: `white` } }}>
-                  {`${appBaseUrl}/${m.url.join(`/`)}`}
-                </Linkify>
-              </CardText>
-            )
-            if (m.url[0] && isArray(m.url[0])) {
-              // an array of arrays was returned
-              link = (
-                <CardText className={styles.link}>
+          {
+            messages.map((m, index) => {
+              let links = null
+              if (m.url) {
+                links = (
                   <Linkify properties={{ target: `_blank`, style: { color: `white` } }}>
-                    {m.url.map((u, i) => (
-                      `${appBaseUrl}/${u.join(`/`)}${i === m.url.length ? `, ` : ``}`
-                    ))}
+                    {`${appBaseUrl}/${m.url.join(`/`)}`}
                   </Linkify>
-                </CardText>
+                )
+                if (m.url[0] && isArray(m.url[0])) {
+                  // an array of arrays was returned
+                  links = (
+                    <Linkify properties={{ target: `_blank`, style: { color: `white` } }}>
+                      {m.url.map((u, i) => (
+                        <div key={i}>{`${appBaseUrl}/${u.join(`/`)}`}</div>
+                      ))}
+                    </Linkify>
+                  )
+                  if (m.url[0][0] && isArray(m.url[0][0])) {
+                    links = (
+                      <Linkify properties={{ target: `_blank`, style: { color: `white` } }}>
+                        {m.url.map((u, i) => u.map((uu, ii) => (
+                          <div key={`${i}/${ii}`}>{`${appBaseUrl}/${uu.join(`/`)}`}</div>
+                        )))}
+                      </Linkify>
+                    )
+                  }
+                }
+              }
+              return (
+                <Card key={index} className={styles.card}>
+                  <CardText className={styles.text}>
+                    {m.hw}
+                    <div>
+                      {links}
+                    </div>
+                  </CardText>
+                </Card>
               )
-            }
-            return (
-              <Card key={index} className={styles.card}>
-                <CardText className={styles.text}>
-                  {m.hw}
-                </CardText>
-                {link}
-              </Card>
-            )
-          })}
+            })
+          }
         </div>
       </div>
     )
