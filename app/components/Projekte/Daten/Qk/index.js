@@ -5,11 +5,14 @@ import dateFns from 'date-fns'
 import TextField from 'material-ui/TextField'
 import Linkify from 'react-linkify'
 import isArray from 'lodash/isArray'
+import debounce from 'lodash/debounce'
 import { Card, CardText } from 'material-ui/Card'
 import FormTitle from '../../../shared/FormTitle'
 import styles from './styles.css'
 import apiBaseUrl from '../../../../modules/apiBaseUrl'
 import appBaseUrl from '../../../../modules/appBaseUrl'
+import zhGeojson from '../../../../etc/ktZh.json'
+import isPointInsidePolygon from '../../../../modules/isPointInsidePolygon'
 
 @inject(`store`)
 @observer
@@ -24,6 +27,7 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
     this.state = {
       berichtjahr: dateFns.format(new Date(), `YYYY`),
       messages: [],
+      filter: null,
     }
     this.check = this.check.bind(this)
   }
@@ -35,7 +39,7 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
   check() {
     const { store } = this.props
     const { berichtjahr } = this.state
-    const { messages } = this.state
+    const messages = []
     const qkTypes = [
       // pop ohne Nr/Name/Status/bekannt seit/Koordinaten/tpop
       { type: `view`, name: `v_qk2_pop_ohnepopnr` },
@@ -163,7 +167,17 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
     Promise.all(dataFetchingPromises)
       .then(() => axios.get(`${apiBaseUrl}/tpopKoordFuerProgramm/apId=${store.activeUrlElements.ap}`))
       .then((res) => {
-        console.log(`res.data:`, res.data)
+        // kontrolliere die Relevanz ausserkantonaler Tpop
+        const tpops = res.data.filter(tpop =>
+          tpop.TPopApBerichtRelevant === 1 && !isPointInsidePolygon(zhGeojson, tpop.TPopXKoord, tpop.TPopYKoord)
+        )
+        if (tpops.length > 0) {
+          messages.push({
+            hw: `Teilpopulation ist als 'Für AP-Bericht relevant' markiert, liegt aber ausserhalb des Kt. Zürich und sollte daher nicht relevant sein:`,
+            url: tpops.map(tpop => [`Projekte`, 1, `Arten`, tpop.ApArtId, `Populationen`, tpop.PopId, `Teil-Populationen`, tpop.TPopId]),
+          })
+          this.setState({ messages })
+        }
         // if no messages: tell user
         if (messages.length === 0) {
           messages.push({ hw: `Wow: Scheint alles i.O. zu sein!` })
@@ -171,11 +185,11 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
         }
       })
       .catch(error => console.log(error))
-    // TODO: kontrolliereRelevanzAusserkantonalerTpop()
   }
 
   render() {
-    const { berichtjahr, messages } = this.state
+    const { berichtjahr, messages, filter } = this.state
+    const messagesFiltered = filter ? messages.filter(m => m.hw.toLowerCase().includes(filter.toLowerCase())) : messages
     return (
       <div className={styles.container}>
         <FormTitle title="Qualitätskontrollen" />
@@ -185,15 +199,22 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
             type="number"
             value={berichtjahr || ``}
             fullWidth
-            onChange={(event, val) =>
+            onChange={(event, val) => {
               this.setState({ berichtjahr: val })
-            }
-            onBlur={() =>
-              this.check()
+            }}
+            onBlur={this.check}
+          />
+          <TextField
+            floatingLabelText="nach Typ filtern"
+            type="text"
+            value={filter || ``}
+            fullWidth
+            onChange={(event, val) =>
+              this.setState({ filter: val })
             }
           />
           {
-            messages.map((m, index) => {
+            messagesFiltered.map((m, index) => {
               let links = null
               if (m.url) {
                 links = (
