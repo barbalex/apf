@@ -5,8 +5,6 @@ import dateFns from 'date-fns'
 import TextField from 'material-ui/TextField'
 import Linkify from 'react-linkify'
 import isArray from 'lodash/isArray'
-import groupBy from 'lodash/groupBy'
-import map from 'lodash/map'
 import { Card, CardText } from 'material-ui/Card'
 import FormTitle from '../../../shared/FormTitle'
 import styles from './styles.css'
@@ -37,7 +35,7 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
   check() {
     const { store } = this.props
     const { berichtjahr } = this.state
-    let { messages } = this.state
+    const { messages } = this.state
     const qkTypes = [
       // pop ohne Nr/Name/Status/bekannt seit/Koordinaten/tpop
       { type: `view`, name: `v_qk2_pop_ohnepopnr` },
@@ -163,7 +161,9 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
         .catch(e => e)
     )
     Promise.all(dataFetchingPromises)
-      .then(() => {
+      .then(() => axios.get(`${apiBaseUrl}/tpopKoordFuerProgramm/apId=${store.activeUrlElements.ap}`))
+      .then((res) => {
+        console.log(`res.data:`, res.data)
         // if no messages: tell user
         if (messages.length === 0) {
           messages.push({ hw: `Wow: Scheint alles i.O. zu sein!` })
@@ -223,7 +223,7 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
               }
               return (
                 <Card key={index} className={styles.card}>
-                  <CardText className={styles.text}>
+                  <CardText>
                     {m.hw}
                     <div>
                       {links}

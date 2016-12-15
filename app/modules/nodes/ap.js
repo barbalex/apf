@@ -110,7 +110,7 @@ export default (store) => {
           menuType: `qkFolder`,
           label: `Qualitätskontrollen`,
           expanded: false,
-          url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `Qualitätskontrollen`],
+          url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `Qualitaetskontrollen`],
         },
       ],
     }
