@@ -251,7 +251,7 @@ class Tpopfeldkontr extends Component { // eslint-disable-line react/prefer-stat
                 />
                 <Label label="GUID" />
                 <StringToCopy text={activeDataset.row.TPopKontrGuid} />
-                <div style={{ height: `55px` }} />
+                <div style={{ height: `55px` }} ></div>
               </div>
             </Tab>
             <Tab
