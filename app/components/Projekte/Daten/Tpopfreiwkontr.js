@@ -2,13 +2,13 @@ import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import styled from 'styled-components'
 
-import RadioButton from '../../../shared/RadioButton'
-import Label from '../../../shared/Label'
-import TextField from '../../../shared/TextField'
-import SelectField from '../../../shared/SelectField'
-import StringToCopy from '../../../shared/StringToCopy'
-import FormTitle from '../../../shared/FormTitle'
-import YearDatePair from '../../../shared/YearDatePair'
+import RadioButton from '../../shared/RadioButton'
+import Label from '../../shared/Label'
+import TextField from '../../shared/TextField'
+import SelectField from '../../shared/SelectField'
+import StringToCopy from '../../shared/StringToCopy'
+import FormTitle from '../../shared/FormTitle'
+import YearDatePair from '../../shared/YearDatePair'
 
 @inject(`store`)
 @observer

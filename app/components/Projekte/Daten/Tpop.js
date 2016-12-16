@@ -4,13 +4,13 @@ import sortBy from 'lodash/sortBy'
 import AutoComplete from 'material-ui/AutoComplete'
 import styled from 'styled-components'
 
-import TextField from '../../../shared/TextField'
-import InfoWithPopover from '../../../shared/InfoWithPopover'
-import Status from '../../../shared/Status'
-import RadioButton from '../../../shared/RadioButton'
-import RadioButtonGroupWithInfo from '../../../shared/RadioButtonGroupWithInfo'
-import Label from '../../../shared/Label'
-import FormTitle from '../../../shared/FormTitle'
+import TextField from '../../shared/TextField'
+import InfoWithPopover from '../../shared/InfoWithPopover'
+import Status from '../../shared/Status'
+import RadioButton from '../../shared/RadioButton'
+import RadioButtonGroupWithInfo from '../../shared/RadioButtonGroupWithInfo'
+import Label from '../../shared/Label'
+import FormTitle from '../../shared/FormTitle'
 
 @inject(`store`)
 @observer

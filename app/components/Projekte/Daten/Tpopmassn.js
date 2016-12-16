@@ -4,14 +4,14 @@ import sortBy from 'lodash/sortBy'
 import AutoComplete from 'material-ui/AutoComplete'
 import styled from 'styled-components'
 
-import RadioButtonGroup from '../../../shared/RadioButtonGroup'
-import Label from '../../../shared/Label'
-import TextField from '../../../shared/TextField'
-import SelectField from '../../../shared/SelectField'
-import RadioButton from '../../../shared/RadioButton'
-import StringToCopy from '../../../shared/StringToCopy'
-import FormTitle from '../../../shared/FormTitle'
-import YearDatePair from '../../../shared/YearDatePair'
+import RadioButtonGroup from '../../shared/RadioButtonGroup'
+import Label from '../../shared/Label'
+import TextField from '../../shared/TextField'
+import SelectField from '../../shared/SelectField'
+import RadioButton from '../../shared/RadioButton'
+import StringToCopy from '../../shared/StringToCopy'
+import FormTitle from '../../shared/FormTitle'
+import YearDatePair from '../../shared/YearDatePair'
 
 @inject(`store`)
 @observer

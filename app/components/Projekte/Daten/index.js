@@ -6,8 +6,8 @@
 
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
+import styled from 'styled-components'
 
-import styles from './styles.css'
 import Projekt from './Projekt'
 import Ap from './Ap'
 import Apberuebersicht from './Apberuebersicht'
@@ -86,10 +86,19 @@ class Daten extends Component { // eslint-disable-line react/prefer-stateless-fu
       key = activeDataset.table
     }
     const form = formObject[key] || standardForm
+    const Container = styled.div`
+      border-color: #424242;
+      border-width: 1px;
+      border-style: solid;
+      flex-basis: 600px;
+      flex-grow: 4;
+      flex-shrink: 1;
+    `
+
     return (
-      <div className={styles.container}>
+      <Container>
         {form}
-      </div>
+      </Container>
     )
   }
 }

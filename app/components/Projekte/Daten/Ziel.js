@@ -3,10 +3,10 @@ import { observer, inject } from 'mobx-react'
 import sortBy from 'lodash/sortBy'
 import styled from 'styled-components'
 
-import RadioButtonGroup from '../../../shared/RadioButtonGroup'
-import Label from '../../../shared/Label'
-import TextField from '../../../shared/TextField'
-import FormTitle from '../../../shared/FormTitle'
+import RadioButtonGroup from '../../shared/RadioButtonGroup'
+import Label from '../../shared/Label'
+import TextField from '../../shared/TextField'
+import FormTitle from '../../shared/FormTitle'
 
 @inject(`store`)
 @observer

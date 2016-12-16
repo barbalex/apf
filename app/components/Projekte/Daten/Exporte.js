@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import FormTitle from '../../../shared/FormTitle'
+import FormTitle from '../../shared/FormTitle'
 
 export default class Exporte extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {

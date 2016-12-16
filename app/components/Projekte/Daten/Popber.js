@@ -3,14 +3,14 @@ import { observer, inject } from 'mobx-react'
 import sortBy from 'lodash/sortBy'
 import styled from 'styled-components'
 
-import RadioButtonGroup from '../../../shared/RadioButtonGroup'
-import Label from '../../../shared/Label'
-import TextField from '../../../shared/TextField'
-import FormTitle from '../../../shared/FormTitle'
+import RadioButtonGroup from '../../shared/RadioButtonGroup'
+import Label from '../../shared/Label'
+import TextField from '../../shared/TextField'
+import FormTitle from '../../shared/FormTitle'
 
 @inject(`store`)
 @observer
-class Tpopber extends Component { // eslint-disable-line react/prefer-stateless-function
+class Popber extends Component { // eslint-disable-line react/prefer-stateless-function
 
   static propTypes = {
     store: PropTypes.object,
@@ -19,10 +19,10 @@ class Tpopber extends Component { // eslint-disable-line react/prefer-stateless-
   render() {
     const { store } = this.props
     const { activeDataset } = store
-    let tpopEntwicklungWerte = Array.from(store.table.tpop_entwicklung_werte.values())
-    tpopEntwicklungWerte = sortBy(tpopEntwicklungWerte, `EntwicklungOrd`)
-    tpopEntwicklungWerte = tpopEntwicklungWerte.map(el => ({
-      value: el.EntwicklungCode,
+    let popEntwicklungWerte = Array.from(store.table.pop_entwicklung_werte.values())
+    popEntwicklungWerte = sortBy(popEntwicklungWerte, `EntwicklungOrd`)
+    popEntwicklungWerte = popEntwicklungWerte.map(el => ({
+      value: el.EntwicklungId,
       label: el.EntwicklungTxt,
     }))
     const Container = styled.div`
@@ -38,30 +38,30 @@ class Tpopber extends Component { // eslint-disable-line react/prefer-stateless-
 
     return (
       <Container>
-        <FormTitle title="Kontroll-Bericht Teil-Population" />
+        <FormTitle title="Kontroll-Bericht Population" />
         <FieldsContainer>
           <TextField
             label="Jahr"
-            fieldName="TPopBerJahr"
-            value={activeDataset.row.TPopBerJahr}
-            errorText={activeDataset.valid.TPopBerJahr}
+            fieldName="PopBerJahr"
+            value={activeDataset.row.PopBerJahr}
+            errorText={activeDataset.valid.PopBerJahr}
             type="number"
             updateProperty={store.updateProperty}
             updatePropertyInDb={store.updatePropertyInDb}
           />
           <Label label="Entwicklung" />
           <RadioButtonGroup
-            fieldName="TPopBerEntwicklung"
-            value={activeDataset.row.TPopBerEntwicklung}
-            errorText={activeDataset.valid.TPopBerEntwicklung}
-            dataSource={tpopEntwicklungWerte}
+            fieldName="PopBerEntwicklung"
+            value={activeDataset.row.PopBerEntwicklung}
+            errorText={activeDataset.valid.PopBerEntwicklung}
+            dataSource={popEntwicklungWerte}
             updatePropertyInDb={store.updatePropertyInDb}
           />
           <TextField
             label="Bemerkungen"
-            fieldName="TPopBerTxt"
-            value={activeDataset.row.TPopBerTxt}
-            errorText={activeDataset.valid.TPopBerTxt}
+            fieldName="PopBerTxt"
+            value={activeDataset.row.PopBerTxt}
+            errorText={activeDataset.valid.PopBerTxt}
             type="text"
             multiLine
             fullWidth
@@ -74,4 +74,4 @@ class Tpopber extends Component { // eslint-disable-line react/prefer-stateless-
   }
 }
 
-export default Tpopber
+export default Popber

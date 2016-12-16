@@ -2,13 +2,12 @@ import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import styled from 'styled-components'
 
-import TextField from '../../../shared/TextField'
-import InfoWithPopover from '../../../shared/InfoWithPopover'
-import Status from '../../../shared/Status'
-import RadioButton from '../../../shared/RadioButton'
-import Label from '../../../shared/Label'
-import FormTitle from '../../../shared/FormTitle'
-import styles from './styles.css'
+import TextField from '../../shared/TextField'
+import InfoWithPopover from '../../shared/InfoWithPopover'
+import Status from '../../shared/Status'
+import RadioButton from '../../shared/RadioButton'
+import Label from '../../shared/Label'
+import FormTitle from '../../shared/FormTitle'
 
 @inject(`store`)
 @observer
@@ -44,6 +43,14 @@ class Pop extends Component { // eslint-disable-line react/prefer-stateless-func
         border-top-right-radius: 4px;
         border-top-left-radius: 4px;
       }
+      &:last-child {
+        border-bottom-right-radius: 4px;
+        border-bottom-left-radius: 4px;
+      }
+    `
+    const FieldWithInfoContainer = styled.div`
+      display: flex;
+      flex-direction: row;
     `
 
     return (
@@ -59,7 +66,7 @@ class Pop extends Component { // eslint-disable-line react/prefer-stateless-func
             updateProperty={store.updateProperty}
             updatePropertyInDb={store.updatePropertyInDb}
           />
-          <div className={styles.fieldWithInfoContainer}>
+          <FieldWithInfoContainer>
             <TextField
               label="Name"
               fieldName="PopName"
@@ -70,11 +77,11 @@ class Pop extends Component { // eslint-disable-line react/prefer-stateless-func
               updatePropertyInDb={store.updatePropertyInDb}
             />
             <InfoWithPopover>
-              <div className={styles.popoverContentRow}>
+              <PopoverContentRow>
                 Dieses Feld möglichst immer ausfüllen
-              </div>
+              </PopoverContentRow>
             </InfoWithPopover>
-          </div>
+          </FieldWithInfoContainer>
           <Status
             apJahr={apJahr}
             herkunftFieldName="PopHerkunft"

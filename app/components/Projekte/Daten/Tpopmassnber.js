@@ -3,14 +3,14 @@ import { observer, inject } from 'mobx-react'
 import sortBy from 'lodash/sortBy'
 import styled from 'styled-components'
 
-import RadioButtonGroup from '../../../shared/RadioButtonGroup'
-import Label from '../../../shared/Label'
-import TextField from '../../../shared/TextField'
-import FormTitle from '../../../shared/FormTitle'
+import RadioButtonGroup from '../../shared/RadioButtonGroup'
+import Label from '../../shared/Label'
+import TextField from '../../shared/TextField'
+import FormTitle from '../../shared/FormTitle'
 
 @inject(`store`)
 @observer
-class Popmassnber extends Component { // eslint-disable-line react/prefer-stateless-function
+class Tpopmassnber extends Component { // eslint-disable-line react/prefer-stateless-function
 
   static propTypes = {
     store: PropTypes.object,
@@ -38,30 +38,30 @@ class Popmassnber extends Component { // eslint-disable-line react/prefer-statel
 
     return (
       <Container>
-        <FormTitle title="Massnahmen-Bericht Population" />
+        <FormTitle title="Massnahmen-Bericht Teil-Population" />
         <FieldsContainer>
           <TextField
             label="Jahr"
-            fieldName="PopMassnBerJahr"
-            value={activeDataset.row.PopMassnBerJahr}
-            errorText={activeDataset.valid.PopMassnBerJahr}
+            fieldName="TPopMassnBerJahr"
+            value={activeDataset.row.TPopMassnBerJahr}
+            errorText={activeDataset.valid.TPopMassnBerJahr}
             type="number"
             updateProperty={store.updateProperty}
             updatePropertyInDb={store.updatePropertyInDb}
           />
           <Label label="Entwicklung" />
           <RadioButtonGroup
-            fieldName="PopMassnBerErfolgsbeurteilung"
-            value={activeDataset.row.PopMassnBerErfolgsbeurteilung}
-            errorText={activeDataset.valid.PopMassnBerErfolgsbeurteilung}
+            fieldName="TPopMassnBerErfolgsbeurteilung"
+            value={activeDataset.row.TPopMassnBerErfolgsbeurteilung}
+            errorText={activeDataset.valid.TPopMassnBerErfolgsbeurteilung}
             dataSource={tpopmassnErfbeurtWerte}
             updatePropertyInDb={store.updatePropertyInDb}
           />
           <TextField
             label="Interpretation"
-            fieldName="PopMassnBerTxt"
-            value={activeDataset.row.PopMassnBerTxt}
-            errorText={activeDataset.valid.PopMassnBerTxt}
+            fieldName="TPopMassnBerTxt"
+            value={activeDataset.row.TPopMassnBerTxt}
+            errorText={activeDataset.valid.TPopMassnBerTxt}
             type="text"
             multiLine
             fullWidth
@@ -74,4 +74,4 @@ class Popmassnber extends Component { // eslint-disable-line react/prefer-statel
   }
 }
 
-export default Popmassnber
+export default Tpopmassnber

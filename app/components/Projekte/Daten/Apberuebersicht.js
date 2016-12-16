@@ -2,8 +2,8 @@ import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import styled from 'styled-components'
 
-import TextField from '../../../shared/TextField'
-import FormTitle from '../../../shared/FormTitle'
+import TextField from '../../shared/TextField'
+import FormTitle from '../../shared/FormTitle'
 
 @inject(`store`)
 @observer

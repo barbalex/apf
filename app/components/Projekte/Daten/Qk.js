@@ -6,13 +6,13 @@ import TextField from 'material-ui/TextField'
 import Linkify from 'react-linkify'
 import isArray from 'lodash/isArray'
 import styled from 'styled-components'
-
 import { Card, CardText } from 'material-ui/Card'
-import FormTitle from '../../../shared/FormTitle'
-import apiBaseUrl from '../../../../modules/apiBaseUrl'
-import appBaseUrl from '../../../../modules/appBaseUrl'
-import zhGeojson from '../../../../etc/ktZh.json'
-import isPointInsidePolygon from '../../../../modules/isPointInsidePolygon'
+
+import FormTitle from '../../shared/FormTitle'
+import apiBaseUrl from '../../../modules/apiBaseUrl'
+import appBaseUrl from '../../../modules/appBaseUrl'
+import zhGeojson from '../../../etc/ktZh.json'
+import isPointInsidePolygon from '../../../modules/isPointInsidePolygon'
 
 @inject(`store`)
 @observer
