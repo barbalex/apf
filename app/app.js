@@ -71,7 +71,7 @@ ReactDOM.render(
             { name: `description`, content: `Aktionspläne für Flora-Projekte` },
           ]}
         />
-        <DevTools />
+        { false && <DevTools />}
         <AppBar />
         <Projekte />
       </div>

@@ -8,8 +8,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
 import FlatButton from 'material-ui/FlatButton'
 import clone from 'lodash/clone'
 import remove from 'lodash/remove'
-
-import styles from './styles.css'
+import styled from 'styled-components'
 
 @inject(`store`)
 @observer
@@ -42,14 +41,19 @@ class MyAppBar extends React.Component { // eslint-disable-line react/prefer-sta
     const strukturbaumIsVisible = projekteTabs.includes(`strukturbaum`)
     const datenIsVisible = projekteTabs.includes(`daten`)
     const karteIsVisible = projekteTabs.includes(`karte`)
+    const MenuDiv = styled.div`
+      display: flex;
+      flex-wrap: wrap;
+      > button {
+        padding-top: 4px !important;
+      }
+    `
+
     return (
       <AppBar
         title="AP Flora"
-        className={styles.menuDiv}
         iconElementRight={
-          <div
-            className={styles.menuDiv}
-          >
+          <MenuDiv>
             <FlatButton
               label="Strukturbaum"
               secondary={!strukturbaumIsVisible}
@@ -85,7 +89,7 @@ class MyAppBar extends React.Component { // eslint-disable-line react/prefer-sta
                 }
               />
             </IconMenu>
-          </div>
+          </MenuDiv>
         }
         showMenuIconButton={false}
       />
