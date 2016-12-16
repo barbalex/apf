@@ -32,6 +32,19 @@ class Pop extends Component { // eslint-disable-line react/prefer-stateless-func
       height: 100%;
       padding-bottom: 95px;
     `
+    const PopoverRow = styled.div`
+      padding: 2px 5px 2px 5px;
+    `
+    const PopoverContentRow = styled(PopoverRow)`
+      display: flex;
+      border-color: grey;
+      border-width: thin;
+      border-style: solid;
+      &:first-child {
+        border-top-right-radius: 4px;
+        border-top-left-radius: 4px;
+      }
+    `
 
     return (
       <Container>

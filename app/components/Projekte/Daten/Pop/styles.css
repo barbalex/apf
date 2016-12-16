@@ -1,4 +1,4 @@
-..fieldWithInfoContainer {
+.fieldWithInfoContainer {
   display: flex;
   flex-direction: row;
 }

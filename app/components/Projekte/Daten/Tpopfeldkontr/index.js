@@ -14,7 +14,6 @@ import StringToCopy from '../../../shared/StringToCopy'
 import FormTitle from '../../../shared/FormTitle'
 import YearDatePair from '../../../shared/YearDatePair'
 import TabTemplate from '../../../shared/TabTemplate'
-import styles from './styles.css'
 
 
 @inject(`store`)
@@ -67,54 +66,79 @@ class Tpopfeldkontr extends Component { // eslint-disable-line react/prefer-stat
       id: null,
       AdrName: ``,
     })
+    const LabelPopoverRow = styled.div`
+      padding: 2px 5px 2px 5px;
+    `
+    const LabelPopoverTitleRow = styled(LabelPopoverRow)`
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+      background-color: grey;
+    `
+    const LabelPopoverContentRow = styled(LabelPopoverRow)`
+      display: flex;
+      border-color: grey;
+      border-width: thin;
+      border-style: solid;
+      border-top-style: none;
+      &:last-child {
+        border-bottom-right-radius: 4px;
+        border-bottom-left-radius: 4px;
+      }
+    `
+    const LabelPopoverRowColumnLeft = styled.div`
+      width: 110px;
+    `
+    const LabelPopoverRowColumnRight = styled.div`
+      padding-left: 5px;
+    `
     const entwicklungPopover = (
       <div>
-        <div className={styles.labelPopoverTitleRow}>
+        <LabelPopoverTitleRow>
           Legende
-        </div>
-        <div className={styles.labelPopoverContentRow}>
+        </LabelPopoverTitleRow>
+        <LabelPopoverContentRow>
           Im 1. Jahr der Beobachtung die Entwicklung an der Massnahme beurteilen, nachher an vorhergehenden EK.
-        </div>
-        <div className={styles.labelPopoverContentRow}>
-          <div className={styles.labelPopoverRowColumnLeft}>
+        </LabelPopoverContentRow>
+        <LabelPopoverContentRow>
+          <LabelPopoverRowColumnLeft>
             {`zunehmend:`}
-          </div>
-          <div className={styles.labelPopoverRowColumnRight}>
+          </LabelPopoverRowColumnLeft>
+          <LabelPopoverRowColumnRight>
             {`> 10% Zunahme`}
-          </div>
-        </div>
-        <div className={styles.labelPopoverContentRow}>
-          <div className={styles.labelPopoverRowColumnLeft}>
+          </LabelPopoverRowColumnRight>
+        </LabelPopoverContentRow>
+        <LabelPopoverContentRow>
+          <LabelPopoverRowColumnLeft>
             stabil:
-          </div>
-          <div className={styles.labelPopoverRowColumnRight}>
+          </LabelPopoverRowColumnLeft>
+          <LabelPopoverRowColumnRight>
             {`± 10%`}
-          </div>
-        </div>
-        <div className={styles.labelPopoverContentRow}>
-          <div className={styles.labelPopoverRowColumnLeft}>
+          </LabelPopoverRowColumnRight>
+        </LabelPopoverContentRow>
+        <LabelPopoverContentRow>
+          <LabelPopoverRowColumnLeft>
             abnehmend:
-          </div>
-          <div className={styles.labelPopoverRowColumnRight}>
+          </LabelPopoverRowColumnLeft>
+          <LabelPopoverRowColumnRight>
             {`> 10% Abnahme`}
-          </div>
-        </div>
-        <div className={styles.labelPopoverContentRow}>
-          <div className={styles.labelPopoverRowColumnLeft}>
+          </LabelPopoverRowColumnRight>
+        </LabelPopoverContentRow>
+        <LabelPopoverContentRow>
+          <LabelPopoverRowColumnLeft>
             erloschen / nicht etabliert:
-          </div>
-          <div className={styles.labelPopoverRowColumnRight}>
+          </LabelPopoverRowColumnLeft>
+          <LabelPopoverRowColumnRight>
             {`nach 2 aufeinander folgenden Kontrollen ohne Funde oder nach Einschätzung AP-VerantwortlicheR`}
-          </div>
-        </div>
-        <div className={styles.labelPopoverContentRow}>
-          <div className={styles.labelPopoverRowColumnLeft}>
+          </LabelPopoverRowColumnRight>
+        </LabelPopoverContentRow>
+        <LabelPopoverContentRow>
+          <LabelPopoverRowColumnLeft>
             unsicher:
-          </div>
-          <div className={styles.labelPopoverRowColumnRight}>
+          </LabelPopoverRowColumnLeft>
+          <LabelPopoverRowColumnRight>
             {`keine Funde aber noch nicht erloschen (nach zwei Kontrollen ohne Funde kann Status erloschen/nicht etabliert gewählt werden)`}
-          </div>
-        </div>
+          </LabelPopoverRowColumnRight>
+        </LabelPopoverContentRow>
       </div>
     )
     // get entwicklungWerte
@@ -145,6 +169,19 @@ class Tpopfeldkontr extends Component { // eslint-disable-line react/prefer-stat
       height: 100%;
       padding-bottom: 95px;
     `
+    const Section = styled.div`
+      padding-top: 20px;
+      margin-bottom: -7px;
+      color: rgba(255, 255, 255, 0.298039);
+      font-weight: bold;
+      &:after {
+        content: ":";
+      }
+    `
+    const FormContainer = styled.div`
+      padding-left: 10px;
+      padding-right: 10px;
+    `
 
     return (
       <Container>
@@ -161,7 +198,7 @@ class Tpopfeldkontr extends Component { // eslint-disable-line react/prefer-stat
               label="Entwicklung"
               value="entwicklung"
             >
-              <div className={styles.formContainer}>
+              <FormContainer>
                 <YearDatePair
                   yearLabel="Jahr"
                   yearFieldName="TPopKontrJahr"
@@ -286,13 +323,13 @@ class Tpopfeldkontr extends Component { // eslint-disable-line react/prefer-stat
                 <Label label="GUID" />
                 <StringToCopy text={activeDataset.row.TPopKontrGuid} />
                 <div style={{ height: `55px` }} ></div>
-              </div>
+              </FormContainer>
             </Tab>
             <Tab
               label="Biotop"
               value="biotop"
             >
-              <div className={styles.formContainer}>
+              <FormContainer>
                 <TextField
                   label="Fläche"
                   fieldName="TPopKontrFlaeche"
@@ -302,7 +339,7 @@ class Tpopfeldkontr extends Component { // eslint-disable-line react/prefer-stat
                   updateProperty={store.updateProperty}
                   updatePropertyInDb={store.updatePropertyInDb}
                 />
-                <div className={styles.section}>Vegetation</div>
+                <Section>Vegetation</Section>
                 <AutoComplete
                   floatingLabelText="Lebensraum nach Delarze"
                   openOnFocus
@@ -389,7 +426,7 @@ class Tpopfeldkontr extends Component { // eslint-disable-line react/prefer-stat
                   updateProperty={store.updateProperty}
                   updatePropertyInDb={store.updatePropertyInDb}
                 />
-                <div className={styles.section}>Boden</div>
+                <Section>Boden</Section>
                 <TextField
                   label="Typ"
                   fieldName="TPopKontrBodenTyp"
@@ -453,7 +490,7 @@ class Tpopfeldkontr extends Component { // eslint-disable-line react/prefer-stat
                   updateProperty={store.updateProperty}
                   updatePropertyInDb={store.updatePropertyInDb}
                 />
-                <div className={styles.section}>Beurteilung</div>
+                <Section>Beurteilung</Section>
                 <TextField
                   label="Handlungsbedarf"
                   fieldName="TPopKontrHandlungsbedarf"
@@ -472,7 +509,7 @@ class Tpopfeldkontr extends Component { // eslint-disable-line react/prefer-stat
                   dataSource={idbiotopuebereinstWerte}
                   updatePropertyInDb={store.updatePropertyInDb}
                 />
-              </div>
+              </FormContainer>
             </Tab>
           </Tabs>
         </FieldsContainer>

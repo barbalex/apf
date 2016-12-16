@@ -11,7 +11,6 @@ import RadioButton from '../../../shared/RadioButton'
 import RadioButtonGroupWithInfo from '../../../shared/RadioButtonGroupWithInfo'
 import Label from '../../../shared/Label'
 import FormTitle from '../../../shared/FormTitle'
-import styles from './styles.css'
 
 @inject(`store`)
 @observer
@@ -31,30 +30,55 @@ class Tpop extends Component { // eslint-disable-line react/prefer-stateless-fun
       value: t.DomainCode,
       label: t.DomainTxt,
     }))
+    const LabelPopoverRow = styled.div`
+      padding: 2px 5px 2px 5px;
+    `
+    const LabelPopoverTitleRow = styled(LabelPopoverRow)`
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+      background-color: grey;
+    `
+    const LabelPopoverContentRow = styled(LabelPopoverRow)`
+      display: flex;
+      border-color: grey;
+      border-width: thin;
+      border-style: solid;
+      border-top-style: none;
+      &:last-child {
+        border-bottom-right-radius: 4px;
+        border-bottom-left-radius: 4px;
+      }
+    `
+    const LabelPopoverRowColumnLeft = styled.div`
+      width: 170px;
+    `
+    const LabelPopoverRowColumnRight = styled.div`
+      padding-left: 5px;
+    `
     const tpopAbBerRelevantInfoPopover = (
       <Container>
-        <div className={styles.labelPopoverTitleRow}>
+        <LabelPopoverTitleRow>
           Legende
-        </div>
-        <div className={styles.labelPopoverContentRow}>
+        </LabelPopoverTitleRow>
+        <LabelPopoverContentRow>
           Dieses Feld möglichst immer ausfüllen.
-        </div>
-        <div className={styles.labelPopoverContentRow}>
-          <div className={styles.labelPopoverRowColumnLeft}>
+        </LabelPopoverContentRow>
+        <LabelPopoverContentRow>
+          <LabelPopoverRowColumnLeft>
             nein (historisch):
-          </div>
-          <div className={styles.labelPopoverRowColumnRight}>
+          </LabelPopoverRowColumnLeft>
+          <LabelPopoverRowColumnRight>
             erloschen, vor 1950 ohne Kontrolle
-          </div>
-        </div>
-        <div className={styles.labelPopoverContentRow}>
-          <div className={styles.labelPopoverRowColumnLeft}>
+          </LabelPopoverRowColumnRight>
+        </LabelPopoverContentRow>
+        <LabelPopoverContentRow>
+          <LabelPopoverRowColumnLeft>
             nein (kein Vorkommen):
-          </div>
-          <div className={styles.labelPopoverRowColumnRight}>
+          </LabelPopoverRowColumnLeft>
+          <LabelPopoverRowColumnRight>
             {`siehe bei Populationen "überprüft, kein Vorkommen"`}
-          </div>
-        </div>
+          </LabelPopoverRowColumnRight>
+        </LabelPopoverContentRow>
       </Container>
     )
     let gemeinden = Array.from(store.table.gemeinde.values())
@@ -70,6 +94,18 @@ class Tpop extends Component { // eslint-disable-line react/prefer-stateless-fun
       height: 100%;
       padding-bottom: 95px;
     `
+    const FieldWithInfoContainer = styled.div`
+      display: flex;
+      flex-direction: row;
+    `
+    const PopoverContentRow = styled.div`
+      padding: 2px 5px 2px 5px;
+      display: flex;
+      border-color: grey;
+      border-width: thin;
+      border-style: solid;
+      border-radius: 4px;
+    `
 
     return (
       <Container>
@@ -84,7 +120,7 @@ class Tpop extends Component { // eslint-disable-line react/prefer-stateless-fun
             updateProperty={store.updateProperty}
             updatePropertyInDb={store.updatePropertyInDb}
           />
-          <div className={styles.fieldWithInfoContainer}>
+          <FieldWithInfoContainer>
             <TextField
               label="Flurname"
               fieldName="TPopFlurname"
@@ -95,11 +131,11 @@ class Tpop extends Component { // eslint-disable-line react/prefer-stateless-fun
               updatePropertyInDb={store.updatePropertyInDb}
             />
             <InfoWithPopover>
-              <div className={styles.popoverContentRow}>
+              <PopoverContentRow>
                 Dieses Feld möglichst immer ausfüllen
-              </div>
+              </PopoverContentRow>
             </InfoWithPopover>
-          </div>
+          </FieldWithInfoContainer>
           <Status
             apJahr={apJahr}
             herkunftFieldName="TPopHerkunft"
