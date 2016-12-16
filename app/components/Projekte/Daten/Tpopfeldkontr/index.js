@@ -32,7 +32,7 @@ class Tpopfeldkontr extends Component { // eslint-disable-line react/prefer-stat
     const { store } = this.props
     store.setUrlQuery(`feldkontrTab`, value)
   }
-/*
+
   get styles() {
     return {
       root: {
@@ -42,13 +42,13 @@ class Tpopfeldkontr extends Component { // eslint-disable-line react/prefer-stat
         flexDirection: `column`,
       },
       container: {
-        flex: `1 1 100%;`,
+        flex: `1 1 100%`,
         display: `flex`,
         flexDirection: `column`,
-        overflowY: `auto`,
+        overflowX: `auto`,
       },
     }
-  }*/
+  }
 
   render() {
     const { store } = this.props
@@ -139,9 +139,9 @@ class Tpopfeldkontr extends Component { // eslint-disable-line react/prefer-stat
         <FormTitle title="Feld-Kontrolle" />
         <div className={styles.fieldsContainer}>
           <Tabs
-            /*style={this.styles.root}
+            style={this.styles.root}
             contentContainerStyle={this.styles.container}
-            tabTemplate={TabTemplate}*/
+            tabTemplate={TabTemplate}
             value={tab}
             onChange={this.onChangeTab}
           >
