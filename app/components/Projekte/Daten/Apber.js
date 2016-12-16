@@ -2,13 +2,12 @@ import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import styled from 'styled-components'
 import sortBy from 'lodash/sortBy'
-import RadioButtonGroup from '../../../shared/RadioButtonGroup'
-import Label from '../../../shared/Label'
-import TextField from '../../../shared/TextField'
-import DatePicker from '../../../shared/DatePicker'
-import SelectField from '../../../shared/SelectField'
-import FormTitle from '../../../shared/FormTitle'
-import styles from './styles.css'
+import RadioButtonGroup from '../../shared/RadioButtonGroup'
+import Label from '../../shared/Label'
+import TextField from '../../shared/TextField'
+import DatePicker from '../../shared/DatePicker'
+import SelectField from '../../shared/SelectField'
+import FormTitle from '../../shared/FormTitle'
 
 @inject(`store`)
 @observer
@@ -59,26 +58,22 @@ class Apber extends Component { // eslint-disable-line react/prefer-stateless-fu
             updateProperty={store.updateProperty}
             updatePropertyInDb={store.updatePropertyInDb}
           />
-          <div className={styles.fieldContainer}>
-            <Label label="Beurteilung" />
-            <RadioButtonGroup
-              fieldName="JBerBeurteilung"
-              value={activeDataset.row.JBerBeurteilung}
-              errorText={activeDataset.valid.JBerBeurteilung}
-              dataSource={apErfkritWerte}
-              updatePropertyInDb={store.updatePropertyInDb}
-            />
-          </div>
-          <div className={styles.fieldContainer}>
-            <Label label="Veränderung zum Vorjahr" />
-            <RadioButtonGroup
-              fieldName="JBerVeraenGegenVorjahr"
-              value={activeDataset.row.JBerVeraenGegenVorjahr}
-              errorText={activeDataset.valid.JBerVeraenGegenVorjahr}
-              dataSource={veraenGegenVorjahrWerte}
-              updatePropertyInDb={store.updatePropertyInDb}
-            />
-          </div>
+          <Label label="Beurteilung" />
+          <RadioButtonGroup
+            fieldName="JBerBeurteilung"
+            value={activeDataset.row.JBerBeurteilung}
+            errorText={activeDataset.valid.JBerBeurteilung}
+            dataSource={apErfkritWerte}
+            updatePropertyInDb={store.updatePropertyInDb}
+          />
+          <Label label="Veränderung zum Vorjahr" />
+          <RadioButtonGroup
+            fieldName="JBerVeraenGegenVorjahr"
+            value={activeDataset.row.JBerVeraenGegenVorjahr}
+            errorText={activeDataset.valid.JBerVeraenGegenVorjahr}
+            dataSource={veraenGegenVorjahrWerte}
+            updatePropertyInDb={store.updatePropertyInDb}
+          />
           <TextField
             label="Analyse"
             fieldName="JBerAnalyse"
