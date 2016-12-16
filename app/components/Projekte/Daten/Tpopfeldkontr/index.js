@@ -11,7 +11,9 @@ import RadioButtonGroupWithInfo from '../../../shared/RadioButtonGroupWithInfo'
 import StringToCopy from '../../../shared/StringToCopy'
 import FormTitle from '../../../shared/FormTitle'
 import YearDatePair from '../../../shared/YearDatePair'
+import TabTemplate from '../../../shared/TabTemplate'
 import styles from './styles.css'
+
 
 @inject(`store`)
 @observer
@@ -30,6 +32,23 @@ class Tpopfeldkontr extends Component { // eslint-disable-line react/prefer-stat
     const { store } = this.props
     store.setUrlQuery(`feldkontrTab`, value)
   }
+/*
+  get styles() {
+    return {
+      root: {
+        flex: `1 1 100%`,
+        minHeight: 0,
+        display: `flex`,
+        flexDirection: `column`,
+      },
+      container: {
+        flex: `1 1 100%;`,
+        display: `flex`,
+        flexDirection: `column`,
+        overflowY: `auto`,
+      },
+    }
+  }*/
 
   render() {
     const { store } = this.props
@@ -120,6 +139,9 @@ class Tpopfeldkontr extends Component { // eslint-disable-line react/prefer-stat
         <FormTitle title="Feld-Kontrolle" />
         <div className={styles.fieldsContainer}>
           <Tabs
+            /*style={this.styles.root}
+            contentContainerStyle={this.styles.container}
+            tabTemplate={TabTemplate}*/
             value={tab}
             onChange={this.onChangeTab}
           >
