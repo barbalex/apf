@@ -1,11 +1,12 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import sortBy from 'lodash/sortBy'
+import styled from 'styled-components'
+
 import RadioButtonGroup from '../../../shared/RadioButtonGroup'
 import Label from '../../../shared/Label'
 import TextField from '../../../shared/TextField'
 import FormTitle from '../../../shared/FormTitle'
-import styles from './styles.css'
 
 @inject(`store`)
 @observer
@@ -24,10 +25,21 @@ class Popber extends Component { // eslint-disable-line react/prefer-stateless-f
       value: el.EntwicklungId,
       label: el.EntwicklungTxt,
     }))
+    const Container = styled.div`
+      height: 100%;
+    `
+    const FieldsContainer = styled.div`
+      padding-left: 10px;
+      padding-right: 10px;
+      overflow-x: auto;
+      height: 100%;
+      padding-bottom: 95px;
+    `
+
     return (
-      <div className={styles.container}>
+      <Container>
         <FormTitle title="Kontroll-Bericht Population" />
-        <div className={styles.fieldsContainer}>
+        <FieldsContainer>
           <TextField
             label="Jahr"
             fieldName="PopBerJahr"
@@ -37,16 +49,14 @@ class Popber extends Component { // eslint-disable-line react/prefer-stateless-f
             updateProperty={store.updateProperty}
             updatePropertyInDb={store.updatePropertyInDb}
           />
-          <div className={styles.fieldContainer}>
-            <Label label="Entwicklung" />
-            <RadioButtonGroup
-              fieldName="PopBerEntwicklung"
-              value={activeDataset.row.PopBerEntwicklung}
-              errorText={activeDataset.valid.PopBerEntwicklung}
-              dataSource={popEntwicklungWerte}
-              updatePropertyInDb={store.updatePropertyInDb}
-            />
-          </div>
+          <Label label="Entwicklung" />
+          <RadioButtonGroup
+            fieldName="PopBerEntwicklung"
+            value={activeDataset.row.PopBerEntwicklung}
+            errorText={activeDataset.valid.PopBerEntwicklung}
+            dataSource={popEntwicklungWerte}
+            updatePropertyInDb={store.updatePropertyInDb}
+          />
           <TextField
             label="Bemerkungen"
             fieldName="PopBerTxt"
@@ -58,8 +68,8 @@ class Popber extends Component { // eslint-disable-line react/prefer-stateless-f
             updateProperty={store.updateProperty}
             updatePropertyInDb={store.updatePropertyInDb}
           />
-        </div>
-      </div>
+        </FieldsContainer>
+      </Container>
     )
   }
 }

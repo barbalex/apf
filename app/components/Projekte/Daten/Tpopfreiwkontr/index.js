@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
+import styled from 'styled-components'
+
 import RadioButton from '../../../shared/RadioButton'
 import Label from '../../../shared/Label'
 import TextField from '../../../shared/TextField'
@@ -7,7 +9,6 @@ import SelectField from '../../../shared/SelectField'
 import StringToCopy from '../../../shared/StringToCopy'
 import FormTitle from '../../../shared/FormTitle'
 import YearDatePair from '../../../shared/YearDatePair'
-import styles from './styles.css'
 
 @inject(`store`)
 @observer
@@ -25,11 +26,21 @@ class Tpopfreiwkontr extends Component { // eslint-disable-line react/prefer-sta
       id: null,
       AdrName: ``,
     })
+    const Container = styled.div`
+      height: 100%;
+    `
+    const FieldsContainer = styled.div`
+      padding-left: 10px;
+      padding-right: 10px;
+      overflow-x: auto;
+      height: 100%;
+      padding-bottom: 95px;
+    `
 
     return (
-      <div className={styles.container}>
+      <Container>
         <FormTitle title="Freiwilligen-Kontrolle" />
-        <div className={styles.fieldsContainer}>
+        <FieldsContainer>
           <YearDatePair
             yearLabel="Jahr"
             yearFieldName="TPopKontrJahr"
@@ -133,8 +144,8 @@ class Tpopfreiwkontr extends Component { // eslint-disable-line react/prefer-sta
           />
           <Label label="GUID" />
           <StringToCopy text={activeDataset.row.TPopKontrGuid} />
-        </div>
-      </div>
+        </FieldsContainer>
+      </Container>
     )
   }
 }

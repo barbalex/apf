@@ -1,11 +1,12 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import sortBy from 'lodash/sortBy'
+import styled from 'styled-components'
+
 import RadioButtonGroup from '../../../shared/RadioButtonGroup'
 import Label from '../../../shared/Label'
 import TextField from '../../../shared/TextField'
 import FormTitle from '../../../shared/FormTitle'
-import styles from './styles.css'
 
 @inject(`store`)
 @observer
@@ -24,20 +25,29 @@ class Erfkrit extends Component { // eslint-disable-line react/prefer-stateless-
       label: el.BeurteilTxt,
     }))
     const { activeDataset } = store
+    const Container = styled.div`
+      height: 100%;
+    `
+    const FieldsContainer = styled.div`
+      padding-left: 10px;
+      padding-right: 10px;
+      overflow-x: auto;
+      height: 100%;
+      padding-bottom: 95px;
+    `
+
     return (
-      <div className={styles.container}>
+      <Container>
         <FormTitle title="Erfolgs-Kriterium" />
-        <div className={styles.fieldsContainer}>
-          <div className={styles.fieldContainer}>
-            <Label label="Beurteilung" />
-            <RadioButtonGroup
-              fieldName="ErfkritErreichungsgrad"
-              value={activeDataset.row.ErfkritErreichungsgrad}
-              errorText={activeDataset.valid.ErfkritErreichungsgrad}
-              dataSource={apErfkritWerte}
-              updatePropertyInDb={store.updatePropertyInDb}
-            />
-          </div>
+        <FieldsContainer>
+          <Label label="Beurteilung" />
+          <RadioButtonGroup
+            fieldName="ErfkritErreichungsgrad"
+            value={activeDataset.row.ErfkritErreichungsgrad}
+            errorText={activeDataset.valid.ErfkritErreichungsgrad}
+            dataSource={apErfkritWerte}
+            updatePropertyInDb={store.updatePropertyInDb}
+          />
           <TextField
             label="Kriterien"
             fieldName="ErfkritTxt"
@@ -49,8 +59,8 @@ class Erfkrit extends Component { // eslint-disable-line react/prefer-stateless-
             updateProperty={store.updateProperty}
             updatePropertyInDb={store.updatePropertyInDb}
           />
-        </div>
-      </div>
+        </FieldsContainer>
+      </Container>
     )
   }
 }

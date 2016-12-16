@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import sortBy from 'lodash/sortBy'
 import AutoComplete from 'material-ui/AutoComplete'
+import styled from 'styled-components'
+
 import TextField from '../../../shared/TextField'
 import InfoWithPopover from '../../../shared/InfoWithPopover'
 import Status from '../../../shared/Status'
@@ -30,7 +32,7 @@ class Tpop extends Component { // eslint-disable-line react/prefer-stateless-fun
       label: t.DomainTxt,
     }))
     const tpopAbBerRelevantInfoPopover = (
-      <div className={styles.container}>
+      <Container>
         <div className={styles.labelPopoverTitleRow}>
           Legende
         </div>
@@ -53,16 +55,26 @@ class Tpop extends Component { // eslint-disable-line react/prefer-stateless-fun
             {`siehe bei Populationen "überprüft, kein Vorkommen"`}
           </div>
         </div>
-      </div>
+      </Container>
     )
     let gemeinden = Array.from(store.table.gemeinde.values())
     gemeinden = sortBy(gemeinden, `GmdName`)
     gemeinden = gemeinden.map(el => el.GmdName)
+    const Container = styled.div`
+      height: 100%;
+    `
+    const FieldsContainer = styled.div`
+      padding-left: 10px;
+      padding-right: 10px;
+      overflow-x: auto;
+      height: 100%;
+      padding-bottom: 95px;
+    `
 
     return (
-      <div>
+      <Container>
         <FormTitle title="Teil-Population" />
-        <div className={styles.fieldsContainer}>
+        <FieldsContainer>
           <TextField
             label="Nr."
             fieldName="TPopNr"
@@ -277,8 +289,8 @@ class Tpop extends Component { // eslint-disable-line react/prefer-stateless-fun
             updateProperty={store.updateProperty}
             updatePropertyInDb={store.updatePropertyInDb}
           />
-        </div>
-      </div>
+        </FieldsContainer>
+      </Container>
     )
   }
 }

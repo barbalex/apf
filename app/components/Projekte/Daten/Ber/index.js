@@ -1,9 +1,10 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
+import styled from 'styled-components'
+
 import TextField from '../../../shared/TextField'
 import TextFieldWithUrl from '../../../shared/TextFieldWithUrl'
 import FormTitle from '../../../shared/FormTitle'
-import styles from './styles.css'
 
 @inject(`store`)
 @observer
@@ -16,10 +17,21 @@ class Ber extends Component { // eslint-disable-line react/prefer-stateless-func
   render() {
     const { store } = this.props
     const { activeDataset } = store
+    const Container = styled.div`
+      height: 100%;
+    `
+    const FieldsContainer = styled.div`
+      padding-left: 10px;
+      padding-right: 10px;
+      overflow-x: auto;
+      height: 100%;
+      padding-bottom: 95px;
+    `
+
     return (
-      <div className={styles.container}>
+      <Container>
         <FormTitle title="Bericht" />
-        <div className={styles.fieldsContainer}>
+        <FieldsContainer>
           <TextField
             label="AutorIn"
             fieldName="BerAutor"
@@ -71,8 +83,8 @@ class Ber extends Component { // eslint-disable-line react/prefer-stateless-func
             updateProperty={store.updateProperty}
             updatePropertyInDb={store.updatePropertyInDb}
           />
-        </div>
-      </div>
+        </FieldsContainer>
+      </Container>
     )
   }
 }

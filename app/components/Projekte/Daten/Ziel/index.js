@@ -1,11 +1,12 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import sortBy from 'lodash/sortBy'
+import styled from 'styled-components'
+
 import RadioButtonGroup from '../../../shared/RadioButtonGroup'
 import Label from '../../../shared/Label'
 import TextField from '../../../shared/TextField'
 import FormTitle from '../../../shared/FormTitle'
-import styles from './styles.css'
 
 @inject(`store`)
 @observer
@@ -24,10 +25,21 @@ class Ziel extends Component { // eslint-disable-line react/prefer-stateless-fun
       value: el.ZieltypId,
       label: el.ZieltypTxt,
     }))
+    const Container = styled.div`
+      height: 100%;
+    `
+    const FieldsContainer = styled.div`
+      padding-left: 10px;
+      padding-right: 10px;
+      overflow-x: auto;
+      height: 100%;
+      padding-bottom: 95px;
+    `
+
     return (
-      <div className={styles.container}>
+      <Container>
         <FormTitle title="Ziel" />
-        <div className={styles.fieldsContainer}>
+        <FieldsContainer>
           <TextField
             label="Jahr"
             fieldName="ZielJahr"
@@ -37,16 +49,14 @@ class Ziel extends Component { // eslint-disable-line react/prefer-stateless-fun
             updateProperty={store.updateProperty}
             updatePropertyInDb={store.updatePropertyInDb}
           />
-          <div className={styles.fieldContainer}>
-            <Label label="Zieltyp" />
-            <RadioButtonGroup
-              fieldName="ZielTyp"
-              value={activeDataset.row.ZielTyp}
-              errorText={activeDataset.valid.ZielTyp}
-              dataSource={zielTypWerte}
-              updatePropertyInDb={store.updatePropertyInDb}
-            />
-          </div>
+          <Label label="Zieltyp" />
+          <RadioButtonGroup
+            fieldName="ZielTyp"
+            value={activeDataset.row.ZielTyp}
+            errorText={activeDataset.valid.ZielTyp}
+            dataSource={zielTypWerte}
+            updatePropertyInDb={store.updatePropertyInDb}
+          />
           <TextField
             label="Ziel"
             fieldName="ZielBezeichnung"
@@ -58,8 +68,8 @@ class Ziel extends Component { // eslint-disable-line react/prefer-stateless-fun
             updateProperty={store.updateProperty}
             updatePropertyInDb={store.updatePropertyInDb}
           />
-        </div>
-      </div>
+        </FieldsContainer>
+      </Container>
     )
   }
 }

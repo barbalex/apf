@@ -1,16 +1,4 @@
-.container {
-  height: 100%;
-}
-
-.fieldsContainer {
-  padding-left: 10px;
-  padding-right: 10px;
-  overflow-x: auto;
-  height: 100%;
-  padding-bottom: 95px;
-}
-
-.fieldWithInfoContainer {
+..fieldWithInfoContainer {
   display: flex;
   flex-direction: row;
 }

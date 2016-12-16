@@ -1,12 +1,13 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import sortBy from 'lodash/sortBy'
+import styled from 'styled-components'
+
 import RadioButtonGroup from '../../../shared/RadioButtonGroup'
 import Label from '../../../shared/Label'
 import TextField from '../../../shared/TextField'
 import FormTitle from '../../../shared/FormTitle'
 import SelectField from '../../../shared/SelectField'
-import styles from './styles.css'
 
 @inject(`store`)
 @observer
@@ -33,11 +34,21 @@ class Tpopkontrzaehl extends Component { // eslint-disable-line react/prefer-sta
       value: el.BeurteilCode,
       label: el.BeurteilTxt,
     }))
+    const Container = styled.div`
+      height: 100%;
+    `
+    const FieldsContainer = styled.div`
+      padding-left: 10px;
+      padding-right: 10px;
+      overflow-x: auto;
+      height: 100%;
+      padding-bottom: 95px;
+    `
 
     return (
-      <div className={styles.container}>
+      <Container>
         <FormTitle title="Zählung" />
-        <div className={styles.fieldsContainer}>
+        <FieldsContainer>
           <TextField
             label="Anzahl"
             fieldName="Anzahl"
@@ -65,8 +76,8 @@ class Tpopkontrzaehl extends Component { // eslint-disable-line react/prefer-sta
             dataSource={methodeWerte}
             updatePropertyInDb={store.updatePropertyInDb}
           />
-        </div>
-      </div>
+        </FieldsContainer>
+      </Container>
     )
   }
 }

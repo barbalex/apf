@@ -3,6 +3,8 @@ import { observer, inject } from 'mobx-react'
 import sortBy from 'lodash/sortBy'
 import { Tabs, Tab } from 'material-ui/Tabs'
 import AutoComplete from 'material-ui/AutoComplete'
+import styled from 'styled-components'
+
 import RadioButtonGroup from '../../../shared/RadioButtonGroup'
 import Label from '../../../shared/Label'
 import TextField from '../../../shared/TextField'
@@ -133,11 +135,21 @@ class Tpopfeldkontr extends Component { // eslint-disable-line react/prefer-stat
       label: el.DomainTxt,
     }))
     const tab = store.urlQuery.feldkontrTab || `entwicklung`
+    const Container = styled.div`
+      height: 100%;
+    `
+    const FieldsContainer = styled.div`
+      padding-left: 10px;
+      padding-right: 10px;
+      overflow-x: auto;
+      height: 100%;
+      padding-bottom: 95px;
+    `
 
     return (
-      <div className={styles.container}>
+      <Container>
         <FormTitle title="Feld-Kontrolle" />
-        <div className={styles.fieldsContainer}>
+        <FieldsContainer>
           <Tabs
             style={this.styles.root}
             contentContainerStyle={this.styles.container}
@@ -463,8 +475,8 @@ class Tpopfeldkontr extends Component { // eslint-disable-line react/prefer-stat
               </div>
             </Tab>
           </Tabs>
-        </div>
-      </div>
+        </FieldsContainer>
+      </Container>
     )
   }
 }

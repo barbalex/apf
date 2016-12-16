@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
+import styled from 'styled-components'
+
 import TextField from '../../../shared/TextField'
 import InfoWithPopover from '../../../shared/InfoWithPopover'
 import Status from '../../../shared/Status'
@@ -20,11 +22,21 @@ class Pop extends Component { // eslint-disable-line react/prefer-stateless-func
     const { store } = this.props
     const { activeDataset } = store
     const apJahr = store.table.ap.get(activeDataset.row.ApArtId).ApJahr
+    const Container = styled.div`
+      height: 100%;
+    `
+    const FieldsContainer = styled.div`
+      padding-left: 10px;
+      padding-right: 10px;
+      overflow-x: auto;
+      height: 100%;
+      padding-bottom: 95px;
+    `
 
     return (
-      <div className={styles.container}>
+      <Container>
         <FormTitle title="Population" />
-        <div className={styles.fieldsContainer}>
+        <FieldsContainer>
           <TextField
             label="Nr."
             fieldName="PopNr"
@@ -95,8 +107,8 @@ class Pop extends Component { // eslint-disable-line react/prefer-stateless-func
             updateProperty={store.updateProperty}
             updatePropertyInDb={store.updatePropertyInDb}
           />
-        </div>
-      </div>
+        </FieldsContainer>
+      </Container>
     )
   }
 }

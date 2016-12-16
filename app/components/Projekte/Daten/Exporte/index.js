@@ -1,16 +1,28 @@
 import React from 'react'
+import styled from 'styled-components'
+
 import FormTitle from '../../../shared/FormTitle'
-import styles from './styles.css'
 
 export default class Exporte extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
+    const Container = styled.div`
+      height: 100%;
+    `
+    const FieldsContainer = styled.div`
+      padding-left: 10px;
+      padding-right: 10px;
+      overflow-x: auto;
+      height: 100%;
+      padding-bottom: 95px;
+    `
+
     return (
-      <div className={styles.container}>
+      <Container>
         <FormTitle title="Exporte" />
-        <div className={styles.fieldsContainer}>
+        <FieldsContainer>
           Exporte
-        </div>
-      </div>
+        </FieldsContainer>
+      </Container>
     )
   }
 }

@@ -5,10 +5,10 @@ import dateFns from 'date-fns'
 import TextField from 'material-ui/TextField'
 import Linkify from 'react-linkify'
 import isArray from 'lodash/isArray'
-import debounce from 'lodash/debounce'
+import styled from 'styled-components'
+
 import { Card, CardText } from 'material-ui/Card'
 import FormTitle from '../../../shared/FormTitle'
-import styles from './styles.css'
 import apiBaseUrl from '../../../../modules/apiBaseUrl'
 import appBaseUrl from '../../../../modules/appBaseUrl'
 import zhGeojson from '../../../../etc/ktZh.json'
@@ -192,10 +192,31 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
   render() {
     const { berichtjahr, messages, filter } = this.state
     const messagesFiltered = filter ? messages.filter(m => m.hw.toLowerCase().includes(filter.toLowerCase())) : messages
+    const Container = styled.div`
+      height: 100%;
+    `
+    const FieldsContainer = styled.div`
+      padding-left: 10px;
+      padding-right: 10px;
+      overflow-x: auto;
+      height: 100%;
+      padding-bottom: 95px;
+    `
+    const StyledCard = styled(Card)`
+      margin-bottom: 10px !important;
+    `
+    const Title = styled.div`
+      font-weight: bold;
+    `
+    const FilterField = styled(TextField)`
+      margin-top: -15px;
+      margin-bottom: 10px;
+    `
+
     return (
-      <div className={styles.container}>
+      <Container>
         <FormTitle title="Qualitätskontrollen" />
-        <div className={styles.fieldsContainer}>
+        <FieldsContainer>
           <TextField
             floatingLabelText="Berichtjahr"
             type="number"
@@ -206,7 +227,7 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
             }}
             onBlur={this.check}
           />
-          <TextField
+          <FilterField
             floatingLabelText="nach Typ filtern"
             type="text"
             value={filter || ``}
@@ -214,7 +235,6 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
             onChange={(event, val) =>
               this.setState({ filter: val })
             }
-            className={styles.filter}
           />
           {
             messagesFiltered.map((m, index) => {
@@ -240,21 +260,21 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
                 )
               }
               return (
-                <Card key={index} className={styles.card}>
+                <StyledCard key={index}>
                   <CardText>
-                    <div className={styles.title}>
+                    <Title>
                       {m.hw}
-                    </div>
+                    </Title>
                     <div>
                       {links}
                     </div>
                   </CardText>
-                </Card>
+                </StyledCard>
               )
             })
           }
-        </div>
-      </div>
+        </FieldsContainer>
+      </Container>
     )
   }
 }

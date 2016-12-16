@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import sortBy from 'lodash/sortBy'
 import AutoComplete from 'material-ui/AutoComplete'
+import styled from 'styled-components'
+
 import RadioButtonGroup from '../../../shared/RadioButtonGroup'
 import Label from '../../../shared/Label'
 import TextField from '../../../shared/TextField'
@@ -10,7 +12,6 @@ import RadioButton from '../../../shared/RadioButton'
 import StringToCopy from '../../../shared/StringToCopy'
 import FormTitle from '../../../shared/FormTitle'
 import YearDatePair from '../../../shared/YearDatePair'
-import styles from './styles.css'
 
 @inject(`store`)
 @observer
@@ -35,10 +36,21 @@ class Tpopmassn extends Component { // eslint-disable-line react/prefer-stateles
       AdrName: ``,
     })
     const artnamen = Array.from(store.table.adb_eigenschaften.values()).map(a => a.Artname).sort()
+    const Container = styled.div`
+      height: 100%;
+    `
+    const FieldsContainer = styled.div`
+      padding-left: 10px;
+      padding-right: 10px;
+      overflow-x: auto;
+      height: 100%;
+      padding-bottom: 95px;
+    `
+
     return (
-      <div className={styles.container}>
+      <Container>
         <FormTitle title="Massnahme" />
-        <div className={styles.fieldsContainer}>
+        <FieldsContainer>
           <YearDatePair
             yearLabel="Jahr"
             yearFieldName="TPopMassnJahr"
@@ -207,8 +219,8 @@ class Tpopmassn extends Component { // eslint-disable-line react/prefer-stateles
           />
           <Label label="GUID" />
           <StringToCopy text={activeDataset.row.TPopMassnGuid} />
-        </div>
-      </div>
+        </FieldsContainer>
+      </Container>
     )
   }
 }
