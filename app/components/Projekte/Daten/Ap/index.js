@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
+import styled from 'styled-components'
 import filter from 'lodash/filter'
 import sortBy from 'lodash/sortBy'
 import AutoComplete from '../../../shared/Autocomplete'
@@ -69,11 +70,25 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
       }
       return name || ``
     }
+    const Container = styled`
+      height: 100%;
+    `
+    const FieldsContainer = styled.div`
+      padding-left: 10px;
+      padding-right: 10px;
+      overflow-x: auto;
+      height: 100%;
+      padding-bottom: 95px;
+    `
+    const FieldContainer = styled.div`
+      display: flex;
+      flex-direction: column;
+    `
 
     return (
-      <div className={styles.container}>
+      <Container>
         <FormTitle title="Art" />
-        <div className={styles.fieldsContainer}>
+        <FieldsContainer>
           <AutoComplete
             label="Art"
             fieldName="ApArtId"
@@ -83,7 +98,7 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
             dataSource={dataSource}
             updatePropertyInDb={store.updatePropertyInDb}
           />
-          <div className={styles.fieldContainer}>
+          <FieldContainer>
             <LabelWithPopover label="Aktionsplan">
               <div className={styles.labelPopoverTitleRow}>
                 Legende
@@ -112,7 +127,7 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
               dataSource={apStati}
               updatePropertyInDb={store.updatePropertyInDb}
             />
-          </div>
+          </FieldContainer>
           <TextField
             label="Start im Jahr"
             fieldName="ApJahr"
@@ -122,7 +137,7 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
             updateProperty={store.updateProperty}
             updatePropertyInDb={store.updatePropertyInDb}
           />
-          <div className={styles.fieldContainer}>
+          <FieldContainer>
             <LabelWithPopover label="Stand Umsetzung">
               <div className={styles.labelPopoverTitleRow}>
                 Legende
@@ -151,7 +166,7 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
               dataSource={apUmsetzungen}
               updatePropertyInDb={store.updatePropertyInDb}
             />
-          </div>
+          </FieldContainer>
           <SelectField
             label="Verantwortlich"
             fieldName="ApBearb"
@@ -162,7 +177,7 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
             labelProp="AdrName"
             updatePropertyInDb={store.updatePropertyInDb}
           />
-          <div className={styles.fieldContainer}>
+          <FieldContainer>
             <TextField
               label="Artwert"
               fieldName="ApJahr"
@@ -170,9 +185,9 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
               type="number"
               disabled
             />
-          </div>
-        </div>
-      </div>
+          </FieldContainer>
+        </FieldsContainer>
+      </Container>
     )
   }
 }
