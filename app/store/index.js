@@ -45,7 +45,8 @@ class Store extends singleton {
     this.toggleNode = this.toggleNode.bind(this)
   }
 
-  @observable history = createHistory()
+  // @observable history = createHistory()
+  history = createHistory()
   node = NodeStore
   ui = UiStore
   app = AppStore
