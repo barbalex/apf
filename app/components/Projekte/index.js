@@ -1,11 +1,9 @@
 import React, { PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
-import { Toolbar } from 'material-ui/Toolbar'
-import FlatButton from 'material-ui/FlatButton'
 import clone from 'lodash/clone'
 import remove from 'lodash/remove'
+import styled from 'styled-components'
 
-import styles from './styles.css'
 import StrukturbaumContainer from './StrukturbaumContainer'
 import Daten from './Daten'
 import Karte from './Karte'
@@ -41,10 +39,20 @@ class Projekte extends React.Component { // eslint-disable-line react/prefer-sta
     const strukturbaumIsVisible = projekteTabs.includes(`strukturbaum`)
     const datenIsVisible = projekteTabs.includes(`daten`)
     const karteIsVisible = projekteTabs.includes(`karte`)
+    const Container = styled.div`
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    `
+    const Content = styled.div`
+      display: flex;
+      flex-wrap: nowrap;
+      height: 100%;
+    `
 
     return (
-      <div className={styles.container}>
-        <div className={styles.content} >
+      <Container>
+        <Content>
           {
             strukturbaumIsVisible
               && <StrukturbaumContainer />
@@ -57,8 +65,8 @@ class Projekte extends React.Component { // eslint-disable-line react/prefer-sta
             karteIsVisible
               && <Karte />
           }
-        </div>
-      </div>
+        </Content>
+      </Container>
     )
   }
 }
