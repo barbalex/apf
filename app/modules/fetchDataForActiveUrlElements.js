@@ -53,6 +53,7 @@ export default (store) => {
     },
     apberFolder() {
       store.fetchTableByParentId(`apflora`, `apber`, activeUrlElements.ap)
+      store.fetchTable(`apflora`, `ap_erfkrit_werte`)
     },
     erfkritFolder() {
       store.fetchTableByParentId(`apflora`, `erfkrit`, activeUrlElements.ap)

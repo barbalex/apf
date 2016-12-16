@@ -3,12 +3,12 @@ import { observer, inject } from 'mobx-react'
 import styled from 'styled-components'
 import filter from 'lodash/filter'
 import sortBy from 'lodash/sortBy'
-import AutoComplete from '../../../shared/Autocomplete'
-import RadioButtonGroup from '../../../shared/RadioButtonGroup'
-import LabelWithPopover from '../../../shared/LabelWithPopover'
-import TextField from '../../../shared/TextField'
-import SelectField from '../../../shared/SelectField'
-import FormTitle from '../../../shared/FormTitle'
+import AutoComplete from '../../shared/Autocomplete'
+import RadioButtonGroup from '../../shared/RadioButtonGroup'
+import LabelWithPopover from '../../shared/LabelWithPopover'
+import TextField from '../../shared/TextField'
+import SelectField from '../../shared/SelectField'
+import FormTitle from '../../shared/FormTitle'
 
 @inject(`store`)
 @observer

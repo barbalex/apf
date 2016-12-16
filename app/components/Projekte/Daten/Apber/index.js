@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
+import styled from 'styled-components'
 import sortBy from 'lodash/sortBy'
 import RadioButtonGroup from '../../../shared/RadioButtonGroup'
 import Label from '../../../shared/Label'
@@ -35,10 +36,20 @@ class Apber extends Component { // eslint-disable-line react/prefer-stateless-fu
       id: null,
       AdrName: ``,
     })
+    const Container = styled.div`
+      height: 100%;
+    `
+    const FieldsContainer = styled.div`
+      padding-left: 10px;
+      padding-right: 10px;
+      overflow-x: auto;
+      height: 100%;
+      padding-bottom: 95px;
+    `
     return (
-      <div className={styles.container}>
+      <Container>
         <FormTitle title="AP-Bericht" />
-        <div className={styles.fieldsContainer}>
+        <FieldsContainer>
           <TextField
             label="Jahr"
             fieldName="JBerJahr"
@@ -164,8 +175,8 @@ class Apber extends Component { // eslint-disable-line react/prefer-stateless-fu
             labelProp="AdrName"
             updatePropertyInDb={store.updatePropertyInDb}
           />
-        </div>
-      </div>
+        </FieldsContainer>
+      </Container>
     )
   }
 }
