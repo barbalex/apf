@@ -9,7 +9,6 @@ import LabelWithPopover from '../../../shared/LabelWithPopover'
 import TextField from '../../../shared/TextField'
 import SelectField from '../../../shared/SelectField'
 import FormTitle from '../../../shared/FormTitle'
-import styles from './styles.css'
 
 @inject(`store`)
 @observer
@@ -70,7 +69,7 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
       }
       return name || ``
     }
-    const Container = styled`
+    const Container = styled.div`
       height: 100%;
     `
     const FieldsContainer = styled.div`
@@ -83,6 +82,31 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
     const FieldContainer = styled.div`
       display: flex;
       flex-direction: column;
+    `
+    const LabelPopoverRow = styled.div`
+      padding: 2px 5px 2px 5px;
+    `
+    const LabelPopoverTitleRow = styled(LabelPopoverRow)`
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+      background-color: grey;
+    `
+    const LabelPopoverContentRow = styled(LabelPopoverRow)`
+      display: flex;
+      border-color: grey;
+      border-width: thin;
+      border-style: solid;
+      border-top-style: none;
+      &:last-child {
+        border-bottom-right-radius: 4px;
+        border-bottom-left-radius: 4px;
+      }
+    `
+    const LabelPopoverRowColumnLeft = styled.div`
+      width: 110px;
+    `
+    const LabelPopoverRowColumnRight = styled.div`
+      padding-left: 5px;
     `
 
     return (
@@ -100,25 +124,25 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
           />
           <FieldContainer>
             <LabelWithPopover label="Aktionsplan">
-              <div className={styles.labelPopoverTitleRow}>
+              <LabelPopoverTitleRow>
                 Legende
-              </div>
-              <div className={styles.labelPopoverContentRow}>
-                <div className={styles.labelPopoverRowColumnLeft}>
+              </LabelPopoverTitleRow>
+              <LabelPopoverContentRow>
+                <LabelPopoverRowColumnLeft>
                   keiner:
-                </div>
-                <div className={styles.labelPopoverRowColumnRight}>
+                </LabelPopoverRowColumnLeft>
+                <LabelPopoverRowColumnRight>
                   kein Aktionsplan vorgesehen
-                </div>
-              </div>
-              <div className={styles.labelPopoverContentRow}>
-                <div className={styles.labelPopoverRowColumnLeft}>
+                </LabelPopoverRowColumnRight>
+              </LabelPopoverContentRow>
+              <LabelPopoverContentRow>
+                <LabelPopoverRowColumnLeft>
                   erstellt:
-                </div>
-                <div className={styles.labelPopoverRowColumnRight}>
+                </LabelPopoverRowColumnLeft>
+                <LabelPopoverRowColumnRight>
                   Aktionsplan fertig, auf der Webseite der FNS
-                </div>
-              </div>
+                </LabelPopoverRowColumnRight>
+              </LabelPopoverContentRow>
             </LabelWithPopover>
             <RadioButtonGroup
               fieldName="ApStatus"
@@ -139,25 +163,25 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
           />
           <FieldContainer>
             <LabelWithPopover label="Stand Umsetzung">
-              <div className={styles.labelPopoverTitleRow}>
+              <LabelPopoverTitleRow>
                 Legende
-              </div>
-              <div className={styles.labelPopoverContentRow}>
-                <div className={styles.labelPopoverRowColumnLeft}>
+              </LabelPopoverTitleRow>
+              <LabelPopoverContentRow>
+                <LabelPopoverRowColumnLeft>
                   noch keine<br />Umsetzung:
-                </div>
-                <div className={styles.labelPopoverRowColumnRight}>
+                </LabelPopoverRowColumnLeft>
+                <LabelPopoverRowColumnRight>
                   noch keine Massnahmen ausgeführt
-                </div>
-              </div>
-              <div className={styles.labelPopoverContentRow}>
-                <div className={styles.labelPopoverRowColumnLeft}>
+                </LabelPopoverRowColumnRight>
+              </LabelPopoverContentRow>
+              <LabelPopoverContentRow>
+                <LabelPopoverRowColumnLeft>
                   in Umsetzung:
-                </div>
-                <div className={styles.labelPopoverRowColumnRight}>
+                </LabelPopoverRowColumnLeft>
+                <LabelPopoverRowColumnRight>
                   bereits Massnahmen ausgeführt (auch wenn AP noch nicht erstellt)
-                </div>
-              </div>
+                </LabelPopoverRowColumnRight>
+              </LabelPopoverContentRow>
             </LabelWithPopover>
             <RadioButtonGroup
               fieldName="ApUmsetzung"
