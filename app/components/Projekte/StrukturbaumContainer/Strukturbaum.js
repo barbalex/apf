@@ -12,9 +12,8 @@ import { AutoSizer, List } from 'react-virtualized'
 import { ContextMenuTrigger } from 'react-contextmenu'
 import styled from 'styled-components'
 
-import getNrOfNodeRows from '../../../../modules/getNrOfNodeRows'
-import isNodeInActiveNodePath from '../../../../modules/isNodeInActiveNodePath'
-import styles from './styles.css'
+import getNrOfNodeRows from '../../../modules/getNrOfNodeRows'
+import isNodeInActiveNodePath from '../../../modules/isNodeInActiveNodePath'
 
 @inject(`store`)
 @observer
@@ -73,6 +72,24 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
       color: rgb(255, 94, 94);
       font-size: 14px;
     `
+    const StyledSymbolSpan = styled.span`
+      margin-right: 0;
+      font-weight: 900;
+    `
+    const StyledSymbolOpenSpan = styled(StyledSymbolSpan)`
+      margin-top: -0.2em;
+      font-size: 1.4em;
+    `
+    const StyledTextSpan = styled.span`
+      padding-left: .5em;
+    `
+    const StyledTextInActiveNodePathSpan = styled(StyledTextSpan)`
+      font-weight: 900;
+    `
+    const LoadingDiv = styled.div`
+      padding-left: 15px;
+      font-size: 14px;
+    `
 
     if (
       !store
@@ -81,11 +98,9 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
     ) {
       return (
         <Container>
-          <TopUlForPathLength1>
-            <li className={styles.node}>
-              lade Daten...
-            </li>
-          </TopUlForPathLength1>
+          <LoadingDiv>
+            lade Daten...
+          </LoadingDiv>
         </Container>
       )
     }
@@ -125,13 +140,16 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
         loadingData: ``,
       }
       let symbol
-      let symbolClassName = `symbol`
       const nodeIsInActiveNodePath = isNodeInActiveNodePath(node, store.url)
+      let SymbolSpan = StyledSymbolSpan
+      const TextSpan = nodeIsInActiveNodePath ? StyledTextInActiveNodePathSpan : StyledTextSpan
 
       if (nodeHasChildren && node.expanded) {
         props.onClick = onClick
         symbol = symbolTypes.open
-        symbolClassName = nodeIsInActiveNodePath ? `symbolOpenInActiveNodePath` : `symbolOpen`
+        if (nodeIsInActiveNodePath) {
+          SymbolSpan = StyledSymbolOpenSpan
+        }
         // apply filter
         const childrenProperty = (
           node === store.activeDataset ?
@@ -160,12 +178,12 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
           <Node
             data-id={node.id || null}
           >
-            <span className={styles[symbolClassName]}>
+            <SymbolSpan>
               {symbol}
-            </span>
-            <span className={nodeIsInActiveNodePath ? styles.textInActiveNodePath : styles.text}>
+            </SymbolSpan>
+            <TextSpan>
               {node.label}
-            </span>
+            </TextSpan>
           </Node>
         </ContextMenuTrigger>
       )
