@@ -29,6 +29,49 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
     const Container = styled.div`
       height: 100%;
       font-family: 'Roboto Mono', monospace;
+      ul {
+        margin: 0;
+        list-style: none;
+        padding: 0 0 0 1.1em;
+      }
+    `
+    const ListContainer = styled(List)`
+      font-family: 'Roboto Mono', monospace;
+      font-size: 14px;
+      font-weight: normal;
+      * {
+        box-sizing: border-box;
+        font-size: 14px;
+        font-weight: normal;
+      }
+      &:focus {
+        outline-color: rgb(48, 48, 48) !important;
+      }
+    `
+    const TopUl = styled.ul``
+    const TopUlForPathLength1 = styled(TopUl)`
+      padding: 0 0 0 0.5em !important;
+    `
+    const StyledNode = styled.div`
+      height: 23px;
+      max-height: 23px;
+      box-sizing: border-box;
+      margin: 0;
+      display: flex;
+      flex-direction: row;
+      white-space: nowrap;
+      user-select: none;
+      font-size: 1.1em;
+      cursor: pointer;
+      color: rgb(247, 247, 247);
+      &:hover {
+        color: #b3d4fc;
+      }
+    `
+    const StyledNodeInActiveNodePath = styled(StyledNode)`
+      font-weight: 900;
+      color: rgb(255, 94, 94);
+      font-size: 14px;
     `
 
     if (
@@ -37,13 +80,13 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
       || store.projektNodes.length === 0
     ) {
       return (
-        <div className={styles.container}>
-          <ul className={styles.topUl}>
+        <Container>
+          <TopUlForPathLength1>
             <li className={styles.node}>
               lade Daten...
             </li>
-          </ul>
-        </div>
+          </TopUlForPathLength1>
+        </Container>
       )
     }
 
@@ -107,14 +150,14 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
         symbol = symbolTypes.hasNoChildren
         props.onClick = onClick
       }
+      const Node = nodeIsInActiveNodePath ? StyledNodeInActiveNodePath : StyledNode
 
       childNodes.unshift(
         <ContextMenuTrigger
           id={node.menuType}
           key={`${index}-child`}
         >
-          <div
-            className={nodeIsInActiveNodePath ? styles.nodeIsInActiveNodePath : styles.node}
+          <Node
             data-id={node.id || null}
           >
             <span className={styles[symbolClassName]}>
@@ -123,45 +166,45 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
             <span className={nodeIsInActiveNodePath ? styles.textInActiveNodePath : styles.text}>
               {node.label}
             </span>
-          </div>
+          </Node>
         </ContextMenuTrigger>
       )
 
+      const TopChildUl = (
+        node.urlPath && node.urlPath.length && node.urlPath.length === 1 ?
+        TopUlForPathLength1 :
+        TopUl
+      )
+
       return (
-        <ul
+        <TopChildUl
           key={index}
           onClick={props.onClick}
-          className={
-            node.urlPath && node.urlPath.length && node.urlPath.length === 1 ?
-            styles.topUl :
-            null
-          }
         >
           <li>
             {childNodes}
           </li>
-        </ul>
+        </TopChildUl>
       )
     }
 
 
     return (
-      <div className={styles.container}>
+      <Container>
         <AutoSizer>
           {({ height, width }) => (
-            <List
+            <ListContainer
               height={height}
               rowCount={nodes.length}
               rowHeight={rowHeight}
               rowRenderer={rowRenderer}
               width={width}
-              className={styles.listContainer}
               scrollTop={scrolltop}
               ref={(c) => { this.tree = c }}
             />
           )}
         </AutoSizer>
-      </div>
+      </Container>
     )
   }
 }
