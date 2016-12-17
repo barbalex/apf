@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import FlatButton from 'material-ui/FlatButton'
-import styles from './styles.css'
+import styled from 'styled-components'
 
 class StringToCopy extends Component { // eslint-disable-line react/prefer-stateless-function
 
@@ -29,13 +29,23 @@ class StringToCopy extends Component { // eslint-disable-line react/prefer-state
   render() {
     const { text } = this.props
     const { copied } = this.state
+    const Container = styled.div`
+      display: flex;
+      justify-content: space-between;
+    `
+    const GuidContainer = styled.div`
+      flex-grow: 1;
+    `
+    const CopyButtonContainer = styled.div`
+      margin-top: -6px;
+    `
 
     return (
-      <div className={styles.container}>
-        <div className={styles.guid}>
+      <Container>
+        <GuidContainer>
           {text}
-        </div>
-        <div className={styles.copyButton}>
+        </GuidContainer>
+        <CopyButtonContainer>
           <CopyToClipboard
             text={text}
             onCopy={this.onCopy}
@@ -44,8 +54,8 @@ class StringToCopy extends Component { // eslint-disable-line react/prefer-state
               label={copied ? `kopiert` : `kopieren`}
             />
           </CopyToClipboard>
-        </div>
-      </div>
+        </CopyButtonContainer>
+      </Container>
     )
   }
 }
