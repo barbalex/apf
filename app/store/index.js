@@ -182,6 +182,11 @@ class Store extends singleton {
       value = +value
     }
 
+    // convert undefined to null
+    if (value === undefined) {
+      value = null
+    }
+
     // ensure derived data exists
     const tabelle = tables.find(t =>
       t.table === table

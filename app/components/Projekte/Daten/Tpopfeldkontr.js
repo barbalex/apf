@@ -15,6 +15,55 @@ import FormTitle from '../../shared/FormTitle'
 import YearDatePair from '../../shared/YearDatePair'
 import TabTemplate from '../../shared/TabTemplate'
 
+const LabelPopoverRow = styled.div`
+  padding: 2px 5px 2px 5px;
+`
+const LabelPopoverTitleRow = styled(LabelPopoverRow)`
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  background-color: grey;
+`
+const LabelPopoverContentRow = styled(LabelPopoverRow)`
+  display: flex;
+  border-color: grey;
+  border-width: thin;
+  border-style: solid;
+  border-top-style: none;
+  &:last-child {
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
+`
+const LabelPopoverRowColumnLeft = styled.div`
+  width: 110px;
+`
+const LabelPopoverRowColumnRight = styled.div`
+  padding-left: 5px;
+`
+const Container = styled.div`
+  height: 100%;
+`
+const FieldsContainer = styled.div`
+  padding-left: 10px;
+  padding-right: 10px;
+  overflow-x: auto;
+  height: 100%;
+  padding-bottom: 95px;
+`
+const Section = styled.div`
+  padding-top: 20px;
+  margin-bottom: -7px;
+  color: rgba(255, 255, 255, 0.298039);
+  font-weight: bold;
+  &:after {
+    content: ":";
+  }
+`
+const FormContainer = styled.div`
+  padding-left: 10px;
+  padding-right: 10px;
+`
+
 
 @inject(`store`)
 @observer
@@ -51,47 +100,18 @@ class Tpopfeldkontr extends Component { // eslint-disable-line react/prefer-stat
     }
   }
 
-  render() {
+  get adressen() {
     const { store } = this.props
-    const { activeDataset } = store
-    const tpopkontrTypWerte = [{
-      value: `Ausgangszustand`,
-      label: `Ausgangszustand`,
-    }, {
-      value: `Zwischenbeurteilung`,
-      label: `Zwischenbeurteilung`,
-    }]
-    const adressen = Array.from(store.table.adresse.values())
+    const adressen = sortBy(Array.from(store.table.adresse.values()), `AdrName`)
     adressen.unshift({
       id: null,
       AdrName: ``,
     })
-    const LabelPopoverRow = styled.div`
-      padding: 2px 5px 2px 5px;
-    `
-    const LabelPopoverTitleRow = styled(LabelPopoverRow)`
-      border-top-left-radius: 4px;
-      border-top-right-radius: 4px;
-      background-color: grey;
-    `
-    const LabelPopoverContentRow = styled(LabelPopoverRow)`
-      display: flex;
-      border-color: grey;
-      border-width: thin;
-      border-style: solid;
-      border-top-style: none;
-      &:last-child {
-        border-bottom-right-radius: 4px;
-        border-bottom-left-radius: 4px;
-      }
-    `
-    const LabelPopoverRowColumnLeft = styled.div`
-      width: 110px;
-    `
-    const LabelPopoverRowColumnRight = styled.div`
-      padding-left: 5px;
-    `
-    const entwicklungPopover = (
+    return adressen
+  }
+
+  get entwicklungPopover() {
+    return (
       <div>
         <LabelPopoverTitleRow>
           Legende
@@ -141,47 +161,45 @@ class Tpopfeldkontr extends Component { // eslint-disable-line react/prefer-stat
         </LabelPopoverContentRow>
       </div>
     )
-    // get entwicklungWerte
+  }
+
+  get tpopEntwicklungWerte() {
+    const { store } = this.props
     let tpopEntwicklungWerte = Array.from(store.table.tpop_entwicklung_werte.values())
     tpopEntwicklungWerte = sortBy(tpopEntwicklungWerte, `EntwicklungOrd`)
-    tpopEntwicklungWerte = tpopEntwicklungWerte.map(el => ({
+    return tpopEntwicklungWerte.map(el => ({
       value: el.EntwicklungCode,
       label: el.EntwicklungTxt,
     }))
-    // prepare lr
-    const lrArray = Array.from(store.table.adb_lr.values())
-    const lr = lrArray.map(e => e.Einheit.replace(/  +/g, ` `)) // eslint-disable-line no-regex-spaces
-    // prepare tpopkontr_idbiotuebereinst_werte
+  }
+
+  get idbiotopuebereinstWerte() {
+    const { store } = this.props
     let idbiotopuebereinstWerte = Array.from(store.table.tpopkontr_idbiotuebereinst_werte.values())
     idbiotopuebereinstWerte = sortBy(idbiotopuebereinstWerte, `DomainOrd`)
-    idbiotopuebereinstWerte = idbiotopuebereinstWerte.map(el => ({
+    return idbiotopuebereinstWerte.map(el => ({
       value: el.DomainCode,
       label: el.DomainTxt,
     }))
+  }
+
+  get lr() {
+    const { store } = this.props
+    const lrArray = Array.from(store.table.adb_lr.values())
+    return lrArray.map(e => e.Einheit.replace(/  +/g, ` `)) // eslint-disable-line no-regex-spaces
+  }
+
+  render() {
+    const { store } = this.props
+    const { activeDataset } = store
+    const tpopkontrTypWerte = [{
+      value: `Ausgangszustand`,
+      label: `Ausgangszustand`,
+    }, {
+      value: `Zwischenbeurteilung`,
+      label: `Zwischenbeurteilung`,
+    }]
     const tab = store.urlQuery.feldkontrTab || `entwicklung`
-    const Container = styled.div`
-      height: 100%;
-    `
-    const FieldsContainer = styled.div`
-      padding-left: 10px;
-      padding-right: 10px;
-      overflow-x: auto;
-      height: 100%;
-      padding-bottom: 95px;
-    `
-    const Section = styled.div`
-      padding-top: 20px;
-      margin-bottom: -7px;
-      color: rgba(255, 255, 255, 0.298039);
-      font-weight: bold;
-      &:after {
-        content: ":";
-      }
-    `
-    const FormContainer = styled.div`
-      padding-left: 10px;
-      padding-right: 10px;
-    `
 
     return (
       <Container>
@@ -224,7 +242,7 @@ class Tpopfeldkontr extends Component { // eslint-disable-line react/prefer-stat
                   fieldName="TPopKontrBearb"
                   value={activeDataset.row.TPopKontrBearb}
                   errorText={activeDataset.valid.TPopKontrBearb}
-                  dataSource={adressen}
+                  dataSource={this.adressen}
                   valueProp="AdrId"
                   labelProp="AdrName"
                   updatePropertyInDb={store.updatePropertyInDb}
@@ -260,9 +278,9 @@ class Tpopfeldkontr extends Component { // eslint-disable-line react/prefer-stat
                 <RadioButtonGroupWithInfo
                   fieldName="TPopKontrEntwicklung"
                   value={activeDataset.row.TPopKontrEntwicklung}
-                  dataSource={tpopEntwicklungWerte}
+                  dataSource={this.tpopEntwicklungWerte}
                   updatePropertyInDb={store.updatePropertyInDb}
-                  popover={entwicklungPopover}
+                  popover={this.entwicklungPopover}
                 />
                 <TextField
                   label="Ursachen"
@@ -346,7 +364,7 @@ class Tpopfeldkontr extends Component { // eslint-disable-line react/prefer-stat
                   fullWidth
                   searchText={activeDataset.row.TPopKontrLeb || ``}
                   errorText={activeDataset.valid.TPopKontrLeb}
-                  dataSource={lr}
+                  dataSource={this.lr}
                   filter={AutoComplete.caseInsensitiveFilter}
                   maxSearchResults={20}
                   onNewRequest={val =>
@@ -362,7 +380,7 @@ class Tpopfeldkontr extends Component { // eslint-disable-line react/prefer-stat
                   fullWidth
                   searchText={activeDataset.row.TPopKontrLebUmg || ``}
                   errorText={activeDataset.valid.TPopKontrLebUmg}
-                  dataSource={lr}
+                  dataSource={this.lr}
                   filter={AutoComplete.caseInsensitiveFilter}
                   maxSearchResults={20}
                   onNewRequest={val =>
@@ -506,7 +524,7 @@ class Tpopfeldkontr extends Component { // eslint-disable-line react/prefer-stat
                   fieldName="TPopKontrIdealBiotopUebereinst"
                   value={activeDataset.row.TPopKontrIdealBiotopUebereinst}
                   errorText={activeDataset.valid.TPopKontrIdealBiotopUebereinst}
-                  dataSource={idbiotopuebereinstWerte}
+                  dataSource={this.idbiotopuebereinstWerte}
                   updatePropertyInDb={store.updatePropertyInDb}
                 />
               </FormContainer>

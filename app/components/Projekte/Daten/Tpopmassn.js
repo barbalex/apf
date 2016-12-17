@@ -13,6 +13,17 @@ import StringToCopy from '../../shared/StringToCopy'
 import FormTitle from '../../shared/FormTitle'
 import YearDatePair from '../../shared/YearDatePair'
 
+const Container = styled.div`
+  height: 100%;
+`
+const FieldsContainer = styled.div`
+  padding-left: 10px;
+  padding-right: 10px;
+  overflow-x: auto;
+  height: 100%;
+  padding-bottom: 95px;
+`
+
 @inject(`store`)
 @observer
 class Tpopmassn extends Component { // eslint-disable-line react/prefer-stateless-function
@@ -21,31 +32,26 @@ class Tpopmassn extends Component { // eslint-disable-line react/prefer-stateles
     store: PropTypes.object,
   }
 
-  render() {
+  get tpopMassnTypWerte() {
     const { store } = this.props
-    const { activeDataset } = store
-    let tpopMassnTypWerte = Array.from(store.table.tpopmassn_typ_werte.values())
-    tpopMassnTypWerte = sortBy(tpopMassnTypWerte, `MassnTypOrd`)
-    tpopMassnTypWerte = tpopMassnTypWerte.map(el => ({
+    let werte = Array.from(store.table.tpopmassn_typ_werte.values())
+    werte = sortBy(werte, `MassnTypOrd`)
+    werte = werte.map(el => ({
       value: el.MassnTypCode,
       label: el.MassnTypTxt,
     }))
+    return werte
+  }
+
+  render() {
+    const { store } = this.props
+    const { activeDataset } = store
     const adressen = Array.from(store.table.adresse.values())
     adressen.unshift({
       id: null,
       AdrName: ``,
     })
     const artnamen = Array.from(store.table.adb_eigenschaften.values()).map(a => a.Artname).sort()
-    const Container = styled.div`
-      height: 100%;
-    `
-    const FieldsContainer = styled.div`
-      padding-left: 10px;
-      padding-right: 10px;
-      overflow-x: auto;
-      height: 100%;
-      padding-bottom: 95px;
-    `
 
     return (
       <Container>
@@ -68,7 +74,7 @@ class Tpopmassn extends Component { // eslint-disable-line react/prefer-stateles
             fieldName="TPopMassnTyp"
             value={activeDataset.row.TPopMassnTyp}
             errorText={activeDataset.valid.TPopMassnTyp}
-            dataSource={tpopMassnTypWerte}
+            dataSource={this.tpopMassnTypWerte}
             updatePropertyInDb={store.updatePropertyInDb}
           />
           <TextField

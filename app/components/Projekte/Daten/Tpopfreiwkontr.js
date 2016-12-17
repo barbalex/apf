@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
+import sortBy from 'lodash/sortBy'
 import styled from 'styled-components'
 
 import RadioButton from '../../shared/RadioButton'
@@ -10,6 +11,17 @@ import StringToCopy from '../../shared/StringToCopy'
 import FormTitle from '../../shared/FormTitle'
 import YearDatePair from '../../shared/YearDatePair'
 
+const Container = styled.div`
+  height: 100%;
+`
+const FieldsContainer = styled.div`
+  padding-left: 10px;
+  padding-right: 10px;
+  overflow-x: auto;
+  height: 100%;
+  padding-bottom: 95px;
+`
+
 @inject(`store`)
 @observer
 class Tpopfreiwkontr extends Component { // eslint-disable-line react/prefer-stateless-function
@@ -18,24 +30,19 @@ class Tpopfreiwkontr extends Component { // eslint-disable-line react/prefer-sta
     store: PropTypes.object,
   }
 
-  render() {
+  get adressen() {
     const { store } = this.props
-    const { activeDataset } = store
-    const adressen = Array.from(store.table.adresse.values())
+    const adressen = sortBy(Array.from(store.table.adresse.values()), `AdrName`)
     adressen.unshift({
       id: null,
       AdrName: ``,
     })
-    const Container = styled.div`
-      height: 100%;
-    `
-    const FieldsContainer = styled.div`
-      padding-left: 10px;
-      padding-right: 10px;
-      overflow-x: auto;
-      height: 100%;
-      padding-bottom: 95px;
-    `
+    return adressen
+  }
+
+  render() {
+    const { store } = this.props
+    const { activeDataset } = store
 
     return (
       <Container>
@@ -58,7 +65,7 @@ class Tpopfreiwkontr extends Component { // eslint-disable-line react/prefer-sta
             fieldName="TPopKontrBearb"
             value={activeDataset.row.TPopKontrBearb}
             errorText={activeDataset.valid.TPopKontrBearb}
-            dataSource={adressen}
+            dataSource={this.adressen}
             valueProp="AdrId"
             labelProp="AdrName"
             updatePropertyInDb={store.updatePropertyInDb}

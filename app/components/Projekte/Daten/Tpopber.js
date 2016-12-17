@@ -8,6 +8,17 @@ import Label from '../../shared/Label'
 import TextField from '../../shared/TextField'
 import FormTitle from '../../shared/FormTitle'
 
+const Container = styled.div`
+  height: 100%;
+`
+const FieldsContainer = styled.div`
+  padding-left: 10px;
+  padding-right: 10px;
+  overflow-x: auto;
+  height: 100%;
+  padding-bottom: 95px;
+`
+
 @inject(`store`)
 @observer
 class Tpopber extends Component { // eslint-disable-line react/prefer-stateless-function
@@ -16,25 +27,19 @@ class Tpopber extends Component { // eslint-disable-line react/prefer-stateless-
     store: PropTypes.object,
   }
 
-  render() {
+  get tpopEntwicklungWerte() {
     const { store } = this.props
-    const { activeDataset } = store
     let tpopEntwicklungWerte = Array.from(store.table.tpop_entwicklung_werte.values())
     tpopEntwicklungWerte = sortBy(tpopEntwicklungWerte, `EntwicklungOrd`)
-    tpopEntwicklungWerte = tpopEntwicklungWerte.map(el => ({
+    return tpopEntwicklungWerte.map(el => ({
       value: el.EntwicklungCode,
       label: el.EntwicklungTxt,
     }))
-    const Container = styled.div`
-      height: 100%;
-    `
-    const FieldsContainer = styled.div`
-      padding-left: 10px;
-      padding-right: 10px;
-      overflow-x: auto;
-      height: 100%;
-      padding-bottom: 95px;
-    `
+  }
+
+  render() {
+    const { store } = this.props
+    const { activeDataset } = store
 
     return (
       <Container>
@@ -54,7 +59,7 @@ class Tpopber extends Component { // eslint-disable-line react/prefer-stateless-
             fieldName="TPopBerEntwicklung"
             value={activeDataset.row.TPopBerEntwicklung}
             errorText={activeDataset.valid.TPopBerEntwicklung}
-            dataSource={tpopEntwicklungWerte}
+            dataSource={this.tpopEntwicklungWerte}
             updatePropertyInDb={store.updatePropertyInDb}
           />
           <TextField

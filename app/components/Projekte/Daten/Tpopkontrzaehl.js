@@ -9,6 +9,17 @@ import TextField from '../../shared/TextField'
 import FormTitle from '../../shared/FormTitle'
 import SelectField from '../../shared/SelectField'
 
+const Container = styled.div`
+  height: 100%;
+`
+const FieldsContainer = styled.div`
+  padding-left: 10px;
+  padding-right: 10px;
+  overflow-x: auto;
+  height: 100%;
+  padding-bottom: 95px;
+`
+
 @inject(`store`)
 @observer
 class Tpopkontrzaehl extends Component { // eslint-disable-line react/prefer-stateless-function
@@ -17,33 +28,35 @@ class Tpopkontrzaehl extends Component { // eslint-disable-line react/prefer-sta
     store: PropTypes.object,
   }
 
-  render() {
+  get zaehleinheitWerte() {
     const { store } = this.props
-    const { activeDataset } = store
-    const zaehleinheitWerte = sortBy(
-      Array.from(store.table.tpopkontrzaehl_einheit_werte.values()),
-      `ZaehleinheitOrd`
-    ).map(el => ({
+    let werte = Array.from(store.table.tpopkontrzaehl_einheit_werte.values())
+    werte = sortBy(werte, `ZaehleinheitOrd`)
+    werte = werte.map(el => ({
       value: el.ZaehleinheitCode,
       label: el.ZaehleinheitTxt,
     }))
-    const methodeWerte = sortBy(
-      Array.from(store.table.tpopkontrzaehl_methode_werte.values()),
-      `BeurteilOrd`
-    ).map(el => ({
+    werte.unshift({
+      value: null,
+      label: ``,
+    })
+    return werte
+  }
+
+  get methodeWerte() {
+    const { store } = this.props
+    let werte = Array.from(store.table.tpopkontrzaehl_methode_werte.values())
+    werte = sortBy(werte, `BeurteilOrd`)
+    werte = werte.map(el => ({
       value: el.BeurteilCode,
       label: el.BeurteilTxt,
     }))
-    const Container = styled.div`
-      height: 100%;
-    `
-    const FieldsContainer = styled.div`
-      padding-left: 10px;
-      padding-right: 10px;
-      overflow-x: auto;
-      height: 100%;
-      padding-bottom: 95px;
-    `
+    return werte
+  }
+
+  render() {
+    const { store } = this.props
+    const { activeDataset } = store
 
     return (
       <Container>
@@ -63,7 +76,7 @@ class Tpopkontrzaehl extends Component { // eslint-disable-line react/prefer-sta
             fieldName="Zaehleinheit"
             value={activeDataset.row.Zaehleinheit}
             errorText={activeDataset.valid.Zaehleinheit}
-            dataSource={zaehleinheitWerte}
+            dataSource={this.zaehleinheitWerte}
             valueProp="value"
             labelProp="label"
             updatePropertyInDb={store.updatePropertyInDb}
@@ -73,7 +86,7 @@ class Tpopkontrzaehl extends Component { // eslint-disable-line react/prefer-sta
             fieldName="Methode"
             value={activeDataset.row.Methode}
             errorText={activeDataset.valid.Methode}
-            dataSource={methodeWerte}
+            dataSource={this.methodeWerte}
             updatePropertyInDb={store.updatePropertyInDb}
           />
         </FieldsContainer>

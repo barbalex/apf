@@ -40,7 +40,7 @@ class Apber extends Component { // eslint-disable-line react/prefer-stateless-fu
 
   get adressen() {
     const { store } = this.props
-    const adressen = Array.from(store.table.adresse.values())
+    const adressen = sortBy(Array.from(store.table.adresse.values()), `AdrName`)
     adressen.unshift({
       id: null,
       AdrName: ``,
