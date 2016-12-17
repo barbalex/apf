@@ -11,6 +11,46 @@ import TextField from '../../shared/TextField'
 import SelectField from '../../shared/SelectField'
 import FormTitle from '../../shared/FormTitle'
 
+const Container = styled.div`
+  height: 100%;
+`
+const FieldsContainer = styled.div`
+  padding-left: 10px;
+  padding-right: 10px;
+  overflow-x: auto;
+  height: 100%;
+  padding-bottom: 95px;
+`
+const FieldContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+const LabelPopoverRow = styled.div`
+  padding: 2px 5px 2px 5px;
+`
+const LabelPopoverTitleRow = styled(LabelPopoverRow)`
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  background-color: grey;
+`
+const LabelPopoverContentRow = styled(LabelPopoverRow)`
+  display: flex;
+  border-color: grey;
+  border-width: thin;
+  border-style: solid;
+  border-top-style: none;
+  &:last-child {
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
+`
+const LabelPopoverRowColumnLeft = styled.div`
+  width: 110px;
+`
+const LabelPopoverRowColumnRight = styled.div`
+  padding-left: 5px;
+`
+
 @inject(`store`)
 @observer
 class Ap extends Component { // eslint-disable-line react/prefer-stateless-function
@@ -27,26 +67,39 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
     store.fetchTable(`apflora`, `adresse`)
   }
 
-  render() {
+  get apUmsetzungen() {
     const { store } = this.props
-    const { adb_eigenschaften } = store.table
-    let apStati = Array.from(store.table.ap_bearbstand_werte.values())
-    apStati = sortBy(apStati, `DomainOrd`)
-    apStati = apStati.map(el => ({
-      value: el.DomainCode,
-      label: el.DomainTxt,
-    }))
     let apUmsetzungen = Array.from(store.table.ap_umsetzung_werte.values())
     apUmsetzungen = sortBy(apUmsetzungen, `DomainOrd`)
-    apUmsetzungen = apUmsetzungen.map(el => ({
+    return apUmsetzungen.map(el => ({
       value: el.DomainCode,
       label: el.DomainTxt,
     }))
+  }
+
+  get adressen() {
+    const { store } = this.props
     const adressen = Array.from(store.table.adresse.values())
     adressen.unshift({
       id: null,
       AdrName: ``,
     })
+    return adressen
+  }
+
+  get apStati() {
+    const { store } = this.props
+    let apStati = Array.from(store.table.ap_bearbstand_werte.values())
+    apStati = sortBy(apStati, `DomainOrd`)
+    return apStati.map(el => ({
+      value: el.DomainCode,
+      label: el.DomainTxt,
+    }))
+  }
+
+  render() {
+    const { store } = this.props
+    const { adb_eigenschaften } = store.table
     const { activeDataset } = store
     const ApArtId = (
       activeDataset
@@ -55,9 +108,9 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
       activeDataset.row.ApArtId :
       null
     )
-    let artwert = ``
+    let artwert = `Diese Art hat keinen Artwert`
     if (ApArtId && adb_eigenschaften.size > 0) {
-      artwert = adb_eigenschaften.get(ApArtId).Artwert
+      artwert = adb_eigenschaften.get(ApArtId).Artwert || `Diese Art hat keinen Artwert`
     }
     const apIds = Array.from(store.table.ap.keys())
     const dataSource = filter(Array.from(adb_eigenschaften.values()), r =>
@@ -70,45 +123,6 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
       }
       return name || ``
     }
-    const Container = styled.div`
-      height: 100%;
-    `
-    const FieldsContainer = styled.div`
-      padding-left: 10px;
-      padding-right: 10px;
-      overflow-x: auto;
-      height: 100%;
-      padding-bottom: 95px;
-    `
-    const FieldContainer = styled.div`
-      display: flex;
-      flex-direction: column;
-    `
-    const LabelPopoverRow = styled.div`
-      padding: 2px 5px 2px 5px;
-    `
-    const LabelPopoverTitleRow = styled(LabelPopoverRow)`
-      border-top-left-radius: 4px;
-      border-top-right-radius: 4px;
-      background-color: grey;
-    `
-    const LabelPopoverContentRow = styled(LabelPopoverRow)`
-      display: flex;
-      border-color: grey;
-      border-width: thin;
-      border-style: solid;
-      border-top-style: none;
-      &:last-child {
-        border-bottom-right-radius: 4px;
-        border-bottom-left-radius: 4px;
-      }
-    `
-    const LabelPopoverRowColumnLeft = styled.div`
-      width: 110px;
-    `
-    const LabelPopoverRowColumnRight = styled.div`
-      padding-left: 5px;
-    `
 
     return (
       <Container>
@@ -149,7 +163,7 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
               fieldName="ApStatus"
               value={activeDataset.row.ApStatus}
               errorText={activeDataset.valid.ApStatus}
-              dataSource={apStati}
+              dataSource={this.apStati}
               updatePropertyInDb={store.updatePropertyInDb}
             />
           </FieldContainer>
@@ -188,7 +202,7 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
               fieldName="ApUmsetzung"
               value={activeDataset.row.ApUmsetzung}
               errorText={activeDataset.valid.ApUmsetzung}
-              dataSource={apUmsetzungen}
+              dataSource={this.apUmsetzungen}
               updatePropertyInDb={store.updatePropertyInDb}
             />
           </FieldContainer>
@@ -197,7 +211,7 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
             fieldName="ApBearb"
             value={activeDataset.row.ApBearb}
             errorText={activeDataset.valid.ApBearb}
-            dataSource={adressen}
+            dataSource={this.adressen}
             valueProp="AdrId"
             labelProp="AdrName"
             updatePropertyInDb={store.updatePropertyInDb}
@@ -207,7 +221,7 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
               label="Artwert"
               fieldName="ApJahr"
               value={artwert}
-              type="number"
+              type="text"
               disabled
             />
           </FieldContainer>

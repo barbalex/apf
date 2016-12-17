@@ -8,6 +8,17 @@ import StrukturbaumContainer from './StrukturbaumContainer'
 import Daten from './Daten'
 import Karte from './Karte'
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+`
+const Content = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
+  height: 100%;
+`
+
 @inject(`store`)
 @observer
 class Projekte extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -39,16 +50,6 @@ class Projekte extends React.Component { // eslint-disable-line react/prefer-sta
     const strukturbaumIsVisible = projekteTabs.includes(`strukturbaum`)
     const datenIsVisible = projekteTabs.includes(`daten`)
     const karteIsVisible = projekteTabs.includes(`karte`)
-    const Container = styled.div`
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    `
-    const Content = styled.div`
-      display: flex;
-      flex-wrap: nowrap;
-      height: 100%;
-    `
 
     return (
       <Container>

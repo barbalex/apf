@@ -31,6 +31,15 @@ import Tpopkontrzaehl from './Tpopkontrzaehl'
 import Exporte from './Exporte'
 import Qk from './Qk'
 
+const Container = styled.div`
+  border-color: #424242;
+  border-width: 1px;
+  border-style: solid;
+  flex-basis: 600px;
+  flex-grow: 4;
+  flex-shrink: 1;
+`
+
 @inject(`store`)
 @observer
 class Daten extends Component { // eslint-disable-line react/prefer-stateless-function
@@ -86,14 +95,6 @@ class Daten extends Component { // eslint-disable-line react/prefer-stateless-fu
       key = activeDataset.table
     }
     const form = formObject[key] || standardForm
-    const Container = styled.div`
-      border-color: #424242;
-      border-width: 1px;
-      border-style: solid;
-      flex-basis: 600px;
-      flex-grow: 4;
-      flex-shrink: 1;
-    `
 
     return (
       <Container>

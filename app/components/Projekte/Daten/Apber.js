@@ -9,6 +9,17 @@ import DatePicker from '../../shared/DatePicker'
 import SelectField from '../../shared/SelectField'
 import FormTitle from '../../shared/FormTitle'
 
+const Container = styled.div`
+  height: 100%;
+`
+const FieldsContainer = styled.div`
+  padding-left: 10px;
+  padding-right: 10px;
+  overflow-x: auto;
+  height: 100%;
+  padding-bottom: 95px;
+`
+
 @inject(`store`)
 @observer
 class Apber extends Component { // eslint-disable-line react/prefer-stateless-function
@@ -17,34 +28,34 @@ class Apber extends Component { // eslint-disable-line react/prefer-stateless-fu
     store: PropTypes.object,
   }
 
-  render() {
+  get apErfkritWerte() {
     const { store } = this.props
-    const { activeDataset } = store
     let apErfkritWerte = Array.from(store.table.ap_erfkrit_werte.values())
     apErfkritWerte = sortBy(apErfkritWerte, `BeurteilOrd`)
-    apErfkritWerte = apErfkritWerte.map(el => ({
+    return apErfkritWerte.map(el => ({
       value: el.BeurteilId,
       label: el.BeurteilTxt,
     }))
-    const veraenGegenVorjahrWerte = [
-      { value: `+`, label: `+` },
-      { value: `-`, label: `-` },
-    ]
+  }
+
+  get adressen() {
+    const { store } = this.props
     const adressen = Array.from(store.table.adresse.values())
     adressen.unshift({
       id: null,
       AdrName: ``,
     })
-    const Container = styled.div`
-      height: 100%;
-    `
-    const FieldsContainer = styled.div`
-      padding-left: 10px;
-      padding-right: 10px;
-      overflow-x: auto;
-      height: 100%;
-      padding-bottom: 95px;
-    `
+    return adressen
+  }
+
+  render() {
+    const { store } = this.props
+    const { activeDataset } = store
+    const veraenGegenVorjahrWerte = [
+      { value: `+`, label: `+` },
+      { value: `-`, label: `-` },
+    ]
+
     return (
       <Container>
         <FormTitle title="AP-Bericht" />
@@ -63,7 +74,7 @@ class Apber extends Component { // eslint-disable-line react/prefer-stateless-fu
             fieldName="JBerBeurteilung"
             value={activeDataset.row.JBerBeurteilung}
             errorText={activeDataset.valid.JBerBeurteilung}
-            dataSource={apErfkritWerte}
+            dataSource={this.apErfkritWerte}
             updatePropertyInDb={store.updatePropertyInDb}
           />
           <Label label="Veränderung zum Vorjahr" />
@@ -165,7 +176,7 @@ class Apber extends Component { // eslint-disable-line react/prefer-stateless-fu
             fieldName="JBerBearb"
             value={activeDataset.row.JBerBearb}
             errorText={activeDataset.valid.JBerBearb}
-            dataSource={adressen}
+            dataSource={this.adressen}
             valueProp="AdrId"
             labelProp="AdrName"
             updatePropertyInDb={store.updatePropertyInDb}

@@ -4,7 +4,12 @@ import TextField from 'material-ui/TextField'
 import FontIcon from 'material-ui/FontIcon'
 import { greenA200 } from 'material-ui/styles/colors'
 import getUrls from 'get-urls'
+import styled from 'styled-components'
 import styles from './styles.css'
+
+const Container = styled.div`
+  display: flex;
+`
 
 @observer
 class MyTextFieldWithUrl extends Component { // eslint-disable-line react/prefer-stateless-function
@@ -33,9 +38,10 @@ class MyTextFieldWithUrl extends Component { // eslint-disable-line react/prefer
       updatePropertyInDb,
       disabled,
     } = this.props
-    const urls = getUrls(value)
+    const urls = value ? getUrls(value) : []
+
     return (
-      <div className={styles.container}>
+      <Container>
         <TextField
           floatingLabelText={`${label} (bitte "www." statt "http://" eingeben)`}
           type={type || `text`}
@@ -64,7 +70,7 @@ class MyTextFieldWithUrl extends Component { // eslint-disable-line react/prefer
             </FontIcon>
           ))
         }
-      </div>
+      </Container>
     )
   }
 }
