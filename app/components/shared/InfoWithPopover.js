@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { observer } from 'mobx-react'
 import Popover from 'material-ui/Popover'
 import FontIcon from 'material-ui/FontIcon'
-import styles from './styles.css'
+import styled from 'styled-components'
 
 @observer
 class InfoWithPopover extends Component {
@@ -24,17 +24,26 @@ class InfoWithPopover extends Component {
       popupOpen,
       popupAnchorEl,
     } = this.state
+
+    // DONT use styled because popupAnchorEl then seems to be at 0 0!!!!
+
     return (
-      <div className={styles.container}>
+      <div style={{ marginTop: `37px` }}>
         <FontIcon
           id="iconEl"
-          className={[`material-icons`, styles.icon].join(` `)}
+          className="material-icons"
           onClick={(event) => {
             event.preventDefault()
+            // TODO: this popup opens at 0 0!!!
+            // console.log(`event.currentTarget:`, event.currentTarget)
             this.setState({
               popupOpen: !popupOpen,
               popupAnchorEl: event.currentTarget,
             })
+          }}
+          style={{
+            cursor: `pointer`,
+            pointerEvents: `auto`,
           }}
         >
           info_outline

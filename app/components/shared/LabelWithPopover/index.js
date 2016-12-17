@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { observer } from 'mobx-react'
 import Popover from 'material-ui/Popover'
-import styles from './styles.css'
 
 @observer
 class LabelWithPopover extends Component {
@@ -25,15 +24,27 @@ class LabelWithPopover extends Component {
       popupOpen,
       popupAnchorEl,
     } = this.state
+
+    // DONT use styled because popupAnchorEl then seems to be at 0 0!!!!
+
     return (
       <div
-        className={styles.labelWithPopover}
         onClick={(event) => {
           event.preventDefault()
           this.setState({
             popupOpen: !popupOpen,
             popupAnchorEl: event.currentTarget,
           })
+        }}
+        style={{
+          marginTop: `10px`,
+          fontSize: `12px`,
+          color: `rgba(255, 255, 255, 0.498039)`,
+          userSelect: `none`,
+          paddingBottom: `8px`,
+          cursor: `pointer`,
+          pointerEvents: `auto`,
+          textDecoration: `underline`,
         }}
       >
         {label}
