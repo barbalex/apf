@@ -8,6 +8,17 @@ import Label from '../../shared/Label'
 import TextField from '../../shared/TextField'
 import FormTitle from '../../shared/FormTitle'
 
+const Container = styled.div`
+  height: 100%;
+`
+const FieldsContainer = styled.div`
+  padding-left: 10px;
+  padding-right: 10px;
+  overflow-x: auto;
+  height: 100%;
+  padding-bottom: 95px;
+`
+
 @inject(`store`)
 @observer
 class Popmassnber extends Component { // eslint-disable-line react/prefer-stateless-function
@@ -16,25 +27,19 @@ class Popmassnber extends Component { // eslint-disable-line react/prefer-statel
     store: PropTypes.object,
   }
 
-  render() {
+  get tpopmassnErfbeurtWerte() {
     const { store } = this.props
-    const { activeDataset } = store
     let tpopmassnErfbeurtWerte = Array.from(store.table.tpopmassn_erfbeurt_werte.values())
     tpopmassnErfbeurtWerte = sortBy(tpopmassnErfbeurtWerte, `BeurteilOrd`)
-    tpopmassnErfbeurtWerte = tpopmassnErfbeurtWerte.map(el => ({
+    return tpopmassnErfbeurtWerte.map(el => ({
       value: el.BeurteilId,
       label: el.BeurteilTxt,
     }))
-    const Container = styled.div`
-      height: 100%;
-    `
-    const FieldsContainer = styled.div`
-      padding-left: 10px;
-      padding-right: 10px;
-      overflow-x: auto;
-      height: 100%;
-      padding-bottom: 95px;
-    `
+  }
+
+  render() {
+    const { store } = this.props
+    const { activeDataset } = store
 
     return (
       <Container>
@@ -54,7 +59,7 @@ class Popmassnber extends Component { // eslint-disable-line react/prefer-statel
             fieldName="PopMassnBerErfolgsbeurteilung"
             value={activeDataset.row.PopMassnBerErfolgsbeurteilung}
             errorText={activeDataset.valid.PopMassnBerErfolgsbeurteilung}
-            dataSource={tpopmassnErfbeurtWerte}
+            dataSource={this.tpopmassnErfbeurtWerte}
             updatePropertyInDb={store.updatePropertyInDb}
           />
           <TextField

@@ -6,6 +6,26 @@ import TextField from '../../shared/TextField'
 import DatePicker from '../../shared/DatePicker'
 import FormTitle from '../../shared/FormTitle'
 
+const Container = styled.div`
+  height: 100%;
+`
+const FieldsContainer = styled.div`
+  padding-left: 10px;
+  padding-right: 10px;
+  overflow-x: auto;
+  height: 100%;
+  padding-bottom: 95px;
+`
+const Section = styled.div`
+  padding-top: 20px;
+  margin-bottom: -7px;
+  color: rgba(255, 255, 255, 0.298039);
+  font-weight: bold;
+  &:after {
+    content: ":";
+  }
+`
+
 @inject(`store`)
 @observer
 class Idealbiotop extends Component { // eslint-disable-line react/prefer-stateless-function
@@ -23,25 +43,6 @@ class Idealbiotop extends Component { // eslint-disable-line react/prefer-statel
   render() {
     const { store } = this.props
     const { activeDataset } = store
-    const Container = styled.div`
-      height: 100%;
-    `
-    const FieldsContainer = styled.div`
-      padding-left: 10px;
-      padding-right: 10px;
-      overflow-x: auto;
-      height: 100%;
-      padding-bottom: 95px;
-    `
-    const Section = styled.div`
-      padding-top: 20px;
-      margin-bottom: -7px;
-      color: rgba(255, 255, 255, 0.298039);
-      font-weight: bold;
-      &:after {
-        content: ":";
-      }
-    `
 
     return (
       <Container>

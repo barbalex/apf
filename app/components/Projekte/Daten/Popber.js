@@ -8,6 +8,17 @@ import Label from '../../shared/Label'
 import TextField from '../../shared/TextField'
 import FormTitle from '../../shared/FormTitle'
 
+const Container = styled.div`
+  height: 100%;
+`
+const FieldsContainer = styled.div`
+  padding-left: 10px;
+  padding-right: 10px;
+  overflow-x: auto;
+  height: 100%;
+  padding-bottom: 95px;
+`
+
 @inject(`store`)
 @observer
 class Popber extends Component { // eslint-disable-line react/prefer-stateless-function
@@ -16,25 +27,19 @@ class Popber extends Component { // eslint-disable-line react/prefer-stateless-f
     store: PropTypes.object,
   }
 
-  render() {
+  get popEntwicklungWerte() {
     const { store } = this.props
-    const { activeDataset } = store
     let popEntwicklungWerte = Array.from(store.table.pop_entwicklung_werte.values())
     popEntwicklungWerte = sortBy(popEntwicklungWerte, `EntwicklungOrd`)
-    popEntwicklungWerte = popEntwicklungWerte.map(el => ({
+    return popEntwicklungWerte.map(el => ({
       value: el.EntwicklungId,
       label: el.EntwicklungTxt,
     }))
-    const Container = styled.div`
-      height: 100%;
-    `
-    const FieldsContainer = styled.div`
-      padding-left: 10px;
-      padding-right: 10px;
-      overflow-x: auto;
-      height: 100%;
-      padding-bottom: 95px;
-    `
+  }
+
+  render() {
+    const { store } = this.props
+    const { activeDataset } = store
 
     return (
       <Container>
@@ -54,7 +59,7 @@ class Popber extends Component { // eslint-disable-line react/prefer-stateless-f
             fieldName="PopBerEntwicklung"
             value={activeDataset.row.PopBerEntwicklung}
             errorText={activeDataset.valid.PopBerEntwicklung}
-            dataSource={popEntwicklungWerte}
+            dataSource={this.popEntwicklungWerte}
             updatePropertyInDb={store.updatePropertyInDb}
           />
           <TextField

@@ -14,6 +14,27 @@ import appBaseUrl from '../../../modules/appBaseUrl'
 import zhGeojson from '../../../etc/ktZh.json'
 import isPointInsidePolygon from '../../../modules/isPointInsidePolygon'
 
+const Container = styled.div`
+  height: 100%;
+`
+const FieldsContainer = styled.div`
+  padding-left: 10px;
+  padding-right: 10px;
+  overflow-x: auto;
+  height: 100%;
+  padding-bottom: 95px;
+`
+const StyledCard = styled(Card)`
+  margin-bottom: 10px !important;
+`
+const Title = styled.div`
+  font-weight: bold;
+`
+const FilterField = styled(TextField)`
+  margin-top: -15px;
+  margin-bottom: 10px;
+`
+
 @inject(`store`)
 @observer
 class Qk extends Component { // eslint-disable-line react/prefer-stateless-function
@@ -191,27 +212,13 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
 
   render() {
     const { berichtjahr, messages, filter } = this.state
-    const messagesFiltered = filter ? messages.filter(m => m.hw.toLowerCase().includes(filter.toLowerCase())) : messages
-    const Container = styled.div`
-      height: 100%;
-    `
-    const FieldsContainer = styled.div`
-      padding-left: 10px;
-      padding-right: 10px;
-      overflow-x: auto;
-      height: 100%;
-      padding-bottom: 95px;
-    `
-    const StyledCard = styled(Card)`
-      margin-bottom: 10px !important;
-    `
-    const Title = styled.div`
-      font-weight: bold;
-    `
-    const FilterField = styled(TextField)`
-      margin-top: -15px;
-      margin-bottom: 10px;
-    `
+    const messagesFiltered = (
+      filter ?
+      messages.filter(m =>
+        m.hw.toLowerCase().includes(filter.toLowerCase())
+      ) :
+      messages
+    )
 
     return (
       <Container>

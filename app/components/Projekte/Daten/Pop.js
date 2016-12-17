@@ -9,6 +9,38 @@ import RadioButton from '../../shared/RadioButton'
 import Label from '../../shared/Label'
 import FormTitle from '../../shared/FormTitle'
 
+const Container = styled.div`
+  height: 100%;
+`
+const FieldsContainer = styled.div`
+  padding-left: 10px;
+  padding-right: 10px;
+  overflow-x: auto;
+  height: 100%;
+  padding-bottom: 95px;
+`
+const PopoverRow = styled.div`
+  padding: 2px 5px 2px 5px;
+`
+const PopoverContentRow = styled(PopoverRow)`
+  display: flex;
+  border-color: grey;
+  border-width: thin;
+  border-style: solid;
+  &:first-child {
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+  }
+  &:last-child {
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
+`
+const FieldWithInfoContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+`
+
 @inject(`store`)
 @observer
 class Pop extends Component { // eslint-disable-line react/prefer-stateless-function
@@ -17,41 +49,15 @@ class Pop extends Component { // eslint-disable-line react/prefer-stateless-func
     store: PropTypes.object,
   }
 
+  get apJahr() {
+    const { store } = this.props
+    const { activeDataset } = store
+    return store.table.ap.get(activeDataset.row.ApArtId).ApJahr
+  }
+
   render() {
     const { store } = this.props
     const { activeDataset } = store
-    const apJahr = store.table.ap.get(activeDataset.row.ApArtId).ApJahr
-    const Container = styled.div`
-      height: 100%;
-    `
-    const FieldsContainer = styled.div`
-      padding-left: 10px;
-      padding-right: 10px;
-      overflow-x: auto;
-      height: 100%;
-      padding-bottom: 95px;
-    `
-    const PopoverRow = styled.div`
-      padding: 2px 5px 2px 5px;
-    `
-    const PopoverContentRow = styled(PopoverRow)`
-      display: flex;
-      border-color: grey;
-      border-width: thin;
-      border-style: solid;
-      &:first-child {
-        border-top-right-radius: 4px;
-        border-top-left-radius: 4px;
-      }
-      &:last-child {
-        border-bottom-right-radius: 4px;
-        border-bottom-left-radius: 4px;
-      }
-    `
-    const FieldWithInfoContainer = styled.div`
-      display: flex;
-      flex-direction: row;
-    `
 
     return (
       <Container>
@@ -83,7 +89,7 @@ class Pop extends Component { // eslint-disable-line react/prefer-stateless-func
             </InfoWithPopover>
           </FieldWithInfoContainer>
           <Status
-            apJahr={apJahr}
+            apJahr={this.apJahr}
             herkunftFieldName="PopHerkunft"
             herkunftValue={activeDataset.row.PopHerkunft}
             bekanntSeitFieldName="PopBekanntSeit"

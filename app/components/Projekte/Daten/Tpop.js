@@ -12,6 +12,54 @@ import RadioButtonGroupWithInfo from '../../shared/RadioButtonGroupWithInfo'
 import Label from '../../shared/Label'
 import FormTitle from '../../shared/FormTitle'
 
+const LabelPopoverRow = styled.div`
+  padding: 2px 5px 2px 5px;
+`
+const LabelPopoverTitleRow = styled(LabelPopoverRow)`
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  background-color: grey;
+`
+const LabelPopoverContentRow = styled(LabelPopoverRow)`
+  display: flex;
+  border-color: grey;
+  border-width: thin;
+  border-style: solid;
+  border-top-style: none;
+  &:last-child {
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
+`
+const LabelPopoverRowColumnLeft = styled.div`
+  width: 170px;
+`
+const LabelPopoverRowColumnRight = styled.div`
+  padding-left: 5px;
+`
+const Container = styled.div`
+  height: 100%;
+`
+const FieldsContainer = styled.div`
+  padding-left: 10px;
+  padding-right: 10px;
+  overflow-x: auto;
+  height: 100%;
+  padding-bottom: 95px;
+`
+const FieldWithInfoContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+`
+const PopoverContentRow = styled.div`
+  padding: 2px 5px 2px 5px;
+  display: flex;
+  border-color: grey;
+  border-width: thin;
+  border-style: solid;
+  border-radius: 4px;
+`
+
 @inject(`store`)
 @observer
 class Tpop extends Component { // eslint-disable-line react/prefer-stateless-function
@@ -20,42 +68,31 @@ class Tpop extends Component { // eslint-disable-line react/prefer-stateless-fun
     store: PropTypes.object,
   }
 
-  render() {
+  get tpopApBerichtRelevantWerte() {
     const { store } = this.props
-    const { activeDataset } = store
-    const apArtId = store.table.pop.get(activeDataset.row.PopId).ApArtId
-    const apJahr = store.table.ap.get(apArtId).ApJahr
-    let tpopApBerichtRelevantWerte = Array.from(store.table.tpop_apberrelevant_werte.values())
-    tpopApBerichtRelevantWerte = tpopApBerichtRelevantWerte.map(t => ({
+    const tpopApBerichtRelevantWerte = Array.from(store.table.tpop_apberrelevant_werte.values())
+    return tpopApBerichtRelevantWerte.map(t => ({
       value: t.DomainCode,
       label: t.DomainTxt,
     }))
-    const LabelPopoverRow = styled.div`
-      padding: 2px 5px 2px 5px;
-    `
-    const LabelPopoverTitleRow = styled(LabelPopoverRow)`
-      border-top-left-radius: 4px;
-      border-top-right-radius: 4px;
-      background-color: grey;
-    `
-    const LabelPopoverContentRow = styled(LabelPopoverRow)`
-      display: flex;
-      border-color: grey;
-      border-width: thin;
-      border-style: solid;
-      border-top-style: none;
-      &:last-child {
-        border-bottom-right-radius: 4px;
-        border-bottom-left-radius: 4px;
-      }
-    `
-    const LabelPopoverRowColumnLeft = styled.div`
-      width: 170px;
-    `
-    const LabelPopoverRowColumnRight = styled.div`
-      padding-left: 5px;
-    `
-    const tpopAbBerRelevantInfoPopover = (
+  }
+
+  get gemeinden() {
+    const { store } = this.props
+    let gemeinden = Array.from(store.table.gemeinde.values())
+    gemeinden = sortBy(gemeinden, `GmdName`)
+    return gemeinden.map(el => el.GmdName)
+  }
+
+  get apJahr() {
+    const { store } = this.props
+    const { activeDataset } = store
+    const apArtId = store.table.pop.get(activeDataset.row.PopId).ApArtId
+    return store.table.ap.get(apArtId).ApJahr
+  }
+
+  get tpopAbBerRelevantInfoPopover() {
+    return (
       <Container>
         <LabelPopoverTitleRow>
           Legende
@@ -81,31 +118,11 @@ class Tpop extends Component { // eslint-disable-line react/prefer-stateless-fun
         </LabelPopoverContentRow>
       </Container>
     )
-    let gemeinden = Array.from(store.table.gemeinde.values())
-    gemeinden = sortBy(gemeinden, `GmdName`)
-    gemeinden = gemeinden.map(el => el.GmdName)
-    const Container = styled.div`
-      height: 100%;
-    `
-    const FieldsContainer = styled.div`
-      padding-left: 10px;
-      padding-right: 10px;
-      overflow-x: auto;
-      height: 100%;
-      padding-bottom: 95px;
-    `
-    const FieldWithInfoContainer = styled.div`
-      display: flex;
-      flex-direction: row;
-    `
-    const PopoverContentRow = styled.div`
-      padding: 2px 5px 2px 5px;
-      display: flex;
-      border-color: grey;
-      border-width: thin;
-      border-style: solid;
-      border-radius: 4px;
-    `
+  }
+
+  render() {
+    const { store } = this.props
+    const { activeDataset } = store
 
     return (
       <Container>
@@ -137,7 +154,7 @@ class Tpop extends Component { // eslint-disable-line react/prefer-stateless-fun
             </InfoWithPopover>
           </FieldWithInfoContainer>
           <Status
-            apJahr={apJahr}
+            apJahr={this.apJahr}
             herkunftFieldName="TPopHerkunft"
             herkunftValue={activeDataset.row.TPopHerkunft}
             bekanntSeitFieldName="TPopBekanntSeit"
@@ -167,9 +184,9 @@ class Tpop extends Component { // eslint-disable-line react/prefer-stateless-fun
           <RadioButtonGroupWithInfo
             fieldName="TPopApBerichtRelevant"
             value={activeDataset.row.TPopApBerichtRelevant}
-            dataSource={tpopApBerichtRelevantWerte}
+            dataSource={this.tpopApBerichtRelevantWerte}
             updatePropertyInDb={store.updatePropertyInDb}
-            popover={tpopAbBerRelevantInfoPopover}
+            popover={this.tpopAbBerRelevantInfoPopover}
           />
           <TextField
             label="X-Koordinaten"
@@ -190,11 +207,11 @@ class Tpop extends Component { // eslint-disable-line react/prefer-stateless-fun
             updatePropertyInDb={store.updatePropertyInDb}
           />
           <AutoComplete
-            hintText={gemeinden.length === 0 ? `lade Daten...` : ``}
+            hintText={this.gemeinden.length === 0 ? `lade Daten...` : ``}
             fullWidth
             floatingLabelText="Gemeinde"
             openOnFocus
-            dataSource={gemeinden}
+            dataSource={this.gemeinden}
             searchText={activeDataset.row.TPopGemeinde || ``}
             filter={AutoComplete.caseInsensitiveFilter}
             maxSearchResults={20}

@@ -8,6 +8,17 @@ import Label from '../../shared/Label'
 import TextField from '../../shared/TextField'
 import FormTitle from '../../shared/FormTitle'
 
+const Container = styled.div`
+  height: 100%;
+`
+const FieldsContainer = styled.div`
+  padding-left: 10px;
+  padding-right: 10px;
+  overflow-x: auto;
+  height: 100%;
+  padding-bottom: 95px;
+`
+
 @inject(`store`)
 @observer
 class Erfkrit extends Component { // eslint-disable-line react/prefer-stateless-function
@@ -16,25 +27,19 @@ class Erfkrit extends Component { // eslint-disable-line react/prefer-stateless-
     store: PropTypes.object,
   }
 
-  render() {
+  get apErfkritWerte() {
     const { store } = this.props
     let apErfkritWerte = Array.from(store.table.ap_erfkrit_werte.values())
     apErfkritWerte = sortBy(apErfkritWerte, `BeurteilOrd`)
-    apErfkritWerte = apErfkritWerte.map(el => ({
+    return apErfkritWerte.map(el => ({
       value: el.BeurteilId,
       label: el.BeurteilTxt,
     }))
+  }
+
+  render() {
+    const { store } = this.props
     const { activeDataset } = store
-    const Container = styled.div`
-      height: 100%;
-    `
-    const FieldsContainer = styled.div`
-      padding-left: 10px;
-      padding-right: 10px;
-      overflow-x: auto;
-      height: 100%;
-      padding-bottom: 95px;
-    `
 
     return (
       <Container>
@@ -45,7 +50,7 @@ class Erfkrit extends Component { // eslint-disable-line react/prefer-stateless-
             fieldName="ErfkritErreichungsgrad"
             value={activeDataset.row.ErfkritErreichungsgrad}
             errorText={activeDataset.valid.ErfkritErreichungsgrad}
-            dataSource={apErfkritWerte}
+            dataSource={this.apErfkritWerte}
             updatePropertyInDb={store.updatePropertyInDb}
           />
           <TextField
