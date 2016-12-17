@@ -8,11 +8,11 @@
 import React from 'react'
 import { observer, inject } from 'mobx-react'
 import { Map, Marker, Popup, ScaleControl, LayersControl } from 'react-leaflet'
+import styled from 'styled-components'
 // import Proj4leaflet from 'proj4leaflet'
 import Leaflet from 'leaflet'
 // import Proj4 from 'proj4'
 // import Proj4leaflet from 'proj4leaflet'
-import styles from './styles.css'
 
 import OsmColorLayer from './layers/OsmColor'
 import OsmBwLayer from './layers/OsmBw'
@@ -29,12 +29,23 @@ class Karte extends React.Component { // eslint-disable-line react/prefer-statel
       `EPSG:21781`,
       `+proj=somerc +lat_0=46.95240555555556 +lon_0=7.439583333333333 +k_0=1 +x_0=600000 +y_0=200000 +ellps=bessel +towgs84=674.374,15.056,405.346,0,0,0,0 +units=m +no_defs `
     )
+    const Container = styled.div`
+      border-color: #424242;
+      border-width: 1px;
+      border-style: solid;
+      flex-basis: 600px;
+      flex-grow: 6;
+      flex-shrink: 1;
+    `
+    const StyledMap = styled(Map)`
+      height: 100%;
+    `
+
     return (
-      <div className={styles.container}>
-        <Map
+      <Container>
+        <StyledMap
           center={position}
           zoom={13}
-          className={styles.map}
           CRS={crs}
           onClick={(e) => {
             console.log(`Lat, Lon : ` + e.latlng.lat + `, ` + e.latlng.lng)
@@ -60,8 +71,8 @@ class Karte extends React.Component { // eslint-disable-line react/prefer-statel
               </Marker>
             </LayersControl.Overlay>
           </LayersControl>
-        </Map>
-      </div>
+        </StyledMap>
+      </Container>
     )
   }
 }

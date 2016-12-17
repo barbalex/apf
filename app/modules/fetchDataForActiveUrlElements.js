@@ -21,7 +21,6 @@ export default (store) => {
       store.fetchTableByParentId(`apflora`, `apberuebersicht`, activeUrlElements.projekt)
     },
     apFolder() {
-      store.fetchTableByParentId(`apflora`, `ap`, activeUrlElements.projekt)
       store.fetchTable(`beob`, `adb_eigenschaften`)
     },
     ap() {
