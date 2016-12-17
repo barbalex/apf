@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import { observer } from 'mobx-react'
+import styled from 'styled-components'
+
 import RadioButtonGroup from '../RadioButtonGroup'
 import InfoWithPopover from '../InfoWithPopover'
-import styles from './styles.css'
 
 @observer
 class radioButtonGroupWithInfo extends Component { // eslint-disable-line react/prefer-stateless-function
@@ -23,20 +24,28 @@ class radioButtonGroupWithInfo extends Component { // eslint-disable-line react/
       updatePropertyInDb,
       popover,
     } = this.props
+    const Container = styled.div`
+      display: flex;
+      justify-content: space-between;
+    `
+    const ButtonGroup = styled.div`
+      flex-grow: 1;
+    `
+
     return (
-      <div className={styles.container}>
-        <div className={styles.buttonGroup}>
+      <Container>
+        <ButtonGroup>
           <RadioButtonGroup
             fieldName={fieldName}
             value={value}
             dataSource={dataSource}
             updatePropertyInDb={updatePropertyInDb}
           />
-        </div>
+        </ButtonGroup>
         <InfoWithPopover>
           {popover}
         </InfoWithPopover>
-      </div>
+      </Container>
     )
   }
 }
