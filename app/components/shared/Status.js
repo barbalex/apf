@@ -1,9 +1,10 @@
 import React, { Component, PropTypes } from 'react'
 import { observer } from 'mobx-react'
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton'
-import TextField from '../TextField'
-import Label from '../Label'
-import styles from './styles.css'
+import styled from 'styled-components'
+
+import TextField from './TextField'
+import Label from './Label'
 
 @observer
 class Status extends Component { // eslint-disable-line react/prefer-stateless-function
@@ -40,6 +41,20 @@ class Status extends Component { // eslint-disable-line react/prefer-stateless-f
       apJahr &&
       (apJahr > bekanntSeitValue)
     )
+    const StatusContainer = styled.div`
+      padding-top: 10px;
+    `
+    const HerkunftContainer = styled.div`
+      display: flex;
+      margin-top: -2px;
+    `
+    const HerkunftColumnContainer = styled.div`
+      padding-right: 25px;
+    `
+    const GroupLabelContainer = styled.div`
+      padding-bottom: 2px;
+    `
+
     return (
       <div>
         <TextField
@@ -51,11 +66,11 @@ class Status extends Component { // eslint-disable-line react/prefer-stateless-f
           updateProperty={updateProperty}
           updatePropertyInDb={updatePropertyInDb}
         />
-        <div className={styles.status}>
+        <StatusContainer>
           <Label label="Status" />
-          <div className={styles.herkunft}>
-            <div className={styles.herkunftColumn}>
-              <div className={styles.groupLabel}>ursprünglich:</div>
+          <HerkunftContainer>
+            <HerkunftColumnContainer>
+              <GroupLabelContainer>ursprünglich:</GroupLabelContainer>
               <RadioButtonGroup
                 name={herkunftFieldName}
                 valueSelected={valueSelected}
@@ -78,9 +93,9 @@ class Status extends Component { // eslint-disable-line react/prefer-stateless-f
                   disabled={!bekanntSeitValue && bekanntSeitValue !== 0}
                 />
               </RadioButtonGroup>
-            </div>
-            <div className={styles.herkunftColumn}>
-              <div className={styles.groupLabel}>angesiedelt:</div>
+            </HerkunftColumnContainer>
+            <HerkunftColumnContainer>
+              <GroupLabelContainer>angesiedelt:</GroupLabelContainer>
               <RadioButtonGroup
                 name={herkunftFieldName}
                 valueSelected={valueSelected}
@@ -109,9 +124,9 @@ class Status extends Component { // eslint-disable-line react/prefer-stateless-f
                   disabled={!bekanntSeitValue && bekanntSeitValue !== 0}
                 />
               </RadioButtonGroup>
-            </div>
-            <div className={styles.herkunftColumn}>
-              <div className={styles.groupLabel}>potenziell:</div>
+            </HerkunftColumnContainer>
+            <HerkunftColumnContainer>
+              <GroupLabelContainer>potenziell:</GroupLabelContainer>
               <RadioButtonGroup
                 name={herkunftFieldName}
                 valueSelected={valueSelected}
@@ -128,9 +143,9 @@ class Status extends Component { // eslint-disable-line react/prefer-stateless-f
                   disabled={!bekanntSeitValue && bekanntSeitValue !== 0}
                 />
               </RadioButtonGroup>
-            </div>
-          </div>
-        </div>
+            </HerkunftColumnContainer>
+          </HerkunftContainer>
+        </StatusContainer>
       </div>
     )
   }

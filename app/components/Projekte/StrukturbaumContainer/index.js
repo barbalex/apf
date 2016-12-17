@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import styled from 'styled-components'
 
-import styles from './styles.css'
 import LabelFilter from './LabelFilter'
 import Strukturbaum from './Strukturbaum'
 import CmProjekt from './contextmenu/Projekt'
@@ -74,12 +73,39 @@ class StrukturbaumContainer extends Component { // eslint-disable-line react/pre
 
   render() {
     const { activeUrlElements } = this.props.store
+    const StyledContainer = styled.div`
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      flex-grow: 1;
+      flex-shrink: 1;
+      flex-basis: 500px;
+      border-color: #424242;
+      border-width: 1px;
+      border-style: solid;
+    `
+    const ContainerExporte = styled(StyledContainer)`
+      flex-basis: 200px;
+      flex-grow: 0;
+      flex-shrink: 0;
+    `
+    const Container = activeUrlElements.exporte ? ContainerExporte : StyledContainer
+    const LabelFilterContainer = styled.div`
+      padding-right: 30px;
+    `
+
     return (
-      <div className={activeUrlElements.exporte ? styles.containerExporte : styles.container}>
-        <div className={styles.labelFilter}>
+      <Container>
+        <LabelFilterContainer>
           <LabelFilter />
-        </div>
-        <div className={styles.strukturbaum} ref={(c) => { this.tree = c }}>
+        </LabelFilterContainer>
+        <div
+          style={{
+            flexGrow: 1,
+            flexBasis: `100%`,
+          }}
+          ref={(c) => { this.tree = c }}
+        >
           <Strukturbaum />
         </div>
         <CmProjekt onClick={this.handleClick} />
@@ -122,7 +148,7 @@ class StrukturbaumContainer extends Component { // eslint-disable-line react/pre
         <CmTpopmassnber onClick={this.handleClick} />
         <CmTpopmassnFolder onClick={this.handleClick} />
         <CmTpopmassn onClick={this.handleClick} />
-      </div>
+      </Container>
     )
   }
 }

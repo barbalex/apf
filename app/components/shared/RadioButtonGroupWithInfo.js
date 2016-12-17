@@ -2,8 +2,8 @@ import React, { Component, PropTypes } from 'react'
 import { observer } from 'mobx-react'
 import styled from 'styled-components'
 
-import RadioButtonGroup from '../RadioButtonGroup'
-import InfoWithPopover from '../InfoWithPopover'
+import RadioButtonGroup from './RadioButtonGroup'
+import InfoWithPopover from './InfoWithPopover'
 
 @observer
 class radioButtonGroupWithInfo extends Component { // eslint-disable-line react/prefer-stateless-function
