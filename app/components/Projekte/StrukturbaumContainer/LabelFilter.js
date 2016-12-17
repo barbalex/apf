@@ -3,9 +3,9 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import TextField from 'material-ui/TextField'
+import styled from 'styled-components'
 
-import tables from '../../../../modules/tables'
-import styles from './styles.css'
+import tables from '../../../modules/tables'
 
 @inject(`store`)
 @observer
@@ -32,15 +32,19 @@ class LabelFilter extends Component { // eslint-disable-line react/prefer-statel
         }
       }
     }
+    const FilterField = styled(TextField)`
+      margin-top: -0.6em;
+      padding: 0 0.8em 0 0.8em;
+    `
+
     return (
-      <TextField
+      <FilterField
         floatingLabelText={labelText}
         fullWidth
         value={filterValue || ``}
         onChange={(event, val) =>
           store.updateLabelFilter(filteredTable, val)
         }
-        className={styles.filterField}
       />
     )
   }

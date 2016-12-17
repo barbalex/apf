@@ -10,6 +10,7 @@ import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import { AutoSizer, List } from 'react-virtualized'
 import { ContextMenuTrigger } from 'react-contextmenu'
+import styled from 'styled-components'
 
 import getNrOfNodeRows from '../../../../modules/getNrOfNodeRows'
 import isNodeInActiveNodePath from '../../../../modules/isNodeInActiveNodePath'
@@ -25,6 +26,10 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
 
   render() {  // eslint-disable-line class-methods-use-this
     const { store } = this.props
+    const Container = styled.div`
+      height: 100%;
+      font-family: 'Roboto Mono', monospace;
+    `
 
     if (
       !store
