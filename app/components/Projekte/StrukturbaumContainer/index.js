@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
+import styled from 'styled-components'
+
 import styles from './styles.css'
 import LabelFilter from './LabelFilter'
 import Strukturbaum from './Strukturbaum'
