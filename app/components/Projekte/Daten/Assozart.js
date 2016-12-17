@@ -1,11 +1,23 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
+import sortBy from 'lodash/sortBy'
 import styled from 'styled-components'
 
 import filter from 'lodash/filter'
 import TextField from '../../shared/TextField'
 import AutoComplete from '../../shared/Autocomplete'
 import FormTitle from '../../shared/FormTitle'
+
+const Container = styled.div`
+  height: 100%;
+`
+const FieldsContainer = styled.div`
+  padding-left: 10px;
+  padding-right: 10px;
+  overflow-x: auto;
+  height: 100%;
+  padding-bottom: 95px;
+`
 
 @inject(`store`)
 @observer
@@ -15,16 +27,23 @@ class Assozart extends Component { // eslint-disable-line react/prefer-stateless
     store: PropTypes.object,
   }
 
-  render() {
+  get artList() {
     const { store } = this.props
     const { adb_eigenschaften } = store.table
     const { activeDataset } = store
     const sisfNrOfAp = Array.from(store.table.assozart.values()).filter(a =>
       a.AaApArtId === activeDataset.row.AaApArtId
     )
-    const dataSource = filter(Array.from(adb_eigenschaften.values()), r =>
+    const artList = filter(Array.from(adb_eigenschaften.values()), r =>
       !sisfNrOfAp.includes(r.TaxonomieId) || r.TaxonomieId === activeDataset.row.AaSisfNr
     )
+    return sortBy(artList, `Artname`)
+  }
+
+  render() {
+    const { store } = this.props
+    const { adb_eigenschaften } = store.table
+    const { activeDataset } = store
     const artname = () => {
       let name
       if (activeDataset.row.AaSisfNr && adb_eigenschaften.size > 0) {
@@ -32,16 +51,6 @@ class Assozart extends Component { // eslint-disable-line react/prefer-stateless
       }
       return name || ``
     }
-    const Container = styled.div`
-      height: 100%;
-    `
-    const FieldsContainer = styled.div`
-      padding-left: 10px;
-      padding-right: 10px;
-      overflow-x: auto;
-      height: 100%;
-      padding-bottom: 95px;
-    `
 
     return (
       <Container>
@@ -53,7 +62,11 @@ class Assozart extends Component { // eslint-disable-line react/prefer-stateless
             value={activeDataset.row.AaSisfNr}
             valueText={artname()}
             errorText={activeDataset.valid.ApArtId}
-            dataSource={dataSource}
+            dataSource={this.artList}
+            dataSourceConfig={{
+              value: `TaxonomieId`,
+              text: `Artname`,
+            }}
             updatePropertyInDb={store.updatePropertyInDb}
           />
           <TextField

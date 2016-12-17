@@ -46,7 +46,7 @@ class MyAutocomplete extends Component { // eslint-disable-line react/prefer-sta
           this.setState({ searchText: val })
         }}
         onNewRequest={val =>
-          updatePropertyInDb(fieldName, val.id)
+          updatePropertyInDb(fieldName, val[dataSourceConfig.value])
         }
       />
     )

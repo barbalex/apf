@@ -6,6 +6,17 @@ import TextField from '../../shared/TextField'
 import TextFieldWithUrl from '../../shared/TextFieldWithUrl'
 import FormTitle from '../../shared/FormTitle'
 
+const Container = styled.div`
+  height: 100%;
+`
+const FieldsContainer = styled.div`
+  padding-left: 10px;
+  padding-right: 10px;
+  overflow-x: auto;
+  height: 100%;
+  padding-bottom: 95px;
+`
+
 @inject(`store`)
 @observer
 class Ber extends Component { // eslint-disable-line react/prefer-stateless-function
@@ -17,16 +28,6 @@ class Ber extends Component { // eslint-disable-line react/prefer-stateless-func
   render() {
     const { store } = this.props
     const { activeDataset } = store
-    const Container = styled.div`
-      height: 100%;
-    `
-    const FieldsContainer = styled.div`
-      padding-left: 10px;
-      padding-right: 10px;
-      overflow-x: auto;
-      height: 100%;
-      padding-bottom: 95px;
-    `
 
     return (
       <Container>
@@ -55,17 +56,6 @@ class Ber extends Component { // eslint-disable-line react/prefer-stateless-func
             fieldName="BerTitel"
             value={activeDataset.row.BerTitel}
             errorText={activeDataset.valid.BerTitel}
-            type="text"
-            multiLine
-            fullWidth
-            updateProperty={store.updateProperty}
-            updatePropertyInDb={store.updatePropertyInDb}
-          />
-          <TextField
-            label="URL"
-            fieldName="BerURL"
-            value={activeDataset.row.BerURL}
-            errorText={activeDataset.valid.BerURL}
             type="text"
             multiLine
             fullWidth

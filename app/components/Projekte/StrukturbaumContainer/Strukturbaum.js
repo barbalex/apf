@@ -77,7 +77,7 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
       font-weight: 900;
     `
     const StyledSymbolOpenSpan = styled(StyledSymbolSpan)`
-      margin-top: -0.2em;
+      /*margin-top: -0.2em; only necessary on mac!!!*/
       font-size: 1.4em;
     `
     const StyledTextSpan = styled.span`
