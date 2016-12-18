@@ -15,6 +15,72 @@ import styled from 'styled-components'
 import getNrOfNodeRows from '../../../modules/getNrOfNodeRows'
 import isNodeInActiveNodePath from '../../../modules/isNodeInActiveNodePath'
 
+const Container = styled.div`
+  height: 100%;
+  font-family: 'Roboto Mono', monospace;
+  ul {
+    margin: 0;
+    list-style: none;
+    padding: 0 0 0 1.1em;
+  }
+`
+const ListContainer = styled(List)`
+  font-family: 'Roboto Mono', monospace;
+  font-size: 14px;
+  font-weight: normal;
+  * {
+    box-sizing: border-box;
+    font-size: 14px;
+    font-weight: normal;
+  }
+  &:focus {
+    outline-color: rgb(48, 48, 48) !important;
+  }
+`
+const TopUl = styled.ul``
+const TopUlForPathLength1 = styled(TopUl)`
+  padding: 0 0 0 0.5em !important;
+`
+const StyledNode = styled.div`
+  height: 23px;
+  max-height: 23px;
+  box-sizing: border-box;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  white-space: nowrap;
+  user-select: none;
+  font-size: 1.1em;
+  cursor: pointer;
+  color: rgb(247, 247, 247);
+  &:hover {
+    color: #b3d4fc;
+  }
+`
+const StyledNodeInActiveNodePath = styled(StyledNode)`
+  font-weight: 900;
+  color: rgb(255, 94, 94);
+  font-size: 14px;
+`
+const StyledSymbolSpan = styled.span`
+  margin-right: 0;
+  font-weight: 900;
+`
+const StyledSymbolOpenSpan = styled(StyledSymbolSpan)`
+  /*margin-top: -0.2em; only necessary on mac!!!*/
+  font-size: 1.4em;
+`
+const StyledTextSpan = styled.span`
+  padding-left: .5em;
+`
+const StyledTextInActiveNodePathSpan = styled(StyledTextSpan)`
+  font-weight: 900;
+`
+const LoadingDiv = styled.div`
+  padding-left: 15px;
+  font-size: 14px;
+`
+
 @inject(`store`)
 @observer
 class Strukturbaum extends Component { // eslint-disable-line react/prefer-stateless-function
@@ -25,71 +91,6 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
 
   render() {  // eslint-disable-line class-methods-use-this
     const { store } = this.props
-    const Container = styled.div`
-      height: 100%;
-      font-family: 'Roboto Mono', monospace;
-      ul {
-        margin: 0;
-        list-style: none;
-        padding: 0 0 0 1.1em;
-      }
-    `
-    const ListContainer = styled(List)`
-      font-family: 'Roboto Mono', monospace;
-      font-size: 14px;
-      font-weight: normal;
-      * {
-        box-sizing: border-box;
-        font-size: 14px;
-        font-weight: normal;
-      }
-      &:focus {
-        outline-color: rgb(48, 48, 48) !important;
-      }
-    `
-    const TopUl = styled.ul``
-    const TopUlForPathLength1 = styled(TopUl)`
-      padding: 0 0 0 0.5em !important;
-    `
-    const StyledNode = styled.div`
-      height: 23px;
-      max-height: 23px;
-      box-sizing: border-box;
-      margin: 0;
-      display: flex;
-      flex-direction: row;
-      white-space: nowrap;
-      user-select: none;
-      font-size: 1.1em;
-      cursor: pointer;
-      color: rgb(247, 247, 247);
-      &:hover {
-        color: #b3d4fc;
-      }
-    `
-    const StyledNodeInActiveNodePath = styled(StyledNode)`
-      font-weight: 900;
-      color: rgb(255, 94, 94);
-      font-size: 14px;
-    `
-    const StyledSymbolSpan = styled.span`
-      margin-right: 0;
-      font-weight: 900;
-    `
-    const StyledSymbolOpenSpan = styled(StyledSymbolSpan)`
-      /*margin-top: -0.2em; only necessary on mac!!!*/
-      font-size: 1.4em;
-    `
-    const StyledTextSpan = styled.span`
-      padding-left: .5em;
-    `
-    const StyledTextInActiveNodePathSpan = styled(StyledTextSpan)`
-      font-weight: 900;
-    `
-    const LoadingDiv = styled.div`
-      padding-left: 15px;
-      font-size: 14px;
-    `
 
     if (
       !store
@@ -117,9 +118,7 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
     const scrolltop = (treeHeightAboveActiveNode - roomAboveClick) + 10
 
     const rowRenderer = ({ key, index }) =>
-      <div
-        key={key}
-      >
+      <div key={key}>
         {renderNode(store.projektNodes[index], index)}
       </div>
 
