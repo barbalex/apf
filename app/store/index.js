@@ -148,6 +148,32 @@ class Store extends singleton {
     this.node.nodeLabelFilter.set(table, value)
   }
 
+  @action
+  insertDataset = (table, parentId) {
+    if (!table) {
+      return console.log(`Error in action insertDataset: no table passed`)
+    }
+    // insert new dataset in db and fetch id
+    const tableMetadata = tables.find(t => t.table === table)
+    if (!tableMetadata) {
+      return console.log(`Error in action insertDataset: no table meta data found for table "${table}"`)
+    }
+    // TODO: for Projekt use /insert/apflora/tabelle=${table}/user={user}
+    let parentIdField
+    let parentId
+    axios.post(`${apiBaseUrl}/insert/apflora/tabelle=${table}/feld={feld}/wert={wert}/user={user}`)
+      .catch((error) => {
+        row[key] = oldValue
+        this.app.errors.unshift(error)
+        setTimeout(() => {
+          this.app.errors.pop()
+        }, 1000 * 10)
+        console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
+      })
+    // create new active dataset using new id
+
+  }
+
   // updates data in store
   @action
   updateProperty = (key, valuePassed) => {
