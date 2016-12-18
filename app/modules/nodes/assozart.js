@@ -22,6 +22,7 @@ export default (store, apArtId) => {
       nodeType: `table`,
       menuType: `assozart`,
       id: el.AaId,
+      parentId: el.AaApArtId,
       label,
       expanded: el.AaId === activeUrlElements.assozart,
       url: [`Projekte`, projId, `Arten`, el.AaApArtId, `assoziierte-Arten`, el.AaId],

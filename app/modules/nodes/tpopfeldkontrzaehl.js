@@ -22,6 +22,7 @@ export default ({ store, projId, apArtId, popId, tpopId, tpopkontrId }) => {
       nodeType: `table`,
       menuType: `tpopfeldkontrzaehl`,
       id: el.TPopKontrZaehlId,
+      parentId: tpopkontrId,
       label: `${el.Anzahl || `(keine Anzahl)`} ${zaehleinheitTxt || `(keine Einheit)`} (${methodeTxt || `keine Methode`})`,
       expanded: el.TPopKontrZaehlId === activeUrlElements.tpopfeldkontrzaehl,
       url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, popId, `Teil-Populationen`, tpopId, `Feld-Kontrollen`, tpopkontrId, `Zaehlungen`, el.TPopKontrZaehlId],

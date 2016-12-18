@@ -23,6 +23,7 @@ export default (store, apArtId) => {
       nodeType: `table`,
       menuType: `ber`,
       id: el.BerId,
+      parentId: el.ApArtId,
       label: `${el.BerJahr || `(kein Jahr)`}: ${el.BerTitel || `(kein Titel)`}`,
       expanded: el.BerId === activeUrlElements.ber,
       url: [`Projekte`, projId, `Arten`, el.ApArtId, `Berichte`, el.BerId],

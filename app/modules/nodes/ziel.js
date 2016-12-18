@@ -27,6 +27,7 @@ export default (store, jahr) => {
       nodeType: `table`,
       menuType: `ziel`,
       id: el.ZielId,
+      parentId: el.ApArtId,
       label: `${el.ZielBezeichnung || `(kein Ziel)`} (${zieltypTxt})`,
       expanded: el.ZielId === activeUrlElements.ziel,
       url: [`Projekte`, projId, `Arten`, el.ApArtId, `AP-Ziele`, el.ZielJahr, el.ZielId],

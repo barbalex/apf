@@ -16,6 +16,7 @@ export default ({ store, projId, apArtId, popId }) => {
       nodeType: `table`,
       menuType: `popber`,
       id: el.PopBerId,
+      parentId: popId,
       label: `${el.PopBerJahr || `(kein Jahr)`}: ${entwicklungTxt || `(nicht beurteilt)`}`,
       expanded: el.PopBerId === activeUrlElements.popber,
       url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, popId, `Kontroll-Berichte`, el.PopBerId],

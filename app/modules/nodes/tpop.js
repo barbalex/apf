@@ -24,6 +24,7 @@ export default ({ store, projId, apArtId, popId }) => {
       nodeType: `table`,
       menuType: `tpop`,
       id: el.TPopId,
+      parentId: el.PopId,
       label: `${el.TPopNr || `(keine Nr)`}: ${el.TPopFlurname || `(kein Flurname)`}`,
       expanded: el.TPopId === activeUrlElements.tpop,
       url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, el.PopId, `Teil-Populationen`, el.TPopId],

@@ -31,6 +31,7 @@ export default (store) => {
       nodeType: `table`,
       menuType: `ap`,
       id: el.ApArtId,
+      parentId: el.ProjId,
       label,
       expanded: el.ApArtId === activeUrlElements.ap,
       url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId],

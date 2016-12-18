@@ -16,6 +16,7 @@ export default ({ store, projId, apArtId, popId }) => {
       nodeType: `table`,
       menuType: `popmassnber`,
       id: el.PopMassnBerId,
+      parentId: popId,
       label: `${el.PopMassnBerJahr || `(kein Jahr)`}: ${beurteilTxt || `(nicht beurteilt)`}`,
       expanded: el.PopMassnBerId === activeUrlElements.popmassnber,
       url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, popId, `Massnahmen-Berichte`, el.PopMassnBerId],

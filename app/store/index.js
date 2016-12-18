@@ -165,9 +165,9 @@ class Store extends singleton {
     if (!idField) {
       return console.log(`new dataset not created as no idField could be found`)
     }
-    const { user } = this.app
-    axios.post(`${apiBaseUrl}/insert/apflora/tabelle=${table}/feld=${parentIdField}/wert=${parentId}/user=${user}`)
-      .then((row) => {
+    axios.post(`${apiBaseUrl}/apflora/${table}/${parentIdField}/${parentId}`)
+      .then((result) => {
+        const row = result.data
         console.log(`row:`, row)
         // insert this dataset in store.table
         this.table[table].set(row[idField], row)

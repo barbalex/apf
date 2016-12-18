@@ -20,6 +20,7 @@ export default (store, apArtId) => {
       nodeType: `table`,
       menuType: `pop`,
       id: el.PopId,
+      parentId: el.ApArtId,
       label: `${el.PopNr || `(keine Nr)`}: ${el.PopName || `(kein Name)`}`,
       expanded: el.PopId === activeUrlElements.pop,
       url: [`Projekte`, projId, `Arten`, el.ApArtId, `Populationen`, el.PopId],

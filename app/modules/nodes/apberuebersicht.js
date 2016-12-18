@@ -19,6 +19,7 @@ export default (store) => {
     nodeType: `table`,
     menuType: `apberuebersicht`,
     id: el.JbuJahr,
+    parentId: el.ProjId,
     label: el.JbuJahr,
     expanded: el.JbuJahr === activeUrlElements.apberuebersicht,
     url: [`Projekte`, el.ProjId, `AP-Berichte`, el.JbuJahr],

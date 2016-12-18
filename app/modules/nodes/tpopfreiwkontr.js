@@ -15,6 +15,7 @@ export default ({ store, projId, apArtId, popId, tpopId }) => {
       nodeType: `table`,
       menuType: `tpopfreiwkontr`,
       id: el.TPopKontrId,
+      parentId: tpopId,
       label: `${el.TPopKontrJahr || `(kein Jahr)`}`,
       expanded: el.TPopKontrId === activeUrlElements.tpopfreiwkontr,
       url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, popId, `Teil-Populationen`, tpopId, `Freiwilligen-Kontrollen`, el.TPopKontrId],

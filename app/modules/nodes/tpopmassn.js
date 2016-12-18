@@ -16,6 +16,7 @@ export default ({ store, projId, apArtId, popId, tpopId }) => {
       nodeType: `table`,
       menuType: `tpopmassn`,
       id: el.TPopMassnId,
+      parentId: tpopId,
       label: `${el.TPopMassnJahr || `(kein Jahr)`}: ${massnTypTxt || `(kein Typ)`}`,
       expanded: el.TPopMassnId === activeUrlElements.tpopmassn,
       url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, popId, `Teil-Populationen`, tpopId, `Massnahmen`, el.TPopMassnId],

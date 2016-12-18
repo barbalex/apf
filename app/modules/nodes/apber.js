@@ -25,6 +25,7 @@ export default (store, apArtId) => {
       nodeType: `table`,
       menuType: `apber`,
       id: el.JBerId,
+      parentId: el.ApArtId,
       label: el.JBerJahr || `(kein Jahr)`,
       expanded: el.JBerJahr === activeUrlElements.apber,
       url: [`Projekte`, projId, `Arten`, el.ApArtId, `AP-Berichte`, el.JBerId],

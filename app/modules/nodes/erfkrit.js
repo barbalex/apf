@@ -18,6 +18,7 @@ export default (store, apArtId) => {
       nodeType: `table`,
       menuType: `erfkrit`,
       id: el.ErfkritId,
+      parentId: el.ApArtId,
       label: `${beurteilTxt || `(nicht beurteilt)`}: ${el.ErfkritTxt || `(keine Kriterien erfasst)`}`,
       expanded: el.ErfkritId === activeUrlElements.erfkrit,
       url: [`Projekte`, projId, `Arten`, el.ApArtId, `AP-Erfolgskriterien`, el.ErfkritId],
