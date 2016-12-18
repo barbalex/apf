@@ -5,10 +5,13 @@ import FontIcon from 'material-ui/FontIcon'
 import { greenA200 } from 'material-ui/styles/colors'
 import getUrls from 'get-urls'
 import styled from 'styled-components'
-import styles from './styles.css'
 
 const Container = styled.div`
   display: flex;
+`
+const StyledFontIcon = styled(FontIcon)`
+  margin-top: 33px;
+  cursor: pointer;
 `
 
 @observer
@@ -59,15 +62,15 @@ class MyTextFieldWithUrl extends Component { // eslint-disable-line react/prefer
         />
         {
           urls.map((url, index) => (
-            <FontIcon
-              className={[`material-icons`, styles.icon].join(` `)}
+            <StyledFontIcon
+              className={`material-icons`}
               onClick={() => window.open(url, `_blank`)}
               hoverColor={greenA200}
               title={`${url} öffnen`}
               key={index}
             >
               open_in_new
-            </FontIcon>
+            </StyledFontIcon>
           ))
         }
       </Container>
