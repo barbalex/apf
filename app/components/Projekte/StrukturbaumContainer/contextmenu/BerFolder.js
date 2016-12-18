@@ -8,7 +8,7 @@ const BerFolder = ({ onClick }) =>
       onClick={onClick}
       data={{
         action: `insert`,
-        table: `assozart`,
+        table: `ber`,
       }}
     >
       neu
