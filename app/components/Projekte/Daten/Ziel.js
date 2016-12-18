@@ -8,6 +8,17 @@ import Label from '../../shared/Label'
 import TextField from '../../shared/TextField'
 import FormTitle from '../../shared/FormTitle'
 
+const Container = styled.div`
+  height: 100%;
+`
+const FieldsContainer = styled.div`
+  padding-left: 10px;
+  padding-right: 10px;
+  overflow-x: auto;
+  height: 100%;
+  padding-bottom: 95px;
+`
+
 @inject(`store`)
 @observer
 class Ziel extends Component { // eslint-disable-line react/prefer-stateless-function
@@ -16,25 +27,20 @@ class Ziel extends Component { // eslint-disable-line react/prefer-stateless-fun
     store: PropTypes.object,
   }
 
-  render() {
+  get zielTypWerte() {
     const { store } = this.props
-    const { activeDataset } = store
-    let zielTypWerte = Array.from(store.table.ziel_typ_werte.values())
-    zielTypWerte = sortBy(zielTypWerte, `ZieltypOrd`)
-    zielTypWerte = zielTypWerte.map(el => ({
+    let werte = Array.from(store.table.ziel_typ_werte.values())
+    werte = sortBy(werte, `ZieltypOrd`)
+    werte = werte.map(el => ({
       value: el.ZieltypId,
       label: el.ZieltypTxt,
     }))
-    const Container = styled.div`
-      height: 100%;
-    `
-    const FieldsContainer = styled.div`
-      padding-left: 10px;
-      padding-right: 10px;
-      overflow-x: auto;
-      height: 100%;
-      padding-bottom: 95px;
-    `
+    return werte
+  }
+
+  render() {
+    const { store } = this.props
+    const { activeDataset } = store
 
     return (
       <Container>
@@ -54,7 +60,7 @@ class Ziel extends Component { // eslint-disable-line react/prefer-stateless-fun
             fieldName="ZielTyp"
             value={activeDataset.row.ZielTyp}
             errorText={activeDataset.valid.ZielTyp}
-            dataSource={zielTypWerte}
+            dataSource={this.zielTypWerte}
             updatePropertyInDb={store.updatePropertyInDb}
           />
           <TextField

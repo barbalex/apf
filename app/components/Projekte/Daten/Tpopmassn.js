@@ -43,15 +43,25 @@ class Tpopmassn extends Component { // eslint-disable-line react/prefer-stateles
     return werte
   }
 
-  render() {
+  get adressen() {
     const { store } = this.props
-    const { activeDataset } = store
-    const adressen = Array.from(store.table.adresse.values())
+    const adressen = sortBy(Array.from(store.table.adresse.values()), `AdrName`)
     adressen.unshift({
       id: null,
       AdrName: ``,
     })
-    const artnamen = Array.from(store.table.adb_eigenschaften.values()).map(a => a.Artname).sort()
+    return adressen
+  }
+
+  get artnamen() {
+    const { store } = this.props
+    const namen = Array.from(store.table.adb_eigenschaften.values())
+    return namen.map(a => a.Artname).sort()
+  }
+
+  render() {
+    const { store } = this.props
+    const { activeDataset } = store
 
     return (
       <Container>
@@ -91,7 +101,7 @@ class Tpopmassn extends Component { // eslint-disable-line react/prefer-stateles
             fieldName="TPopMassnBearb"
             value={activeDataset.row.TPopMassnBearb}
             errorText={activeDataset.valid.TPopMassnBearb}
-            dataSource={adressen}
+            dataSource={this.adressen}
             valueProp="AdrId"
             labelProp="AdrName"
             updatePropertyInDb={store.updatePropertyInDb}
@@ -193,7 +203,7 @@ class Tpopmassn extends Component { // eslint-disable-line react/prefer-stateles
             searchText={activeDataset.row.TPopMassnAnsiedWirtspfl || ``}
             errorText={activeDataset.valid.TPopMassnAnsiedWirtspfl}
             filter={AutoComplete.caseInsensitiveFilter}
-            dataSource={artnamen}
+            dataSource={this.artnamen}
             maxSearchResults={20}
             onUpdateInput={(val) => {
               this.setState({ searchText: val })
