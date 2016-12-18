@@ -26,9 +26,9 @@ const Pop = ({ onClick }) =>
       onClick={onClick}
       data={{
         action: `karte`,
-        table: `pop`,
+        actionTable: `pop`,
+        idTable: `pop`,
       }}
-      disabled
     >
       auf Karte zeigen
     </MenuItem>

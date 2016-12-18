@@ -32,6 +32,7 @@ export default (store, jahr) => {
       children: [
         {
           menuType: `zielberFolder`,
+          id: el.ZielId,
           label: `Berichte (${myZielberNodes.length})`,
           expanded: el.ZielId === activeUrlElements.ziel && activeUrlElements.zielberFolder,
           url: [`Projekte`, projId, `Arten`, el.ApArtId, `AP-Ziele`, el.ZielJahr, el.ZielId, `Berichte`],

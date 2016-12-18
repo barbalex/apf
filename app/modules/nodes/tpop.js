@@ -29,6 +29,7 @@ export default ({ store, projId, apArtId, popId }) => {
       children: [
         {
           menuType: `tpopmassnFolder`,
+          id: el.TPopId,
           label: `Massnahmen (${myMassnNodes.length})`,
           expanded: activeUrlElements.tpopmassnFolder,
           url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, el.PopId, `Teil-Populationen`, el.TPopId, `Massnahmen`],
@@ -36,6 +37,7 @@ export default ({ store, projId, apArtId, popId }) => {
         },
         {
           menuType: `tpopmassnberFolder`,
+          id: el.TPopId,
           label: `Massnahmen-Berichte (${myMassnberNodes.length})`,
           expanded: activeUrlElements.tpopmassnberFolder,
           url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, el.PopId, `Teil-Populationen`, el.TPopId, `Massnahmen-Berichte`],
@@ -43,6 +45,7 @@ export default ({ store, projId, apArtId, popId }) => {
         },
         {
           menuType: `tpopfeldkontrFolder`,
+          id: el.TPopId,
           label: `Feld-Kontrollen (${myFeldkontrNodes.length})`,
           expanded: activeUrlElements.tpopfeldkontrFolder,
           url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, el.PopId, `Teil-Populationen`, el.TPopId, `Feld-Kontrollen`],
@@ -50,6 +53,7 @@ export default ({ store, projId, apArtId, popId }) => {
         },
         {
           menuType: `tpopfreiwkontrFolder`,
+          id: el.TPopId,
           label: `Freiwilligen-Kontrollen (${myFreiwkontrNodes.length})`,
           expanded: activeUrlElements.tpopfreiwkontrFolder,
           url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, el.PopId, `Teil-Populationen`, el.TPopId, `Freiwilligen-Kontrollen`],
@@ -57,6 +61,7 @@ export default ({ store, projId, apArtId, popId }) => {
         },
         {
           menuType: `tpopberFolder`,
+          id: el.TPopId,
           label: `Kontroll-Berichte (${myTpopberNodes.length})`,
           expanded: activeUrlElements.tpopberFolder,
           url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, el.PopId, `Teil-Populationen`, el.TPopId, `Kontroll-Berichte`],
@@ -64,6 +69,7 @@ export default ({ store, projId, apArtId, popId }) => {
         },
         {
           menuType: `tpopbeobFolder`,
+          id: el.TPopId,
           label: `Beobachtungen (${myBeobNodes.length})`,
           expanded: activeUrlElements.tpopbeobFolder,
           url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, el.PopId, `Teil-Populationen`, el.TPopId, `Beobachtungen`],

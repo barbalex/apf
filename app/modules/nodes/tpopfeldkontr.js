@@ -20,6 +20,7 @@ export default ({ store, projId, apArtId, popId, tpopId }) => {
       children: [
         {
           menuType: `tpopfeldkontrzaehlFolder`,
+          id: el.TPopKontrId,
           label: `Zählungen (${myZaehlNodes.length})`,
           expanded: activeUrlElements.tpopfeldkontrzaehlFolder,
           url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, popId, `Teil-Populationen`, tpopId, `Feld-Kontrollen`, el.TPopKontrId, `Zaehlungen`],

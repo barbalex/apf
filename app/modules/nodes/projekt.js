@@ -21,6 +21,7 @@ export default (store) => {
     children: [
       {
         menuType: `apFolder`,
+        id: el.ProjId,
         label: `Arten (${store.apNodes.length})`,
         expanded: activeUrlElements.apFolder,
         url: [`Projekte`, el.ProjId, `Arten`],
@@ -28,6 +29,7 @@ export default (store) => {
       },
       {
         menuType: `apberuebersichtFolder`,
+        id: el.ProjId,
         label: `AP-Berichte (${store.apberuebersichtNodes.length})`,
         expanded: activeUrlElements.apberuebersichtFolder,
         url: [`Projekte`, el.ProjId, `AP-Berichte`],
@@ -35,6 +37,7 @@ export default (store) => {
       },
       {
         menuType: `exporte`,
+        id: el.ProjId,
         label: `Exporte`,
         expanded: activeUrlElements.exporte,
         url: [`Projekte`, el.ProjId, `Exporte`],

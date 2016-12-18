@@ -8,9 +8,9 @@ const Projekt = ({ onClick }) =>
       onClick={onClick}
       data={{
         action: `karte`,
-        table: `projekt`,
+        actionTable: `ap`,
+        idTable: `projekt`,
       }}
-      disabled
     >
       auf Karte zeigen
     </MenuItem>

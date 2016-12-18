@@ -13,6 +13,16 @@ const TpopFolder = ({ onClick }) =>
     >
       neu
     </MenuItem>
+    <MenuItem
+      onClick={onClick}
+      data={{
+        action: `karte`,
+        actionTable: `tpop`,
+        idTable: `pop`
+      }}
+    >
+      auf Karte zeigen
+    </MenuItem>
   </ContextMenu>
 
 TpopFolder.propTypes = {

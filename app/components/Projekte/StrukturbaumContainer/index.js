@@ -86,9 +86,22 @@ class StrukturbaumContainer extends Component { // eslint-disable-line react/pre
   }
 
   handleClick(e, data, element) {
-    console.log(`table:`, data.table)
+    const { table, action, idTable, actionTable } = data
     console.log(`id:`, element.firstElementChild.getAttribute(`data-id`))
-    console.log(`action:`, data.action)
+    console.log(`action:`, action)
+    if (action === `insert`) {
+      console.log(`table:`, table)
+      console.log(`should insert`)
+    } else if (action === `delete`) {
+      console.log(`table:`, table)
+      console.log(`should delete`)
+    } else if (action === `karte`) {
+      // actionTable: table to show on map
+      // idTable: table from which to filter datasets of actionTable
+      console.log(`idTable:`, idTable)
+      console.log(`actionTable:`, actionTable)
+      console.log(`should show karte`)
+    }
   }
 
   render() {

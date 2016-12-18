@@ -17,7 +17,8 @@ const Tpop = ({ onClick }) =>
       onClick={onClick}
       data={{
         action: `delete`,
-        table: `tpop`,
+        actionTable: `tpop`,
+        idTable: `tpop`,
       }}
     >
       löschen
@@ -26,9 +27,9 @@ const Tpop = ({ onClick }) =>
       onClick={onClick}
       data={{
         action: `karte`,
-        table: `tpop`,
+        actionTable: `tpop`,
+        idTable: `tpop`,
       }}
-      disabled
     >
       auf Karte zeigen
     </MenuItem>

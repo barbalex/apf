@@ -17,9 +17,9 @@ const PopFolder = ({ onClick }) =>
       onClick={onClick}
       data={{
         action: `karte`,
-        table: `ap`,
+        actionTable: `pop`,
+        idTable: `ap`,
       }}
-      disabled
     >
       auf Karte zeigen
     </MenuItem>

@@ -25,6 +25,7 @@ export default (store, apArtId) => {
       children: [
         {
           menuType: `tpopFolder`,
+          id: el.PopId,
           label: `Teil-Populationen (${myTpopNodes.length})`,
           expanded: activeUrlElements.tpopFolder,
           url: [`Projekte`, projId, `Arten`, el.ApArtId, `Populationen`, el.PopId, `Teil-Populationen`],
@@ -32,6 +33,7 @@ export default (store, apArtId) => {
         },
         {
           menuType: `popberFolder`,
+          id: el.PopId,
           label: `Kontroll-Berichte (${myPopberNodes.length})`,
           expanded: activeUrlElements.popberFolder,
           url: [`Projekte`, projId, `Arten`, el.ApArtId, `Populationen`, el.PopId, `Kontroll-Berichte`],
@@ -39,6 +41,7 @@ export default (store, apArtId) => {
         },
         {
           menuType: `popmassnberFolder`,
+          id: el.PopId,
           label: `Massnahmen-Berichte (${myMassnberNodes.length})`,
           expanded: activeUrlElements.popmassnberFolder,
           url: [`Projekte`, projId, `Arten`, el.ApArtId, `Populationen`, el.PopId, `Massnahmen-Berichte`],

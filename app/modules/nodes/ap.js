@@ -37,6 +37,7 @@ export default (store) => {
         // pop folder
         {
           menuType: `popFolder`,
+          id: el.ApArtId,
           label: `Populationen (${myPopNodes.length})`,
           expanded: activeUrlElements.popFolder,
           url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `Populationen`],
@@ -45,6 +46,7 @@ export default (store) => {
         // ziel folder
         {
           menuType: `zielFolder`,
+          id: el.ApArtId,
           label: `AP-Ziele (${ziele.length})`,
           expanded: activeUrlElements.zielFolder,
           url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `AP-Ziele`],
@@ -53,6 +55,7 @@ export default (store) => {
         // erfkrit folder
         {
           menuType: `erfkritFolder`,
+          id: el.ApArtId,
           label: `AP-Erfolgskriterien (${myErfkritNodes.length})`,
           expanded: activeUrlElements.erfkritFolder,
           url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `AP-Erfolgskriterien`],
@@ -61,6 +64,7 @@ export default (store) => {
         // apber folder
         {
           menuType: `apberFolder`,
+          id: el.ApArtId,
           label: `AP-Berichte (${myApberNodes.length})`,
           expanded: activeUrlElements.apberFolder,
           url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `AP-Berichte`],
@@ -69,6 +73,7 @@ export default (store) => {
         // ber folder
         {
           menuType: `berFolder`,
+          id: el.ApArtId,
           label: `Berichte (${myBerNodes.length})`,
           expanded: activeUrlElements.berFolder,
           url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `Berichte`],
@@ -77,6 +82,7 @@ export default (store) => {
         // beobNichtBeurteilt folder
         {
           menuType: `beobzuordnungFolder`,
+          id: el.ApArtId,
           label: `nicht beurteilte Beobachtungen. TODO: add number`,
           expanded: activeUrlElements.beobzuordnungFolder,
           url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `nicht-beurteilte-Beobachtungen`],
@@ -85,6 +91,7 @@ export default (store) => {
         // beobNichtZuzuordnen folder
         {
           menuType: `beobNichtZuzuordnenFolder`,
+          id: el.ApArtId,
           label: `nicht zuzuordnende Beobachtungen. TODO: add number`,
           expanded: activeUrlElements.beobNichtZuzuordnenFolder,
           url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `nicht-zuzuordnende-Beobachtungen`],
@@ -93,6 +100,7 @@ export default (store) => {
         // idealbiotop folder
         {
           menuType: `idealbiotopFolder`,
+          id: el.ApArtId,
           label: `Idealbiotop`,
           expanded: activeUrlElements.idealbiotopFolder,
           url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `Idealbiotop`],
@@ -100,6 +108,7 @@ export default (store) => {
         // assozarten folder
         {
           menuType: `assozartFolder`,
+          id: el.ApArtId,
           label: `assoziierte Arten (${myAssozartNodes.length})`,
           expanded: activeUrlElements.assozartFolder,
           url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `assoziierte-Arten`],
@@ -108,6 +117,7 @@ export default (store) => {
         // qk folder
         {
           menuType: `qkFolder`,
+          id: el.ApArtId,
           label: `Qualitätskontrollen`,
           expanded: false,
           url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `Qualitaetskontrollen`],

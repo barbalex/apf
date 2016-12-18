@@ -17,9 +17,9 @@ const Apfolder = ({ onClick }) =>
       onClick={onClick}
       data={{
         action: `karte`,
-        table: `pop`,
+        actionTable: `pop`,
+        idTable: `projekt`,
       }}
-      disabled
     >
       auf Karte zeigen
     </MenuItem>
