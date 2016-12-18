@@ -18,6 +18,18 @@ import OsmColorLayer from './layers/OsmColor'
 import OsmBwLayer from './layers/OsmBw'
 import SwissTopoPixelFarbeLayer from './layers/SwissTopoPixelFarbe'
 
+const Container = styled.div`
+  border-color: #424242;
+  border-width: 1px;
+  border-style: solid;
+  flex-basis: 600px;
+  flex-grow: 6;
+  flex-shrink: 1;
+`
+const StyledMap = styled(Map)`
+  height: 100%;
+`
+
 @inject(`store`)
 @observer
 class Karte extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -29,17 +41,6 @@ class Karte extends React.Component { // eslint-disable-line react/prefer-statel
       `EPSG:21781`,
       `+proj=somerc +lat_0=46.95240555555556 +lon_0=7.439583333333333 +k_0=1 +x_0=600000 +y_0=200000 +ellps=bessel +towgs84=674.374,15.056,405.346,0,0,0,0 +units=m +no_defs `
     )
-    const Container = styled.div`
-      border-color: #424242;
-      border-width: 1px;
-      border-style: solid;
-      flex-basis: 600px;
-      flex-grow: 6;
-      flex-shrink: 1;
-    `
-    const StyledMap = styled(Map)`
-      height: 100%;
-    `
 
     return (
       <Container>

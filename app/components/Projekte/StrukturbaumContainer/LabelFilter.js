@@ -7,6 +7,11 @@ import styled from 'styled-components'
 
 import tables from '../../../modules/tables'
 
+const FilterField = styled(TextField)`
+  margin-top: -0.6em;
+  padding: 0 0.8em 0 0.8em;
+`
+
 @inject(`store`)
 @observer
 class LabelFilter extends Component { // eslint-disable-line react/prefer-stateless-function
@@ -32,10 +37,6 @@ class LabelFilter extends Component { // eslint-disable-line react/prefer-statel
         }
       }
     }
-    const FilterField = styled(TextField)`
-      margin-top: -0.6em;
-      padding: 0 0.8em 0 0.8em;
-    `
 
     return (
       <FilterField

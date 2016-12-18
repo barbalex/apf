@@ -45,6 +45,26 @@ import CmTpopmassnber from './contextmenu/Tpopmassnber'
 import CmTpopmassnFolder from './contextmenu/TpopmassnFolder'
 import CmTpopmassn from './contextmenu/Tpopmassn'
 
+const StyledContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 500px;
+  border-color: #424242;
+  border-width: 1px;
+  border-style: solid;
+`
+const ContainerExporte = styled(StyledContainer)`
+  flex-basis: 200px;
+  flex-grow: 0;
+  flex-shrink: 0;
+`
+const LabelFilterContainer = styled.div`
+  padding-right: 30px;
+`
+
 @inject(`store`)
 @observer
 class StrukturbaumContainer extends Component { // eslint-disable-line react/prefer-stateless-function
@@ -73,26 +93,7 @@ class StrukturbaumContainer extends Component { // eslint-disable-line react/pre
 
   render() {
     const { activeUrlElements } = this.props.store
-    const StyledContainer = styled.div`
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      flex-grow: 1;
-      flex-shrink: 1;
-      flex-basis: 500px;
-      border-color: #424242;
-      border-width: 1px;
-      border-style: solid;
-    `
-    const ContainerExporte = styled(StyledContainer)`
-      flex-basis: 200px;
-      flex-grow: 0;
-      flex-shrink: 0;
-    `
     const Container = activeUrlElements.exporte ? ContainerExporte : StyledContainer
-    const LabelFilterContainer = styled.div`
-      padding-right: 30px;
-    `
 
     return (
       <Container>
