@@ -5,7 +5,8 @@ class App {
     this.store = store
   }
   @observable errors = []
-  @observable user = null
+  // TODO: get user else
+  @observable user = `z`
   @observable fields = []
   @observable fieldsLoading = false
   @observable map = null
