@@ -17,6 +17,7 @@ export default (store, apArtId) => {
     const myPopberNodes = popberNodes({ store, projId, apArtId: el.ApArtId, popId: el.PopId })
     const myTpopNodes = tpopNodes({ store, projId, apArtId: el.ApArtId, popId: el.PopId })
     return {
+      nodeType: `table`,
       menuType: `pop`,
       id: el.PopId,
       label: `${el.PopNr || `(keine Nr)`}: ${el.PopName || `(kein Name)`}`,
@@ -24,6 +25,7 @@ export default (store, apArtId) => {
       url: [`Projekte`, projId, `Arten`, el.ApArtId, `Populationen`, el.PopId],
       children: [
         {
+          nodeType: `folder`,
           menuType: `tpopFolder`,
           id: el.PopId,
           label: `Teil-Populationen (${myTpopNodes.length})`,
@@ -32,6 +34,7 @@ export default (store, apArtId) => {
           children: myTpopNodes,
         },
         {
+          nodeType: `folder`,
           menuType: `popberFolder`,
           id: el.PopId,
           label: `Kontroll-Berichte (${myPopberNodes.length})`,
@@ -40,6 +43,7 @@ export default (store, apArtId) => {
           children: myPopberNodes,
         },
         {
+          nodeType: `folder`,
           menuType: `popmassnberFolder`,
           id: el.PopId,
           label: `Massnahmen-Berichte (${myMassnberNodes.length})`,

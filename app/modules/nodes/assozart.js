@@ -19,6 +19,7 @@ export default (store, apArtId) => {
     }
     const projId = store.table.ap.get(el.AaApArtId).ProjId
     return {
+      nodeType: `table`,
       menuType: `assozart`,
       id: el.AaId,
       label,

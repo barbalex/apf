@@ -86,12 +86,23 @@ class StrukturbaumContainer extends Component { // eslint-disable-line react/pre
   }
 
   handleClick(e, data, element) {
+    const { store } = this.props
     const { table, action, idTable, actionTable } = data
-    console.log(`id:`, element.firstElementChild.getAttribute(`data-id`))
+    const id = element.firstElementChild.getAttribute(`data-id`)
+    const url = element.firstElementChild.getAttribute(`data-url`)
+    const baseUrl = JSON.parse(url)
+    const nodeType = element.firstElementChild.getAttribute(`data-nodeType`)
+    console.log(`id:`, id)
+    console.log(`url:`, url)
+    console.log(`nodeType:`, nodeType)
     console.log(`action:`, action)
     if (action === `insert`) {
       console.log(`table:`, table)
       console.log(`should insert`)
+      if (nodeType === `table`) {
+        baseUrl.pop()
+      }
+      store.insertDataset(table, id, baseUrl)
     } else if (action === `delete`) {
       console.log(`table:`, table)
       console.log(`should delete`)

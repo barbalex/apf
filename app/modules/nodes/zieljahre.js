@@ -25,6 +25,7 @@ export default (store, apArtId) => {
     const nodes = zielJahre.map((jahr) => {
       const zielNodes = buildZielNodes(store, jahr)
       return {
+        nodeType: `folder`,
         menuType: `zieljahr`,
         id: projId,
         label: `${jahr == null ? `kein Jahr` : jahr} (${zielNodes.length})`,

@@ -43,6 +43,7 @@ class Store extends singleton {
     this.updatePropertyInDb = this.updatePropertyInDb.bind(this)
     this.fetchTable = this.fetchTable.bind(this)
     this.toggleNode = this.toggleNode.bind(this)
+    this.insertDataset = this.insertDataset.bind(this)
   }
 
   @observable history = createHistory()
@@ -149,7 +150,7 @@ class Store extends singleton {
   }
 
   @action
-  insertDataset = (table, parentId) {
+  insertDataset = (table, parentId, baseUrl) => {
     if (!table) {
       return console.log(`Error in action insertDataset: no table passed`)
     }
@@ -159,19 +160,28 @@ class Store extends singleton {
       return console.log(`Error in action insertDataset: no table meta data found for table "${table}"`)
     }
     // TODO: for Projekt use /insert/apflora/tabelle=${table}/user={user}
-    let parentIdField
-    let parentId
-    axios.post(`${apiBaseUrl}/insert/apflora/tabelle=${table}/feld={feld}/wert={wert}/user={user}`)
+    const parentIdField = tableMetadata.parentIdField
+    const idField = tableMetadata.idField
+    if (!idField) {
+      return console.log(`new dataset not created as no idField could be found`)
+    }
+    const { user } = this.app
+    axios.post(`${apiBaseUrl}/insert/apflora/tabelle=${table}/feld=${parentIdField}/wert=${parentId}/user=${user}`)
+      .then((row) => {
+        console.log(`row:`, row)
+        // insert this dataset in store.table
+        this.table[table].set(row[idField], row)
+        // set new url
+        baseUrl.push(row[idField])
+        this.history.push(`/${baseUrl.join(`/`)}`)
+      })
       .catch((error) => {
-        row[key] = oldValue
         this.app.errors.unshift(error)
         setTimeout(() => {
           this.app.errors.pop()
         }, 1000 * 10)
-        console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
+        console.log(`Error:`, error)
       })
-    // create new active dataset using new id
-
   }
 
   // updates data in store
@@ -254,34 +264,6 @@ class Store extends singleton {
           console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
         })
     }
-  }
-
-  @action
-  newDataset = (schemaPassed, tablePassed) => {
-    const schema = schemaPassed || `apflora`
-    let table = tablePassed
-    if (!table) {
-      return console.log(`new dataset not created: table missing`)
-    }
-    // lookup idField
-    const tabelle = tables.find(t =>
-      t.table === table
-    )
-    // in tpopfeldkontr and tpopfreiwkontr need to find dbTable
-    if (tabelle.dbTable) {
-      table = tabelle.dbTable
-    }
-    const idField = tabelle ? tabelle.idField : undefined
-    if (!idField) {
-      return console.log(`new dataset not created as no idField could be found`)
-    }
-    const parentTable = tabelle ? tabelle.parentTable : undefined
-    if (!idField) {
-      return console.log(`new dataset not created as no idField could be found`)
-    }
-    // insert
-    const url = `${apiBaseUrl}/insert/apflora/tabelle=${table}/feld={feld}/wert={wert}/user={user}`
-    // set url and activeDataset
   }
 
   // fetch all data of a table

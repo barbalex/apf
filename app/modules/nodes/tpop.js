@@ -21,6 +21,7 @@ export default ({ store, projId, apArtId, popId }) => {
     const myTpopberNodes = tpopberNodes({ store, projId, apArtId, popId, tpopId: el.TPopId })
     const myBeobNodes = []
     return {
+      nodeType: `table`,
       menuType: `tpop`,
       id: el.TPopId,
       label: `${el.TPopNr || `(keine Nr)`}: ${el.TPopFlurname || `(kein Flurname)`}`,
@@ -28,6 +29,7 @@ export default ({ store, projId, apArtId, popId }) => {
       url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, el.PopId, `Teil-Populationen`, el.TPopId],
       children: [
         {
+          nodeType: `folder`,
           menuType: `tpopmassnFolder`,
           id: el.TPopId,
           label: `Massnahmen (${myMassnNodes.length})`,
@@ -36,6 +38,7 @@ export default ({ store, projId, apArtId, popId }) => {
           children: myMassnNodes,
         },
         {
+          nodeType: `folder`,
           menuType: `tpopmassnberFolder`,
           id: el.TPopId,
           label: `Massnahmen-Berichte (${myMassnberNodes.length})`,
@@ -44,6 +47,7 @@ export default ({ store, projId, apArtId, popId }) => {
           children: myMassnberNodes,
         },
         {
+          nodeType: `folder`,
           menuType: `tpopfeldkontrFolder`,
           id: el.TPopId,
           label: `Feld-Kontrollen (${myFeldkontrNodes.length})`,
@@ -52,6 +56,7 @@ export default ({ store, projId, apArtId, popId }) => {
           children: myFeldkontrNodes,
         },
         {
+          nodeType: `folder`,
           menuType: `tpopfreiwkontrFolder`,
           id: el.TPopId,
           label: `Freiwilligen-Kontrollen (${myFreiwkontrNodes.length})`,
@@ -60,6 +65,7 @@ export default ({ store, projId, apArtId, popId }) => {
           children: myFreiwkontrNodes,
         },
         {
+          nodeType: `folder`,
           menuType: `tpopberFolder`,
           id: el.TPopId,
           label: `Kontroll-Berichte (${myTpopberNodes.length})`,
@@ -68,6 +74,7 @@ export default ({ store, projId, apArtId, popId }) => {
           children: myTpopberNodes,
         },
         {
+          nodeType: `folder`,
           menuType: `tpopbeobFolder`,
           id: el.TPopId,
           label: `Beobachtungen (${myBeobNodes.length})`,

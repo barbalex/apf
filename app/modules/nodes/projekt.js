@@ -13,6 +13,7 @@ export default (store) => {
   projekte = sortBy(projekte, `ProjName`)
   // map through all projekt and create array of nodes
   return projekte.map(el => ({
+    nodeType: `table`,
     menuType: `projekt`,
     id: el.ProjId,
     label: el.ProjName || `(kein Name)`,
@@ -20,6 +21,7 @@ export default (store) => {
     url: [`Projekte`, el.ProjId],
     children: [
       {
+        nodeType: `folder`,
         menuType: `apFolder`,
         id: el.ProjId,
         label: `Arten (${store.apNodes.length})`,

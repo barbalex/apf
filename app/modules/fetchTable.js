@@ -21,7 +21,7 @@ export default (store, schemaNamePassed, tableName) => {
       .then(({ data }) => {
         transaction(() => {
           data.forEach(d =>
-            store.table[`${tableName}`].set(d[idField], d)
+            store.table[tableName].set(d[idField], d)
           )
           store.table[`${tableName}Loading`] = false
         })

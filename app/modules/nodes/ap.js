@@ -28,6 +28,7 @@ export default (store) => {
     const myAssozartNodes = assozartNodes(store, el.ApArtId)
     const myPopNodes = popNodes(store, el.ApArtId)
     return {
+      nodeType: `table`,
       menuType: `ap`,
       id: el.ApArtId,
       label,
@@ -36,6 +37,7 @@ export default (store) => {
       children: [
         // pop folder
         {
+          nodeType: `folder`,
           menuType: `popFolder`,
           id: el.ApArtId,
           label: `Populationen (${myPopNodes.length})`,
@@ -45,6 +47,7 @@ export default (store) => {
         },
         // ziel folder
         {
+          nodeType: `folder`,
           menuType: `zielFolder`,
           id: el.ApArtId,
           label: `AP-Ziele (${ziele.length})`,
@@ -54,6 +57,7 @@ export default (store) => {
         },
         // erfkrit folder
         {
+          nodeType: `folder`,
           menuType: `erfkritFolder`,
           id: el.ApArtId,
           label: `AP-Erfolgskriterien (${myErfkritNodes.length})`,
@@ -63,6 +67,7 @@ export default (store) => {
         },
         // apber folder
         {
+          nodeType: `folder`,
           menuType: `apberFolder`,
           id: el.ApArtId,
           label: `AP-Berichte (${myApberNodes.length})`,
@@ -72,6 +77,7 @@ export default (store) => {
         },
         // ber folder
         {
+          nodeType: `folder`,
           menuType: `berFolder`,
           id: el.ApArtId,
           label: `Berichte (${myBerNodes.length})`,
@@ -81,6 +87,7 @@ export default (store) => {
         },
         // beobNichtBeurteilt folder
         {
+          nodeType: `folder`,
           menuType: `beobzuordnungFolder`,
           id: el.ApArtId,
           label: `nicht beurteilte Beobachtungen. TODO: add number`,
@@ -90,6 +97,7 @@ export default (store) => {
         },
         // beobNichtZuzuordnen folder
         {
+          nodeType: `folder`,
           menuType: `beobNichtZuzuordnenFolder`,
           id: el.ApArtId,
           label: `nicht zuzuordnende Beobachtungen. TODO: add number`,
@@ -99,6 +107,7 @@ export default (store) => {
         },
         // idealbiotop folder
         {
+          nodeType: `folder`,
           menuType: `idealbiotopFolder`,
           id: el.ApArtId,
           label: `Idealbiotop`,
@@ -107,6 +116,7 @@ export default (store) => {
         },
         // assozarten folder
         {
+          nodeType: `folder`,
           menuType: `assozartFolder`,
           id: el.ApArtId,
           label: `assoziierte Arten (${myAssozartNodes.length})`,
@@ -116,6 +126,7 @@ export default (store) => {
         },
         // qk folder
         {
+          nodeType: `folder`,
           menuType: `qkFolder`,
           id: el.ApArtId,
           label: `Qualitätskontrollen`,

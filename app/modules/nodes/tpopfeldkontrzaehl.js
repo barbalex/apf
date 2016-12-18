@@ -19,6 +19,7 @@ export default ({ store, projId, apArtId, popId, tpopId, tpopkontrId }) => {
     const methodeTxt = methodeWert ? methodeWert.BeurteilTxt : null
 
     return {
+      nodeType: `table`,
       menuType: `tpopfeldkontrzaehl`,
       id: el.TPopKontrZaehlId,
       label: `${el.Anzahl || `(keine Anzahl)`} ${zaehleinheitTxt || `(keine Einheit)`} (${methodeTxt || `keine Methode`})`,

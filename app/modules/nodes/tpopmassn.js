@@ -13,6 +13,7 @@ export default ({ store, projId, apArtId, popId, tpopId }) => {
     const tpopmassntypWert = tpopmassntypWerte.find(e => e.MassnTypCode === el.TPopMassnTyp)
     const massnTypTxt = tpopmassntypWert ? tpopmassntypWert.MassnTypTxt : null
     return {
+      nodeType: `table`,
       menuType: `tpopmassn`,
       id: el.TPopMassnId,
       label: `${el.TPopMassnJahr || `(kein Jahr)`}: ${massnTypTxt || `(kein Typ)`}`,

@@ -16,6 +16,7 @@ export default (store) => {
   apberuebersicht = sortBy(apberuebersicht, `JbuJahr`)
   // map through all projekt and create array of nodes
   return apberuebersicht.map(el => ({
+    nodeType: `table`,
     menuType: `apberuebersicht`,
     id: el.JbuJahr,
     label: el.JbuJahr,

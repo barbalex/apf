@@ -13,6 +13,7 @@ export default ({ store, projId, apArtId, popId, tpopId }) => {
     const tpopEntwicklungWert = tpopEntwicklungWerte.find(e => e.EntwicklungCode === el.TPopBerEntwicklung)
     const entwicklungTxt = tpopEntwicklungWert ? tpopEntwicklungWert.EntwicklungTxt : null
     return {
+      nodeType: `table`,
       menuType: `tpopber`,
       id: el.TPopBerId,
       label: `${el.TPopBerJahr || `(kein Jahr)`}: ${entwicklungTxt || `(nicht beurteilt)`}`,

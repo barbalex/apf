@@ -13,6 +13,7 @@ export default ({ store, projId, apArtId, popId, tpopId }) => {
     const tpopmassnErfbeurtWert = tpopmassnErfbeurtWerte.find(e => e.BeurteilId === el.TPopMassnBerErfolgsbeurteilung)
     const beurteilTxt = tpopmassnErfbeurtWert ? tpopmassnErfbeurtWert.BeurteilTxt : null
     return {
+      nodeType: `table`,
       menuType: `tpopmassnber`,
       id: el.TPopMassnBerId,
       label: `${el.TPopMassnBerJahr || `(kein Jahr)`}: ${beurteilTxt || `(nicht beurteilt)`}`,

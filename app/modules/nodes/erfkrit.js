@@ -15,6 +15,7 @@ export default (store, apArtId) => {
     const beurteilTxt = erfkritWert ? erfkritWert.BeurteilTxt : null
     const erfkritSort = erfkritWert ? erfkritWert.BeurteilOrd : null
     return {
+      nodeType: `table`,
       menuType: `erfkrit`,
       id: el.ErfkritId,
       label: `${beurteilTxt || `(nicht beurteilt)`}: ${el.ErfkritTxt || `(keine Kriterien erfasst)`}`,

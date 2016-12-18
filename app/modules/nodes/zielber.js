@@ -12,6 +12,7 @@ export default (store, zielId) => {
     const projId = store.table.ap.get(ApArtId).ProjId
     const zielJahr = ziel.ZielJahr
     return {
+      nodeType: `table`,
       menuType: `zielber`,
       id: el.ZielBerId,
       label: `${el.ZielBerJahr || `(kein Jahr)`}: ${el.ZielBerErreichung || `(keine Entwicklung)`}`,

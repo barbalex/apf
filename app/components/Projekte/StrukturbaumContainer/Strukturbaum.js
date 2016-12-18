@@ -175,7 +175,9 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
           key={`${index}-child`}
         >
           <Node
-            data-id={node.id || null}
+            data-id={node.id}
+            data-url={JSON.stringify(node.url)}
+            data-nodeType={node.nodeType}
           >
             <SymbolSpan>
               {symbol}

@@ -22,6 +22,7 @@ export default (store, apArtId) => {
   return apber.map((el) => {
     const projId = store.table.ap.get(el.ApArtId).ProjId
     return {
+      nodeType: `table`,
       menuType: `apber`,
       id: el.JBerId,
       label: el.JBerJahr || `(kein Jahr)`,

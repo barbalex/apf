@@ -20,6 +20,7 @@ export default (store, apArtId) => {
   return ber.map((el) => {
     const projId = store.table.ap.get(el.ApArtId).ProjId
     return {
+      nodeType: `table`,
       menuType: `ber`,
       id: el.BerId,
       label: `${el.BerJahr || `(kein Jahr)`}: ${el.BerTitel || `(kein Titel)`}`,
