@@ -5,6 +5,7 @@ import remove from 'lodash/remove'
 import styled from 'styled-components'
 
 import StrukturbaumContainer from './StrukturbaumContainer'
+import DeleteDatasetModal from './DeleteDatasetModal'
 import Daten from './Daten'
 import Karte from './Karte'
 
@@ -50,6 +51,7 @@ class Projekte extends React.Component { // eslint-disable-line react/prefer-sta
     const strukturbaumIsVisible = projekteTabs.includes(`strukturbaum`)
     const datenIsVisible = projekteTabs.includes(`daten`)
     const karteIsVisible = projekteTabs.includes(`karte`)
+    const deleteDatasetModalIsVisible = !!store.datasetToDelete.id
 
     return (
       <Container>
@@ -65,6 +67,10 @@ class Projekte extends React.Component { // eslint-disable-line react/prefer-sta
           {
             karteIsVisible
               && <Karte />
+          }
+          {
+            deleteDatasetModalIsVisible &&
+            <DeleteDatasetModal />
           }
         </Content>
       </Container>

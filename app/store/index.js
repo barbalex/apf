@@ -44,6 +44,9 @@ class Store extends singleton {
     this.fetchTable = this.fetchTable.bind(this)
     this.toggleNode = this.toggleNode.bind(this)
     this.insertDataset = this.insertDataset.bind(this)
+    this.deleteDatasetDemand = this.deleteDatasetDemand.bind(this)
+    this.deleteDatasetAbort = this.deleteDatasetAbort.bind(this)
+    this.deleteDatasetExecute = this.deleteDatasetExecute.bind(this)
   }
 
   @observable history = createHistory()
@@ -52,6 +55,7 @@ class Store extends singleton {
   ui = UiStore
   app = AppStore
   table = TableStore
+  @observable datasetToDelete = {}
 
   /**
    * url paths are used to control tree and forms
@@ -160,6 +164,7 @@ class Store extends singleton {
       return console.log(`Error in action insertDataset: no table meta data found for table "${table}"`)
     }
     // TODO: for Projekt use /insert/apflora/tabelle=${table}/user={user}
+    // TODO: check what happens in ziel(-jahre)
     const parentIdField = tableMetadata.parentIdField
     const idField = tableMetadata.idField
     if (!idField) {
@@ -175,13 +180,60 @@ class Store extends singleton {
         baseUrl.push(row[idField])
         this.history.push(`/${baseUrl.join(`/`)}`)
       })
-      .catch((error) => {
-        this.app.errors.unshift(error)
-        setTimeout(() => {
-          this.app.errors.pop()
-        }, 1000 * 10)
-        console.log(`Error:`, error)
+      .catch(error => this.listError(error))
+  }
+
+  @action
+  deleteDatasetDemand = (table, id, url, label) => {
+    if (!table) {
+      return console.log(`Error in action deleteDatasetDemand: no table passed`)
+    }
+    const tableMetadata = tables.find(t => t.table === table)
+    if (!tableMetadata) {
+      return console.log(`Error in action deleteDatasetDemand: no table meta data found for table "${table}"`)
+    }
+    const idField = tableMetadata.idField
+    if (!idField) {
+      return console.log(`dataset vsmz nr deleted as no idField could be found`)
+    }
+    this.datasetToDelete = { table, id, idField, url, label }
+  }
+
+  @action
+  deleteDatasetAbort = () => {
+    this.datasetToDelete = {}
+  }
+
+  @action
+  deleteDatasetExecute = () => {
+    // deleteDatasetDemand checks variables
+    const { table, id, idField, url } = this.datasetToDelete
+    axios.delete(`${apiBaseUrl}/apflora/tabelle=${table}/tabelleIdFeld=${idField}/tabelleId=${id}`)
+      .then(() => {
+        // remove this dataset in store.table
+        this.table[table].delete(id)
+        // set new url
+        console.log(`url:`, url)
+        console.log(`typeof url:`, typeof url)
+        console.log(`url.length:`, url.length)
+        console.log(`url[0]:`, url[0])
+        url.pop()
+        this.history.push(`/${url.join(`/`)}`)
+        this.datasetToDelete = {}
       })
+      .catch((error) => {
+        this.listError(error)
+        this.datasetToDelete = {}
+      })
+  }
+
+  @action
+  listError = (error) => {
+    this.app.errors.unshift(error)
+    setTimeout(() => {
+      this.app.errors.pop()
+    }, 1000 * 10)
+    console.log(`Error:`, error)
   }
 
   // updates data in store
@@ -257,10 +309,7 @@ class Store extends singleton {
       axios.put(`${apiBaseUrl}/update/apflora/tabelle=${table}/tabelleIdFeld=${idField}/tabelleId=${tabelleId}/feld=${key}/wert=${value}/user=${user}`)
         .catch((error) => {
           row[key] = oldValue
-          this.app.errors.unshift(error)
-          setTimeout(() => {
-            this.app.errors.pop()
-          }, 1000 * 10)
+          this.listError(error)
           console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
         })
     }

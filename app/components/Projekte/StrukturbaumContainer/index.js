@@ -91,6 +91,7 @@ class StrukturbaumContainer extends Component { // eslint-disable-line react/pre
     const id = element.firstElementChild.getAttribute(`data-id`)
     const parentId = element.firstElementChild.getAttribute(`data-parentId`)
     const url = element.firstElementChild.getAttribute(`data-url`)
+    const label = element.firstElementChild.getAttribute(`data-label`)
     const baseUrl = JSON.parse(url)
     const nodeType = element.firstElementChild.getAttribute(`data-nodeType`)
     console.log(`id:`, id)
@@ -98,8 +99,8 @@ class StrukturbaumContainer extends Component { // eslint-disable-line react/pre
     console.log(`nodeType:`, nodeType)
     console.log(`action:`, action)
     if (action === `insert`) {
-      console.log(`table:`, table)
-      console.log(`should insert`)
+      // console.log(`table:`, table)
+      // console.log(`should insert`)
       if (nodeType === `table`) {
         baseUrl.pop()
       }
@@ -108,6 +109,7 @@ class StrukturbaumContainer extends Component { // eslint-disable-line react/pre
     } else if (action === `delete`) {
       console.log(`table:`, table)
       console.log(`should delete`)
+      store.deleteDatasetDemand(table, id, baseUrl, label)
     } else if (action === `karte`) {
       // actionTable: table to show on map
       // idTable: table from which to filter datasets of actionTable

@@ -34,6 +34,7 @@ class MyAppBar extends React.Component { // eslint-disable-line react/prefer-sta
     }
     store.setUrlQuery(`projekteTabs`, projekteTabs)
   }
+
   render() {
     const { store } = this.props
     const { activeUrlElements } = store
