@@ -54,7 +54,7 @@ class DatasetDeleteModal extends React.Component { // eslint-disable-line react/
         modal
         open={!!store.datasetToDelete.id}
       >
-        {`${tableName ? `${tableName}: "` : ``}${store.datasetToDelete.label}${tableName ? `"` : ``} löschen?`}
+        {`${tableName ? `${tableName} "` : ``}${store.datasetToDelete.label}${tableName ? `"` : ``} löschen?`}
       </Dialog>
     )
   }
