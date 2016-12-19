@@ -79,7 +79,7 @@ class YearDatePair extends Component { // eslint-disable-line react/prefer-state
         <TextField
           floatingLabelText={yearLabel}
           type="number"
-          value={yearValue}
+          value={yearValue || ``}
           errorText={yearErrorText || ``}
           fullWidth
           onChange={(event, val) =>
