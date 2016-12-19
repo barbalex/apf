@@ -6,13 +6,12 @@ import berNodes from './ber'
 import assozartNodes from './assozart'
 import popNodes from './pop'
 
-export default (store) => {
+export default (store, projId) => {
   const { activeUrlElements } = store
   // grab ape as array and sort them by name
   let ap = Array.from(store.table.ap.values())
   // show only ap of active projekt
-  const activeProjekt = store.activeUrlElements.projekt
-  ap = ap.filter(a => a.ProjId === activeProjekt)
+  ap = ap.filter(a => a.ProjId === projId)
   // map through all ap and create array of nodes
   let nodes = ap.map((el) => {
     let label = `...`

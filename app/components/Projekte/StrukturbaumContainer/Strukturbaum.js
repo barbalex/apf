@@ -132,13 +132,7 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
       if (nodeIsInActiveNodePath) {
         SymbolSpan = StyledSymbolOpenSpan
       }
-      // apply filter
-      const childrenProperty = (
-        node === store.activeDataset ?
-        `childrenFilteredByLabel` :
-        `children`
-      )
-      childNodes = node[childrenProperty].map(child =>
+      childNodes = node.children.map(child =>
         this.renderNode(child, child.url.join(`/`))
       )
     } else if (nodeHasChildren) {
@@ -233,6 +227,7 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
               width={width}
               scrollTop={scrolltop}
               ref={(c) => { this.tree = c }}
+              {...store.projektNodes}
             />
           )}
         </AutoSizer>

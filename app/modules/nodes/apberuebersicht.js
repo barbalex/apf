@@ -1,16 +1,19 @@
 import sortBy from 'lodash/sortBy'
 
-export default (store) => {
+export default (store, projId) => {
   const { activeUrlElements } = store
   // grab apberuebersicht as array and sort them by year
   let apberuebersicht = Array.from(store.table.apberuebersicht.values())
   // show only nodes of active projekt
-  const activeProjekt = store.activeUrlElements.projekt
-  apberuebersicht = apberuebersicht.filter(a => a.ProjId === activeProjekt)
+  apberuebersicht = apberuebersicht.filter(a => a.ProjId === projId)
   // filter by node.nodeLabelFilter
   const filterString = store.node.nodeLabelFilter.get(`apberuebersicht`)
   if (filterString) {
-    apberuebersicht = apberuebersicht.filter(p => p.JbuJahr.toString().includes(filterString))
+    apberuebersicht = apberuebersicht.filter(p =>
+      p.JbuJahr
+        .toString()
+        .includes(filterString)
+    )
   }
   // sort
   apberuebersicht = sortBy(apberuebersicht, `JbuJahr`)

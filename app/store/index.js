@@ -26,9 +26,8 @@ import getActiveDatasetFromUrl from '../modules/getActiveDatasetFromUrl'
 import getActiveUrlElements from '../modules/getActiveUrlElements'
 import fetchDataForActiveUrlElements from '../modules/fetchDataForActiveUrlElements'
 
-import buildApberuebersichtNodes from '../modules/nodes/apberuebersicht'
+import buildRootNodes from '../modules/nodes/root'
 import buildProjektNodes from '../modules/nodes/projekt'
-import buildApNodes from '../modules/nodes/ap'
 
 import NodeStore from './node'
 import UiStore from './ui'
@@ -407,19 +406,12 @@ class Store extends singleton {
     }
   )
 
+  @computed get rootNode() {
+    return buildRootNodes(this)
+  }
+
   @computed get projektNodes() {
     return buildProjektNodes(this)
-  }
-
-  // TODO: make these called from higher level nodes?
-  // drawback: harder to find active node of level
-  // watch zieljahre, that was where computed did not work
-  @computed get apberuebersichtNodes() {
-    return buildApberuebersichtNodes(this)
-  }
-
-  @computed get apNodes() {
-    return buildApNodes(this)
   }
 }
 
