@@ -54,6 +54,7 @@ class Status extends Component { // eslint-disable-line react/prefer-stateless-f
     const GroupLabelContainer = styled.div`
       padding-bottom: 2px;
     `
+    const disabled = !bekanntSeitValue && bekanntSeitValue !== 0
 
     return (
       <div>
@@ -84,13 +85,13 @@ class Status extends Component { // eslint-disable-line react/prefer-stateless-f
                   value={100}
                   label="aktuell"
                   key={1}
-                  disabled={!bekanntSeitValue && bekanntSeitValue !== 0}
+                  disabled={disabled}
                 />
                 <RadioButton
                   value={101}
                   label="erloschen"
                   key={2}
-                  disabled={!bekanntSeitValue && bekanntSeitValue !== 0}
+                  disabled={disabled}
                 />
               </RadioButtonGroup>
             </HerkunftColumnContainer>
@@ -109,19 +110,19 @@ class Status extends Component { // eslint-disable-line react/prefer-stateless-f
                   value={showVorBeginnAp ? 210 : 200}
                   label="aktuell"
                   key={1}
-                  disabled={!bekanntSeitValue && bekanntSeitValue !== 0}
+                  disabled={disabled}
                 />
                 <RadioButton
                   value={201}
                   label="Ansaatversuch"
                   key={3}
-                  disabled={!bekanntSeitValue && bekanntSeitValue !== 0}
+                  disabled={disabled}
                 />
                 <RadioButton
                   value={showVorBeginnAp ? 211 : 202}
                   label="erloschen / nicht etabliert"
                   key={4}
-                  disabled={!bekanntSeitValue && bekanntSeitValue !== 0}
+                  disabled={disabled}
                 />
               </RadioButtonGroup>
             </HerkunftColumnContainer>
@@ -140,7 +141,7 @@ class Status extends Component { // eslint-disable-line react/prefer-stateless-f
                   value={300}
                   label="potenzieller Wuchs-/Ansiedlungsort"
                   key={1}
-                  disabled={!bekanntSeitValue && bekanntSeitValue !== 0}
+                  disabled={disabled}
                 />
               </RadioButtonGroup>
             </HerkunftColumnContainer>
