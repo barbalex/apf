@@ -533,6 +533,7 @@ class Tpopfeldkontr extends Component { // eslint-disable-line react/prefer-stat
                   dataSource={this.idbiotopuebereinstWerte}
                   updatePropertyInDb={store.updatePropertyInDb}
                 />
+                <div style={{ height: `25px` }} ></div>
               </FormContainer>
             </Tab>
           </Tabs>
