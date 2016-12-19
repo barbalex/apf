@@ -46,9 +46,13 @@ const Container = styled.div`
   flex-direction: column;
 `
 const FieldsContainer = styled.div`
-  overflow-x: auto;
-  height: 100%;
-  padding-bottom: 95px;
+  display: flex;
+  flex-direction: column;
+  > div:first-child {
+    > div:first-child {
+      display: block !important;
+    }
+  }
 `
 const Section = styled.div`
   padding-top: 20px;
@@ -62,6 +66,7 @@ const Section = styled.div`
 const FormContainer = styled.div`
   padding-left: 10px;
   padding-right: 10px;
+
 `
 
 
@@ -88,6 +93,7 @@ class Tpopfeldkontr extends Component { // eslint-disable-line react/prefer-stat
       root: {
         flex: `1 1 100%`,
         minHeight: 0,
+        height: `100%`,
         display: `flex`,
         flexDirection: `column`,
       },
@@ -340,7 +346,7 @@ class Tpopfeldkontr extends Component { // eslint-disable-line react/prefer-stat
                 />
                 <Label label="GUID" />
                 <StringToCopy text={activeDataset.row.TPopKontrGuid} />
-                <div style={{ height: `55px` }} ></div>
+                <div style={{ height: `25px` }} ></div>
               </FormContainer>
             </Tab>
             <Tab

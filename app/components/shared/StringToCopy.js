@@ -37,7 +37,7 @@ class StringToCopy extends Component { // eslint-disable-line react/prefer-state
       flex-grow: 1;
     `
     const CopyButtonContainer = styled.div`
-      margin-top: -6px;
+      margin-top: -7px;
     `
 
     return (
