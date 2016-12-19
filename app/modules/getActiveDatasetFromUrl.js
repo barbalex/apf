@@ -51,7 +51,7 @@ export default (store) => {
               }
             } else {
               let folder = null
-              if (aEl.tpopfreiwkontrzaehlFolder) folder = `tpopfreiwkontrzaehl`
+              if (aEl.tpopfreiwkontrzaehlFolder) folder = `tpopkontrzaehl`
               activeDataset = {
                 table: `tpopfreiwkontr`,
                 row: store.table.tpopkontr.get(aEl.tpopfreiwkontr),
@@ -67,7 +67,7 @@ export default (store) => {
               }
             } else {
               let folder = null
-              if (aEl.tpopfeldkontrzaehlFolder) folder = `tpopfeldkontrzaehl`
+              if (aEl.tpopfeldkontrzaehlFolder) folder = `tpopkontrzaehl`
               activeDataset = {
                 table: `tpopfeldkontr`,
                 row: store.table.tpopkontr.get(aEl.tpopfeldkontr),
