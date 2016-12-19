@@ -28,7 +28,6 @@ class DatasetDeleteModal extends React.Component { // eslint-disable-line react/
 
   render() {
     const { store } = this.props
-    console.log(`DeleteDatasetModal: !!datasetToDelete:`, !!store.datasetToDelete)
     const actions = [
       <FlatButton
         label="Abbrechen"
