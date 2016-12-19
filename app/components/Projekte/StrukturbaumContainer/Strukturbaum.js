@@ -89,6 +89,110 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
     store: PropTypes.object,
   }
 
+  constructor() {
+    super()
+    this.rowRenderer = this.rowRenderer.bind(this)
+    this.renderNode = this.renderNode.bind(this)
+  }
+
+  rowRenderer({ key, index }) {
+    const { store } = this.props
+    return (
+      <div key={key}>
+        {this.renderNode(store.projektNodes[index], index)}
+      </div>
+    )
+  }
+
+  renderNode(node, index) {
+    const { store } = this.props
+    const onClick = (event) => {
+      event.stopPropagation()
+      store.ui.lastClickY = event.pageY
+      store.toggleNode(node)
+    }
+
+    const props = { key: index }
+    const nodeHasChildren = node.children && node.children.length
+    let childNodes = []
+    const symbolTypes = {
+      open: `${String.fromCharCode(709)}`,
+      closed: `>`,
+      hasNoChildren: `-`,
+      loadingData: ``,
+    }
+    let symbol
+    const nodeIsInActiveNodePath = isNodeInActiveNodePath(node, store.url)
+    let SymbolSpan = StyledSymbolSpan
+    const TextSpan = nodeIsInActiveNodePath ? StyledTextInActiveNodePathSpan : StyledTextSpan
+
+    if (nodeHasChildren && node.expanded) {
+      props.onClick = onClick
+      symbol = symbolTypes.open
+      if (nodeIsInActiveNodePath) {
+        SymbolSpan = StyledSymbolOpenSpan
+      }
+      // apply filter
+      const childrenProperty = (
+        node === store.activeDataset ?
+        `childrenFilteredByLabel` :
+        `children`
+      )
+      childNodes = node[childrenProperty].map(child =>
+        this.renderNode(child, child.url.join(`/`))
+      )
+    } else if (nodeHasChildren) {
+      props.onClick = onClick
+      symbol = symbolTypes.closed
+    } else if (node.label === `lade Daten...`) {
+      symbol = symbolTypes.loadingData
+    } else {
+      symbol = symbolTypes.hasNoChildren
+      props.onClick = onClick
+    }
+    const Node = nodeIsInActiveNodePath ? StyledNodeInActiveNodePath : StyledNode
+
+    childNodes.unshift(
+      <ContextMenuTrigger
+        id={node.menuType}
+        key={`${index}-child`}
+      >
+        <Node
+          data-id={node.id}
+          data-parentId={node.parentId}
+          data-url={JSON.stringify(node.url)}
+          data-nodeType={node.nodeType}
+          data-label={node.label}
+          data-menuType={node.menuType}
+        >
+          <SymbolSpan>
+            {symbol}
+          </SymbolSpan>
+          <TextSpan>
+            {node.label}
+          </TextSpan>
+        </Node>
+      </ContextMenuTrigger>
+    )
+
+    const TopChildUl = (
+      node.urlPath && node.urlPath.length && node.urlPath.length === 1 ?
+      TopUlForPathLength1 :
+      TopUl
+    )
+
+    return (
+      <TopChildUl
+        key={index}
+        onClick={props.onClick}
+      >
+        <li>
+          {childNodes}
+        </li>
+      </TopChildUl>
+    )
+  }
+
   render() {  // eslint-disable-line class-methods-use-this
     const { store } = this.props
 
@@ -117,100 +221,6 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
     // correcting by 10px seems to keep the tree from jumping
     const scrolltop = (treeHeightAboveActiveNode - roomAboveClick) + 10
 
-    const rowRenderer = ({ key, index }) =>
-      <div key={key}>
-        {renderNode(store.projektNodes[index], index)}
-      </div>
-
-    const renderNode = (node, index) => {
-      const onClick = (event) => {
-        event.stopPropagation()
-        store.ui.lastClickY = event.pageY
-        store.toggleNode(node)
-      }
-
-      const props = { key: index }
-      const nodeHasChildren = node.children && node.children.length
-      let childNodes = []
-      const symbolTypes = {
-        open: `${String.fromCharCode(709)}`,
-        closed: `>`,
-        hasNoChildren: `-`,
-        loadingData: ``,
-      }
-      let symbol
-      const nodeIsInActiveNodePath = isNodeInActiveNodePath(node, store.url)
-      let SymbolSpan = StyledSymbolSpan
-      const TextSpan = nodeIsInActiveNodePath ? StyledTextInActiveNodePathSpan : StyledTextSpan
-
-      if (nodeHasChildren && node.expanded) {
-        props.onClick = onClick
-        symbol = symbolTypes.open
-        if (nodeIsInActiveNodePath) {
-          SymbolSpan = StyledSymbolOpenSpan
-        }
-        // apply filter
-        const childrenProperty = (
-          node === store.activeDataset ?
-          `childrenFilteredByLabel` :
-          `children`
-        )
-        childNodes = node[childrenProperty].map(child =>
-          renderNode(child, child.url.join(`/`))
-        )
-      } else if (nodeHasChildren) {
-        props.onClick = onClick
-        symbol = symbolTypes.closed
-      } else if (node.label === `lade Daten...`) {
-        symbol = symbolTypes.loadingData
-      } else {
-        symbol = symbolTypes.hasNoChildren
-        props.onClick = onClick
-      }
-      const Node = nodeIsInActiveNodePath ? StyledNodeInActiveNodePath : StyledNode
-
-      childNodes.unshift(
-        <ContextMenuTrigger
-          id={node.menuType}
-          key={`${index}-child`}
-        >
-          <Node
-            data-id={node.id}
-            data-parentId={node.parentId}
-            data-url={JSON.stringify(node.url)}
-            data-nodeType={node.nodeType}
-            data-label={node.label}
-            data-menuType={node.menuType}
-          >
-            <SymbolSpan>
-              {symbol}
-            </SymbolSpan>
-            <TextSpan>
-              {node.label}
-            </TextSpan>
-          </Node>
-        </ContextMenuTrigger>
-      )
-
-      const TopChildUl = (
-        node.urlPath && node.urlPath.length && node.urlPath.length === 1 ?
-        TopUlForPathLength1 :
-        TopUl
-      )
-
-      return (
-        <TopChildUl
-          key={index}
-          onClick={props.onClick}
-        >
-          <li>
-            {childNodes}
-          </li>
-        </TopChildUl>
-      )
-    }
-
-
     return (
       <Container>
         <AutoSizer>
@@ -219,7 +229,7 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
               height={height}
               rowCount={nodes.length}
               rowHeight={rowHeight}
-              rowRenderer={rowRenderer}
+              rowRenderer={this.rowRenderer}
               width={width}
               scrollTop={scrolltop}
               ref={(c) => { this.tree = c }}
