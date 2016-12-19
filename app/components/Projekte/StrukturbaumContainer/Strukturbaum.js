@@ -180,6 +180,7 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
             data-url={JSON.stringify(node.url)}
             data-nodeType={node.nodeType}
             data-label={node.label}
+            data-menuType={node.menuType}
           >
             <SymbolSpan>
               {symbol}

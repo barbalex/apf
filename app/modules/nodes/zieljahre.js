@@ -27,7 +27,8 @@ export default (store, apArtId) => {
       return {
         nodeType: `folder`,
         menuType: `zieljahr`,
-        id: projId,
+        id: apArtId,
+        parentId: apArtId,
         label: `${jahr == null ? `kein Jahr` : jahr} (${zielNodes.length})`,
         expanded: jahr && jahr === activeUrlElements.zieljahr,
         url: [`Projekte`, projId, `Arten`, apArtId, `AP-Ziele`, jahr],

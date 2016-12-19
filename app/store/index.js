@@ -173,12 +173,16 @@ class Store extends singleton {
     axios.post(`${apiBaseUrl}/apflora/${table}/${parentIdField}/${parentId}`)
       .then((result) => {
         const row = result.data
-        console.log(`row:`, row)
         // insert this dataset in store.table
         this.table[table].set(row[idField], row)
         // set new url
         baseUrl.push(row[idField])
         this.history.push(`/${baseUrl.join(`/`)}`)
+        // if zieljahr, need to update ZielJahr
+        if (this.activeUrlElements.zieljahr) {
+          this.updateProperty(`ZielJahr`, this.activeUrlElements.zieljahr)
+          this.updatePropertyInDb(`ZielJahr`, this.activeUrlElements.zieljahr)
+        }
       })
       .catch(error => this.listError(error))
   }
@@ -213,12 +217,20 @@ class Store extends singleton {
         // remove this dataset in store.table
         this.table[table].delete(id)
         // set new url
-        console.log(`url:`, url)
-        console.log(`typeof url:`, typeof url)
-        console.log(`url.length:`, url.length)
-        console.log(`url[0]:`, url[0])
         url.pop()
         this.history.push(`/${url.join(`/`)}`)
+        // if zieljahr is active, need to pop again
+        if (this.activeUrlElements.zieljahr && !this.activeUrlElements.zielber) {
+          // see if there are ziele left with this zieljahr
+          const zieleWithActiveZieljahr = Array.from(this.table.ziel.values())
+            .filter(ziel =>
+              ziel.ApArtId === this.activeUrlElements.ap && ziel.ZielJahr === this.activeUrlElements.zieljahr
+            )
+          if (zieleWithActiveZieljahr.length === 0) {
+            url.pop()
+            this.history.push(`/${url.join(`/`)}`)
+          }
+        }
         this.datasetToDelete = {}
       })
       .catch((error) => {
@@ -248,6 +260,12 @@ class Store extends singleton {
     // ensure numbers saved as numbers
     if (value && !isNaN(value)) {
       value = +value
+    }
+    // edge case:
+    // if jahr of ziel is updated, url needs to change
+    if (table === `ziel` && key === `ZielJahr`) {
+      this.url[5] = value
+      this.history.push(`/${this.url.join(`/`)}`)
     }
     row[key] = value
   }

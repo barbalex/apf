@@ -94,15 +94,20 @@ class StrukturbaumContainer extends Component { // eslint-disable-line react/pre
     const label = element.firstElementChild.getAttribute(`data-label`)
     const baseUrl = JSON.parse(url)
     const nodeType = element.firstElementChild.getAttribute(`data-nodeType`)
+    const menuType = element.firstElementChild.getAttribute(`data-menuType`)
     console.log(`id:`, id)
     console.log(`url:`, url)
     console.log(`nodeType:`, nodeType)
     console.log(`action:`, action)
     if (action === `insert`) {
-      // console.log(`table:`, table)
+      console.log(`table:`, table)
       // console.log(`should insert`)
       if (nodeType === `table`) {
         baseUrl.pop()
+      }
+      if (menuType === `zielFolder`) {
+        // db sets year 1 as standard
+        baseUrl.push(1)
       }
       const idToPass = parentId || id
       store.insertDataset(table, idToPass, baseUrl)
