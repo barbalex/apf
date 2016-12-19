@@ -27,7 +27,7 @@ class LabelFilter extends Component { // eslint-disable-line react/prefer-statel
     let filterValue = ``
     let filteredTable
     if (activeDataset) {
-      filteredTable = activeDataset.table
+      filteredTable = activeDataset.folder || activeDataset.table
       if (filteredTable) {
         filterValue = node.nodeLabelFilter.get(filteredTable)
         const table = tables.find(t => t.table === filteredTable)

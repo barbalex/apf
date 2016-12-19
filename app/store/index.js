@@ -399,14 +399,11 @@ class Store extends singleton {
     this.history.push(`/${this.url.join(`/`)}${Object.keys(urlQuery).length > 0 ? `?${search}` : ``}`)
   }
 
-  @observable activeNode
   @observable activeDataset
   updateActiveDataset = autorun(
     `updateActiveDataset`,
     () => {
-      const { activeDataset, activeNode } = getActiveDatasetFromUrl(this)
-      this.activeDataset = activeDataset
-      this.activeNode = activeNode
+      this.activeDataset = getActiveDatasetFromUrl(this)
     }
   )
 
