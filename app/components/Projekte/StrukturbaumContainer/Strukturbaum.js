@@ -100,7 +100,7 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
       return (
         <Container>
           <LoadingDiv>
-            lade Daten...
+            (noch?) keine Daten
           </LoadingDiv>
         </Container>
       )
