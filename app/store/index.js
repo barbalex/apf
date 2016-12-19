@@ -164,7 +164,6 @@ class Store extends singleton {
       return console.log(`Error in action insertDataset: no table meta data found for table "${table}"`)
     }
     // TODO: for Projekt use /insert/apflora/tabelle=${table}/user={user}
-    // TODO: check what happens in ziel(-jahre)
     const parentIdField = tableMetadata.parentIdField
     const idField = tableMetadata.idField
     if (!idField) {
@@ -219,7 +218,8 @@ class Store extends singleton {
         // set new url
         url.pop()
         this.history.push(`/${url.join(`/`)}`)
-        // if zieljahr is active, need to pop again
+        this.datasetToDelete = {}
+        // if zieljahr is active, need to pop again, if there is no other ziel left in same year
         if (this.activeUrlElements.zieljahr && !this.activeUrlElements.zielber) {
           // see if there are ziele left with this zieljahr
           const zieleWithActiveZieljahr = Array.from(this.table.ziel.values())
@@ -231,7 +231,6 @@ class Store extends singleton {
             this.history.push(`/${url.join(`/`)}`)
           }
         }
-        this.datasetToDelete = {}
       })
       .catch((error) => {
         this.listError(error)
@@ -261,7 +260,7 @@ class Store extends singleton {
     if (value && !isNaN(value)) {
       value = +value
     }
-    // edge case:
+    // edge cases:
     // if jahr of ziel is updated, url needs to change
     if (table === `ziel` && key === `ZielJahr`) {
       this.url[5] = value
@@ -325,6 +324,15 @@ class Store extends singleton {
       const oldValue = row[key]
       row[key] = value
       axios.put(`${apiBaseUrl}/update/apflora/tabelle=${table}/tabelleIdFeld=${idField}/tabelleId=${tabelleId}/feld=${key}/wert=${value}/user=${user}`)
+        .then(() => {
+          // if ApArtId of ap is updated, url needs to change
+          console.log(`table:`, table)
+          console.log(`key:`, key)
+          if (table === `ap` && key === `ApArtId`) {
+            this.url[3] = value
+            this.history.push(`/${this.url.join(`/`)}`)
+          }
+        })
         .catch((error) => {
           row[key] = oldValue
           this.listError(error)

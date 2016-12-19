@@ -18,7 +18,8 @@ export default (store) => {
     let label = `...`
     const { adb_eigenschaften } = store.table
     if (adb_eigenschaften.size > 0) {
-      label = adb_eigenschaften.get(el.ApArtId).Artname
+      const ae = adb_eigenschaften.get(el.ApArtId)
+      label = ae ? ae.Artname : `(keine Art gewählt)`
     }
     const ziele = Array.from(store.table.ziel.values()).filter(a => a.ApArtId === el.ApArtId)
     const myErfkritNodes = erfkritNodes(store, el.ApArtId)

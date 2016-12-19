@@ -97,32 +97,51 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
     }))
   }
 
-  render() {
+  get apArtId() {
     const { store } = this.props
-    const { adb_eigenschaften } = store.table
     const { activeDataset } = store
-    const ApArtId = (
+    return (
       activeDataset
       && activeDataset.row
       && activeDataset.row.ApArtId ?
       activeDataset.row.ApArtId :
       null
     )
-    let artwert = `Diese Art hat keinen Artwert`
-    if (ApArtId && adb_eigenschaften.size > 0) {
-      artwert = adb_eigenschaften.get(ApArtId).Artwert || `Diese Art hat keinen Artwert`
-    }
+  }
+
+  get artList() {
+    const { store } = this.props
+    const { adb_eigenschaften } = store.table
     const apIds = Array.from(store.table.ap.keys())
-    const dataSource = filter(Array.from(adb_eigenschaften.values()), r =>
-      !apIds.includes(r.TaxonomieId) || r.TaxonomieId === ApArtId
+    const artList = filter(Array.from(adb_eigenschaften.values()), r =>
+      !apIds.includes(r.TaxonomieId) || r.TaxonomieId === this.apArtId
     )
-    const artname = () => {
-      let name
-      if (ApArtId && adb_eigenschaften.size > 0) {
-        name = adb_eigenschaften.get(activeDataset.row.ApArtId).Artname
+    return sortBy(artList, `Artname`)
+  }
+
+  get artValues() {
+    const { store } = this.props
+    const { adb_eigenschaften } = store.table
+    let artwert = `Diese Art hat keinen Artwert`
+    let artname = `(kein Name gewählt)`
+    if (this.apArtId && adb_eigenschaften.size > 0) {
+      const ae = adb_eigenschaften.get(this.apArtId)
+      if (ae && ae.Artwert) {
+        artwert = ae.Artwert
       }
-      return name || ``
+      if (ae && ae.Artname) {
+        artname = ae.Artname
+      }
     }
+    return {
+      artwert,
+      artname,
+    }
+  }
+
+  render() {
+    const { store } = this.props
+    const { activeDataset } = store
 
     return (
       <Container>
@@ -131,10 +150,14 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
           <AutoComplete
             label="Art"
             fieldName="ApArtId"
-            value={ApArtId}
-            valueText={artname()}
+            value={this.apArtId}
+            valueText={this.artValues.artname}
             errorText={activeDataset.valid.ApArtId}
-            dataSource={dataSource}
+            dataSource={this.artList}
+            dataSourceConfig={{
+              value: `TaxonomieId`,
+              text: `Artname`,
+            }}
             updatePropertyInDb={store.updatePropertyInDb}
           />
           <FieldContainer>
@@ -220,7 +243,7 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
             <TextField
               label="Artwert"
               fieldName="ApJahr"
-              value={artwert}
+              value={this.artValues.artwert}
               type="text"
               disabled
             />
