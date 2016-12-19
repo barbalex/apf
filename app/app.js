@@ -30,6 +30,8 @@ import Helmet from 'react-helmet'
 // Import the CSS reset, which HtmlWebpackPlugin transfers to the build folder
 import 'sanitize.css/sanitize.css'
 
+import styled from 'styled-components'
+
 // import components
 import store from './store'
 import styles from './app.css'  // eslint-disable-line no-unused-vars
@@ -59,12 +61,17 @@ store.fetchFields()
 const socket = window.io(apiBaseUrl)
 socket.on(`tabelle_update`, payload => updateFromSocket(store, payload))
 
+const AppContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
 ReactDOM.render(
   <Provider store={store}>
     <MuiThemeProvider
       muiTheme={getMuiTheme(theme)}
     >
-      <div>
+      <AppContainer>
         <Helmet
           title="AP Flora"
           meta={[
@@ -74,7 +81,7 @@ ReactDOM.render(
         { false && <DevTools />}
         <AppBar />
         <Projekte />
-      </div>
+      </AppContainer>
     </MuiThemeProvider>
   </Provider>,
   document.getElementById(`app`)
