@@ -3,6 +3,8 @@ import { inject } from 'mobx-react'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 
+import tables from '../../modules/tables'
+
 @inject(`store`)
 class DatasetDeleteModal extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
@@ -40,13 +42,19 @@ class DatasetDeleteModal extends React.Component { // eslint-disable-line react/
         onTouchTap={this.onClickDelete}
       />,
     ]
+    const table = tables.find(t => t.table === store.datasetToDelete.table)
+    let tableName = null
+    if (table && table.labelSingular) {
+      tableName = table.labelSingular
+    }
+
     return (
       <Dialog
         actions={actions}
         modal
         open={!!store.datasetToDelete.id}
       >
-        {store.datasetToDelete.label} löschen?
+        {`${tableName ? `${tableName}: "` : ``}${store.datasetToDelete.label}${tableName ? `"` : ``} löschen?`}
       </Dialog>
     )
   }
