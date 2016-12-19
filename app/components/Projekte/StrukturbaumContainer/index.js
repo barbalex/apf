@@ -95,13 +95,7 @@ class StrukturbaumContainer extends Component { // eslint-disable-line react/pre
     const baseUrl = JSON.parse(url)
     const nodeType = element.firstElementChild.getAttribute(`data-nodeType`)
     const menuType = element.firstElementChild.getAttribute(`data-menuType`)
-    console.log(`id:`, id)
-    console.log(`url:`, url)
-    console.log(`nodeType:`, nodeType)
-    console.log(`action:`, action)
     if (action === `insert`) {
-      console.log(`table:`, table)
-      // console.log(`should insert`)
       if (nodeType === `table`) {
         baseUrl.pop()
       }
@@ -112,8 +106,6 @@ class StrukturbaumContainer extends Component { // eslint-disable-line react/pre
       const idToPass = parentId || id
       store.insertDataset(table, idToPass, baseUrl)
     } else if (action === `delete`) {
-      console.log(`table:`, table)
-      console.log(`should delete`)
       store.deleteDatasetDemand(table, id, baseUrl, label)
     } else if (action === `karte`) {
       // actionTable: table to show on map

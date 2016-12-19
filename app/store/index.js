@@ -326,8 +326,6 @@ class Store extends singleton {
       axios.put(`${apiBaseUrl}/update/apflora/tabelle=${table}/tabelleIdFeld=${idField}/tabelleId=${tabelleId}/feld=${key}/wert=${value}/user=${user}`)
         .then(() => {
           // if ApArtId of ap is updated, url needs to change
-          console.log(`table:`, table)
-          console.log(`key:`, key)
           if (table === `ap` && key === `ApArtId`) {
             this.url[3] = value
             this.history.push(`/${this.url.join(`/`)}`)
