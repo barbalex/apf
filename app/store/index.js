@@ -154,7 +154,8 @@ class Store extends singleton {
   }
 
   @action
-  insertDataset = (table, parentId, baseUrl) => {
+  insertDataset = (tablePassed, parentId, baseUrl) => {
+    let table = tablePassed
     if (!table) {
       return console.log(`Error in action insertDataset: no table passed`)
     }
@@ -163,7 +164,10 @@ class Store extends singleton {
     if (!tableMetadata) {
       return console.log(`Error in action insertDataset: no table meta data found for table "${table}"`)
     }
-    // TODO: for Projekt use /insert/apflora/tabelle=${table}/user={user}
+    // some tables need to be translated, i.e. tpopfreiwkontr
+    if (tableMetadata.dbTable) {
+      table = tableMetadata.dbTable
+    }
     const parentIdField = tableMetadata.parentIdField
     const idField = tableMetadata.idField
     if (!idField) {
@@ -181,6 +185,11 @@ class Store extends singleton {
         if (this.activeUrlElements.zieljahr) {
           this.updateProperty(`ZielJahr`, this.activeUrlElements.zieljahr)
           this.updatePropertyInDb(`ZielJahr`, this.activeUrlElements.zieljahr)
+        }
+        // if tpopfreiwkontr need to update TPopKontrTyp
+        if (tablePassed === `tpopfreiwkontr`) {
+          this.updateProperty(`TPopKontrTyp`, `Freiwilligen-Erfolgskontrolle`)
+          this.updatePropertyInDb(`TPopKontrTyp`, `Freiwilligen-Erfolgskontrolle`)
         }
       })
       .catch(error => this.listError(error))
@@ -210,7 +219,16 @@ class Store extends singleton {
   @action
   deleteDatasetExecute = () => {
     // deleteDatasetDemand checks variables
-    const { table, id, idField, url } = this.datasetToDelete
+    const { table: tablePassed, id, idField, url } = this.datasetToDelete
+    let table = tablePassed
+    const tableMetadata = tables.find(t => t.table === table)
+    if (!tableMetadata) {
+      return console.log(`Error in action deleteDatasetDemand: no table meta data found for table "${table}"`)
+    }
+    // some tables need to be translated, i.e. tpopfreiwkontr
+    if (tableMetadata.dbTable) {
+      table = tableMetadata.dbTable
+    }
     axios.delete(`${apiBaseUrl}/apflora/tabelle=${table}/tabelleIdFeld=${idField}/tabelleId=${id}`)
       .then(() => {
         // remove this dataset in store.table
