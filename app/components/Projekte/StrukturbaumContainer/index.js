@@ -110,9 +110,9 @@ class StrukturbaumContainer extends Component { // eslint-disable-line react/pre
     } else if (action === `karte`) {
       // actionTable: table to show on map
       // idTable: table from which to filter datasets of actionTable
-      console.log(`idTable:`, idTable)
-      console.log(`actionTable:`, actionTable)
-      console.log(`should show karte`)
+      console.log(`idTable:`, idTable)  // eslint-disable-line no-console
+      console.log(`actionTable:`, actionTable)  // eslint-disable-line no-console
+      console.log(`should show karte`)  // eslint-disable-line no-console
     }
   }
 
