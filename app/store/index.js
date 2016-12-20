@@ -47,8 +47,8 @@ class Store extends singleton {
     this.deleteDatasetExecute = this.deleteDatasetExecute.bind(this)
   }
 
-  @observable history = createHistory()
-  // history = ObservableHistory
+  // @observable history = createHistory()
+  history = ObservableHistory
   node = NodeStore
   ui = UiStore
   app = AppStore
