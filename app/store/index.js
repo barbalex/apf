@@ -5,15 +5,15 @@
  */
 /* eslint-disable no-console, no-param-reassign */
 
-import { action, autorun, transaction, computed, observable, asReference, asFlat } from 'mobx'
+import { action, autorun, transaction, computed, observable, extendObservable } from 'mobx'
 import singleton from 'singleton'
 import axios from 'axios'
 import objectValues from 'lodash/values'
 import clone from 'lodash/clone'
 import isEqual from 'lodash/isEqual'
 import isString from 'lodash/isString'
-import createHistory from 'history/createBrowserHistory'
 import queryString from 'query-string'
+import createHistory from 'history/createBrowserHistory'
 
 import fetchTableModule from '../modules/fetchTable'
 import fetchTableByParentId from '../modules/fetchTableByParentId'
@@ -31,6 +31,7 @@ import NodeStore from './node'
 import UiStore from './ui'
 import AppStore from './app'
 import TableStore from './table'
+import ObservableHistory from './ObservableHistory'
 
 class Store extends singleton {
   constructor() {
@@ -46,13 +47,7 @@ class Store extends singleton {
     this.deleteDatasetExecute = this.deleteDatasetExecute.bind(this)
   }
 
-  @observable history = createHistory()
-  // does not work as computed
-  /*
-  @computed get history() {
-    return createHistory()
-  }*/
-  // history = createHistory()
+  history = ObservableHistory
   node = NodeStore
   ui = UiStore
   app = AppStore
@@ -85,15 +80,15 @@ class Store extends singleton {
    * for instance: Entwicklung or Biotop in tpopfeldkontr
    */
   @computed get urlQuery() {
-    const urlQuery = queryString.parse(this.history.location.search)
+    const query = queryString.parse(this.history.location.search)
     /**
      * arrays are converted to strings in url if only one element is contained
      * need to convert it to array
      */
-    if (urlQuery.projekteTabs && isString(urlQuery.projekteTabs)) {
-      urlQuery.projekteTabs = [urlQuery.projekteTabs]
+    if (query.projekteTabs && isString(query.projekteTabs)) {
+      query.projekteTabs = [query.projekteTabs]
     }
-    return urlQuery
+    return query
   }
 
   manipulateUrl = autorun(
