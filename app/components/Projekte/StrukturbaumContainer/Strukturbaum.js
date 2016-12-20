@@ -15,6 +15,7 @@ import styled from 'styled-components'
 import getNrOfNodeRows from '../../../modules/getNrOfNodeRows'
 import isNodeInActiveNodePath from '../../../modules/isNodeInActiveNodePath'
 
+const singleRowHeight = 23
 const Container = styled.div`
   height: 100%;
   font-family: 'Roboto Mono', monospace;
@@ -42,8 +43,8 @@ const TopUlForPathLength1 = styled(TopUl)`
   padding: 0 0 0 0.5em !important;
 `
 const StyledNode = styled.div`
-  height: 23px;
-  max-height: 23px;
+  height: ${singleRowHeight}px;
+  max-height: ${singleRowHeight}px;
   box-sizing: border-box;
   margin: 0;
   display: flex;
@@ -102,6 +103,16 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
       <div key={key}>
         {this.renderNode(store.projektNodes[index], index)}
       </div>
+    )
+  }
+
+  noRowsRenderer() {
+    return (
+      <Container>
+        <LoadingDiv>
+          (noch?) keine Daten
+        </LoadingDiv>
+      </Container>
     )
   }
 
@@ -188,16 +199,6 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
     )
   }
 
-  noRowsRenderer() {
-    return (
-      <Container>
-        <LoadingDiv>
-          (noch?) keine Daten
-        </LoadingDiv>
-      </Container>
-    )
-  }
-
   render() {  // eslint-disable-line class-methods-use-this
     const { store } = this.props
 
@@ -207,11 +208,18 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
     const nodes = store.projektNodes
     const nrOfRows = getNrOfNodeRows(nodes)
     const nodesLength = nodes.length || 1  // prevent dividing by 0
-    const rowHeight = (nrOfRows * 23) / nodesLength
-    const treeHeightAboveActiveNode = store.node.nrOfRowsAboveActiveNode * 23
+    const rowHeight = (nrOfRows * singleRowHeight) / nodesLength
+    const treeHeightAboveActiveNode = store.node.nrOfRowsAboveActiveNode * singleRowHeight
     const roomAboveClick = store.ui.lastClickY - store.ui.treeTopPosition
     // correcting by 10px seems to keep the tree from jumping
     const scrolltop = (treeHeightAboveActiveNode - roomAboveClick) + 10
+
+    console.log(`Strukturbaum: nodes:`, nodes)
+    console.log(`Strukturbaum: nrOfRows:`, nrOfRows)
+    console.log(`Strukturbaum: rowHeight:`, rowHeight)
+    console.log(`Strukturbaum: treeHeightAboveActiveNode:`, treeHeightAboveActiveNode)
+    console.log(`Strukturbaum: roomAboveClick:`, roomAboveClick)
+    console.log(`Strukturbaum: scrolltop:`, scrolltop)
 
     return (
       <Container>
