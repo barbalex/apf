@@ -5,7 +5,7 @@
  */
 /* eslint-disable no-console, no-param-reassign */
 
-import { action, autorun, transaction, computed, observable } from 'mobx'
+import { action, autorun, transaction, computed, observable, asReference } from 'mobx'
 import singleton from 'singleton'
 import axios from 'axios'
 import objectValues from 'lodash/values'
@@ -46,7 +46,7 @@ class Store extends singleton {
     this.deleteDatasetExecute = this.deleteDatasetExecute.bind(this)
   }
 
-  @observable history = createHistory()
+  @observable history = asReference(createHistory())
   // history = createHistory()
   node = NodeStore
   ui = UiStore
