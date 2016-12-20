@@ -93,6 +93,7 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
     super()
     this.rowRenderer = this.rowRenderer.bind(this)
     this.renderNode = this.renderNode.bind(this)
+    this.noRowsRenderer = this.noRowsRenderer.bind(this)
   }
 
   rowRenderer({ key, index }) {
@@ -187,29 +188,26 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
     )
   }
 
+  noRowsRenderer() {
+    return (
+      <Container>
+        <LoadingDiv>
+          (noch?) keine Daten
+        </LoadingDiv>
+      </Container>
+    )
+  }
+
   render() {  // eslint-disable-line class-methods-use-this
     const { store } = this.props
-
-    if (
-      !store
-      || !store.projektNodes
-      || store.projektNodes.length === 0
-    ) {
-      return (
-        <Container>
-          <LoadingDiv>
-            (noch?) keine Daten
-          </LoadingDiv>
-        </Container>
-      )
-    }
 
     // calculate scrolltop
     // without this if a folder low in the tree is opened,
     // it always gets scrolled down out of sight
     const nodes = store.projektNodes
     const nrOfRows = getNrOfNodeRows(nodes)
-    const rowHeight = (nrOfRows * 23) / nodes.length
+    const nodesLength = nodes.length || 1  // prevent dividing by 0
+    const rowHeight = (nrOfRows * 23) / nodesLength
     const treeHeightAboveActiveNode = store.node.nrOfRowsAboveActiveNode * 23
     const roomAboveClick = store.ui.lastClickY - store.ui.treeTopPosition
     // correcting by 10px seems to keep the tree from jumping
@@ -224,6 +222,7 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
               rowCount={nodes.length}
               rowHeight={rowHeight}
               rowRenderer={this.rowRenderer}
+              noRowsRenderer={this.noRowsRenderer}
               width={width}
               scrollTop={scrolltop}
               ref={(c) => { this.tree = c }}
