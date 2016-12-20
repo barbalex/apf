@@ -14,14 +14,23 @@ class ObservableHistory extends singleton {
   constructor() {
     super()
     this.location = this.history.location
+    // console.log(`history:`, this.history)
     this.history.listen((location) => {
       this.location = location
     })
   }
 
   history = createHistory()
+  action = this.history.action
   push = this.history.push
+  replace = this.history.replace
+  block = this.history.block
+  go = this.history.go
+  goBack = this.history.goBack
+  goForward = this.history.goForward
+  length = this.history.length
+  createHref = this.history.createHref
   @observable location = ``
 }
 
-export default new ObservableHistory()
+export default ObservableHistory.get()

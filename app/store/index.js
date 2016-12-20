@@ -5,7 +5,7 @@
  */
 /* eslint-disable no-console, no-param-reassign */
 
-import { action, autorun, transaction, computed, observable, extendObservable } from 'mobx'
+import { action, autorun, transaction, computed, observable } from 'mobx'
 import singleton from 'singleton'
 import axios from 'axios'
 import objectValues from 'lodash/values'
@@ -47,7 +47,8 @@ class Store extends singleton {
     this.deleteDatasetExecute = this.deleteDatasetExecute.bind(this)
   }
 
-  history = ObservableHistory
+  @observable history = createHistory()
+  // history = ObservableHistory
   node = NodeStore
   ui = UiStore
   app = AppStore
@@ -177,7 +178,7 @@ class Store extends singleton {
         this.table[table].set(row[idField], row)
         // set new url
         baseUrl.push(row[idField])
-        this.history.push(`/${baseUrl.join(`/`)}`)
+        this.history.push(`/${baseUrl.join(`/`)}${Object.keys(this.urlQuery).length > 0 ? `?${queryString.stringify(this.urlQuery)}` : ``}`)
         // if zieljahr, need to update ZielJahr
         if (this.activeUrlElements.zieljahr) {
           this.updateProperty(`ZielJahr`, this.activeUrlElements.zieljahr)
@@ -232,7 +233,7 @@ class Store extends singleton {
         this.table[table].delete(id)
         // set new url
         url.pop()
-        this.history.push(`/${url.join(`/`)}`)
+        this.history.push(`/${url.join(`/`)}${Object.keys(this.urlQuery).length > 0 ? `?${queryString.stringify(this.urlQuery)}` : ``}`)
         this.datasetToDelete = {}
         // if zieljahr is active, need to pop again, if there is no other ziel left in same year
         if (this.activeUrlElements.zieljahr && !this.activeUrlElements.zielber) {
@@ -243,7 +244,7 @@ class Store extends singleton {
             )
           if (zieleWithActiveZieljahr.length === 0) {
             url.pop()
-            this.history.push(`/${url.join(`/`)}`)
+            this.history.push(`/${url.join(`/`)}${Object.keys(this.urlQuery).length > 0 ? `?${queryString.stringify(this.urlQuery)}` : ``}`)
           }
         }
       })
@@ -279,7 +280,7 @@ class Store extends singleton {
     // if jahr of ziel is updated, url needs to change
     if (table === `ziel` && key === `ZielJahr`) {
       this.url[5] = value
-      this.history.push(`/${this.url.join(`/`)}`)
+      this.history.push(`/${this.url.join(`/`)}${Object.keys(this.urlQuery).length > 0 ? `?${queryString.stringify(this.urlQuery)}` : ``}`)
     }
     row[key] = value
   }
@@ -343,7 +344,7 @@ class Store extends singleton {
           // if ApArtId of ap is updated, url needs to change
           if (table === `ap` && key === `ApArtId`) {
             this.url[3] = value
-            this.history.push(`/${this.url.join(`/`)}`)
+            this.history.push(`/${this.url.join(`/`)}${Object.keys(this.urlQuery).length > 0 ? `?${queryString.stringify(this.urlQuery)}` : ``}`)
           }
         })
         .catch((error) => {
@@ -374,7 +375,7 @@ class Store extends singleton {
       if (node.expanded) {
         newUrl.pop()
       }
-      this.history.push(`/${newUrl.join(`/`)}`)
+      this.history.push(`/${newUrl.join(`/`)}${Object.keys(this.urlQuery).length > 0 ? `?${queryString.stringify(this.urlQuery)}` : ``}`)
       node.expanded = !node.expanded
     }
   }
