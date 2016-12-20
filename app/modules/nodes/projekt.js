@@ -20,7 +20,7 @@ export default (store) => {
   projekte = sortBy(projekte, `ProjName`)
   // map through all projekt and create array of nodes
   return projekte.map((el) => {
-    const myApberuebersichtnodes = apberuebersichtNodes(store, el.Projid)
+    const myApberuebersichtnodes = apberuebersichtNodes(store, el.ProjId)
     const myApNodes = apNodes(store, el.ProjId)
     return {
       nodeType: `table`,
