@@ -26,7 +26,7 @@ class MyAppBar extends React.Component { // eslint-disable-line react/prefer-sta
   onClickButton(name) {
     const { store } = this.props
     const projekteTabs = store.urlQuery.projekteTabs ? clone(store.urlQuery.projekteTabs) : []
-    const isVisible = projekteTabs.includes(name)
+    const isVisible = projekteTabs && projekteTabs.includes(name)
     if (isVisible) {
       remove(projekteTabs, el => el === name)
     } else {
@@ -38,10 +38,10 @@ class MyAppBar extends React.Component { // eslint-disable-line react/prefer-sta
   render() {
     const { store } = this.props
     const { activeUrlElements } = store
-    const projekteTabs = clone(store.urlQuery.projekteTabs) || []
-    const strukturbaumIsVisible = projekteTabs.includes(`strukturbaum`)
-    const datenIsVisible = projekteTabs.includes(`daten`)
-    const karteIsVisible = projekteTabs.includes(`karte`)
+    const projekteTabs = clone(store.urlQuery.projekteTabs)
+    const strukturbaumIsVisible = projekteTabs && projekteTabs.includes(`strukturbaum`)
+    const datenIsVisible = projekteTabs && projekteTabs.includes(`daten`)
+    const karteIsVisible = projekteTabs && projekteTabs.includes(`karte`)
     const MenuDiv = styled.div`
       display: flex;
       flex-wrap: wrap;
