@@ -38,7 +38,7 @@ class MyAppBar extends React.Component { // eslint-disable-line react/prefer-sta
   render() {
     const { store } = this.props
     const { activeUrlElements } = store
-    const projekteTabs = clone(store.urlQuery.projekteTabs)
+    const projekteTabs = clone(store.urlQuery.projekteTabs) || []
     const strukturbaumIsVisible = projekteTabs.includes(`strukturbaum`)
     const datenIsVisible = projekteTabs.includes(`daten`)
     const karteIsVisible = projekteTabs.includes(`karte`)
