@@ -46,10 +46,12 @@ class Store extends singleton {
     this.deleteDatasetExecute = this.deleteDatasetExecute.bind(this)
   }
 
-  // @observable history = createHistory()
+  @observable history = createHistory()
+  // does not work as computed
+  /*
   @computed get history() {
     return createHistory()
-  }
+  }*/
   // history = createHistory()
   node = NodeStore
   ui = UiStore
