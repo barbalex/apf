@@ -25,8 +25,6 @@ import tables from '../modules/tables'
 import getActiveDatasetFromUrl from '../modules/getActiveDatasetFromUrl'
 import getActiveUrlElements from '../modules/getActiveUrlElements'
 import fetchDataForActiveUrlElements from '../modules/fetchDataForActiveUrlElements'
-
-import buildRootNodes from '../modules/nodes/root'
 import buildProjektNodes from '../modules/nodes/projekt'
 
 import NodeStore from './node'
@@ -405,10 +403,6 @@ class Store extends singleton {
       this.activeDataset = getActiveDatasetFromUrl(this)
     }
   )
-
-  @computed get rootNode() {
-    return buildRootNodes(this)
-  }
 
   @computed get projektNodes() {
     return buildProjektNodes(this)
