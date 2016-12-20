@@ -207,19 +207,14 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
     // it always gets scrolled down out of sight
     const nodes = store.projektNodes
     const nrOfRows = getNrOfNodeRows(nodes)
-    const nodesLength = nodes.length || 1  // prevent dividing by 0
-    const rowHeight = (nrOfRows * singleRowHeight) / nodesLength
+    const rowHeight = nrOfRows * singleRowHeight
     const treeHeightAboveActiveNode = store.node.nrOfRowsAboveActiveNode * singleRowHeight
     const roomAboveClick = store.ui.lastClickY - store.ui.treeTopPosition
     // correcting by 10px seems to keep the tree from jumping
     const scrolltop = (treeHeightAboveActiveNode - roomAboveClick) + 10
 
-    console.log(`Strukturbaum: nodes:`, nodes)
-    console.log(`Strukturbaum: nrOfRows:`, nrOfRows)
-    console.log(`Strukturbaum: rowHeight:`, rowHeight)
-    console.log(`Strukturbaum: treeHeightAboveActiveNode:`, treeHeightAboveActiveNode)
-    console.log(`Strukturbaum: roomAboveClick:`, roomAboveClick)
-    console.log(`Strukturbaum: scrolltop:`, scrolltop)
+    // console.log(`Strukturbaum: nrOfRows:`, nrOfRows)  // eslint-disable-line no-console
+    // console.log(`Strukturbaum: rowHeight:`, rowHeight)  // eslint-disable-line no-console
 
     return (
       <Container>
