@@ -88,9 +88,7 @@ export default class Exporte extends React.Component { // eslint-disable-line re
                   showExpandableButton
                 />
                 <CardText expandable>
-                  <p>
-                    {`Um die Datei das erste Mal zu öffnen eignet sich Libre Office am besten: `}<a href="https://de.libreoffice.org/" target="_blank">https://de.libreoffice.org</a>
-                  </p>
+                  {`Um die Datei das erste Mal zu öffnen eignet sich Libre Office am besten: `}<a href="https://de.libreoffice.org/" target="_blank">https://de.libreoffice.org</a>
                   <p>
                     {`Microsoft Excel eignet sich sehr gut, um die Daten auswerten.`}<br />
                     {`Speichern Sie die Datei daher in Libre Office als .xlsx-Datei ab und öffnen Sie sie danach mit Excel.`}
