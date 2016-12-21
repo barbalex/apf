@@ -42,21 +42,23 @@ export default class Exporte extends React.Component { // eslint-disable-line re
                   {`Gewünschtes Programm öffnen und damit die heruntergeladene Datei öffnen oder die Daten importieren`}
                 </li>
               </ol>
-              <Paper>
-                <b>ACHTUNG: Microsoft Excel braucht Streicheleinheiten:</b>
-                <ol>
-                  <li>Excel öffnen</li>
-                  <li>
-                    {`"Daten" > "Externe Daten abrufen" > "Aus Text" wählen`}
-                  </li>
-                  <li>
-                    {`Nun erscheit der Textkonvertierungs-Assistent. Im Schritt 1 als Dateiursprung statt dem vorgegebenen "Windows (ANSI)" dies hier wählen: "65001 : Unicode (UTF-8)". Excel versteht sonst partout keine Umlaute`}
-                  </li>
-                  <li>
-                    {`Vorsicht: Excel ist fähig, die importierten Daten nach eigenem Ermessen willkürlich zu vermanschen. Daher bitte obige Tipps missachten und Excel nur für die Auswertung von Daten benutzten - nicht im .csv-Dateien zu öffnen.`}
-                  </li>
-                </ol>
-              </Paper>
+              <Card>
+                <CardText>
+                  <b>ACHTUNG: Microsoft Excel braucht Streicheleinheiten:</b>
+                  <ol>
+                    <li>Excel öffnen</li>
+                    <li>
+                      {`"Daten" > "Externe Daten abrufen" > "Aus Text" wählen`}
+                    </li>
+                    <li>
+                      {`Nun erscheit der Textkonvertierungs-Assistent. Im Schritt 1 als Dateiursprung statt dem vorgegebenen "Windows (ANSI)" dies hier wählen: "65001 : Unicode (UTF-8)". Excel versteht sonst partout keine Umlaute`}
+                    </li>
+                    <li>
+                      {`Vorsicht: Excel ist fähig, die importierten Daten nach eigenem Ermessen willkürlich zu vermanschen. Daher bitte obige Tipps missachten und Excel nur für die Auswertung von Daten benutzten - nicht im .csv-Dateien zu öffnen.`}
+                    </li>
+                  </ol>
+                </CardText>
+              </Card>
               <p>
                 Um .csv-Dateien zu öffnen ist <a href="https://de.libreoffice.org/" target="_blank">Libre Office</a> sehr empfehlenswert: 1. Mit Libre Office öffnen, 2. als .xlsx-Datei speichern, 3. mit Excel öffnen und auswerten.
               </p>
@@ -66,19 +68,31 @@ export default class Exporte extends React.Component { // eslint-disable-line re
               <p>
                 {`Zeigt das Programm nach dem Öffnen ungeordnete Daten an? Dann muss die Datei nochmals geöffnet werden und dabei ist die Option zu suchen, mit der eine Trennung der Felder mittels Kommas erzwungen werden kann. Vielleicht muss wie in Excel statt dem Öffnen-Befehl ein Import-Befehl verwendet werden. Vorsicht: Es sollte nicht noch zusätzlich eine andere Option gewählt sein, z.B. Trennung durch Strichpunkte.`}
               </p>
-              <Paper>
-                <b>Enthält der Export zuviele Daten?</b><br />
-                <p>
+              <Card>
+                <CardHeader
+                  title="Enthält der Export zuviele Daten?"
+                  actAsExpander
+                  showExpandableButton
+                />
+                <CardText expandable>
                   {`Meist werden alle verfügbaren Datensätze und Felder angezeigt. Daher können Listen sehr viele Zeilen und Spalten enthalten und unübersichtlich werden.`}
-                </p>
-                <ul>
-                  <li>Filtere die Zeilen nach den gewünschten Kriterien</li>
-                  <li>Blende unerwünschte Spalten aus (oder lösche sie)</li>
-                </ul>
-              </Paper>
-              <p>
-                {`Ist nach dem Herunterladen das Exportformular verschwunden und es muss wieder ein Programm gewählt werden? In Safari auf Mac scheint das leider die Standardeinstellung zu sein. Man kann dies korrigieren: "Safari" > "Tabs" > "Neue Tabs oder Fenster im Vordergrund öffnen" wählen. Falls das auf einem anderen Browser passiert: Einstellungen suchen, die das Öffnen von neuen Tabs beeinflussen und ausprobieren.`}
-              </p>
+                  <ul>
+                    <li>Filtere die Zeilen nach den gewünschten Kriterien</li>
+                    <li>Blende unerwünschte Spalten aus (oder lösche sie)</li>
+                  </ul>
+                </CardText>
+              </Card>
+              <Card>
+                <CardHeader
+                  title="Ist nach dem Herunterladen das Exportformular verschwunden und es muss wieder ein Programm gewählt werden?"
+                  actAsExpander
+                  showExpandableButton
+                />
+                <CardText expandable>
+                  {`In Safari auf Mac scheint das leider die Standardeinstellung zu sein. Man kann dies korrigieren: "Safari" > "Tabs" > "Neue Tabs oder Fenster im Vordergrund öffnen" wählen.`}<br />
+                  {`Falls das auf einem anderen Browser passiert: Einstellungen suchen, die das Öffnen von neuen Tabs beeinflussen und ausprobieren.`}
+                </CardText>
+              </Card>
             </CardText>
           </Card>
           <Card>
