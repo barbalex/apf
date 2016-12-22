@@ -13,7 +13,6 @@ import clone from 'lodash/clone'
 import isEqual from 'lodash/isEqual'
 import isString from 'lodash/isString'
 import queryString from 'query-string'
-import createHistory from 'history/createBrowserHistory'
 
 import fetchTableModule from '../modules/fetchTable'
 import fetchTableByParentId from '../modules/fetchTableByParentId'
