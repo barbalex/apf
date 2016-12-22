@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Card, CardHeader, CardText } from 'material-ui/Card'
 
-import FormTitle from '../../shared/FormTitle'
+import FormTitle from '../../../shared/FormTitle'
 
 const Container = styled.div`
   height: 100%;
@@ -18,9 +18,6 @@ const FirstLevelCard = styled(Card)`
 `
 const SecondLevelCard = styled(Card)`
   margin-bottom: 5px;
-`
-const StyledCardHeader = styled(CardHeader)`
-
 `
 
 export default class Exporte extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -46,19 +43,22 @@ export default class Exporte extends React.Component { // eslint-disable-line re
                   showExpandableButton
                 />
                 <CardText expandable>
-                  {`Eine reine Textdatei, deren Name mit ".csv" endet.`}<br />{`Sie hat folgende Eigenschaften:`}
+                  {`Eine reine Textdatei, deren Name mit ".csv" endet.`}<br />
+                  {`"csv" steht für: "comma separated values".`}<br />
+                  {`Die Datei hat folgende Eigenschaften:`}
                   <ol>
                     <li>
-                      {`Datenbank-Felder werden mit Kommas getrennt`}
+                      {`Datenbank-Felder werden mit Kommas (,) getrennt ("Feldtrenner")`}
                     </li>
                     <li>
-                      {`Text in Feldern wird in Hochzeichen (") eingefasst`}
+                      {`Text in Feldern wird in Hochzeichen (") eingefasst ("Texttrenner")`}
                     </li>
                     <li>
                       {`Die erste Zeile enthält die Feldnamen`}
                     </li>
                     <li>
-                      {`Der Zeichenstatz ist Unicode UTF-8`}
+                      {`Der Zeichenstatz ist Unicode UTF-8`}<br />
+                      {`Ist ein falscher Zeichensatz gewählt, werden Sonderzeichen wie z.B. Umlaute falsch angezeigt.`}
                     </li>
                   </ol>
                 </CardText>
@@ -73,10 +73,14 @@ export default class Exporte extends React.Component { // eslint-disable-line re
                   Es gibt zwei Möglichkeiten:
                   <ol>
                     <li>
-                      {`Heruntergeladene Datei doppelklicken.`}<br />{`Meist wählt das Betriebssystem ein geeignetes Programm.`}<br />{`Dieses Programm erkennt hoffentlich, dass der Importassistent geöffnet werden muss.`}<br />{`In Excel funktioniert dies häufig nicht!`}
+                      {`Heruntergeladene Datei doppelklicken.`}<br />
+                      {`Meist wählt das Betriebssystem ein geeignetes Programm.`}<br />
+                      {`Dieses Programm erkennt hoffentlich, dass der Importassistent verwendet werden muss.`}<br />
+                      {`In Excel funktioniert dies häufig nicht!`}
                     </li>
                     <li>
-                      {`Gewünschtes Programm öffnen und damit die Datei öffnen oder die Daten importieren`}
+                      {`Gewünschtes Programm öffnen und damit die Datei öffnen (z.B. in Libre Office) oder die Daten importieren (z.B. in Excel).`}<br />
+                      {`Das Programm öffnet den Importassistenten, in dem man Feldtrenner, Texttrenner und Zeichensatz wählt. Und, ob die erste Zeile die Feldnamen enthält.`}
                     </li>
                   </ol>
                 </CardText>
@@ -90,7 +94,7 @@ export default class Exporte extends React.Component { // eslint-disable-line re
                 <CardText expandable>
                   {`Um die Datei das erste Mal zu öffnen eignet sich Libre Office am besten: `}<a href="https://de.libreoffice.org/" target="_blank">https://de.libreoffice.org</a>
                   <p>
-                    {`Microsoft Excel eignet sich sehr gut, um die Daten auswerten.`}<br />
+                    {`Microsoft Excel eignet sich sehr gut, um die Daten danach auswerten.`}<br />
                     {`Speichern Sie die Datei daher in Libre Office als .xlsx-Datei ab und öffnen Sie sie danach mit Excel.`}
                   </p>
                   <SecondLevelCard>
@@ -106,10 +110,14 @@ export default class Exporte extends React.Component { // eslint-disable-line re
                           {`"Daten" > "Externe Daten abrufen" > "Aus Text" wählen`}
                         </li>
                         <li>
-                          {`Nun erscheit der Textkonvertierungs-Assistent. Im Schritt 1 als Dateiursprung statt dem vorgegebenen "Windows (ANSI)" dies hier wählen: "65001 : Unicode (UTF-8)". Excel versteht sonst partout keine Umlaute`}
+                          {`Nun erscheit der Textkonvertierungs-Assistent.`}<br />
+                          {`Im Schritt 1 als Dateiursprung statt dem vorgegebenen "Windows (ANSI)" dies hier wählen: "65001 : Unicode (UTF-8)". Excel versteht sonst partout keine Umlaute.`}
                         </li>
                         <li>
-                          {`Vorsicht: Excel ist fähig, die importierten Daten nach eigenem Ermessen willkürlich zu vermanschen. Daher bitte obige Tipps missachten und Excel nur für die Auswertung von Daten benutzten - nicht um .csv-Dateien zu öffnen.`}
+                          {`Vorsicht: Excel vermanscht regelmässig importierte Daten!`}<br />
+                          {`Beim Importieren interpretiert es nämlich in jedem Feld die obersten paar Datensätze - und bestimmt einen Datentyp, ohne Sie zu fragen.`}<br />
+                          {`Auch wenn weiter unten in vielen Datensätzen die Daten bei der nun nötigen Umwandlung in diesen Datentyp in diesem Feld dadurch verändert oder gelöscht werden, weil sie nicht diesem Datentyp entsprechen.`}<br />
+                          {`Daher bitte Excel nur für die Auswertung von Daten benutzten - nicht um .csv-Dateien zu öffnen.`}
                         </li>
                       </ol>
                     </CardText>
@@ -145,7 +153,8 @@ export default class Exporte extends React.Component { // eslint-disable-line re
                   showExpandableButton
                 />
                 <CardText expandable>
-                  {`Meist werden alle verfügbaren Datensätze und Felder exportiert. Daher können Listen sehr viele Zeilen und Spalten enthalten und unübersichtlich werden.`}
+                  {`Meist werden alle verfügbaren Datensätze und Felder exportiert.`}<br />
+                  {`Daher können Listen sehr viele Zeilen und Spalten enthalten und unübersichtlich werden.`}
                   <ul>
                     <li>Filtern Sie die Zeilen nach gewünschten Kriterien</li>
                     <li>Blenden Sie unerwünschte Spalten aus oder löschen Sie sie</li>

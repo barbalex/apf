@@ -31,6 +31,10 @@ body.fontLoaded {
   height: 100vh;
 }
 
+:global a {
+  color: orange;
+}
+
 /* css for context menu */
 :global .react-contextmenu {
   min-width: 160px;
