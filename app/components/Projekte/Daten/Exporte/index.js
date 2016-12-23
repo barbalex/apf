@@ -22,7 +22,29 @@ const FieldsContainer = styled.div`
 const FirstLevelCard = styled(Card)`
   margin-bottom: 10px;
 `
-const DownloadCardText = styled
+const DownloadCardText = styled(CardText)`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: stretch;
+  align-content: stretch;
+`
+const DownloadCardButton = styled(FlatButton)`
+  flex-basis: 300px;
+  height: 100% !important;
+  text-align: left !important;
+  line-height: 18px !important;
+  padding: 16px !important;
+  > div {
+    > span {
+      text-transform: none !important;
+      padding-left: 0 !important;
+    }
+    > div {
+      font-weight: 500;
+    }
+  }
+`
 
 export default class Exporte extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor() {
@@ -51,10 +73,10 @@ export default class Exporte extends React.Component { // eslint-disable-line re
               actAsExpander
               showExpandableButton
             />
-            <CardText
+            <DownloadCardText
               expandable
             >
-              <FlatButton
+              <DownloadCardButton
                 label="Arten"
                 onClick={() =>
                   this.downloadFromView({
@@ -63,7 +85,7 @@ export default class Exporte extends React.Component { // eslint-disable-line re
                   })
                 }
               />
-              <FlatButton
+              <DownloadCardButton
                 label="Arten ohne Populationen"
                 onClick={() =>
                   this.downloadFromView({
@@ -72,7 +94,7 @@ export default class Exporte extends React.Component { // eslint-disable-line re
                   })
                 }
               />
-              <FlatButton
+              <DownloadCardButton
                 label="Anzahl Massnahmen pro Art"
                 onClick={() =>
                   this.downloadFromView({
@@ -81,7 +103,7 @@ export default class Exporte extends React.Component { // eslint-disable-line re
                   })
                 }
               />
-              <FlatButton
+              <DownloadCardButton
                 label="Anzahl Kontrollen pro Art"
                 onClick={() =>
                   this.downloadFromView({
@@ -90,7 +112,7 @@ export default class Exporte extends React.Component { // eslint-disable-line re
                   })
                 }
               />
-              <FlatButton
+              <DownloadCardButton
                 label="AP-Berichte (Jahresberichte)"
                 onClick={() =>
                   this.downloadFromView({
@@ -99,7 +121,7 @@ export default class Exporte extends React.Component { // eslint-disable-line re
                   })
                 }
               />
-              <FlatButton
+              <DownloadCardButton
                 label="AP-Berichte und Massnahmen"
                 onClick={() =>
                   this.downloadFromView({
@@ -108,7 +130,7 @@ export default class Exporte extends React.Component { // eslint-disable-line re
                   })
                 }
               />
-              <FlatButton
+              <DownloadCardButton
                 label="Ziele"
                 onClick={() =>
                   this.downloadFromView({
@@ -117,7 +139,7 @@ export default class Exporte extends React.Component { // eslint-disable-line re
                   })
                 }
               />
-              <FlatButton
+              <DownloadCardButton
                 label="Ziel-Berichte"
                 onClick={() =>
                   this.downloadFromView({
@@ -126,7 +148,7 @@ export default class Exporte extends React.Component { // eslint-disable-line re
                   })
                 }
               />
-              <FlatButton
+              <DownloadCardButton
                 label="Berichte"
                 onClick={() =>
                   this.downloadFromView({
@@ -135,7 +157,7 @@ export default class Exporte extends React.Component { // eslint-disable-line re
                   })
                 }
               />
-              <FlatButton
+              <DownloadCardButton
                 label="Erfolgskriterien"
                 onClick={() =>
                   this.downloadFromView({
@@ -144,7 +166,7 @@ export default class Exporte extends React.Component { // eslint-disable-line re
                   })
                 }
               />
-              <FlatButton
+              <DownloadCardButton
                 label="Idealbiotope"
                 onClick={() =>
                   this.downloadFromView({
@@ -153,7 +175,7 @@ export default class Exporte extends React.Component { // eslint-disable-line re
                   })
                 }
               />
-              <FlatButton
+              <DownloadCardButton
                 label="Assoziierte Arten"
                 onClick={() =>
                   this.downloadFromView({
@@ -162,7 +184,7 @@ export default class Exporte extends React.Component { // eslint-disable-line re
                   })
                 }
               />
-            </CardText>
+            </DownloadCardText>
           </FirstLevelCard>
           <FirstLevelCard>
             <CardHeader
@@ -170,10 +192,10 @@ export default class Exporte extends React.Component { // eslint-disable-line re
               actAsExpander
               showExpandableButton
             />
-            <CardText
+            <DownloadCardText
               expandable
             >
-              <FlatButton
+              <DownloadCardButton
                 label="Populationen"
                 onClick={() =>
                   this.downloadFromView({
@@ -182,25 +204,29 @@ export default class Exporte extends React.Component { // eslint-disable-line re
                   })
                 }
               />
-              <FlatButton
-                label="Populationen für Google Earth (beschriftet mit PopNr)"
+              <DownloadCardButton
                 onClick={() =>
                   this.downloadFromView({
                     view: `v_pop_kml`,
                     fileName: `Populationen`,
                   })
                 }
-              />
-              <FlatButton
-                label="Populationen für Google Earth (beschriftet mit Artname, PopNr)"
+              >
+                <div>Populationen für Google Earth</div>
+                <div>(beschriftet mit PopNr)</div>
+              </DownloadCardButton>
+              <DownloadCardButton
                 onClick={() =>
                   this.downloadFromView({
                     view: `v_pop_kmlnamen`,
                     fileName: `PopulationenNachNamen`,
                   })
                 }
-              />
-              <FlatButton
+              >
+                <div>Populationen für Google Earth</div>
+                <div>(beschriftet mit Artname, PopNr)</div>
+              </DownloadCardButton>
+              <DownloadCardButton
                 label="Populationen ohne Teilpopulationen"
                 onClick={() =>
                   this.downloadFromView({
@@ -209,7 +235,7 @@ export default class Exporte extends React.Component { // eslint-disable-line re
                   })
                 }
               />
-              <FlatButton
+              <DownloadCardButton
                 label="Populationen von AP-Arten ohne Status"
                 onClick={() =>
                   this.downloadFromView({
@@ -218,7 +244,7 @@ export default class Exporte extends React.Component { // eslint-disable-line re
                   })
                 }
               />
-              <FlatButton
+              <DownloadCardButton
                 label="Populationen ohne Koordinaten"
                 onClick={() =>
                   this.downloadFromView({
@@ -227,7 +253,7 @@ export default class Exporte extends React.Component { // eslint-disable-line re
                   })
                 }
               />
-              <FlatButton
+              <DownloadCardButton
                 label="Populationen mit Massnahmen-Berichten: Anzahl Massnahmen im Berichtsjahr"
                 onClick={() =>
                   this.downloadFromView({
@@ -236,7 +262,7 @@ export default class Exporte extends React.Component { // eslint-disable-line re
                   })
                 }
               />
-              <FlatButton
+              <DownloadCardButton
                 label="Anzahl Massnahmen pro Population"
                 onClick={() =>
                   this.downloadFromView({
@@ -245,7 +271,7 @@ export default class Exporte extends React.Component { // eslint-disable-line re
                   })
                 }
               />
-              <FlatButton
+              <DownloadCardButton
                 label="Anzahl Kontrollen pro Population"
                 onClick={() =>
                   this.downloadFromView({
@@ -254,7 +280,7 @@ export default class Exporte extends React.Component { // eslint-disable-line re
                   })
                 }
               />
-              <FlatButton
+              <DownloadCardButton
                 label="Populationen inkl. Populations- und Massnahmen-Berichte"
                 onClick={() =>
                   this.downloadFromView({
@@ -263,7 +289,7 @@ export default class Exporte extends React.Component { // eslint-disable-line re
                   })
                 }
               />
-              <FlatButton
+              <DownloadCardButton
                 label="Populationen mit dem letzten Populations-Bericht"
                 onClick={() =>
                   this.downloadFromView({
@@ -272,7 +298,7 @@ export default class Exporte extends React.Component { // eslint-disable-line re
                   })
                 }
               />
-              <FlatButton
+              <DownloadCardButton
                 label="Populationen mit dem letzten Massnahmen-Bericht"
                 onClick={() =>
                   this.downloadFromView({
@@ -281,7 +307,7 @@ export default class Exporte extends React.Component { // eslint-disable-line re
                   })
                 }
               />
-            </CardText>
+            </DownloadCardText>
           </FirstLevelCard>
           <FirstLevelCard>
             <CardHeader
