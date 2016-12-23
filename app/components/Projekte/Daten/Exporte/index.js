@@ -10,6 +10,7 @@ import sortBy from 'lodash/sortBy'
 import filter from 'lodash/filter'
 import AutoComplete from 'material-ui/AutoComplete'
 import { orange500 } from 'material-ui/styles/colors'
+import 'file?name=beziehungen.png&outputPath=etc/!../../../../etc/beziehungen.png'
 
 import FormTitle from '../../../shared/FormTitle'
 import apiBaseUrl from '../../../../modules/apiBaseUrl'
@@ -568,6 +569,30 @@ export default class Exporte extends React.Component { // eslint-disable-line re
             <DownloadCardText
               expandable
             >
+              <DownloadCardButton
+                onClick={() =>
+                  this.downloadFromView({
+                    view: `v_beob`,
+                    fileName: `Beobachtungen`,
+                  })
+                }
+              >
+                <div>Beobachtungen</div>
+                <div>zugeordnet und nicht zuzuordnen</div>
+                <div>von Infospezies und EvAB</div>
+              </DownloadCardButton>
+              <DownloadCardButton
+                onClick={() =>
+                  this.downloadFromView({
+                    view: `v_beob_infospezies`,
+                    fileName: `BeobachtungenInfospezies`,
+                  })
+                }
+              >
+                <div>Beobachtungen</div>
+                <div>zugeordnet und nicht zuzuordnen</div>
+                <div>nur von Infospezies</div>
+              </DownloadCardButton>
             </DownloadCardText>
           </FirstLevelCard>
           <FirstLevelCard>
@@ -579,6 +604,22 @@ export default class Exporte extends React.Component { // eslint-disable-line re
             <DownloadCardText
               expandable
             >
+              <DownloadCardButton
+                label="Tabellen und Felder"
+                onClick={() =>
+                  this.downloadFromView({
+                    view: `v_datenstruktur`,
+                    fileName: `Datenstruktur`,
+                  })
+                }
+              />
+              <DownloadCardButton
+                label="Datenstruktur grafisch dargestellt"
+                onClick={() => {
+                  // fileDownload(beziehungen, `apfloraBeziehungen.png`)
+                  window.open(`${apiBaseUrl}/etc/beziehungen.png`)
+                }}
+              />
             </DownloadCardText>
           </FirstLevelCard>
         </FieldsContainer>
