@@ -80,7 +80,6 @@ export default class Exporte extends React.Component { // eslint-disable-line re
   downloadFromView({ view, fileName, apArtId }) {  // eslint-disable-line class-methods-use-this
     const file = `${fileName}_${format(new Date(), `YYYY-MM-DD_HH-mm-ss`)}`
     const url = `${apiBaseUrl}/exportView/csv/view=${view}/filename=${file}${apArtId ? `/${apArtId}` : ``}`
-    console.log(`url:`, url)
     axios.get(url)
       .then(({ data }) => {
         fileDownload(data, `${file}.csv`)
@@ -535,6 +534,26 @@ export default class Exporte extends React.Component { // eslint-disable-line re
                   this.downloadFromView({
                     view: `v_kontrzaehl_anzproeinheit`,
                     fileName: `KontrollenAnzahlProZaehleinheit`,
+                  })
+                }
+              />
+            </DownloadCardText>
+          </FirstLevelCard>
+          <FirstLevelCard>
+            <CardHeader
+              title="Massnahmen"
+              actAsExpander
+              showExpandableButton
+            />
+            <DownloadCardText
+              expandable
+            >
+              <DownloadCardButton
+                label="Massnahmen"
+                onClick={() =>
+                  this.downloadFromView({
+                    view: `v_massn`,
+                    fileName: `Massnahmen`,
                   })
                 }
               />
