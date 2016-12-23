@@ -66,20 +66,32 @@ export default class Exporte extends React.Component { // eslint-disable-line re
   constructor() {
     super()
     this.downloadFromView = this.downloadFromView.bind(this)
+    this.state = {
+      artFuerEierlegendeWollmilchsau: ``,
+    }
   }
 
   downloadFromView({ view, fileName, apArtId }) {  // eslint-disable-line class-methods-use-this
     const file = `${fileName}_${format(new Date(), `YYYY-MM-DD_HH-mm-ss`)}`
-    console.log(`view:`, view)
-    console.log(`fileName:`, fileName)
-    console.log(`apArtId:`, apArtId)
     const url = `${apiBaseUrl}/exportView/csv/view=${view}/filename=${file}${apArtId ? `/${apArtId}` : ``}`
     console.log(`url:`, url)
     axios.get(url)
-      .then(({ data }) =>
+      .then(({ data }) => {
         fileDownload(data, `${file}.csv`)
-      )
-      .catch(error => console.log(`error fetching fields:`, error))
+        if (this.state.artFuerEierlegendeWollmilchsau) {
+          this.setState({
+            artFuerEierlegendeWollmilchsau: ``,
+          })
+        }
+      })
+      .catch((error) => {
+        console.log(`error fetching fields:`, error)
+        if (this.state.artFuerEierlegendeWollmilchsau) {
+          this.setState({
+            artFuerEierlegendeWollmilchsau: ``,
+          })
+        }
+      })
   }
 
   get artList() {
@@ -452,6 +464,8 @@ export default class Exporte extends React.Component { // eslint-disable-line re
                 hintText={this.artList.length === 0 ? `lade Daten...` : `Art wählen`}
                 floatingLabelText={`"Eier legende Wollmilchsau" für eine Art`}
                 openOnFocus
+                searchText={this.state.artFuerEierlegendeWollmilchsau}
+                errorText={this.state.artFuerEierlegendeWollmilchsau ? `hole Daten...` : ``}
                 dataSource={this.artList}
                 dataSourceConfig={{
                   value: `TaxonomieId`,
@@ -464,6 +478,9 @@ export default class Exporte extends React.Component { // eslint-disable-line re
                 }}
                 onNewRequest={(val) => {
                   console.log(`val.TaxonomieId:`, val.TaxonomieId)
+                  this.setState({
+                    artFuerEierlegendeWollmilchsau: val.Artname,
+                  })
                   this.downloadFromView({
                     view: `v_tpop_anzkontrinklletzterundletztertpopber`,
                     fileName: `anzkontrinklletzterundletztertpopber_2016`,
