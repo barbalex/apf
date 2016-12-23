@@ -1,12 +1,11 @@
 import React, { PropTypes } from 'react'
-import { inject } from 'mobx-react'
+import { observer, inject } from 'mobx-react'
 import styled from 'styled-components'
 import { Card, CardHeader, CardText } from 'material-ui/Card'
 import FlatButton from 'material-ui/FlatButton'
 import fileDownload from 'react-file-download'
 import format from 'date-fns/format'
 import axios from 'axios'
-import filter from 'lodash/filter'
 import sortBy from 'lodash/sortBy'
 import AutoComplete from 'material-ui/AutoComplete'
 
@@ -34,7 +33,7 @@ const DownloadCardText = styled(CardText)`
   align-content: stretch;
 `
 const DownloadCardButton = styled(FlatButton)`
-  flex-basis: 300px;
+  flex-basis: 400px;
   height: 100% !important;
   text-align: left !important;
   line-height: 18px !important;
@@ -49,9 +48,16 @@ const DownloadCardButton = styled(FlatButton)`
     }
   }
 `
+const StyledAutoComplete = styled(AutoComplete)`
+  > input, > div, > label {
+    font-size: 14px !important;
+    font-color: red !important;
+  }
+`
 const isRemoteHost = window.location.hostname !== `localhost`
 
 @inject(`store`)
+@observer
 export default class Exporte extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
     store: PropTypes.object,
@@ -62,9 +68,14 @@ export default class Exporte extends React.Component { // eslint-disable-line re
     this.downloadFromView = this.downloadFromView.bind(this)
   }
 
-  downloadFromView({ view, fileName }) {  // eslint-disable-line class-methods-use-this
+  downloadFromView({ view, fileName, apArtId }) {  // eslint-disable-line class-methods-use-this
     const file = `${fileName}_${format(new Date(), `YYYY-MM-DD_HH-mm-ss`)}`
-    axios.get(`${apiBaseUrl}/exportView/csv/view=${view}/filename=${file}`)
+    console.log(`view:`, view)
+    console.log(`fileName:`, fileName)
+    console.log(`apArtId:`, apArtId)
+    const url = `${apiBaseUrl}/exportView/csv/view=${view}/filename=${file}${apArtId ? `/${apArtId}` : ``}`
+    console.log(`url:`, url)
+    axios.get(url)
       .then(({ data }) =>
         fileDownload(data, `${file}.csv`)
       )
@@ -437,9 +448,9 @@ export default class Exporte extends React.Component { // eslint-disable-line re
                 </ul>
                 <div>{`= "Eier legende Wollmilchsau"`}</div>
               </DownloadCardButton>
-              <AutoComplete
+              <StyledAutoComplete
                 hintText={this.artList.length === 0 ? `lade Daten...` : `Art wählen`}
-                floatingLabelText={`Die "Eier legende Wollmilchsau" für eine Art`}
+                floatingLabelText={`"Eier legende Wollmilchsau" für eine Art`}
                 openOnFocus
                 dataSource={this.artList}
                 dataSourceConfig={{
@@ -448,12 +459,17 @@ export default class Exporte extends React.Component { // eslint-disable-line re
                 }}
                 filter={AutoComplete.caseInsensitiveFilter}
                 maxSearchResults={20}
-                onUpdateInput={(val) => {
-                  // need this?
+                menuStyle={{
+                  fontSize: `6px !important`,
                 }}
-                onNewRequest={val =>
-                  console.log(`art choosen:`, val.TaxonomieId)
-                }
+                onNewRequest={(val) => {
+                  console.log(`val.TaxonomieId:`, val.TaxonomieId)
+                  this.downloadFromView({
+                    view: `v_tpop_anzkontrinklletzterundletztertpopber`,
+                    fileName: `anzkontrinklletzterundletztertpopber_2016`,
+                    apArtId: val.TaxonomieId,
+                  })
+                }}
               />
             </DownloadCardText>
           </FirstLevelCard>
