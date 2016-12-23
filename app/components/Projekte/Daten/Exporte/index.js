@@ -520,6 +520,24 @@ export default class Exporte extends React.Component { // eslint-disable-line re
             <DownloadCardText
               expandable
             >
+              <DownloadCardButton
+                label="Kontrollen"
+                onClick={() =>
+                  this.downloadFromView({
+                    view: `v_tpopkontr`,
+                    fileName: `Kontrollen`,
+                  })
+                }
+              />
+              <DownloadCardButton
+                label="Kontrollen: Anzahl pro Zähleinheit"
+                onClick={() =>
+                  this.downloadFromView({
+                    view: `v_kontrzaehl_anzproeinheit`,
+                    fileName: `KontrollenAnzahlProZaehleinheit`,
+                  })
+                }
+              />
             </DownloadCardText>
           </FirstLevelCard>
           <FirstLevelCard>
