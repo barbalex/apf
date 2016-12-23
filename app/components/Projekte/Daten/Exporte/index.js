@@ -7,7 +7,9 @@ import fileDownload from 'react-file-download'
 import format from 'date-fns/format'
 import axios from 'axios'
 import sortBy from 'lodash/sortBy'
+import filter from 'lodash/filter'
 import AutoComplete from 'material-ui/AutoComplete'
+import { orange500 } from 'material-ui/styles/colors'
 
 import FormTitle from '../../../shared/FormTitle'
 import apiBaseUrl from '../../../../modules/apiBaseUrl'
@@ -33,7 +35,7 @@ const DownloadCardText = styled(CardText)`
   align-content: stretch;
 `
 const DownloadCardButton = styled(FlatButton)`
-  flex-basis: 400px;
+  flex-basis: 410px;
   height: 100% !important;
   text-align: left !important;
   line-height: 18px !important;
@@ -47,6 +49,10 @@ const DownloadCardButton = styled(FlatButton)`
       font-weight: 500;
     }
   }
+`
+const AutocompleteContainer = styled.div`
+  flex-basis: 410px;
+  padding-left: 16px;
 `
 const StyledAutoComplete = styled(AutoComplete)`
   > input, > div, > label {
@@ -97,7 +103,11 @@ export default class Exporte extends React.Component { // eslint-disable-line re
   get artList() {
     const { store } = this.props
     const { adb_eigenschaften } = store.table
-    const artList = Array.from(adb_eigenschaften.values())
+    const apIds = Array.from(store.table.ap.keys()).map(n => Number(n))
+    let artList = Array.from(adb_eigenschaften.values())
+    artList = filter(artList, r =>
+      apIds.includes(r.TaxonomieId)
+    )
     return sortBy(artList, `Artname`)
   }
 
@@ -460,33 +470,44 @@ export default class Exporte extends React.Component { // eslint-disable-line re
                 </ul>
                 <div>{`= "Eier legende Wollmilchsau"`}</div>
               </DownloadCardButton>
-              <StyledAutoComplete
-                hintText={this.artList.length === 0 ? `lade Daten...` : `Art wählen`}
-                floatingLabelText={`"Eier legende Wollmilchsau" für eine Art`}
-                openOnFocus
-                searchText={this.state.artFuerEierlegendeWollmilchsau}
-                errorText={this.state.artFuerEierlegendeWollmilchsau ? `hole Daten...` : ``}
-                dataSource={this.artList}
-                dataSourceConfig={{
-                  value: `TaxonomieId`,
-                  text: `Artname`,
-                }}
-                filter={AutoComplete.caseInsensitiveFilter}
-                maxSearchResults={20}
-                menuStyle={{
-                  fontSize: `6px !important`,
-                }}
-                onNewRequest={(val) => {
-                  console.log(`val.TaxonomieId:`, val.TaxonomieId)
-                  this.setState({
-                    artFuerEierlegendeWollmilchsau: val.Artname,
-                  })
+              <AutocompleteContainer>
+                <StyledAutoComplete
+                  hintText={this.artList.length === 0 ? `lade Daten...` : `Art wählen`}
+                  floatingLabelText={`"Eier legende Wollmilchsau" für eine Art`}
+                  openOnFocus
+                  searchText={this.state.artFuerEierlegendeWollmilchsau}
+                  errorText={this.state.artFuerEierlegendeWollmilchsau ? `hole Daten...` : ``}
+                  errorStyle={{ color: orange500 }}
+                  dataSource={this.artList}
+                  dataSourceConfig={{
+                    value: `TaxonomieId`,
+                    text: `Artname`,
+                  }}
+                  filter={AutoComplete.caseInsensitiveFilter}
+                  maxSearchResults={20}
+                  menuStyle={{
+                    fontSize: `6px !important`,
+                  }}
+                  onNewRequest={(val) => {
+                    this.setState({
+                      artFuerEierlegendeWollmilchsau: val.Artname,
+                    })
+                    this.downloadFromView({
+                      view: `v_tpop_anzkontrinklletzterundletztertpopber`,
+                      fileName: `anzkontrinklletzterundletztertpopber_2016`,
+                      apArtId: val.TaxonomieId,
+                    })
+                  }}
+                />
+              </AutocompleteContainer>
+              <DownloadCardButton
+                label="Teilpopulationen inklusive Teilpopulations- und Massnahmen-Berichten"
+                onClick={() =>
                   this.downloadFromView({
-                    view: `v_tpop_anzkontrinklletzterundletztertpopber`,
-                    fileName: `anzkontrinklletzterundletztertpopber_2016`,
-                    apArtId: val.TaxonomieId,
+                    view: `v_tpop_popberundmassnber`,
+                    fileName: `TeilpopulationenTPopUndMassnBerichte`,
                   })
-                }}
+                }
               />
             </DownloadCardText>
           </FirstLevelCard>

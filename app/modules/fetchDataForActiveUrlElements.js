@@ -11,6 +11,7 @@ export default (store) => {
   const { activeUrlElements } = store
   const fetchingFromActiveElements = {
     exporte() {
+      store.fetchTableByParentId(`apflora`, `ap`, activeUrlElements.projekt)
       store.fetchTable(`beob`, `adb_eigenschaften`)
     },
     projektFolder() {
