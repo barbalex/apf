@@ -112,7 +112,7 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
   get artList() {
     const { store } = this.props
     const { adb_eigenschaften } = store.table
-    const apIds = Array.from(store.table.ap.keys())
+    const apIds = Array.from(store.table.ap.keys()).map(a => Number(a))
     const artList = filter(Array.from(adb_eigenschaften.values()), r =>
       !apIds.includes(r.TaxonomieId) || r.TaxonomieId === this.apArtId
     )
