@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
+import { inject } from 'mobx-react'
 import styled from 'styled-components'
 import { Card, CardHeader, CardText } from 'material-ui/Card'
 import FlatButton from 'material-ui/FlatButton'
 import fileDownload from 'react-file-download'
 import format from 'date-fns/format'
 import axios from 'axios'
+import filter from 'lodash/filter'
+import sortBy from 'lodash/sortBy'
+import AutoComplete from 'material-ui/AutoComplete'
 
 import FormTitle from '../../../shared/FormTitle'
 import apiBaseUrl from '../../../../modules/apiBaseUrl'
@@ -45,8 +49,14 @@ const DownloadCardButton = styled(FlatButton)`
     }
   }
 `
+const isRemoteHost = window.location.hostname !== `localhost`
 
+@inject(`store`)
 export default class Exporte extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  static propTypes = {
+    store: PropTypes.object,
+  }
+
   constructor() {
     super()
     this.downloadFromView = this.downloadFromView.bind(this)
@@ -59,6 +69,13 @@ export default class Exporte extends React.Component { // eslint-disable-line re
         fileDownload(data, `${file}.csv`)
       )
       .catch(error => console.log(`error fetching fields:`, error))
+  }
+
+  get artList() {
+    const { store } = this.props
+    const { adb_eigenschaften } = store.table
+    const artList = Array.from(adb_eigenschaften.values())
+    return sortBy(artList, `Artname`)
   }
 
   render() {
@@ -315,10 +332,130 @@ export default class Exporte extends React.Component { // eslint-disable-line re
               actAsExpander
               showExpandableButton
             />
-            <CardText
+            <DownloadCardText
               expandable
             >
-            </CardText>
+              <DownloadCardButton
+                label="Teilpopulationen"
+                onClick={() =>
+                  this.downloadFromView({
+                    view: `v_tpop`,
+                    fileName: `Teilpopulationen`,
+                  })
+                }
+              />
+              <DownloadCardButton
+                onClick={() =>
+                  this.downloadFromView({
+                    view: `v_tpop_kml`,
+                    fileName: `Teilpopulationen`,
+                  })
+                }
+              >
+                <div>Teilpopulationen für Google Earth</div>
+                <div>(beschriftet mit PopNr/TPopNr)</div>
+              </DownloadCardButton>
+              <DownloadCardButton
+                onClick={() =>
+                  this.downloadFromView({
+                    view: `v_tpop_kmlnamen`,
+                    fileName: `TeilpopulationenNachNamen`,
+                  })
+                }
+              >
+                <div>Teilpopulationen für Google Earth</div>
+                <div>(beschriftet mit Artname, PopNr/TPopNr)</div>
+              </DownloadCardButton>
+              <DownloadCardButton
+                onClick={() =>
+                  this.downloadFromView({
+                    view: `v_tpop_ohnebekanntseit`,
+                    fileName: `TeilpopulationenVonApArtenOhneBekanntSeit`,
+                  })
+                }
+              >
+                <div>Teilpopulationen von AP-Arten</div>
+                <div>{`ohne "Bekannt seit"`}</div>
+              </DownloadCardButton>
+              <DownloadCardButton
+                onClick={() =>
+                  this.downloadFromView({
+                    view: `v_tpop_ohneapberichtrelevant`,
+                    fileName: `TeilpopulationenOhneApBerichtRelevant`,
+                  })
+                }
+              >
+                <div>Teilpopulationen ohne Eintrag</div>
+                <div>{`im Feld "Für AP-Bericht relevant"`}</div>
+              </DownloadCardButton>
+              <DownloadCardButton
+                onClick={() =>
+                  this.downloadFromView({
+                    view: `v_tpop_popnrtpopnrmehrdeutig`,
+                    fileName: `TeilpopulationenPopnrTpopnrMehrdeutig`,
+                  })
+                }
+              >
+                <div>Teilpopulationen mit mehrdeutiger</div>
+                <div>Kombination von PopNr und TPopNr</div>
+              </DownloadCardButton>
+              <DownloadCardButton
+                label="Anzahl Massnahmen pro Teilpopulation"
+                onClick={() =>
+                  this.downloadFromView({
+                    view: `v_tpop_anzmassn`,
+                    fileName: `TeilpopulationenAnzahlMassnahmen`,
+                  })
+                }
+              />
+              <DownloadCardButton
+                onClick={() =>
+                  this.downloadFromView({
+                    view: `v_tpop_anzkontrinklletzterundletztertpopber`,
+                    fileName: `TeilpopulationenAnzKontrInklusiveLetzteKontrUndLetztenTPopBericht`,
+                  })
+                }
+                disabled={isRemoteHost}
+                title={
+                  isRemoteHost ?
+                  `Funktioniert nur, wenn apflora lokal installiert wird` :
+                  ``
+                }
+              >
+                <div>Teilpopulationen mit:</div>
+                <ul
+                  style={{
+                    paddingLeft: `18px`,
+                    marginTop: `5px`,
+                    marginBottom: `10px`,
+                  }}
+                >
+                  <li>Anzahl Kontrollen</li>
+                  <li>letzte Kontrolle</li>
+                  <li>letzter Teilpopulationsbericht</li>
+                  <li>letzte Zählung</li>
+                </ul>
+                <div>{`= "Eier legende Wollmilchsau"`}</div>
+              </DownloadCardButton>
+              <AutoComplete
+                hintText={this.artList.length === 0 ? `lade Daten...` : `Art wählen`}
+                floatingLabelText={`Die "Eier legende Wollmilchsau" für eine Art`}
+                openOnFocus
+                dataSource={this.artList}
+                dataSourceConfig={{
+                  value: `TaxonomieId`,
+                  text: `Artname`,
+                }}
+                filter={AutoComplete.caseInsensitiveFilter}
+                maxSearchResults={20}
+                onUpdateInput={(val) => {
+                  // need this?
+                }}
+                onNewRequest={val =>
+                  console.log(`art choosen:`, val.TaxonomieId)
+                }
+              />
+            </DownloadCardText>
           </FirstLevelCard>
           <FirstLevelCard>
             <CardHeader
@@ -326,10 +463,10 @@ export default class Exporte extends React.Component { // eslint-disable-line re
               actAsExpander
               showExpandableButton
             />
-            <CardText
+            <DownloadCardText
               expandable
             >
-            </CardText>
+            </DownloadCardText>
           </FirstLevelCard>
           <FirstLevelCard>
             <CardHeader
@@ -337,10 +474,10 @@ export default class Exporte extends React.Component { // eslint-disable-line re
               actAsExpander
               showExpandableButton
             />
-            <CardText
+            <DownloadCardText
               expandable
             >
-            </CardText>
+            </DownloadCardText>
           </FirstLevelCard>
           <FirstLevelCard>
             <CardHeader
@@ -348,10 +485,10 @@ export default class Exporte extends React.Component { // eslint-disable-line re
               actAsExpander
               showExpandableButton
             />
-            <CardText
+            <DownloadCardText
               expandable
             >
-            </CardText>
+            </DownloadCardText>
           </FirstLevelCard>
         </FieldsContainer>
       </Container>

@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import sortBy from 'lodash/sortBy'
+import filter from 'lodash/filter'
 import styled from 'styled-components'
 
-import filter from 'lodash/filter'
 import TextField from '../../shared/TextField'
 import AutoComplete from '../../shared/Autocomplete'
 import FormTitle from '../../shared/FormTitle'

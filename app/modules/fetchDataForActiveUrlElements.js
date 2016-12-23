@@ -10,6 +10,9 @@ import clone from 'lodash/clone'
 export default (store) => {
   const { activeUrlElements } = store
   const fetchingFromActiveElements = {
+    exporte() {
+      store.fetchTable(`beob`, `adb_eigenschaften`)
+    },
     projektFolder() {
       store.fetchTable(`apflora`, `projekt`)
     },
