@@ -30,6 +30,7 @@ import Tpopfreiwkontr from './Tpopfreiwkontr'
 import Tpopkontrzaehl from './Tpopkontrzaehl'
 import Exporte from './Exporte'
 import Qk from './Qk'
+import Beobzuordnung from './Beobzuordnung'
 
 const Container = styled.div`
   border-color: #424242;
@@ -77,6 +78,9 @@ class Daten extends Component { // eslint-disable-line react/prefer-stateless-fu
       tpopkontrzaehl: <Tpopkontrzaehl />,
       exporte: <Exporte />,
       qk: <Qk />,
+      beobNichtZuzuordnen: <Beobzuordnung typ="beobNichtZuzuordnen" />,
+      beobzuordnung: <Beobzuordnung typ="beobzuordnung" />,
+      tpopBeobzuordnung: <Beobzuordnung typ="tpopBeobzuordnung" />,
     }
     const standardForm = (
       <div>
@@ -91,6 +95,12 @@ class Daten extends Component { // eslint-disable-line react/prefer-stateless-fu
       key = `exporte`
     } else if (activeUrlElements.qk) {
       key = `qk`
+    } else if (activeUrlElements.beobNichtZuzuordnen) {
+      key = `beobNichtZuzuordnen`
+    } else if (activeUrlElements.beobzuordnung) {
+      key = `beobzuordnung`
+    } else if (activeUrlElements.tpopBeobzuordnung) {
+      key = `tpopBeobzuordnung`
     } else {
       key = activeDataset.table
     }

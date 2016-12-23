@@ -10,7 +10,7 @@ import sortBy from 'lodash/sortBy'
 import filter from 'lodash/filter'
 import AutoComplete from 'material-ui/AutoComplete'
 import { orange500 } from 'material-ui/styles/colors'
-import 'file?name=beziehungen.png&outputPath=etc/!../../../../etc/beziehungen.png'
+// import beziehungen from '../../../../etc/beziehungen.png'
 
 import FormTitle from '../../../shared/FormTitle'
 import apiBaseUrl from '../../../../modules/apiBaseUrl'

@@ -5,6 +5,7 @@ import apberNodes from './apber'
 import berNodes from './ber'
 import assozartNodes from './assozart'
 import popNodes from './pop'
+import beobNichtZuzuordnenNodes from './beobNichtZuzuordnen'
 
 export default (store, projId) => {
   const { activeUrlElements } = store
@@ -28,6 +29,7 @@ export default (store, projId) => {
     const myBerNodes = berNodes(store, el.ApArtId)
     const myAssozartNodes = assozartNodes(store, el.ApArtId)
     const myPopNodes = popNodes(store, el.ApArtId)
+    const myBeobNichtZuzuordnenNodes = beobNichtZuzuordnenNodes(store, el.ApArtId)
     return {
       nodeType: `table`,
       menuType: `ap`,

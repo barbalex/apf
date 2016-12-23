@@ -32,6 +32,8 @@ import 'sanitize.css/sanitize.css'
 
 import styled from 'styled-components'
 
+import 'file-loader?name=beziehungen.png&outputPath=etc/!./etc/beziehungen.png'
+
 // import components
 import store from './store'
 import styles from './app.css'  // eslint-disable-line no-unused-vars

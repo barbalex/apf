@@ -44,12 +44,12 @@ export default (store) => {
       store.fetchTableByParentId(`apflora`, `idealbiotop`, activeUrlElements.ap)
     },
     beobNichtZuzuordnenFolder() {
-      // TODO
       store.fetchTableByParentId(`apflora`, `ap`, activeUrlElements.projekt)
+      store.fetchTable(`apflora`, `beobzuordnung`)
     },
     beobzuordnungFolder() {
-      // TODO
       store.fetchTableByParentId(`apflora`, `ap`, activeUrlElements.projekt)
+      store.fetchTableByParentId(`beob`, `beob_bereitgestellt`, activeUrlElements.ap)
     },
     berFolder() {
       store.fetchTableByParentId(`apflora`, `ber`, activeUrlElements.ap)
@@ -121,8 +121,8 @@ export default (store) => {
     tpopkontrzaehlFolder() {},
     tpopberFolder() {},
     tpopBeobzuordnungFolder() {
-      // TODO
       store.fetchTableByParentId(`apflora`, `ap`, activeUrlElements.tpop)
+      store.fetchTable(`apflora`, `beobzuordnung`)
     },
   }
 

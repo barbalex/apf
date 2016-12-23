@@ -376,12 +376,8 @@ export default [
     database: `beob`,
     table: `beob_bereitgestellt`,
     idField: `BeobId`,
-    mutWannField: null,
-    mutWerField: null,
-    label_(row) {
-      if (!row) return noLabel
-      return `${row.Datum || `(kein Datum)`}: ${row.Autor || `(kein Autor)`} (${row.Quelle})`
-    },
+    parentTable: `beob_bereitgestellt`,
+    parentIdField: `NO_ISFS`,
   },
   {
     database: `beob`,
