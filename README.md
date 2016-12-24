@@ -8,10 +8,9 @@ verwendet:
 
 ##Ziele:
 
-- veraltete Abhängikeiten loswerden (z.B. jsTree)
+- veraltete Abhängikeiten loswerden (z.B. jsTree 2)
 - mehrere Projekte verwalten
 - Grundlage schaffen, um Berichte direkt aus der Webanwendung heraus produzieren zu können
-- Berichte pro Projekt individualisieren
 - Grundlage schaffen, um auf das Access-Admin-Tool zu verzichten
 - Architektur modernisieren
 - Unterhalt- und Erweiterbarkeit verbessern
@@ -21,4 +20,4 @@ verwendet:
 - URL ist Teil des Flux-Stores, steuert die Benutzeroberfläche und das Laden von Daten. Vorteile:
   - fast alles ist verlinkbar
   - auf einen Router kann verzichtet werden
-- real-time Update der Daten, wenn mehrere Personen gleichzeitig arbeiten
+- Die Daten in der Benutzeroberfläche werden laufend aktualisiert, wenn mehrere Personen gleichzeitig arbeiten
