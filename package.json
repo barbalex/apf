@@ -232,10 +232,10 @@
     "joi-browser": "10.0.6",
     "jquery": "3.1.1",
     "leaflet": "1.0.2",
-    "lodash": "4.17.2",
+    "lodash": "4.17.3",
     "material-ui": "0.16.5",
     "mobx": "2.7.0",
-    "mobx-react": "4.0.3",
+    "mobx-react": "4.0.4",
     "proj4": "2.3.15",
     "query-string": "4.2.3",
     "react": "15.4.1",
@@ -331,6 +331,6 @@
     "url-loader": "0.5.7",
     "webpack": "2.1.0-beta.15",
     "webpack-dev-middleware": "1.9.0",
-    "webpack-hot-middleware": "2.13.2"
+    "webpack-hot-middleware": "2.14.0"
   }
 }
