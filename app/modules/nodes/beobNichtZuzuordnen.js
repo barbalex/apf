@@ -8,7 +8,7 @@ export default (store, apArtId) => {
   beobNichtZuzuordnen = beobNichtZuzuordnen.filter(a => a.NO_SISF === apArtId)
   // map through all and create array of nodes
   let nodes = beobNichtZuzuordnen.map((el) => {
-    let label = ``${row.Datum || `(kein Datum)`}: ${row.Autor || `(kein Autor)`} (${row.Quelle})``
+    let label = `${row.Datum || `(kein Datum)`}: ${row.Autor || `(kein Autor)`} (${row.Quelle})`
     const projId = store.table.ap.get(el.AaApArtId).ProjId
     return {
       nodeType: `table`,
