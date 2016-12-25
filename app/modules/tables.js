@@ -451,6 +451,11 @@ export default [
   },
   {
     database: `beob`,
+    table: `beob_quelle`,
+    idField: `id`,
+  },
+  {
+    database: `beob`,
     table: `adb_lr`,
     idField: `id`,
   },

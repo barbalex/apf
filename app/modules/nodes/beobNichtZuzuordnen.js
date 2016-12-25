@@ -5,7 +5,7 @@ export default (store, apArtId) => {
   // grab beobNichtZuzuordnen as array and sort them by year
   let beobNichtZuzuordnen = Array.from(store.table.beobzuordnung.values()).filter(b => b.BeobNichtZuordnen === 1)
   // show only nodes of active ap
-  beobNichtZuzuordnen = beobNichtZuzuordnen.filter(a => a.NO_SISF === apArtId)
+  beobNichtZuzuordnen = beobNichtZuzuordnen.filter(a => a.NO_ISFS === apArtId)
   // map through all and create array of nodes
   let nodes = beobNichtZuzuordnen.map((el) => {
     let label = `${row.Datum || `(kein Datum)`}: ${row.Autor || `(kein Autor)`} (${row.Quelle})`

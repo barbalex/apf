@@ -5,7 +5,7 @@ import apberNodes from './apber'
 import berNodes from './ber'
 import assozartNodes from './assozart'
 import popNodes from './pop'
-import beobNichtZuzuordnenNodes from './beobNichtZuzuordnen'
+import beobzuordnungNodes from './beobzuordnung'
 
 export default (store, projId) => {
   const { activeUrlElements } = store
@@ -29,7 +29,7 @@ export default (store, projId) => {
     const myBerNodes = berNodes(store, el.ApArtId)
     const myAssozartNodes = assozartNodes(store, el.ApArtId)
     const myPopNodes = popNodes(store, el.ApArtId)
-    const myBeobNichtZuzuordnenNodes = beobNichtZuzuordnenNodes(store, el.ApArtId)
+    const myBeobzuordnungNodes = beobzuordnungNodes(store, el.ApArtId)
     return {
       nodeType: `table`,
       menuType: `ap`,
@@ -94,10 +94,10 @@ export default (store, projId) => {
           nodeType: `folder`,
           menuType: `beobzuordnungFolder`,
           id: el.ApArtId,
-          label: `nicht beurteilte Beobachtungen. TODO: add number`,
+          label: `nicht beurteilte Beobachtungen (${myBeobzuordnungNodes.length})`,
           expanded: activeUrlElements.beobzuordnungFolder,
           url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `nicht-beurteilte-Beobachtungen`],
-          children: [],
+          children: myBeobzuordnungNodes,
         },
         // beobNichtZuzuordnen folder
         {
