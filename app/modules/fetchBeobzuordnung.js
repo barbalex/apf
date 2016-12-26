@@ -1,4 +1,4 @@
-import { transaction, computed } from 'mobx'
+import { transaction, computed, autorun } from 'mobx'
 import axios from 'axios'
 import apiBaseUrl from './apiBaseUrl'
 
@@ -13,8 +13,9 @@ export default (store, apArtId) => {
       transaction(() => {
         data.forEach((zuordnung) => {
           // set computed value "beob_bereitgestellt"
-          const beobBereitgestellt = store.table.beob_bereitgestellt.get(zuordnung.NO_NOTE)
-          zuordnung.beobBereitgestellt = computed(() => beobBereitgestellt || null)
+          zuordnung.beobBereitgestellt = computed(() =>
+            store.table.beob_bereitgestellt.get(zuordnung.NO_NOTE)
+          )
           // set computed value "type"
           const type = computed(() => {
             if (zuordnung.BeobNichtZuordnen && zuordnung.BeobNichtZuordnen === 1) {
