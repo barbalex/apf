@@ -15,6 +15,7 @@ import isString from 'lodash/isString'
 import queryString from 'query-string'
 
 import fetchTableModule from '../modules/fetchTable'
+import fetchBeobzuordnungModule from '../modules/fetchBeobzuordnung'
 import fetchTableByParentId from '../modules/fetchTableByParentId'
 // import getNodeByPath from '../modules/getNodeByPath'
 import apiBaseUrl from '../modules/apiBaseUrl'
@@ -359,6 +360,10 @@ class Store extends singleton {
   @action
   fetchTable = (schemaName, tableName) =>
     fetchTableModule(this, schemaName, tableName)
+
+  @action
+  fetchBeobzuordnung = apArtId =>
+    fetchBeobzuordnungModule(this, apArtId)
 
   // fetch data of table for id of parent table
   // used for actual apflora data
