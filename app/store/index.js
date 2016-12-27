@@ -17,6 +17,7 @@ import queryString from 'query-string'
 import fetchTableModule from '../modules/fetchTable'
 import fetchBeobzuordnungModule from '../modules/fetchBeobzuordnung'
 import fetchTableByParentId from '../modules/fetchTableByParentId'
+import fetchBeobBereitgestellt from '../modules/fetchBeobBereitgestellt'
 // import getNodeByPath from '../modules/getNodeByPath'
 import apiBaseUrl from '../modules/apiBaseUrl'
 // import fetchDataset from '../modules/fetchDataset'
@@ -370,6 +371,10 @@ class Store extends singleton {
   @action
   fetchTableByParentId = (schemaName, tableName, parentId) =>
     fetchTableByParentId(this, schemaName, tableName, parentId)
+
+  @action
+  fetchBeobBereitgestellt = apArtId =>
+    fetchBeobBereitgestellt(this, apArtId)
 
   // action when user clicks on a node in the tree
   @action

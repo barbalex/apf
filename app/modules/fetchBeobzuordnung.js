@@ -1,4 +1,4 @@
-import { transaction, computed, autorun } from 'mobx'
+import { transaction, computed } from 'mobx'
 import axios from 'axios'
 import apiBaseUrl from './apiBaseUrl'
 
