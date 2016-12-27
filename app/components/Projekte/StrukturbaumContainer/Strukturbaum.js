@@ -55,7 +55,7 @@ const StyledNode = styled.div`
   cursor: pointer;
   color: rgb(247, 247, 247);
   &:hover {
-    color: #b3d4fc;
+    color: orange;
   }
 `
 const StyledNodeInActiveNodePath = styled(StyledNode)`
