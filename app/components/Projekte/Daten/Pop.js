@@ -39,6 +39,7 @@ const PopoverContentRow = styled(PopoverRow)`
 const FieldWithInfoContainer = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: flex-end;
 `
 
 @inject(`store`)

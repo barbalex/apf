@@ -27,6 +27,7 @@ class radioButtonGroupWithInfo extends Component { // eslint-disable-line react/
     const Container = styled.div`
       display: flex;
       justify-content: space-between;
+      align-items: center;
     `
     const ButtonGroup = styled.div`
       flex-grow: 1;

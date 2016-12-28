@@ -50,6 +50,7 @@ const FieldsContainer = styled.div`
 const FieldWithInfoContainer = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: flex-end;
 `
 const PopoverContentRow = styled.div`
   padding: 2px 5px 2px 5px;

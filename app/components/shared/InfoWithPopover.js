@@ -28,14 +28,12 @@ class InfoWithPopover extends Component {
     // DONT use styled because popupAnchorEl then seems to be at 0 0!!!!
 
     return (
-      <div style={{ marginTop: `37px` }}>
+      <div>
         <FontIcon
           id="iconEl"
           className="material-icons"
           onClick={(event) => {
             event.preventDefault()
-            // TODO: this popup opens at 0 0!!!
-            // console.log(`event.currentTarget:`, event.currentTarget)
             this.setState({
               popupOpen: !popupOpen,
               popupAnchorEl: event.currentTarget,
