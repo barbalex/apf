@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import FormTitle from '../../shared/FormTitle'
 import RadioButton from '../../shared/RadioButton'
 import TextField from '../../shared/TextField'
-import RadioButtonGroupWithInfo from '../../shared/RadioButtonGroupWithInfo'
+import RadioButtonWithInfo from '../../shared/RadioButtonWithInfo'
 import Label from '../../shared/Label'
 
 const Container = styled.div`
@@ -54,13 +54,9 @@ class Beob extends Component { // eslint-disable-line react/prefer-stateless-fun
           Legende
         </LabelPopoverTitleRow>
         <LabelPopoverContentRow>
-          Will heissen: Die Beobachtung kann nicht zugeordnet werden.
-        </LabelPopoverContentRow>
-        <LabelPopoverContentRow>
-          Mögliche Gründe: Unsichere Bestimmung, nicht lokalisierbar
-        </LabelPopoverContentRow>
-        <LabelPopoverContentRow>
-          Bitte im Bemerkungsfeld begründen
+          {`Will heissen: Die Beobachtung kann nicht zugeordnet werden.`}<br />
+          {`Mögliche Gründe: Unsichere Bestimmung, nicht lokalisierbar.`}<br />
+          {`Bitte im Bemerkungsfeld begründen.`}
         </LabelPopoverContentRow>
       </Container>
     )
@@ -80,10 +76,10 @@ class Beob extends Component { // eslint-disable-line react/prefer-stateless-fun
             value={activeDataset.row.beobNichtZugeordnet}
             updatePropertyInDb={store.updatePropertyInDb}
           />
-          <RadioButtonGroupWithInfo
-            fieldName="beobNichtZugeordnet"
-            value={activeDataset.row.beobNichtZugeordnet}
-            dataSource={[{ value: 1, label: `Nicht zuordnen` }]}
+          <Label label="Nicht zuordnen" />
+          <RadioButtonWithInfo
+            fieldName="BeobNichtZuordnen"
+            value={activeDataset.row.BeobNichtZuordnen}
             updatePropertyInDb={store.updatePropertyInDb}
             popover={this.nichtZuordnenPopover}
           />
