@@ -28,14 +28,15 @@ export default (store, apArtId) => {
     const quelleName = quelle && quelle.name ? quelle.name : ``
     const label = `${datum || `(kein Datum)`}: ${autor || `(kein Autor)`} (${quelleName})`
     const projId = store.table.ap.get(apArtId).ProjId
+    const beobId = isNaN(el.NO_NOTE) ? el.NO_NOTE : parseInt(el.NO_NOTE, 10)
     return {
       nodeType: `table`,
       menuType: `beobNichtZuzuordnen`,
-      id: el.NO_NOTE,
+      id: beobId,
       parentId: apArtId,
       label,
-      expanded: el.NO_NOTE === activeUrlElements.beobNichtZuzuordnen,
-      url: [`Projekte`, projId, `Arten`, apArtId, `nicht-zuzuordnende-Beobachtungen`, el.NO_NOTE],
+      expanded: beobId === activeUrlElements.beobNichtZuzuordnen,
+      url: [`Projekte`, projId, `Arten`, apArtId, `nicht-zuzuordnende-Beobachtungen`, beobId],
     }
   })
   // filter by node.nodeLabelFilter

@@ -11,9 +11,15 @@ export default (url) => {
   const assozart = assozartFolder && url.length > 5 ? parseInt(url[5], 10) : null
   const idealbiotopFolder = (ap && url.length > 4 && url[4] === `Idealbiotop`) || false
   const beobNichtZuzuordnenFolder = (ap && url.length > 4 && url[4] === `nicht-zuzuordnende-Beobachtungen`) || false
-  const beobNichtZuzuordnen = beobNichtZuzuordnenFolder && url.length > 5 ? url[5] : null
+  let beobNichtZuzuordnen = beobNichtZuzuordnenFolder && url.length > 5 ? url[5] : null
+  if (beobNichtZuzuordnen && !isNaN(beobNichtZuzuordnen)) {
+    beobNichtZuzuordnen = parseInt(beobNichtZuzuordnen, 10)
+  }
   const beobzuordnungFolder = (ap && url.length > 4 && url[4] === `nicht-beurteilte-Beobachtungen`) || false
-  const beobzuordnung = beobzuordnungFolder && url.length > 5 ? url[5] : null
+  let beobzuordnung = beobzuordnungFolder && url.length > 5 ? url[5] : null
+  if (beobzuordnung && !isNaN(beobzuordnung)) {
+    beobzuordnung = parseInt(beobzuordnung, 10)
+  }
   const berFolder = (ap && url.length > 4 && url[4] === `Berichte`) || false
   const ber = berFolder && url.length > 5 ? parseInt(url[5], 10) : null
   const apberFolder = (ap && url.length > 4 && url[4] === `AP-Berichte`) || false
