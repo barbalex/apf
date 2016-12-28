@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 import FormTitle from '../../shared/FormTitle'
 import RadioButton from '../../shared/RadioButton'
+import TextField from '../../shared/TextField'
 import RadioButtonGroupWithInfo from '../../shared/RadioButtonGroupWithInfo'
 import Label from '../../shared/Label'
 
@@ -85,6 +86,17 @@ class Beob extends Component { // eslint-disable-line react/prefer-stateless-fun
             dataSource={[{ value: 1, label: `Nicht zuordnen` }]}
             updatePropertyInDb={store.updatePropertyInDb}
             popover={this.nichtZuordnenPopover}
+          />
+          <TextField
+            label="Bemerkungen zur Zuordnung"
+            fieldName="BeobBemerkungen"
+            value={activeDataset.row.BeobBemerkungen}
+            errorText={activeDataset.valid.BeobBemerkungen}
+            type="text"
+            multiLine
+            fullWidth
+            updateProperty={store.updateProperty}
+            updatePropertyInDb={store.updatePropertyInDb}
           />
         </FieldsContainer>
       </Container>

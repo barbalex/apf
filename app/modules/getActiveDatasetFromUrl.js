@@ -39,7 +39,11 @@ export default (store) => {
           activeDataset = { table: `popber`, row: store.table.popber.get(aEl.popber), folder: null }
         } else if (aEl.tpop) {
           if (aEl.tpopbeob) {
-            activeDataset = { table: `tpopbeob`, row: store.table.tpopbeob.get(aEl.tpopbeob), folder: null }
+            activeDataset = {
+              table: `beobzuordnung`,
+              row: store.table.beobzuordnung.get(aEl.tpopbeob),
+              folder: null,
+            }
           } else if (aEl.tpopber) {
             activeDataset = { table: `tpopber`, row: store.table.tpopber.get(aEl.tpopber), folder: null }
           } else if (aEl.tpopfreiwkontr) {
@@ -75,9 +79,17 @@ export default (store) => {
               }
             }
           } else if (aEl.tpopmassnber) {
-            activeDataset = { table: `tpopmassnber`, row: store.table.tpopmassnber.get(aEl.tpopmassnber), folder: null }
+            activeDataset = {
+              table: `tpopmassnber`,
+              row: store.table.tpopmassnber.get(aEl.tpopmassnber),
+              folder: null,
+            }
           } else if (aEl.tpopmassn) {
-            activeDataset = { table: `tpopmassn`, row: store.table.tpopmassn.get(aEl.tpopmassn), folder: null }
+            activeDataset = {
+              table: `tpopmassn`,
+              row: store.table.tpopmassn.get(aEl.tpopmassn),
+              folder: null,
+            }
           } else {
             let folder = null
             if (aEl.tpopmassnFolder) folder = `tpopmassn`
