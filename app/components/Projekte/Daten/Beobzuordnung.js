@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 import FormTitle from '../../shared/FormTitle'
 import RadioButton from '../../shared/RadioButton'
+import RadioButtonGroup from '../../shared/RadioButtonGroup'
 import TextField from '../../shared/TextField'
 import RadioButtonWithInfo from '../../shared/RadioButtonWithInfo'
 import Label from '../../shared/Label'
@@ -62,20 +63,28 @@ class Beob extends Component { // eslint-disable-line react/prefer-stateless-fun
     )
   }
 
+  get tpopZuordnenSource() {
+    const { store } = this.props
+    // get all tpop of active ap
+
+    // calculate their distance to this beob
+
+    // order them by distance
+
+    // build label
+
+    // return array of TPopId, label
+    return []
+  }
+
   render() {
-    const { store, typ } = this.props
+    const { store } = this.props
     const { activeDataset } = store
 
     return (
       <Container>
         <FormTitle title="Beobachtung" />
         <FieldsContainer>
-          <Label label="Nicht beurteilt" />
-          <RadioButton
-            fieldName="beobNichtZugeordnet"
-            value={activeDataset.row.beobNichtZugeordnet}
-            updatePropertyInDb={store.updatePropertyInDb}
-          />
           <Label label="Nicht zuordnen" />
           <RadioButtonWithInfo
             fieldName="BeobNichtZuordnen"
@@ -92,6 +101,12 @@ class Beob extends Component { // eslint-disable-line react/prefer-stateless-fun
             multiLine
             fullWidth
             updateProperty={store.updateProperty}
+            updatePropertyInDb={store.updatePropertyInDb}
+          />
+          <RadioButtonGroup
+            fieldName="Einer Teilpopulation zuordnen"
+            value={activeDataset.row.TPopId}
+            dataSource={this.tpopZuordnenSource}
             updatePropertyInDb={store.updatePropertyInDb}
           />
         </FieldsContainer>
