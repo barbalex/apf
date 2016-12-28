@@ -80,7 +80,7 @@ class Daten extends Component { // eslint-disable-line react/prefer-stateless-fu
       qk: <Qk />,
       beobNichtZuzuordnen: <Beobzuordnung typ="beobNichtZuzuordnen" />,
       beobzuordnung: <Beobzuordnung typ="beobzuordnung" />,
-      tpopBeobzuordnung: <Beobzuordnung typ="tpopBeobzuordnung" />,
+      tpopbeob: <Beobzuordnung typ="tpopbeob" />,
     }
     const standardForm = (
       <div>
@@ -99,8 +99,8 @@ class Daten extends Component { // eslint-disable-line react/prefer-stateless-fu
       key = `beobNichtZuzuordnen`
     } else if (activeUrlElements.beobzuordnung) {
       key = `beobzuordnung`
-    } else if (activeUrlElements.tpopBeobzuordnung) {
-      key = `tpopBeobzuordnung`
+    } else if (activeUrlElements.tpopbeob) {
+      key = `tpopbeob`
     } else {
       key = activeDataset.table
     }

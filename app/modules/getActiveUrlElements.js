@@ -47,8 +47,8 @@ export default (url) => {
   const tpopfreiwkontrzaehl = tpopfreiwkontrzaehlFolder && url.length > 11 ? parseInt(url[11], 10) : null
   const tpopberFolder = (tpop && url.length > 8 && url[8] === `Kontroll-Berichte`) || false
   const tpopber = tpopberFolder && url.length > 9 ? parseInt(url[9], 10) : null
-  const tpopBeobzuordnungFolder = (tpop && url.length > 8 && url[8] === `zugeordnete-Beobachtungen`) || false
-  const tpopBeobzuordnung = tpopBeobzuordnungFolder && url.length > 9 ? url[9] : null
+  const tpopbeobFolder = (tpop && url.length > 8 && url[8] === `Beobachtungen`) || false
+  const tpopbeob = tpopbeobFolder && url.length > 9 ? url[9] : null
 
   return {
     exporte,
@@ -99,7 +99,7 @@ export default (url) => {
     tpopfreiwkontrzaehl,
     tpopberFolder,
     tpopber,
-    tpopBeobzuordnungFolder,
-    tpopBeobzuordnung,
+    tpopbeobFolder,
+    tpopbeob,
   }
 }

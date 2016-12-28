@@ -120,7 +120,7 @@ export default (store) => {
     },
     tpopkontrzaehlFolder() {},
     tpopberFolder() {},
-    tpopBeobzuordnungFolder() {
+    tpopbeobFolder() {
       store.fetchTable(`beob`, `beob_quelle`)
     },
   }

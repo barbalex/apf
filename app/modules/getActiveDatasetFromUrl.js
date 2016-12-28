@@ -38,8 +38,8 @@ export default (store) => {
         } else if (aEl.popber) {
           activeDataset = { table: `popber`, row: store.table.popber.get(aEl.popber), folder: null }
         } else if (aEl.tpop) {
-          if (aEl.tpopBeobzuordnung) {
-            activeDataset = { table: `tpopBeobzuordnung`, row: store.table.tpopBeobzuordnung.get(aEl.tpopBeobzuordnung), folder: null }
+          if (aEl.tpopbeob) {
+            activeDataset = { table: `tpopbeob`, row: store.table.tpopbeob.get(aEl.tpopbeob), folder: null }
           } else if (aEl.tpopber) {
             activeDataset = { table: `tpopber`, row: store.table.tpopber.get(aEl.tpopber), folder: null }
           } else if (aEl.tpopfreiwkontr) {
@@ -85,7 +85,7 @@ export default (store) => {
             if (aEl.tpopfeldkontrFolder) folder = `tpopfeldkontr`
             if (aEl.tpopfreiwkontrFolder) folder = `tpopfreiwkontr`
             if (aEl.tpopberFolder) folder = `tpopber`
-            if (aEl.tpopBeobzuordnungFolder) folder = `tpopBeobzuordnung`
+            if (aEl.tpopbeobFolder) folder = `tpopbeob`
             activeDataset = { table: `tpop`, row: store.table.tpop.get(aEl.tpop), folder }
           }
         } else {

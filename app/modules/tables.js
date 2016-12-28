@@ -297,21 +297,8 @@ export default [
     idField: `NO_NOTE`,
     parentTable: `tpop`,
     parentIdField: `TPopId`,
-    filter(row) {
-      return !!row.TPopId
-    },
     mutWannField: `BeobMutWann`,
     mutWerField: `BeobMutWer`,
-    label_(row) {
-      if (!row) return noLabel
-      return `${row.Datum || `(kein Datum)`}: ${row.Autor || `(kein Autor)`} (${row.Quelle})`
-    },
-    folder: {
-      label(node) {
-        if (!node || !node.childrenFilteredByLabel) return `(kein Name)`
-        return node.label
-      },
-    },
   },
   {
     database: `apflora`,
@@ -319,24 +306,8 @@ export default [
     idField: `NO_NOTE`,
     parentTable: ``,
     parentIdField: `NO_NOTE`,
-    filter(row) {
-      return row.BeobNichtZuordnen && row.BeobNichtZuordnen === 1
-    },
     mutWannField: `BeobMutWann`,
     mutWerField: `BeobMutWer`,
-    label_(row) {
-      if (!row) return noLabel
-      return `${row.Datum || `(kein Datum)`}: ${row.Autor || `(kein Autor)`} (${row.Quelle})`
-    },
-    folder: {
-      name: `beobNichtZuzuordnen`,
-      label(node) {
-        if (!node || !node.childrenFilteredByLabel) return `(kein Name)`
-        return node.folderLabel
-        // if (!node.childrenFilteredByLabel && node.label) return node.label
-        // return `nicht zuzuordnende Beobachtungen (${node.row.AnzBeobNichtZuzuordnen < 100 ? node.row.AnzBeobNichtZuzuordnen : `neuste 100 von ${node.row.AnzBeobNichtZuzuordnen}`})`
-      },
-    },
   },
   {
     database: `apflora`,
@@ -344,24 +315,8 @@ export default [
     idField: `NO_NOTE`,
     parentTable: ``,
     parentIdField: `NO_NOTE`,
-    filter(row) {
-      return !row.TPopId && !(row.BeobNichtZuordnen && row.BeobNichtZuordnen === 1)
-    },
     mutWannField: `BeobMutWann`,
     mutWerField: `BeobMutWer`,
-    label_(row) {
-      if (!row) return noLabel
-      return `${row.Datum || `(kein Datum)`}: ${row.Autor || `(kein Autor)`} (${row.Quelle})`
-    },
-    folder: {
-      name: `beobNichtBeurteilt`,
-      label(node) {
-        if (!node || !node.childrenFilteredByLabel) return `(kein Name)`
-        return node.folderLabel
-        // if (!node.childrenFilteredByLabel && node.label) return node.label
-        // return `nicht beurteilte Beobachtungen (${node.row.AnzBeobNichtBeurteilt < 100 ? node.row.AnzBeobNichtBeurteilt : `neuste 100 von ${node.row.AnzBeobNichtBeurteilt}`})`
-      },
-    },
   },
   {
     database: `apflora`,

@@ -4,6 +4,7 @@ import tpopmassnberNodes from './tpopmassnber'
 import tpopmassnNodes from './tpopmassn'
 import tpopfeldkontrNodes from './tpopfeldkontr'
 import tpopfreiwkontrNodes from './tpopfreiwkontr'
+import tpopbeobNodes from './tpopbeob'
 
 export default ({ store, projId, apArtId, popId }) => {
   const { activeUrlElements } = store
@@ -19,7 +20,7 @@ export default ({ store, projId, apArtId, popId }) => {
     const myFeldkontrNodes = tpopfeldkontrNodes({ store, projId, apArtId, popId, tpopId: el.TPopId })
     const myFreiwkontrNodes = tpopfreiwkontrNodes({ store, projId, apArtId, popId, tpopId: el.TPopId })
     const myTpopberNodes = tpopberNodes({ store, projId, apArtId, popId, tpopId: el.TPopId })
-    const myBeobNodes = []
+    const myTpopbeobNodes = tpopbeobNodes({ store, tpopId: el.TPopId })
     return {
       nodeType: `table`,
       menuType: `tpop`,
@@ -78,10 +79,10 @@ export default ({ store, projId, apArtId, popId }) => {
           nodeType: `folder`,
           menuType: `tpopbeobFolder`,
           id: el.TPopId,
-          label: `Beobachtungen (${myBeobNodes.length})`,
+          label: `Beobachtungen (${myTpopbeobNodes.length})`,
           expanded: activeUrlElements.tpopbeobFolder,
           url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, el.PopId, `Teil-Populationen`, el.TPopId, `Beobachtungen`],
-          children: myBeobNodes,
+          children: myTpopbeobNodes,
         },
       ],
     }
