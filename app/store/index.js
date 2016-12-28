@@ -347,6 +347,15 @@ class Store extends singleton {
             this.url[3] = value
             this.history.push(`/${this.url.join(`/`)}${Object.keys(this.urlQuery).length > 0 ? `?${queryString.stringify(this.urlQuery)}` : ``}`)
           }
+          // if beobNichtBeurteilt is set to beobNichtZuordnen, url needs to change
+          if (table === `beobzuordnung` && key === `BeobNichtZuordnen`) {
+            this.url[4] = (
+              value === 1 ?
+              `nicht-zuzuordnende-Beobachtungen` :
+              `nicht-beurteilte-Beobachtungen`
+            )
+            this.history.push(`/${this.url.join(`/`)}${Object.keys(this.urlQuery).length > 0 ? `?${queryString.stringify(this.urlQuery)}` : ``}`)
+          }
         })
         .catch((error) => {
           row[key] = oldValue
