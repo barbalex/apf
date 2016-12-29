@@ -357,6 +357,14 @@ class Store extends singleton {
             )
             this.history.push(`/${this.url.join(`/`)}${Object.keys(this.urlQuery).length > 0 ? `?${queryString.stringify(this.urlQuery)}` : ``}`)
           }
+          // if for a beobZugeordnet TPopId is set, url needs to change
+          // namely: PopId and TPopId
+          if (table === `beobzuordnung` && key === `TPopId`) {
+            const tpop = this.table.tpop.get(value)
+            this.url[5] = tpop.PopId
+            this.url[7] = value
+            this.history.push(`/${this.url.join(`/`)}${Object.keys(this.urlQuery).length > 0 ? `?${queryString.stringify(this.urlQuery)}` : ``}`)
+          }
         })
         .catch((error) => {
           row[key] = oldValue
