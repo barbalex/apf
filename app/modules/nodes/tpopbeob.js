@@ -21,14 +21,15 @@ export default ({ store, tpopId }) => {
     const quelle = store.table.beob_quelle.get(el.QuelleId)
     const quelleName = quelle && quelle.name ? quelle.name : ``
     const label = `${datum || `(kein Datum)`}: ${autor || `(kein Autor)`} (${quelleName})`
+    const beobId = isNaN(el.NO_NOTE) ? el.NO_NOTE : parseInt(el.NO_NOTE, 10)
     return {
       nodeType: `table`,
       menuType: `tpopbeob`,
-      id: el.NO_NOTE,
+      id: beobId,
       parentId: tpopId,
       label,
-      expanded: el.NO_NOTE === activeUrlElements.tpopbeob,
-      url: [`Projekte`, activeUrlElements.projekt, `Arten`, activeUrlElements.ap, `Populationen`, activeUrlElements.pop, `Teil-Populationen`, el.TPopId, `Beobachtungen`, el.NO_NOTE],
+      expanded: beobId === activeUrlElements.tpopbeob,
+      url: [`Projekte`, activeUrlElements.projekt, `Arten`, activeUrlElements.ap, `Populationen`, activeUrlElements.pop, `Teil-Populationen`, el.TPopId, `Beobachtungen`, beobId],
     }
   })
   // filter by node.nodeLabelFilter
