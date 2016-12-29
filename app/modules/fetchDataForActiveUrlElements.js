@@ -123,6 +123,19 @@ export default (store) => {
     tpopbeobFolder() {
       store.fetchTable(`beob`, `beob_quelle`)
     },
+    tpopbeob() {
+      const id = activeUrlElements.tpopbeob
+      const table = (
+        isNaN(id) ?
+        `beob_evab` :
+        `beob_infospezies`
+      )
+      store.fetchDatasetById({
+        schemaName: `beob`,
+        table,
+        id,
+      })
+    },
   }
 
   forEach(fetchingFromActiveElements, (func, key) => {

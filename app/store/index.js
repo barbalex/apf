@@ -17,6 +17,7 @@ import queryString from 'query-string'
 import fetchTableModule from '../modules/fetchTable'
 import fetchBeobzuordnungModule from '../modules/fetchBeobzuordnung'
 import fetchTableByParentId from '../modules/fetchTableByParentId'
+import fetchDatasetById from '../modules/fetchDatasetById'
 import fetchBeobBereitgestellt from '../modules/fetchBeobBereitgestellt'
 // import getNodeByPath from '../modules/getNodeByPath'
 import apiBaseUrl from '../modules/apiBaseUrl'
@@ -380,6 +381,10 @@ class Store extends singleton {
   @action
   fetchTableByParentId = (schemaName, tableName, parentId) =>
     fetchTableByParentId(this, schemaName, tableName, parentId)
+
+  @action
+  fetchDatasetById = ({ schemaName, tableName, id }) =>
+    fetchDatasetById({ store: this, schemaName, tableName, id })
 
   @action
   fetchBeobBereitgestellt = apArtId =>
