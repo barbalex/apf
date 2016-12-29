@@ -132,7 +132,7 @@ export default (store) => {
       )
       store.fetchDatasetById({
         schemaName: `beob`,
-        table,
+        tableName: table,
         id,
       })
     },

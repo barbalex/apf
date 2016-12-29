@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import styled from 'styled-components'
+import sortBy from 'lodash/sortBy'
 
 import FormTitle from '../../shared/FormTitle'
 import RadioButton from '../../shared/RadioButton'
@@ -68,26 +69,50 @@ class Beob extends Component { // eslint-disable-line react/prefer-stateless-fun
     const { activeDataset } = store
     const beob = activeDataset.row
     // get all popIds of active ap
-    const popIdList = Array.from(store.table.pop.values())
+    const popList = Array.from(store.table.pop.values())
       .filter(p => p.ApArtId === store.activeUrlElements.ap)
-      .map(p => p.PopId)
+    const popIdList = popList.map(p => p.PopId)
     // get all tpop
-    const tpopList = Array.from(store.table.tpop.values())
+    let tpopList = Array.from(store.table.tpop.values())
       // of active ap
       .filter(t => popIdList.includes(t.PopId))
       // with coordinates
       .filter(t => t.TPopXKoord && t.TPopYKoord)
     // calculate their distance to this beob
     // hm. need beob_evab and beob_infospezies for this
+    const beobRaw = (
+      beob.QuelleId === 1 ?
+      store.table.beob_evab.get(beob.NO_NOTE) :
+      store.table.beob_infospezies.get(beob.NO_NOTE)
+    )
+    if (!beobRaw) {
+      return []
+    }
+    const beobX = (
+      beob.QuelleId === 1 ?
+      beobRaw.FNS_XGIS :
+      beobRaw.COORDONNEE_FED_E
+    )
+    const beobY = (
+      beob.QuelleId === 1 ?
+      beobRaw.FNS_YGIS :
+      beobRaw.COORDONNEE_FED_N
+    )
     tpopList.forEach((t) => {
-      t.distance = ``
+      const dX = Math.abs(beobX - t.TPopXKoord)
+      const dY = Math.abs(beobY - t.TPopYKoord)
+      t.distance = ((dX ** 2) + (dY ** 2)) ** 0.5
+      t.popNr = store.table.pop.get(t.PopId).PopNr
+      // build label
+      t.label = `${t.distance}m: ${t.popNr}/${t.TPopNr}, ${t.TPopFlurname}`
     })
     // order them by distance
-
-    // build label
-
+    tpopList = sortBy(tpopList, `distance`)
     // return array of TPopId, label
-    return []
+    return tpopList.map(t => ({
+      value: t.TPopId,
+      label: t.label,
+    }))
   }
 
   render() {
@@ -116,8 +141,9 @@ class Beob extends Component { // eslint-disable-line react/prefer-stateless-fun
             updateProperty={store.updateProperty}
             updatePropertyInDb={store.updatePropertyInDb}
           />
+          <Label label="Einer Teilpopulation zuordnen" />
           <RadioButtonGroup
-            fieldName="Einer Teilpopulation zuordnen"
+            fieldName="TPopId"
             value={activeDataset.row.TPopId}
             dataSource={this.tpopZuordnenSource}
             updatePropertyInDb={store.updatePropertyInDb}

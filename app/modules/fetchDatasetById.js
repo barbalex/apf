@@ -3,14 +3,14 @@ import axios from 'axios'
 import apiBaseUrl from './apiBaseUrl'
 import tables from './tables'
 
-export default ({ store, schemaNamePassed, tableName, id }) => {
+export default ({ store, schemaName, tableName, id }) => {
   if (!tableName) {
     return new Error(`action fetchDatasetById: tableName must be passed`)
   }
   if (!id) {
     return new Error(`action fetchDatasetById: id must be passed`)
   }
-  const schemaName = schemaNamePassed || `apflora`
+  schemaName = schemaName || `apflora`
 
   const idField = tables.find(t => t.table === tableName).idField
   const url = `${apiBaseUrl}/schema/${schemaName}/table/${tableName}/field/${idField}/value/${id}`
@@ -18,7 +18,7 @@ export default ({ store, schemaNamePassed, tableName, id }) => {
     .then(({ data }) => {
       transaction(() => {
         data.forEach(d =>
-          store.table[`${tableName}`].set(d[idField], d)
+          store.table[`${tableName}`].set(id, d)
         )
       })
     })

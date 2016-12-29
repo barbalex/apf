@@ -414,4 +414,14 @@ export default [
     table: `adb_lr`,
     idField: `id`,
   },
+  {
+    database: `beob`,
+    table: `beob_evab`,
+    idField: `NO_NOTE_PROJET`,
+  },
+  {
+    database: `beob`,
+    table: `beob_infospezies`,
+    idField: `NO_NOTE`,
+  },
 ]
