@@ -65,10 +65,23 @@ class Beob extends Component { // eslint-disable-line react/prefer-stateless-fun
 
   get tpopZuordnenSource() {
     const { store } = this.props
-    // get all tpop of active ap
-
+    const { activeDataset } = store
+    const beob = activeDataset.row
+    // get all popIds of active ap
+    const popIdList = Array.from(store.table.pop.values())
+      .filter(p => p.ApArtId === store.activeUrlElements.ap)
+      .map(p => p.PopId)
+    // get all tpop
+    const tpopList = Array.from(store.table.tpop.values())
+      // of active ap
+      .filter(t => popIdList.includes(t.PopId))
+      // with coordinates
+      .filter(t => t.TPopXKoord && t.TPopYKoord)
     // calculate their distance to this beob
-
+    // hm. need beob_evab and beob_infospezies for this
+    tpopList.forEach((t) => {
+      t.distance = ``
+    })
     // order them by distance
 
     // build label
