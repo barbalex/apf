@@ -79,29 +79,31 @@ class Beob extends Component { // eslint-disable-line react/prefer-stateless-fun
       // with coordinates
       .filter(t => t.TPopXKoord && t.TPopYKoord)
     // calculate their distance to this beob
-    // hm. need beob_evab and beob_infospezies for this
     const beobRaw = (
       beob.QuelleId === 1 ?
       store.table.beob_evab.get(beob.NO_NOTE) :
       store.table.beob_infospezies.get(beob.NO_NOTE)
     )
+    // beobRaw loads later
+    // prevent an error occuring if it does not yet exist
+    // by passing back an empty array
     if (!beobRaw) {
       return []
     }
     const beobX = (
-      beob.QuelleId === 1 ?
+      beob.QuelleId === 2 ?
       beobRaw.FNS_XGIS :
       beobRaw.COORDONNEE_FED_E
     )
     const beobY = (
-      beob.QuelleId === 1 ?
+      beob.QuelleId === 2 ?
       beobRaw.FNS_YGIS :
       beobRaw.COORDONNEE_FED_N
     )
     tpopList.forEach((t) => {
       const dX = Math.abs(beobX - t.TPopXKoord)
       const dY = Math.abs(beobY - t.TPopYKoord)
-      t.distance = ((dX ** 2) + (dY ** 2)) ** 0.5
+      t.distance = Math.round(((dX ** 2) + (dY ** 2)) ** 0.5)
       t.popNr = store.table.pop.get(t.PopId).PopNr
       // build label
       t.label = `${t.distance}m: ${t.popNr}/${t.TPopNr}, ${t.TPopFlurname}`
