@@ -47,9 +47,13 @@ export default (store) => {
     },
     beobNichtZuzuordnenFolder() {
       store.fetchTable(`beob`, `beob_quelle`)
+      store.fetchTableByParentId(`apflora`, `pop`, activeUrlElements.ap)
+      store.fetchTpopForAp(activeUrlElements.ap)
     },
     beobzuordnungFolder() {
       store.fetchTable(`beob`, `beob_quelle`)
+      store.fetchTableByParentId(`apflora`, `pop`, activeUrlElements.ap)
+      store.fetchTpopForAp(activeUrlElements.ap)
     },
     berFolder() {
       store.fetchTableByParentId(`apflora`, `ber`, activeUrlElements.ap)
@@ -122,6 +126,7 @@ export default (store) => {
     tpopberFolder() {},
     tpopbeobFolder() {
       store.fetchTable(`beob`, `beob_quelle`)
+      store.fetchTpopForAp(activeUrlElements.ap)
     },
     tpopbeob() {
       const id = activeUrlElements.tpopbeob
