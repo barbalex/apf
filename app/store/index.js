@@ -360,7 +360,7 @@ class Store extends singleton {
           }
           // if for a beobZugeordnet TPopId is set, url needs to change
           // namely: PopId and TPopId
-          if (table === `beobzuordnung` && key === `TPopId`) {
+          if (table === `beobzuordnung` && key === `TPopId` && value) {
             const tpop = this.table.tpop.get(value)
             this.url[5] = tpop.PopId
             this.url[7] = value

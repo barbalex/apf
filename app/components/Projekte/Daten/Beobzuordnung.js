@@ -157,6 +157,7 @@ class Beob extends Component { // eslint-disable-line react/prefer-stateless-fun
       `Informationen aus EvAB (nicht veränderbar)` :
       `Informationen aus Infospezies (nicht veränderbar)`
     )
+    const showTPopId = activeDataset.row.BeobNichtZuordnen !== 1
 
     return (
       <Container>
@@ -169,15 +170,20 @@ class Beob extends Component { // eslint-disable-line react/prefer-stateless-fun
             updatePropertyInDb={store.updatePropertyInDb}
             popover={this.nichtZuordnenPopover}
           />
-          <Label label="Einer Teilpopulation zuordnen" />
-          <MaxHeightDiv>
-            <RadioButtonGroup
-              fieldName="TPopId"
-              value={activeDataset.row.TPopId}
-              dataSource={this.tpopZuordnenSource}
-              updatePropertyInDb={store.updatePropertyInDb}
-            />
-          </MaxHeightDiv>
+          {
+            showTPopId &&
+            <div>
+              <Label label="Einer Teilpopulation zuordnen" />
+              <MaxHeightDiv>
+                <RadioButtonGroup
+                  fieldName="TPopId"
+                  value={activeDataset.row.TPopId}
+                  dataSource={this.tpopZuordnenSource}
+                  updatePropertyInDb={store.updatePropertyInDb}
+                />
+              </MaxHeightDiv>
+            </div>
+          }
           <TextField
             label="Bemerkungen zur Zuordnung"
             fieldName="BeobBemerkungen"

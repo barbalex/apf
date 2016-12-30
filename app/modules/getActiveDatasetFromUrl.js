@@ -27,7 +27,7 @@ export default (store) => {
       } else if (aEl.beobzuordnung) {
         activeDataset = {
           table: `beobzuordnung`,
-          row: store.table.beobzuordnung.get(aEl.beobzuordnung),
+          row: store.table.beob_bereitgestellt.get(aEl.beobzuordnung),
           folder: null,
         }
       } else if (aEl.beobNichtZuzuordnen) {
