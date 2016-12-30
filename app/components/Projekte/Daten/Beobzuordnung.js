@@ -11,13 +11,11 @@ import Label from '../../shared/Label'
 
 const Container = styled.div`
   height: 100%;
+  overflow-x: auto;
 `
 const FieldsContainer = styled.div`
   padding-left: 10px;
   padding-right: 10px;
-  overflow-x: auto;
-  height: 100%;
-  padding-bottom: 95px;
 `
 const LabelPopoverRow = styled.div`
   padding: 2px 5px 2px 5px;
@@ -37,9 +35,6 @@ const LabelPopoverContentRow = styled(LabelPopoverRow)`
     border-bottom-right-radius: 4px;
     border-bottom-left-radius: 4px;
   }
-`
-const MovedUpDiv = styled.div`
-  margin-top: -15px;
 `
 const MaxHeightDiv = styled.div`
   max-height: 250px;
@@ -70,6 +65,18 @@ class Beob extends Component { // eslint-disable-line react/prefer-stateless-fun
     )
   }
 
+  get beobRaw() {
+    const { store } = this.props
+    const { activeDataset } = store
+    const beob = activeDataset.row
+    const beobRaw = (
+      beob.QuelleId === 1 ?
+      store.table.beob_evab.get(beob.NO_NOTE) :
+      store.table.beob_infospezies.get(beob.NO_NOTE)
+    )
+    return beobRaw
+  }
+
   get tpopZuordnenSource() {
     const { store } = this.props
     const { activeDataset } = store
@@ -85,11 +92,7 @@ class Beob extends Component { // eslint-disable-line react/prefer-stateless-fun
       // with coordinates
       .filter(t => t.TPopXKoord && t.TPopYKoord)
     // calculate their distance to this beob
-    const beobRaw = (
-      beob.QuelleId === 1 ?
-      store.table.beob_evab.get(beob.NO_NOTE) :
-      store.table.beob_infospezies.get(beob.NO_NOTE)
-    )
+    const beobRaw = this.beobRaw
     // beobRaw loads later
     // prevent an error occuring if it does not yet exist
     // by passing back an empty array
@@ -126,6 +129,12 @@ class Beob extends Component { // eslint-disable-line react/prefer-stateless-fun
   render() {
     const { store } = this.props
     const { activeDataset } = store
+    const beob = activeDataset.row
+    const beobRawTitle = (
+      beob.QuelleId === 1 ?
+      `Informationen aus EvAB` :
+      `Informationen aus Infospezies`
+    )
 
     return (
       <Container>
@@ -138,19 +147,6 @@ class Beob extends Component { // eslint-disable-line react/prefer-stateless-fun
             updatePropertyInDb={store.updatePropertyInDb}
             popover={this.nichtZuordnenPopover}
           />
-          <MovedUpDiv>
-            <TextField
-              label="Bemerkungen zur Zuordnung"
-              fieldName="BeobBemerkungen"
-              value={activeDataset.row.BeobBemerkungen}
-              errorText={activeDataset.valid.BeobBemerkungen}
-              type="text"
-              multiLine
-              fullWidth
-              updateProperty={store.updateProperty}
-              updatePropertyInDb={store.updatePropertyInDb}
-            />
-          </MovedUpDiv>
           <Label label="Einer Teilpopulation zuordnen" />
           <MaxHeightDiv>
             <RadioButtonGroup
@@ -160,7 +156,19 @@ class Beob extends Component { // eslint-disable-line react/prefer-stateless-fun
               updatePropertyInDb={store.updatePropertyInDb}
             />
           </MaxHeightDiv>
+          <TextField
+            label="Bemerkungen zur Zuordnung"
+            fieldName="BeobBemerkungen"
+            value={activeDataset.row.BeobBemerkungen}
+            errorText={activeDataset.valid.BeobBemerkungen}
+            type="text"
+            multiLine
+            fullWidth
+            updateProperty={store.updateProperty}
+            updatePropertyInDb={store.updatePropertyInDb}
+          />
         </FieldsContainer>
+        <FormTitle title={beobRawTitle} />
       </Container>
     )
   }
