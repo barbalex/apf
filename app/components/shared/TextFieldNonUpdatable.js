@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { observer } from 'mobx-react'
 import TextField from 'material-ui/TextField'
+import { orange500 } from 'material-ui/styles/colors'
 
 @observer
 class MyTextField extends Component { // eslint-disable-line react/prefer-stateless-function
@@ -9,13 +10,13 @@ class MyTextField extends Component { // eslint-disable-line react/prefer-statel
     label: PropTypes.string.isRequired,
     value: PropTypes.any,
     key: PropTypes.any,
-    hintText: PropTypes.string,
+    errorText: PropTypes.string,
   }
 
   constructor() {
     super()
     this.state = {
-      hintText: ``,
+      errorText: ``,
     }
   }
 
@@ -24,22 +25,23 @@ class MyTextField extends Component { // eslint-disable-line react/prefer-statel
       label,
       value,
     } = this.props
-    const { hintText } = this.state
+    const { errorText } = this.state
 
     return (
       <TextField
         floatingLabelText={label}
-        hintText={hintText}
+        errorText={errorText}
         value={value || ``}
         fullWidth
+        errorStyle={{ color: orange500 }}
         onChange={() => {
           this.setState({
-            hintText: `Dieser Wert ist nicht veränderbar`,
+            errorText: `Dieser Wert ist nicht veränderbar`,
           })
           const that = this
           setTimeout(() => that.setState({
-            hintText: ``,
-          }))
+            errorText: ``,
+          }), 5000)
         }}
       />
     )

@@ -2,11 +2,10 @@ import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import styled from 'styled-components'
 import sortBy from 'lodash/sortBy'
-import TextField from 'material-ui/TextField'
 
 import FormTitle from '../../shared/FormTitle'
 import RadioButtonGroup from '../../shared/RadioButtonGroup'
-import OwnTextField from '../../shared/TextField'
+import TextField from '../../shared/TextField'
 import TextFieldNonUpdatable from '../../shared/TextFieldNonUpdatable'
 import RadioButtonWithInfo from '../../shared/RadioButtonWithInfo'
 import Label from '../../shared/Label'
@@ -136,10 +135,12 @@ class Beob extends Component { // eslint-disable-line react/prefer-stateless-fun
         const value = beob[key]
         if (value || value === 0) {
           beobFields.push(
-            <TextFieldNonUpdatable
-              label={key}
-              value={beob[key]}
-            />
+            <div key={key}>
+              <TextFieldNonUpdatable
+                label={key}
+                value={value}
+              />
+            </div>
           )
         }
       })
@@ -177,7 +178,7 @@ class Beob extends Component { // eslint-disable-line react/prefer-stateless-fun
               updatePropertyInDb={store.updatePropertyInDb}
             />
           </MaxHeightDiv>
-          <OwnTextField
+          <TextField
             label="Bemerkungen zur Zuordnung"
             fieldName="BeobBemerkungen"
             value={activeDataset.row.BeobBemerkungen}
