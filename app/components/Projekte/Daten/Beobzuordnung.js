@@ -2,10 +2,11 @@ import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import styled from 'styled-components'
 import sortBy from 'lodash/sortBy'
+import TextField from 'material-ui/TextField'
 
 import FormTitle from '../../shared/FormTitle'
 import RadioButtonGroup from '../../shared/RadioButtonGroup'
-import TextField from '../../shared/TextField'
+import OwnTextField from '../../shared/TextField'
 import RadioButtonWithInfo from '../../shared/RadioButtonWithInfo'
 import Label from '../../shared/Label'
 
@@ -126,14 +127,38 @@ class Beob extends Component { // eslint-disable-line react/prefer-stateless-fun
     }))
   }
 
+  get beobRawFields() {
+    const beobRaw = this.beobRaw
+    const beobRawFields = []
+    if (beobRaw) {
+      Object.keys(beobRaw).forEach((key) => {
+        const value = beobRaw[key]
+        if (value || value === 0) {
+          beobRawFields.push(
+            <TextField
+              key={key}
+              floatingLabelText={key}
+              fullWidth
+              value={beobRaw[key]}
+              onChange={() =>
+                console.log(`nope:`)
+              }
+            />
+          )
+        }
+      })
+    }
+    return beobRawFields
+  }
+
   render() {
     const { store } = this.props
     const { activeDataset } = store
     const beob = activeDataset.row
     const beobRawTitle = (
       beob.QuelleId === 1 ?
-      `Informationen aus EvAB` :
-      `Informationen aus Infospezies`
+      `Informationen aus EvAB (nicht veränderbar)` :
+      `Informationen aus Infospezies (nicht veränderbar)`
     )
 
     return (
@@ -156,7 +181,7 @@ class Beob extends Component { // eslint-disable-line react/prefer-stateless-fun
               updatePropertyInDb={store.updatePropertyInDb}
             />
           </MaxHeightDiv>
-          <TextField
+          <OwnTextField
             label="Bemerkungen zur Zuordnung"
             fieldName="BeobBemerkungen"
             value={activeDataset.row.BeobBemerkungen}
@@ -169,6 +194,9 @@ class Beob extends Component { // eslint-disable-line react/prefer-stateless-fun
           />
         </FieldsContainer>
         <FormTitle title={beobRawTitle} />
+        <FieldsContainer>
+          {this.beobRawFields}
+        </FieldsContainer>
       </Container>
     )
   }
