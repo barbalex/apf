@@ -4,7 +4,6 @@ import styled from 'styled-components'
 import sortBy from 'lodash/sortBy'
 
 import FormTitle from '../../shared/FormTitle'
-import RadioButton from '../../shared/RadioButton'
 import RadioButtonGroup from '../../shared/RadioButtonGroup'
 import TextField from '../../shared/TextField'
 import RadioButtonWithInfo from '../../shared/RadioButtonWithInfo'
@@ -38,6 +37,9 @@ const LabelPopoverContentRow = styled(LabelPopoverRow)`
     border-bottom-right-radius: 4px;
     border-bottom-left-radius: 4px;
   }
+`
+const MovedUpDiv = styled.div`
+  margin-top: -15px;
 `
 
 @inject(`store`)
@@ -132,17 +134,19 @@ class Beob extends Component { // eslint-disable-line react/prefer-stateless-fun
             updatePropertyInDb={store.updatePropertyInDb}
             popover={this.nichtZuordnenPopover}
           />
-          <TextField
-            label="Bemerkungen zur Zuordnung"
-            fieldName="BeobBemerkungen"
-            value={activeDataset.row.BeobBemerkungen}
-            errorText={activeDataset.valid.BeobBemerkungen}
-            type="text"
-            multiLine
-            fullWidth
-            updateProperty={store.updateProperty}
-            updatePropertyInDb={store.updatePropertyInDb}
-          />
+          <MovedUpDiv>
+            <TextField
+              label="Bemerkungen zur Zuordnung"
+              fieldName="BeobBemerkungen"
+              value={activeDataset.row.BeobBemerkungen}
+              errorText={activeDataset.valid.BeobBemerkungen}
+              type="text"
+              multiLine
+              fullWidth
+              updateProperty={store.updateProperty}
+              updatePropertyInDb={store.updatePropertyInDb}
+            />
+          </MovedUpDiv>
           <Label label="Einer Teilpopulation zuordnen" />
           <RadioButtonGroup
             fieldName="TPopId"
