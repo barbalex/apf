@@ -41,6 +41,10 @@ const LabelPopoverContentRow = styled(LabelPopoverRow)`
 const MovedUpDiv = styled.div`
   margin-top: -15px;
 `
+const MaxHeightDiv = styled.div`
+  max-height: 250px;
+  overflow-x: auto;
+`
 
 @inject(`store`)
 @observer
@@ -148,12 +152,14 @@ class Beob extends Component { // eslint-disable-line react/prefer-stateless-fun
             />
           </MovedUpDiv>
           <Label label="Einer Teilpopulation zuordnen" />
-          <RadioButtonGroup
-            fieldName="TPopId"
-            value={activeDataset.row.TPopId}
-            dataSource={this.tpopZuordnenSource}
-            updatePropertyInDb={store.updatePropertyInDb}
-          />
+          <MaxHeightDiv>
+            <RadioButtonGroup
+              fieldName="TPopId"
+              value={activeDataset.row.TPopId}
+              dataSource={this.tpopZuordnenSource}
+              updatePropertyInDb={store.updatePropertyInDb}
+            />
+          </MaxHeightDiv>
         </FieldsContainer>
       </Container>
     )
