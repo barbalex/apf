@@ -18,6 +18,7 @@ import OsmColorLayer from './layers/OsmColor'
 import OsmBwLayer from './layers/OsmBw'
 import SwissTopoPixelFarbeLayer from './layers/SwissTopoPixelFarbe'
 
+const { BaseLayer, Overlay } = LayersControl
 const Container = styled.div`
   border-color: #424242;
   border-width: 1px;
@@ -52,25 +53,24 @@ class Karte extends React.Component { // eslint-disable-line react/prefer-statel
             console.log(`Lat, Lon : ` + e.latlng.lat + `, ` + e.latlng.lng)
           }}
         >
-          <OsmColorLayer />
           <ScaleControl />
           <LayersControl>
-            <LayersControl.BaseLayer name="OpenStreetMap farbig">
+            <BaseLayer checked name="OpenStreetMap farbig">
               <OsmColorLayer />
-            </LayersControl.BaseLayer>
-            <LayersControl.BaseLayer name="OpenStreetMap grau">
+            </BaseLayer>
+            <BaseLayer name="OpenStreetMap grau">
               <OsmBwLayer />
-            </LayersControl.BaseLayer>
-            <LayersControl.BaseLayer name="swisstopo.pixelkarte">
+            </BaseLayer>
+            <BaseLayer name="swisstopo.pixelkarte">
               <SwissTopoPixelFarbeLayer />
-            </LayersControl.BaseLayer>
-            <LayersControl.Overlay name="Marker with popup">
+            </BaseLayer>
+            <Overlay name="Marker with popup">
               <Marker position={[51.51, -0.06]}>
                 <Popup>
                   <span>A pretty CSS3 popup. <br /> Easily customizable.</span>
                 </Popup>
               </Marker>
-            </LayersControl.Overlay>
+            </Overlay>
           </LayersControl>
         </StyledMap>
       </Container>
