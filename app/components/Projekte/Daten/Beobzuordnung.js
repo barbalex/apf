@@ -7,6 +7,7 @@ import TextField from 'material-ui/TextField'
 import FormTitle from '../../shared/FormTitle'
 import RadioButtonGroup from '../../shared/RadioButtonGroup'
 import OwnTextField from '../../shared/TextField'
+import TextFieldNonUpdatable from '../../shared/TextFieldNonUpdatable'
 import RadioButtonWithInfo from '../../shared/RadioButtonWithInfo'
 import Label from '../../shared/Label'
 
@@ -66,22 +67,22 @@ class Beob extends Component { // eslint-disable-line react/prefer-stateless-fun
     )
   }
 
-  get beobRaw() {
+  get beob() {
     const { store } = this.props
     const { activeDataset } = store
-    const beob = activeDataset.row
-    const beobRaw = (
-      beob.QuelleId === 1 ?
-      store.table.beob_evab.get(beob.NO_NOTE) :
-      store.table.beob_infospezies.get(beob.NO_NOTE)
+    const beobzuordnung = activeDataset.row
+    const beob = (
+      beobzuordnung.QuelleId === 1 ?
+      store.table.beob_evab.get(beobzuordnung.NO_NOTE) :
+      store.table.beob_infospezies.get(beobzuordnung.NO_NOTE)
     )
-    return beobRaw
+    return beob
   }
 
   get tpopZuordnenSource() {
     const { store } = this.props
     const { activeDataset } = store
-    const beob = activeDataset.row
+    const beobzuordnung = activeDataset.row
     // get all popIds of active ap
     const popList = Array.from(store.table.pop.values())
       .filter(p => p.ApArtId === store.activeUrlElements.ap)
@@ -92,23 +93,23 @@ class Beob extends Component { // eslint-disable-line react/prefer-stateless-fun
       .filter(t => popIdList.includes(t.PopId))
       // with coordinates
       .filter(t => t.TPopXKoord && t.TPopYKoord)
-    // calculate their distance to this beob
-    const beobRaw = this.beobRaw
-    // beobRaw loads later
+    // calculate their distance to this beobzuordnung
+    const beob = this.beob
+    // beob loads later
     // prevent an error occuring if it does not yet exist
     // by passing back an empty array
-    if (!beobRaw) {
+    if (!beob) {
       return []
     }
     const beobX = (
-      beob.QuelleId === 2 ?
-      beobRaw.FNS_XGIS :
-      beobRaw.COORDONNEE_FED_E
+      beobzuordnung.QuelleId === 2 ?
+      beob.FNS_XGIS :
+      beob.COORDONNEE_FED_E
     )
     const beobY = (
-      beob.QuelleId === 2 ?
-      beobRaw.FNS_YGIS :
-      beobRaw.COORDONNEE_FED_N
+      beobzuordnung.QuelleId === 2 ?
+      beob.FNS_YGIS :
+      beob.COORDONNEE_FED_N
     )
     tpopList.forEach((t) => {
       const dX = Math.abs(beobX - t.TPopXKoord)
@@ -127,36 +128,31 @@ class Beob extends Component { // eslint-disable-line react/prefer-stateless-fun
     }))
   }
 
-  get beobRawFields() {
-    const beobRaw = this.beobRaw
-    const beobRawFields = []
-    if (beobRaw) {
-      Object.keys(beobRaw).forEach((key) => {
-        const value = beobRaw[key]
+  get beobFields() {
+    const beob = this.beob
+    const beobFields = []
+    if (beob) {
+      Object.keys(beob).forEach((key) => {
+        const value = beob[key]
         if (value || value === 0) {
-          beobRawFields.push(
-            <TextField
-              key={key}
-              floatingLabelText={key}
-              fullWidth
-              value={beobRaw[key]}
-              onChange={() =>
-                console.log(`nope:`)
-              }
+          beobFields.push(
+            <TextFieldNonUpdatable
+              label={key}
+              value={beob[key]}
             />
           )
         }
       })
     }
-    return beobRawFields
+    return beobFields
   }
 
   render() {
     const { store } = this.props
     const { activeDataset } = store
-    const beob = activeDataset.row
-    const beobRawTitle = (
-      beob.QuelleId === 1 ?
+    const beobzuordnung = activeDataset.row
+    const beobTitle = (
+      beobzuordnung.QuelleId === 1 ?
       `Informationen aus EvAB (nicht veränderbar)` :
       `Informationen aus Infospezies (nicht veränderbar)`
     )
@@ -193,9 +189,9 @@ class Beob extends Component { // eslint-disable-line react/prefer-stateless-fun
             updatePropertyInDb={store.updatePropertyInDb}
           />
         </FieldsContainer>
-        <FormTitle title={beobRawTitle} />
+        <FormTitle title={beobTitle} />
         <FieldsContainer>
-          {this.beobRawFields}
+          {this.beobFields}
         </FieldsContainer>
       </Container>
     )
