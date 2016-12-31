@@ -41,7 +41,6 @@ body.fontLoaded {
   padding: 5px 0;
   margin: 2px 0 0;
   font-size: 14px;
-  color: white;
   text-align: left;
   background-color: rgb(66, 66, 66);
   background-clip: padding-box;
@@ -54,14 +53,20 @@ body.fontLoaded {
 }
 
 :global .react-contextmenu.react-contextmenu--visible {
+  color: white;
   opacity: 1;
   pointer-events: auto;
   z-index: 10;
 }
 
 :global .react-contextmenu-title {
+  opacity: 0;
+}
+
+:global .react-contextmenu--visible .react-contextmenu-title {
   color: #b3b3b3;
   padding-left: 20px;
+  opacity: 1;
 }
 :global .react-contextmenu-title::after {
   content: ":";
