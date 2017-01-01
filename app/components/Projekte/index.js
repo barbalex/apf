@@ -19,6 +19,15 @@ const Content = styled.div`
   flex-wrap: nowrap;
   height: 100%;
 `
+const KarteContainer = styled.div`
+  border-color: #424242;
+  border-width: 1px;
+  border-style: solid;
+  flex-basis: 600px;
+  flex-grow: 6;
+  flex-shrink: 1;
+  height: 100%;
+`
 
 @inject(`store`)
 @observer
@@ -65,8 +74,10 @@ class Projekte extends React.Component { // eslint-disable-line react/prefer-sta
               && <Daten />
           }
           {
-            karteIsVisible
-              && <Karte />
+            karteIsVisible &&
+            <KarteContainer>
+              <Karte />
+            </KarteContainer>
           }
           {
             deleteDatasetModalIsVisible &&

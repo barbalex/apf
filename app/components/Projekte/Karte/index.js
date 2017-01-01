@@ -19,14 +19,6 @@ import OsmBwLayer from './layers/OsmBw'
 import SwissTopoPixelFarbeLayer from './layers/SwissTopoPixelFarbe'
 
 const { BaseLayer, Overlay } = LayersControl
-const Container = styled.div`
-  border-color: #424242;
-  border-width: 1px;
-  border-style: solid;
-  flex-basis: 600px;
-  flex-grow: 6;
-  flex-shrink: 1;
-`
 const StyledMap = styled(Map)`
   height: 100%;
 `
@@ -44,36 +36,34 @@ class Karte extends React.Component { // eslint-disable-line react/prefer-statel
     )
 
     return (
-      <Container>
-        <StyledMap
-          center={position}
-          zoom={13}
-          CRS={crs}
-          onClick={(e) => {
-            console.log(`Lat, Lon : ` + e.latlng.lat + `, ` + e.latlng.lng)
-          }}
-        >
-          <ScaleControl />
-          <LayersControl>
-            <BaseLayer checked name="OpenStreetMap farbig">
-              <OsmColorLayer />
-            </BaseLayer>
-            <BaseLayer name="OpenStreetMap grau">
-              <OsmBwLayer />
-            </BaseLayer>
-            <BaseLayer name="swisstopo.pixelkarte">
-              <SwissTopoPixelFarbeLayer />
-            </BaseLayer>
-            <Overlay name="Marker with popup">
-              <Marker position={[51.51, -0.06]}>
-                <Popup>
-                  <span>A pretty CSS3 popup. <br /> Easily customizable.</span>
-                </Popup>
-              </Marker>
-            </Overlay>
-          </LayersControl>
-        </StyledMap>
-      </Container>
+      <StyledMap
+        center={position}
+        zoom={13}
+        // CRS={crs}
+        onClick={(e) => {
+          console.log(`Lat, Lon : ` + e.latlng.lat + `, ` + e.latlng.lng)
+        }}
+      >
+        <ScaleControl />
+        <LayersControl>
+          <BaseLayer checked name="OpenStreetMap farbig">
+            <OsmColorLayer />
+          </BaseLayer>
+          <BaseLayer name="OpenStreetMap grau">
+            <OsmBwLayer />
+          </BaseLayer>
+          <BaseLayer name="swisstopo.pixelkarte">
+            <SwissTopoPixelFarbeLayer />
+          </BaseLayer>
+          <Overlay name="Marker with popup">
+            <Marker position={[51.51, -0.06]}>
+              <Popup>
+                <span>A pretty CSS3 popup. <br /> Easily customizable.</span>
+              </Popup>
+            </Marker>
+          </Overlay>
+        </LayersControl>
+      </StyledMap>
     )
   }
 }
