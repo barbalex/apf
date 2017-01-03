@@ -64,8 +64,4 @@ class Table {
   @observable zielber
 }
 
-// TODO:
-// check localState
-// and export deserialized state if possible
-
 export default new Table()

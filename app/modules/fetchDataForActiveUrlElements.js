@@ -144,7 +144,9 @@ export default (store) => {
   }
 
   forEach(fetchingFromActiveElements, (func, key) => {
-    if (activeUrlElements[key]) func()
+    if (activeUrlElements[key]) {
+      func()
+    }
   })
   store.previousActiveUrlElements = clone(activeUrlElements)
 }
