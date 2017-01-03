@@ -1,107 +1,18 @@
 /* eslint-disable camelcase, no-unused-vars */
 import { observable, map } from 'mobx'
+import localforage from 'localforage'
 
-const tables = [
-  `adb_eigenschaften`,
-  `adb_lr`,
-  `adresse`,
-  `ap`,
-  `ap_bearbstand_werte`,
-  `ap_erfbeurtkrit_werte`,
-  `ap_erfkrit_werte`,
-  `ap_umsetzung_werte`,
-  `apber`,
-  `apberuebersicht`,
-  `assozart`,
-  `beob_bereitgestellt`,
-  `beob_evab`,
-  `beob_infospezies`,
-  `beob_projekt`,
-  `beob_quelle`,
-  `beobzuordnung`,
-  `ber`,
-  `erfkrit`,
-  `evab_tbl_personen`,
-  `flora_status_werte`,
-  `gemeinde`,
-  `idealbiotop`,
-  `pop`,
-  `pop_entwicklung_werte`,
-  `pop_status_werte`,
-  `popber`,
-  `popmassnber`,
-  `projekt`,
-  `tpop`,
-  `tpop_apberrelevant_werte`,
-  `tpop_entwicklung_werte`,
-  `tpopber`,
-  `tpopkontr`,
-  `tpopkontr_idbiotuebereinst_werte`,
-  `tpopkontr_typ_werte`,
-  `tpopkontrzaehl`,
-  `tpopkontrzaehl_einheit_werte`,
-  `tpopkontrzaehl_methode_werte`,
-  `tpopmassn`,
-  `tpopmassn_erfbeurt_werte`,
-  `tpopmassn_typ_werte`,
-  `tpopmassnber`,
-  `user`,
-  `userprojekt`,
-  `ziel`,
-  `ziel_typ_werte`,
-  `zielber`,
-]
+import tableNames from '../modules/tableStoreNames'
+
+const initiateObservables = (tableClass) => {
+  tableNames.forEach((tableName) => {
+    tableClass[tableName] = map()
+  })
+}
 
 class Table {
   constructor() {
-    this.adb_eigenschaften = map()
-    this.adb_lr = map()
-    this.adresse = map()
-    this.ap = map()
-    this.ap_bearbstand_werte = map()
-    this.ap_erfbeurtkrit_werte = map()
-    this.ap_erfkrit_werte = map()
-    this.ap_umsetzung_werte = map()
-    this.apber = map()
-    this.apberuebersicht = map()
-    this.assozart = map()
-    this.beob_bereitgestellt = map()
-    this.beob_evab = map()
-    this.beob_infospezies = map()
-    this.beob_projekt = map()
-    this.beob_quelle = map()
-    this.beobzuordnung = map()
-    this.ber = map()
-    this.erfkrit = map()
-    this.evab_tbl_personen = map()
-    this.flora_status_werte = map()
-    this.gemeinde = map()
-    this.idealbiotop = map()
-    this.pop = map()
-    this.pop_entwicklung_werte = map()
-    this.pop_status_werte = map()
-    this.popber = map()
-    this.popmassnber = map()
-    this.projekt = map()
-    this.tpop = map()
-    this.tpop_apberrelevant_werte = map()
-    this.tpop_entwicklung_werte = map()
-    this.tpopber = map()
-    this.tpopkontr = map()
-    this.tpopkontr_idbiotuebereinst_werte = map()
-    this.tpopkontr_typ_werte = map()
-    this.tpopkontrzaehl = map()
-    this.tpopkontrzaehl_einheit_werte = map()
-    this.tpopkontrzaehl_methode_werte = map()
-    this.tpopmassn = map()
-    this.tpopmassn_erfbeurt_werte = map()
-    this.tpopmassn_typ_werte = map()
-    this.tpopmassnber = map()
-    this.user = map()
-    this.userprojekt = map()
-    this.ziel = map()
-    this.ziel_typ_werte = map()
-    this.zielber = map()
+    initiateObservables(this)
   }
   @observable adb_eigenschaften
   @observable adb_lr

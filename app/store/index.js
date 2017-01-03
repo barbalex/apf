@@ -30,6 +30,7 @@ import getActiveUrlElements from '../modules/getActiveUrlElements'
 import fetchDataForActiveUrlElements from '../modules/fetchDataForActiveUrlElements'
 import buildProjektNodes from '../modules/nodes/projekt'
 import writeTableStateToIndexdDb from '../modules/writeTableStateToIndexdDb'
+import initializeTableStateFromIdb from '../modules/initializeTableStateFromIdb'
 
 import NodeStore from './node'
 import UiStore from './ui'
@@ -40,6 +41,7 @@ import ObservableHistory from './ObservableHistory'
 class Store extends singleton {
   constructor() {
     super()
+    initializeTableStateFromIdb(this)
     this.fetchFields = this.fetchFields.bind(this)
     this.updateProperty = this.updateProperty.bind(this)
     this.updatePropertyInDb = this.updatePropertyInDb.bind(this)
