@@ -12,7 +12,7 @@ class Karte extends React.Component {
         center={position}
         zoom={13}
       >
-        <BingAerial />
+        <BingAerialLayer/>
       </Map>
     )
   }
