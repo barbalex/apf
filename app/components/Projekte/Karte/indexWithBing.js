@@ -1,7 +1,7 @@
 import React from 'react'
 import { Map } from 'react-leaflet'
 
-import BingAerial from './layers/BingAerial'
+import BingAerialLayer from './layers/BingAerial'
 
 class Karte extends React.Component {
   render() {
