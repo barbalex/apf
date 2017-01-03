@@ -17,6 +17,7 @@ import Leaflet from 'leaflet'
 import OsmColorLayer from './layers/OsmColor'
 import OsmBwLayer from './layers/OsmBw'
 import SwissTopoPixelFarbeLayer from './layers/SwissTopoPixelFarbe'
+import BingAerialLayer from './layers/BingAerial'
 
 const { BaseLayer, Overlay } = LayersControl
 const StyledMap = styled(Map)`
@@ -52,8 +53,11 @@ class Karte extends React.Component { // eslint-disable-line react/prefer-statel
           <BaseLayer name="OpenStreetMap grau">
             <OsmBwLayer />
           </BaseLayer>
-          <BaseLayer name="swisstopo.pixelkarte">
+          <BaseLayer name="Swisstopo Karte">
             <SwissTopoPixelFarbeLayer />
+          </BaseLayer>
+          <BaseLayer name="Bing Luftbild">
+            <BingAerialLayer />
           </BaseLayer>
           <Overlay name="Marker with popup">
             <Marker position={[51.51, -0.06]}>
