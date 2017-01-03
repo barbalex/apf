@@ -13,6 +13,7 @@ import clone from 'lodash/clone'
 import isEqual from 'lodash/isEqual'
 import isString from 'lodash/isString'
 import queryString from 'query-string'
+import localforage from 'localforage'
 
 import fetchTableModule from '../modules/fetchTable'
 import fetchBeobzuordnungModule from '../modules/fetchBeobzuordnung'
@@ -98,14 +99,11 @@ class Store extends singleton {
     `saveState`,
     () => {
       // save table store
-      const state = toJS(this.table)
-      console.log(`state:`, state)
-      try {
-        const serializedState = JSON.stringify(state)
-        localStorage.setItem(`state`, serializedState)
-      } catch (error) {
-        // ignore error
-      }
+      // dont know why but next line is needed for loop to work
+      localforage.setItem(`projekt`, toJS(this.table.projekt))
+      Object.keys(this.table).forEach((key) => {
+        localforage.setItem(key, toJS(this.table[key]))
+      })
     }
   )
 
