@@ -5,7 +5,7 @@
  */
 /* eslint-disable no-console, no-param-reassign */
 
-import { action, autorun, transaction, computed, observable, toJS } from 'mobx'
+import { action, autorun, autorunAsync, transaction, computed, observable } from 'mobx'
 import singleton from 'singleton'
 import axios from 'axios'
 import objectValues from 'lodash/values'
@@ -13,7 +13,6 @@ import clone from 'lodash/clone'
 import isEqual from 'lodash/isEqual'
 import isString from 'lodash/isString'
 import queryString from 'query-string'
-import localforage from 'localforage'
 
 import fetchTableModule from '../modules/fetchTable'
 import fetchBeobzuordnungModule from '../modules/fetchBeobzuordnung'
@@ -30,6 +29,7 @@ import getActiveDatasetFromUrl from '../modules/getActiveDatasetFromUrl'
 import getActiveUrlElements from '../modules/getActiveUrlElements'
 import fetchDataForActiveUrlElements from '../modules/fetchDataForActiveUrlElements'
 import buildProjektNodes from '../modules/nodes/projekt'
+import writeTableStateToIndexdDb from '../modules/writeTableStateToIndexdDb'
 
 import NodeStore from './node'
 import UiStore from './ui'
@@ -95,16 +95,13 @@ class Store extends singleton {
     return query
   }
 
-  saveState = autorun(
-    `saveState`,
+  saveState = autorunAsync(
+    `saveTableState`,
     () => {
       // save table store
-      // dont know why but next line is needed for loop to work
-      localforage.setItem(`projekt`, toJS(this.table.projekt))
-      Object.keys(this.table).forEach((key) => {
-        localforage.setItem(key, toJS(this.table[key]))
-      })
-    }
+      writeTableStateToIndexdDb(this.table)
+    },
+    1000
   )
 
   manipulateUrl = autorun(
