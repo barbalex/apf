@@ -5,7 +5,7 @@
  */
 /* eslint-disable no-console, no-param-reassign */
 
-import { action, autorun, transaction, computed, observable } from 'mobx'
+import { action, autorun, transaction, computed, observable, toJS } from 'mobx'
 import singleton from 'singleton'
 import axios from 'axios'
 import objectValues from 'lodash/values'
@@ -98,6 +98,14 @@ class Store extends singleton {
     `saveState`,
     () => {
       // save table store
+      const state = toJS(this.table)
+      console.log(`state:`, state)
+      try {
+        const serializedState = JSON.stringify(state)
+        localStorage.setItem(`state`, serializedState)
+      } catch (error) {
+        // ignore error
+      }
     }
   )
 

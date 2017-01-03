@@ -100,4 +100,8 @@ class Table {
   @observable zielberLoading = false
 }
 
+// TODO:
+// check localState
+// and export deserialized state if possible
+
 export default new Table()
