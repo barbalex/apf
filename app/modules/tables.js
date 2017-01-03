@@ -1,7 +1,5 @@
 /* eslint-disable max-len */
 
-const noLabel = `(kein Name)`
-
 export default [
   {
     database: `apflora`,

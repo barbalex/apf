@@ -2,102 +2,104 @@
 import { observable, map } from 'mobx'
 
 class Table {
-  @observable adb_eigenschaften = map()
-  @observable adb_eigenschaftenLoading = false
-  @observable adb_lr = map()
-  @observable adb_lrLoading = false
-  @observable adresse = map()
-  @observable adresseLoading = false
-  @observable ap = map()
-  @observable apLoading = false
-  @observable ap_bearbstand_werte = map()
-  @observable ap_bearbstand_werteLoading = false
-  @observable ap_erfbeurtkrit_werte = map()
-  @observable ap_erfbeurtkrit_werteLoading = false
-  @observable ap_erfkrit_werte = map()
-  @observable ap_erfkrit_werteLoading = false
-  @observable ap_umsetzung_werte = map()
-  @observable ap_umsetzung_werteLoading = false
-  @observable apber = map()
-  @observable apberLoading = false
-  @observable apberuebersicht = map()
-  @observable apberuebersichtLoading = false
-  @observable assozart = map()
-  @observable assozartLoading = false
-  @observable beob_bereitgestellt = map()
-  @observable beob_bereitgestelltLoading = false
-  @observable beob_evab = map()
-  @observable beob_evabLoading = false
-  @observable beob_infospezies = map()
-  @observable beob_infospeziesLoading = false
-  @observable beob_projekt = map()
-  @observable beob_projektLoading = false
-  @observable beob_quelle = map()
-  @observable beob_quelleLoading = false
-  @observable beobzuordnung = map()
-  @observable beobzuordnungLoading = false
-  @observable ber = map()
-  @observable berLoading = false
-  @observable erfkrit = map()
-  @observable erfkritLoading = false
-  @observable evab_tbl_personen = map()
-  @observable evab_tbl_personenLoading = false
-  @observable flora_status_werte = map()
-  @observable flora_status_werteLoading = false
-  @observable gemeinde = map()
-  @observable gemeindeLoading = false
-  @observable idealbiotop = map()
-  @observable idealbiotopLoading = false
-  @observable pop = map()
-  @observable popLoading = false
-  @observable pop_entwicklung_werte = map()
-  @observable pop_entwicklung_werteLoading = false
-  @observable pop_status_werte = map()
-  @observable pop_status_werteLoading = false
-  @observable popber = map()
-  @observable popberLoading = false
-  @observable popmassnber = map()
-  @observable popmassnberLoading = false
-  @observable projekt = map()
-  @observable projektLoading = false
-  @observable tpop = map()
-  @observable tpopLoading = false
-  @observable tpop_apberrelevant_werte = map()
-  @observable tpop_apberrelevant_werteLoading = false
-  @observable tpop_entwicklung_werte = map()
-  @observable tpop_entwicklung_werteLoading = false
-  @observable tpopber = map()
-  @observable tpopberLoading = false
-  @observable tpopkontr = map()
-  @observable tpopkontrLoading = false
-  @observable tpopkontr_idbiotuebereinst_werte = map()
-  @observable tpopkontr_idbiotuebereinst_werteLoading = false
-  @observable tpopkontr_typ_werte = map()
-  @observable tpopkontr_typ_werteLoading = false
-  @observable tpopkontrzaehl = map()
-  @observable tpopkontrzaehlLoading = false
-  @observable tpopkontrzaehl_einheit_werte = map()
-  @observable tpopkontrzaehl_einheit_werteLoading = false
-  @observable tpopkontrzaehl_methode_werte = map()
-  @observable tpopkontrzaehl_methode_werteLoading = false
-  @observable tpopmassn = map()
-  @observable tpopmassnLoading = false
-  @observable tpopmassn_erfbeurt_werte = map()
-  @observable tpopmassn_erfbeurt_werteLoading = false
-  @observable tpopmassn_typ_werte = map()
-  @observable tpopmassn_typ_werteLoading = false
-  @observable tpopmassnber = map()
-  @observable tpopmassnberLoading = false
-  @observable user = map()
-  @observable userLoading = false
-  @observable userprojekt = map()
-  @observable userprojektLoading = false
-  @observable ziel = map()
-  @observable zielLoading = false
-  @observable ziel_typ_werte = map()
-  @observable ziel_typ_werteLoading = false
-  @observable zielber = map()
-  @observable zielberLoading = false
+  constructor() {
+    this.adb_eigenschaften = map()
+    this.adb_lr = map()
+    this.adresse = map()
+    this.ap = map()
+    this.ap_bearbstand_werte = map()
+    this.ap_erfbeurtkrit_werte = map()
+    this.ap_erfkrit_werte = map()
+    this.ap_umsetzung_werte = map()
+    this.apber = map()
+    this.apberuebersicht = map()
+    this.assozart = map()
+    this.beob_bereitgestellt = map()
+    this.beob_evab = map()
+    this.beob_infospezies = map()
+    this.beob_projekt = map()
+    this.beob_quelle = map()
+    this.beobzuordnung = map()
+    this.ber = map()
+    this.erfkrit = map()
+    this.evab_tbl_personen = map()
+    this.flora_status_werte = map()
+    this.gemeinde = map()
+    this.idealbiotop = map()
+    this.pop = map()
+    this.pop_entwicklung_werte = map()
+    this.pop_status_werte = map()
+    this.popber = map()
+    this.popmassnber = map()
+    this.projekt = map()
+    this.tpop = map()
+    this.tpop_apberrelevant_werte = map()
+    this.tpop_entwicklung_werte = map()
+    this.tpopber = map()
+    this.tpopkontr = map()
+    this.tpopkontr_idbiotuebereinst_werte = map()
+    this.tpopkontr_typ_werte = map()
+    this.tpopkontrzaehl = map()
+    this.tpopkontrzaehl_einheit_werte = map()
+    this.tpopkontrzaehl_methode_werte = map()
+    this.tpopmassn = map()
+    this.tpopmassn_erfbeurt_werte = map()
+    this.tpopmassn_typ_werte = map()
+    this.tpopmassnber = map()
+    this.user = map()
+    this.userprojekt = map()
+    this.ziel = map()
+    this.ziel_typ_werte = map()
+    this.zielber = map()
+  }
+  @observable adb_eigenschaften
+  @observable adb_lr
+  @observable adresse
+  @observable ap
+  @observable ap_bearbstand_werte
+  @observable ap_erfbeurtkrit_werte
+  @observable ap_erfkrit_werte
+  @observable ap_umsetzung_werte
+  @observable apber
+  @observable apberuebersicht
+  @observable assozart
+  @observable beob_bereitgestellt
+  @observable beob_evab
+  @observable beob_infospezies
+  @observable beob_projekt
+  @observable beob_quelle
+  @observable beobzuordnung
+  @observable ber
+  @observable erfkrit
+  @observable evab_tbl_personen
+  @observable flora_status_werte
+  @observable gemeinde
+  @observable idealbiotop
+  @observable pop
+  @observable pop_entwicklung_werte
+  @observable pop_status_werte
+  @observable popber
+  @observable popmassnber
+  @observable projekt
+  @observable tpop
+  @observable tpop_apberrelevant_werte
+  @observable tpop_entwicklung_werte
+  @observable tpopber
+  @observable tpopkontr
+  @observable tpopkontr_idbiotuebereinst_werte
+  @observable tpopkontr_typ_werte
+  @observable tpopkontrzaehl
+  @observable tpopkontrzaehl_einheit_werte
+  @observable tpopkontrzaehl_methode_werte
+  @observable tpopmassn
+  @observable tpopmassn_erfbeurt_werte
+  @observable tpopmassn_typ_werte
+  @observable tpopmassnber
+  @observable user
+  @observable userprojekt
+  @observable ziel
+  @observable ziel_typ_werte
+  @observable zielber
 }
 
 // TODO:
