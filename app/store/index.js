@@ -50,7 +50,6 @@ class Store extends singleton {
     this.deleteDatasetExecute = this.deleteDatasetExecute.bind(this)
   }
 
-  // @observable history = createHistory()
   history = ObservableHistory
   node = NodeStore
   ui = UiStore
@@ -94,6 +93,13 @@ class Store extends singleton {
     }
     return query
   }
+
+  saveState = autorun(
+    `saveState`,
+    () => {
+      // save table store
+    }
+  )
 
   manipulateUrl = autorun(
     `manipulateUrl`,

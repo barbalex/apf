@@ -1,9 +1,6 @@
 import { observable } from 'mobx'
 
 class App {
-  constructor(store) {
-    this.store = store
-  }
   @observable errors = []
   // TODO: get user else
   @observable user = `z`
