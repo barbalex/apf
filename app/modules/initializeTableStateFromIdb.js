@@ -1,14 +1,23 @@
 import localforage from 'localforage'
+import forEach from 'lodash/forEach'
 import tableNames from './tableStoreNames'
 
-export default (tableClass) => {
+export default (store) => {
   tableNames.forEach((tableName) => {
     localforage.getItem(tableName)
-      .then((value) => {
-        const isValue = value && Object.keys(value).length > 0
+      .then((map) => {
+        const isValue = map && Object.keys(map).length > 0
         if (isValue) {
-          console.log(`initializing value for table ${tableName} in state:`, value)
-          tableClass[tableName] = value
+          console.log(`initializing map for table ${tableName} in state:`, map)
+          forEach(map, (value, key) => {
+            // console.log(`key:`, key)
+            // console.log(`value:`, value)
+            // console.log(`store:`, store)
+            // console.log(`store.table:`, store.table)
+            // console.log(`tableName:`, tableName)
+            // console.log(`store.table[tableName]:`, store.table[tableName])
+            store.table[tableName].set(key, value)
+          })
         }
       })
       .catch(() => {

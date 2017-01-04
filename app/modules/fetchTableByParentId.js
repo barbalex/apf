@@ -1,5 +1,6 @@
 import { transaction } from 'mobx'
 import axios from 'axios'
+import localforage from 'localforage'
 import apiBaseUrl from './apiBaseUrl'
 import tables from './tables'
 
@@ -28,6 +29,18 @@ export default (store, schemaNamePassed, tableName, parentId) => {
   const parentIdField = tables.find(t => t.table === tableName).parentIdField
   store.table[`${tableName}Loading`] = true
   const url = `${apiBaseUrl}/schema/${schemaName}/table/${tableName}/field/${parentIdField}/value/${parentId}`
+  /*
+  return localforage.getItem(tableName)
+    .then((map) => {
+      // set map from idb
+      const isValue = map && Object.keys(map).length > 0
+      if (isValue) {
+        forEach(map, (map, key) => {
+          this[tableName].set(key, map)
+        })
+      }
+    })
+    .then(() => axios.get(url))*/
   return axios.get(url)
     .then(({ data }) => {
       transaction(() => {

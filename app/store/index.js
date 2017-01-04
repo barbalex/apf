@@ -41,7 +41,6 @@ import ObservableHistory from './ObservableHistory'
 class Store extends singleton {
   constructor() {
     super()
-    initializeTableStateFromIdb(this)
     this.fetchFields = this.fetchFields.bind(this)
     this.updateProperty = this.updateProperty.bind(this)
     this.updatePropertyInDb = this.updatePropertyInDb.bind(this)
@@ -51,6 +50,7 @@ class Store extends singleton {
     this.deleteDatasetDemand = this.deleteDatasetDemand.bind(this)
     this.deleteDatasetAbort = this.deleteDatasetAbort.bind(this)
     this.deleteDatasetExecute = this.deleteDatasetExecute.bind(this)
+    initializeTableStateFromIdb(this)
   }
 
   history = ObservableHistory

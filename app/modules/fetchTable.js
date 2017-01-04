@@ -1,5 +1,8 @@
 import { transaction } from 'mobx'
 import axios from 'axios'
+import localforage from 'localforage'
+import forEach from 'lodash/forEach'
+
 import apiBaseUrl from './apiBaseUrl'
 import tables from './tables'
 
@@ -17,6 +20,20 @@ export default (store, schemaNamePassed, tableName) => {
     if (tableName === `adb_lr`) {
       url = `${apiBaseUrl}/lrDelarze`
     }
+    /*
+    return localforage.getItem(tableName)
+      .then((value) => {
+        // set value from idb
+        const isValue = value && Object.keys(value).length > 0
+        if (isValue) {
+          console.log(`fetchTable: setting table ${tableName} from idb before fetching from server`)
+          forEach(value, (val, key) => {
+            store.table[tableName].set(key, val)
+          })
+        }
+        return true
+      })
+      .then(() => axios.get(url))*/
     return axios.get(url)
       .then(({ data }) => {
         transaction(() => {
@@ -28,5 +45,5 @@ export default (store, schemaNamePassed, tableName) => {
       })
       .catch(error => new Error(`error fetching table ${tableName}:`, error))
   }
-  return new Error(`table not fetched`)
+  // ignore that was not loaded
 }
