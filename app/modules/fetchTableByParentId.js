@@ -1,6 +1,7 @@
 import { transaction } from 'mobx'
 import axios from 'axios'
 import localforage from 'localforage'
+import forEach from 'lodash/forEach'
 import apiBaseUrl from './apiBaseUrl'
 import tables from './tables'
 
@@ -24,30 +25,34 @@ export default (store, schemaNamePassed, tableName, parentId) => {
   ) {
     return
   }
-
-  const idField = tables.find(t => t.table === tableName).idField
-  const parentIdField = tables.find(t => t.table === tableName).parentIdField
-  store.table[`${tableName}Loading`] = true
-  const url = `${apiBaseUrl}/schema/${schemaName}/table/${tableName}/field/${parentIdField}/value/${parentId}`
-  /*
-  return localforage.getItem(tableName)
+  const dataFromIdb = localforage.getItem(tableName)
     .then((map) => {
       // set map from idb
       const isValue = map && Object.keys(map).length > 0
       if (isValue) {
-        forEach(map, (map, key) => {
-          this[tableName].set(key, map)
+        // console.log(`fetchTableByParentId: setting table ${tableName} from idb before fetching from server`)
+        forEach(map, (value, key) => {
+          const mapInStore = store.table[tableName]
+          if (!mapInStore.get(key)) {
+            mapInStore.set(key, value)
+          }
         })
       }
     })
-    .then(() => axios.get(url))*/
-  return axios.get(url)
+    .catch(error => new Error(`error fetching data for table ${tableName} from idb:`, error))
+
+  const idField = tables.find(t => t.table === tableName).idField
+  const parentIdField = tables.find(t => t.table === tableName).parentIdField
+  const url = `${apiBaseUrl}/schema/${schemaName}/table/${tableName}/field/${parentIdField}/value/${parentId}`
+  const dataFromServer = axios.get(url)
     .then(({ data }) => {
       transaction(() => {
         data.forEach(d =>
-          store.table[`${tableName}`].set(d[idField], d)
+          store.table[tableName].set(d[idField], d)
         )
       })
     })
-    .catch(error => new Error(`error fetching data for table ${tableName}:`, error))
+    .catch(error => new Error(`error fetching data for table ${tableName} from server:`, error))
+
+  return Promise.all([dataFromIdb, dataFromServer])
 }

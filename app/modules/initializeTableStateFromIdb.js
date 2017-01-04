@@ -8,7 +8,7 @@ export default (store) => {
       .then((map) => {
         const isValue = map && Object.keys(map).length > 0
         if (isValue) {
-          console.log(`initializing map for table ${tableName} in state:`, map)
+          console.log(`initializing map for table ${tableName} in state`)
           forEach(map, (value, key) => {
             // console.log(`key:`, key)
             // console.log(`value:`, value)

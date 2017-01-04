@@ -50,7 +50,7 @@ class Store extends singleton {
     this.deleteDatasetDemand = this.deleteDatasetDemand.bind(this)
     this.deleteDatasetAbort = this.deleteDatasetAbort.bind(this)
     this.deleteDatasetExecute = this.deleteDatasetExecute.bind(this)
-    initializeTableStateFromIdb(this)
+    // initializeTableStateFromIdb(this)
   }
 
   history = ObservableHistory

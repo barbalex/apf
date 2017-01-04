@@ -20,21 +20,23 @@ export default (store, schemaNamePassed, tableName) => {
     if (tableName === `adb_lr`) {
       url = `${apiBaseUrl}/lrDelarze`
     }
-    /*
-    return localforage.getItem(tableName)
-      .then((value) => {
-        // set value from idb
-        const isValue = value && Object.keys(value).length > 0
-        if (isValue) {
-          console.log(`fetchTable: setting table ${tableName} from idb before fetching from server`)
-          forEach(value, (val, key) => {
-            store.table[tableName].set(key, val)
+    const fetchDataFromIdb = localforage.getItem(tableName)
+      .then((map) => {
+        // console.log(`map from localforage:`, map)
+        // set map from idb
+        const isMap = map && Object.keys(map).length > 0
+        if (isMap) {
+          // console.log(`fetchTable: setting table ${tableName} from idb`)
+          forEach(map, (value, key) => {
+            const mapInStore = store.table[tableName]
+            if (!mapInStore.get(key)) {
+              mapInStore.set(key, value)
+            }
           })
         }
-        return true
       })
-      .then(() => axios.get(url))*/
-    return axios.get(url)
+      .catch(error => new Error(`error fetching table ${tableName} from idb:`, error))
+    const fetchDataFromServer = axios.get(url)
       .then(({ data }) => {
         transaction(() => {
           data.forEach(d =>
@@ -43,7 +45,9 @@ export default (store, schemaNamePassed, tableName) => {
           store.table[`${tableName}Loading`] = false
         })
       })
-      .catch(error => new Error(`error fetching table ${tableName}:`, error))
+      .catch(error => new Error(`error fetching table ${tableName} from Server:`, error))
+
+    Promise.all([fetchDataFromIdb, fetchDataFromServer])
   }
   // ignore that was not loaded
 }
