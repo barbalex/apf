@@ -1,7 +1,5 @@
 import { transaction } from 'mobx'
 import axios from 'axios'
-import localforage from 'localforage'
-import forEach from 'lodash/forEach'
 import apiBaseUrl from './apiBaseUrl'
 import tables from './tables'
 
@@ -25,45 +23,23 @@ export default (store, schemaNamePassed, tableName, parentId) => {
   ) {
     return
   }
-  let fetchDataFromIdb = () => null
-  /*
-  if (store.db && store.db[tableName]) {
-    fetchDataFromIdb = store.db[tableName]
-      .then((values) => {
-        if (values) {
-          console.log(`fetchTableByParentId: values for ${tableName}:`, values)
-          const idField = tables.find(t => t.table === tableName).idField
-          const mapInStore = store.table[tableName]
-          values.forEach((v) => {
-            const key = v[idField]
-            if (!mapInStore.get(key)) {
-              mapInStore.set(key, v)
-            }
-          })
-        }
-      })
-      .catch(error => new Error(`error fetching data for table ${tableName} from idb:`, error))
-  }*/
-  /*
-  const fetchDataFromIdb = localforage.getItem(tableName)
-    .then((map) => {
-      // set map from idb
-      const isValue = map && Object.keys(map).length > 0
-      if (isValue) {
-        forEach(map, (value, key) => {
-          const mapInStore = store.table[tableName]
+  const idField = tables.find(t => t.table === tableName).idField
+  const parentIdField = tables.find(t => t.table === tableName).parentIdField
+  const url = `${apiBaseUrl}/schema/${schemaName}/table/${tableName}/field/${parentIdField}/value/${parentId}`
+  store.db[tableName]
+    .then((values) => {
+      if (values) {
+        console.log(`fetchTableByParentId: fetching for table ${tableName} from idb:`, values)
+        const mapInStore = store.table[tableName]
+        values.forEach((v) => {
+          const key = v[idField]
           if (!mapInStore.get(key)) {
-            mapInStore.set(key, value)
+            mapInStore.set(key, v)
           }
         })
       }
     })
-    .catch(error => new Error(`error fetching data for table ${tableName} from idb:`, error))*/
-
-  const idField = tables.find(t => t.table === tableName).idField
-  const parentIdField = tables.find(t => t.table === tableName).parentIdField
-  const url = `${apiBaseUrl}/schema/${schemaName}/table/${tableName}/field/${parentIdField}/value/${parentId}`
-  const fetchDataFromServer = axios.get(url)
+    .then(() => axios.get(url))
     .then(({ data }) => {
       transaction(() => {
         data.forEach(d =>
@@ -71,7 +47,5 @@ export default (store, schemaNamePassed, tableName, parentId) => {
         )
       })
     })
-    .catch(error => new Error(`error fetching data for table ${tableName} from server:`, error))
-
-  return Promise.all([fetchDataFromIdb, fetchDataFromServer])
+    .catch(error => new Error(`error fetching data for table ${tableName}:`, error))
 }

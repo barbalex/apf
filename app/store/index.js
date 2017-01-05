@@ -395,7 +395,7 @@ class Store extends singleton {
   // primarily used for werte (domain) tables
   @action
   fetchTable = (schemaName, tableName) =>
-    setTimeout(() => fetchTableModule(this, schemaName, tableName), 0)
+    fetchTableModule(this, schemaName, tableName)
 
   @action
   fetchBeobzuordnung = apArtId =>
@@ -405,7 +405,7 @@ class Store extends singleton {
   // used for actual apflora data
   @action
   fetchTableByParentId = (schemaName, tableName, parentId) =>
-    setTimeout(() => fetchTableByParentId(this, schemaName, tableName, parentId), 0)
+    fetchTableByParentId(this, schemaName, tableName, parentId)
 
   @action
   fetchTpopForAp = apArtId =>

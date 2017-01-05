@@ -1,6 +1,5 @@
 import { transaction } from 'mobx'
 import axios from 'axios'
-import forEach from 'lodash/forEach'
 
 import apiBaseUrl from './apiBaseUrl'
 import tables from './tables'
@@ -19,45 +18,24 @@ export default (store, schemaNamePassed, tableName) => {
     if (tableName === `adb_lr`) {
       url = `${apiBaseUrl}/lrDelarze`
     }
-    let fetchDataFromIdb = () => null
 
-    console.log(`store.db:`, store.db)
-    if (store.db && store.db[tableName]) {
-      console.log(`store.db[tableName]:`, store.db[tableName])
-      fetchDataFromIdb = store.db[tableName]
-        .toArray()
-        .then((values) => {
-          if (values.length > 0) {
-            console.log(`fetchTable: values for ${tableName}:`, values)
-            const mapInStore = store.table[tableName]
+    store.db[tableName]
+      .toArray()
+      .then((values) => {
+        if (values.length > 0) {
+          console.log(`fetchTable: fetching for table ${tableName} from idb`)
+          const mapInStore = store.table[tableName]
+          transaction(() => {
             values.forEach((v) => {
               const key = v[idField]
               if (!mapInStore.get(key)) {
                 mapInStore.set(key, v)
               }
             })
-          }
-        })
-        .catch(error => new Error(`error fetching data for table ${tableName} from idb:`, error))
-    }
-    /*
-    const fetchDataFromIdb = localforage.getItem(tableName)
-      .then((map) => {
-        // console.log(`map from localforage:`, map)
-        // set map from idb
-        const isMap = map && Object.keys(map).length > 0
-        if (isMap) {
-          // console.log(`fetchTable: setting table ${tableName} from idb`)
-          forEach(map, (value, key) => {
-            const mapInStore = store.table[tableName]
-            if (!mapInStore.get(key)) {
-              mapInStore.set(key, value)
-            }
           })
         }
       })
-      .catch(error => new Error(`error fetching table ${tableName} from idb:`, error))*/
-    const fetchDataFromServer = axios.get(url)
+      .then(() => axios.get(url))
       .then(({ data }) => {
         transaction(() => {
           data.forEach(d =>
@@ -66,9 +44,7 @@ export default (store, schemaNamePassed, tableName) => {
           store.table[`${tableName}Loading`] = false
         })
       })
-      .catch(error => new Error(`error fetching table ${tableName} from Server:`, error))
-
-    Promise.all([fetchDataFromIdb, fetchDataFromServer])
+      .catch(error => new Error(`error fetching data for table ${tableName}:`, error))
   }
   // ignore that was not loaded
 }
