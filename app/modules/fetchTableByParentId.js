@@ -26,7 +26,12 @@ export default (store, schemaNamePassed, tableName, parentId) => {
   const idField = tables.find(t => t.table === tableName).idField
   const parentIdField = tables.find(t => t.table === tableName).parentIdField
   const url = `${apiBaseUrl}/schema/${schemaName}/table/${tableName}/field/${parentIdField}/value/${parentId}`
+
+  // console.log(`fetchTableByParentId: tableName:`, tableName)
+  // console.log(`fetchTableByParentId: store.db[tableName]:`, store.db[tableName])
+
   store.db[tableName]
+    .toArray()
     .then((values) => {
       if (values) {
         console.log(`fetchTableByParentId: fetching for table ${tableName} from idb:`, values)

@@ -15,7 +15,12 @@ export default (store) => {
       store.fetchTable(`beob`, `adb_eigenschaften`)
     },
     projektFolder() {
-      store.fetchTable(`apflora`, `projekt`)
+      // setTimeout is necessary on first call
+      // to prevent store.db[tableName] from being undefined
+      setTimeout(
+        () => store.fetchTable(`apflora`, `projekt`),
+        0
+      )
     },
     projekt() {
       store.fetchTableByParentId(`apflora`, `ap`, activeUrlElements.projekt)
@@ -142,6 +147,13 @@ export default (store) => {
       })
     },
   }
+
+  /*
+  console.log(`fetchDataForActiveUrlElements: activeUrlElements.projekt:`, activeUrlElements.projekt)
+  if (store.previousActiveUrlElements) {
+    console.log(`fetchDataForActiveUrlElements: store.previousActiveUrlElements.projekt:`, store.previousActiveUrlElements.projekt)
+  }
+  */
 
   forEach(fetchingFromActiveElements, (func, key) => {
     if (activeUrlElements[key]) {

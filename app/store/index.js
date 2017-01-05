@@ -148,7 +148,7 @@ class Store extends singleton {
   // and projekt
   @action
   fetchTable = (schemaName, tableName) =>
-    setTimeout(() => fetchTable(this, schemaName, tableName), 0)
+    fetchTable(this, schemaName, tableName)
 
   @action
   fetchBeobzuordnung = apArtId =>
@@ -157,9 +157,8 @@ class Store extends singleton {
   // fetch data of table for id of parent table
   // used for actual apflora data (but projekt)
   @action
-  fetchTableByParentId = (schemaName, tableName, parentId) => {
-    setTimeout(() => fetchTableByParentId(this, schemaName, tableName, parentId), 0)
-  }
+  fetchTableByParentId = (schemaName, tableName, parentId) =>
+    fetchTableByParentId(this, schemaName, tableName, parentId)
 
   @action
   fetchTpopForAp = apArtId =>
@@ -193,7 +192,8 @@ class Store extends singleton {
     () => updateActiveDatasetFromUrl(this)
   )
 
-  @computed get projektNodes() {
+  @computed
+  get projektNodes() {
     return buildProjektNodes(this)
   }
 }

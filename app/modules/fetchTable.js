@@ -19,6 +19,9 @@ export default (store, schemaNamePassed, tableName) => {
       url = `${apiBaseUrl}/lrDelarze`
     }
 
+    // console.log(`fetchTable: tableName:`, tableName)
+    // console.log(`fetchTable: store.db[tableName]:`, store.db[tableName])
+
     store.db[tableName]
       .toArray()
       .then((values) => {
