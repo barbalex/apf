@@ -43,6 +43,9 @@ import ObservableHistory from './ObservableHistory'
 class Store extends singleton {
   constructor() {
     super()
+    this.db = new Dexie(`apflora`)
+    initializeDb(this.db)
+    // initializeTableStateFromIdb(this)
     this.fetchFields = this.fetchFields.bind(this)
     this.updateProperty = this.updateProperty.bind(this)
     this.updatePropertyInDb = this.updatePropertyInDb.bind(this)
@@ -52,9 +55,6 @@ class Store extends singleton {
     this.deleteDatasetDemand = this.deleteDatasetDemand.bind(this)
     this.deleteDatasetAbort = this.deleteDatasetAbort.bind(this)
     this.deleteDatasetExecute = this.deleteDatasetExecute.bind(this)
-    this.db = new Dexie(`apflora`)
-    initializeDb(this.db)
-    // initializeTableStateFromIdb(this)
   }
 
   db
@@ -395,7 +395,7 @@ class Store extends singleton {
   // primarily used for werte (domain) tables
   @action
   fetchTable = (schemaName, tableName) =>
-    fetchTableModule(this, schemaName, tableName)
+    setTimeout(() => fetchTableModule(this, schemaName, tableName), 0)
 
   @action
   fetchBeobzuordnung = apArtId =>
@@ -405,7 +405,7 @@ class Store extends singleton {
   // used for actual apflora data
   @action
   fetchTableByParentId = (schemaName, tableName, parentId) =>
-    fetchTableByParentId(this, schemaName, tableName, parentId)
+    setTimeout(() => fetchTableByParentId(this, schemaName, tableName, parentId), 0)
 
   @action
   fetchTpopForAp = apArtId =>

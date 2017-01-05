@@ -25,21 +25,25 @@ export default (store, schemaNamePassed, tableName, parentId) => {
   ) {
     return
   }
-  const fetchDataFromIdb = store.db[tableName]
-    .then((values) => {
-      if (values) {
-        console.log(`fetchTableByParentId: values for ${tableName}:`, values)
-        const idField = tables.find(t => t.table === tableName).idField
-        const mapInStore = store.table[tableName]
-        values.forEach((v) => {
-          const key = v[idField]
-          if (!mapInStore.get(key)) {
-            mapInStore.set(key, v)
-          }
-        })
-      }
-    })
-    .catch(error => new Error(`error fetching data for table ${tableName} from idb:`, error))
+  let fetchDataFromIdb = () => null
+  /*
+  if (store.db && store.db[tableName]) {
+    fetchDataFromIdb = store.db[tableName]
+      .then((values) => {
+        if (values) {
+          console.log(`fetchTableByParentId: values for ${tableName}:`, values)
+          const idField = tables.find(t => t.table === tableName).idField
+          const mapInStore = store.table[tableName]
+          values.forEach((v) => {
+            const key = v[idField]
+            if (!mapInStore.get(key)) {
+              mapInStore.set(key, v)
+            }
+          })
+        }
+      })
+      .catch(error => new Error(`error fetching data for table ${tableName} from idb:`, error))
+  }*/
   /*
   const fetchDataFromIdb = localforage.getItem(tableName)
     .then((map) => {

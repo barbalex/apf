@@ -1,6 +1,5 @@
 import { transaction } from 'mobx'
 import axios from 'axios'
-import localforage from 'localforage'
 import forEach from 'lodash/forEach'
 
 import apiBaseUrl from './apiBaseUrl'
@@ -20,20 +19,27 @@ export default (store, schemaNamePassed, tableName) => {
     if (tableName === `adb_lr`) {
       url = `${apiBaseUrl}/lrDelarze`
     }
-    const fetchDataFromIdb = store.db[tableName]
-      .then((values) => {
-        if (values) {
-          console.log(`fetchTable: values for ${tableName}:`, values)
-          const mapInStore = store.table[tableName]
-          values.forEach((v) => {
-            const key = v[idField]
-            if (!mapInStore.get(key)) {
-              mapInStore.set(key, v)
-            }
-          })
-        }
-      })
-      .catch(error => new Error(`error fetching data for table ${tableName} from idb:`, error))
+    let fetchDataFromIdb = () => null
+
+    console.log(`store.db:`, store.db)
+    if (store.db && store.db[tableName]) {
+      console.log(`store.db[tableName]:`, store.db[tableName])
+      fetchDataFromIdb = store.db[tableName]
+        .toArray()
+        .then((values) => {
+          if (values.length > 0) {
+            console.log(`fetchTable: values for ${tableName}:`, values)
+            const mapInStore = store.table[tableName]
+            values.forEach((v) => {
+              const key = v[idField]
+              if (!mapInStore.get(key)) {
+                mapInStore.set(key, v)
+              }
+            })
+          }
+        })
+        .catch(error => new Error(`error fetching data for table ${tableName} from idb:`, error))
+    }
     /*
     const fetchDataFromIdb = localforage.getItem(tableName)
       .then((map) => {

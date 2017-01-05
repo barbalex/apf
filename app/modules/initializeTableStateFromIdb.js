@@ -1,27 +1,28 @@
-import localforage from 'localforage'
-import forEach from 'lodash/forEach'
 import tableNames from './tableStoreNames'
+import tables from './tables'
 
 export default (store) => {
   tableNames.forEach((tableName) => {
-    localforage.getItem(tableName)
-      .then((map) => {
-        const isValue = map && Object.keys(map).length > 0
-        if (isValue) {
-          console.log(`initializing map for table ${tableName} in state`)
-          forEach(map, (value, key) => {
-            // console.log(`key:`, key)
-            // console.log(`value:`, value)
-            // console.log(`store:`, store)
-            // console.log(`store.table:`, store.table)
-            // console.log(`tableName:`, tableName)
-            // console.log(`store.table[tableName]:`, store.table[tableName])
-            store.table[tableName].set(key, value)
+    const metadata = tables.find(t => t.table === tableName)
+    if (metadata) {
+      const idField = metadata.idField
+      if (idField) {
+        store.db[tableName]
+          .toArray()
+          .then((values) => {
+            if (values.length > 0) {
+              console.log(`initializing values for table ${tableName} in state`)
+              const mapInStore = store.table[tableName]
+              values.forEach((v) => {
+                const key = v[idField]
+                if (!mapInStore.get(key)) {
+                  mapInStore.set(key, v)
+                }
+              })
+            }
           })
-        }
-      })
-      .catch(() => {
-        // ignore
-      })
+          .catch(error => new Error(`error fetching data for table ${tableName} from idb:`, error))
+      }
+    }
   })
 }
