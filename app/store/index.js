@@ -5,7 +5,7 @@
  */
 /* eslint-disable no-console, no-param-reassign */
 
-import { action, autorun, autorunAsync, transaction, computed, observable } from 'mobx'
+import { action, autorun, autorunAsync, computed, observable } from 'mobx'
 import singleton from 'singleton'
 import axios from 'axios'
 import clone from 'lodash/clone'
@@ -35,6 +35,7 @@ import initializeTableStateFromIdb from '../modules/initializeTableStateFromIdb'
 import initializeDb from '../modules/initializeDb'
 import getUrl from '../modules/getUrl'
 import getUrlQuery from '../modules/getUrlQuery'
+import fetchFields from '../modules/fetchFields'
 
 import NodeStore from './node'
 import UiStore from './ui'
@@ -113,20 +114,7 @@ class Store extends singleton {
   )
 
   @action
-  fetchFields = () => {
-      // only fetch if not yet done
-    if (this.app.fields.length === 0 && !this.app.fieldsLoading) {
-      this.app.fieldsLoading = true
-      axios.get(`${apiBaseUrl}/felder`)
-        .then(({ data }) => {
-          transaction(() => {
-            this.app.fields = data
-            this.app.fieldsLoading = false
-          })
-        })
-        .catch(error => console.log(`error fetching fields:`, error))
-    }
-  }
+  fetchFields = () => fetchFields(this)
 
   @action
   updateLabelFilter = (table, value) => {
