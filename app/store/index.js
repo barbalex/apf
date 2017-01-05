@@ -9,7 +9,6 @@ import { action, autorun, autorunAsync, transaction, computed, observable } from
 import singleton from 'singleton'
 import axios from 'axios'
 import clone from 'lodash/clone'
-import isEqual from 'lodash/isEqual'
 import isString from 'lodash/isString'
 import queryString from 'query-string'
 import Dexie from 'dexie'
@@ -31,6 +30,7 @@ import fetchDataForActiveUrlElements from '../modules/fetchDataForActiveUrlEleme
 import buildProjektNodes from '../modules/nodes/projekt'
 import updateProperty from '../modules/updateProperty'
 import updatePropertyInDb from '../modules/updatePropertyInDb'
+import manipulateUrl from '../modules/manipulateUrl'
 import writeTableStateToIndexdDb from '../modules/writeTableStateToIndexdDb'
 import initializeTableStateFromIdb from '../modules/initializeTableStateFromIdb'
 import initializeDb from '../modules/initializeDb'
@@ -114,23 +114,7 @@ class Store extends singleton {
 
   manipulateUrl = autorun(
     `manipulateUrl`,
-    () => {
-      const url = clone(this.url)
-      // forward apflora.ch to Projekte
-      if (url.length === 0) {
-        url.push(`Projekte`)
-      }
-
-      // if new store set projekte tabs
-      const urlQuery = clone(this.urlQuery)
-      if ((url.length === 0 || url[0] === `Projekte`) && !urlQuery.projekteTabs) {
-        urlQuery.projekteTabs = [`strukturbaum`, `daten`]
-      }
-      const search = queryString.stringify(urlQuery)
-      if (!isEqual(url, this.url) || !isEqual(urlQuery, this.urlQuery)) {
-        this.history.push(`/${url.join(`/`)}${Object.keys(urlQuery).length > 0 ? `?${search}` : ``}`)
-      }
-    }
+    () => manipulateUrl(this)
   )
 
   updateActiveUrlElements = autorun(
