@@ -37,6 +37,7 @@ import getUrl from '../modules/getUrl'
 import getUrlQuery from '../modules/getUrlQuery'
 import fetchFields from '../modules/fetchFields'
 import insertDataset from '../modules/insertDataset'
+import deleteDatasetDemand from '../modules/deleteDatasetDemand'
 
 import NodeStore from './node'
 import UiStore from './ui'
@@ -115,7 +116,8 @@ class Store extends singleton {
   )
 
   @action
-  fetchFields = () => fetchFields(this)
+  fetchFields = () =>
+    fetchFields(this)
 
   @action
   updateLabelFilter = (table, value) => {
@@ -124,23 +126,12 @@ class Store extends singleton {
   }
 
   @action
-  insertDataset = (table, parentId, baseUrl) => insertDataset(this, table, parentId, baseUrl)
+  insertDataset = (table, parentId, baseUrl) =>
+    insertDataset(this, table, parentId, baseUrl)
 
   @action
-  deleteDatasetDemand = (table, id, url, label) => {
-    if (!table) {
-      return console.log(`Error in action deleteDatasetDemand: no table passed`)
-    }
-    const tableMetadata = tables.find(t => t.table === table)
-    if (!tableMetadata) {
-      return console.log(`Error in action deleteDatasetDemand: no table meta data found for table "${table}"`)
-    }
-    const idField = tableMetadata.idField
-    if (!idField) {
-      return console.log(`dataset vsmz nr deleted as no idField could be found`)
-    }
-    this.datasetToDelete = { table, id, idField, url, label }
-  }
+  deleteDatasetDemand = (table, id, url, label) =>
+    deleteDatasetDemand(this, table, id, url, label)
 
   @action
   deleteDatasetAbort = () => {
