@@ -8,7 +8,6 @@
 import { action, autorun, autorunAsync, transaction, computed, observable } from 'mobx'
 import singleton from 'singleton'
 import axios from 'axios'
-import objectValues from 'lodash/values'
 import clone from 'lodash/clone'
 import isEqual from 'lodash/isEqual'
 import isString from 'lodash/isString'
@@ -30,6 +29,7 @@ import getActiveDatasetFromUrl from '../modules/getActiveDatasetFromUrl'
 import getActiveUrlElements from '../modules/getActiveUrlElements'
 import fetchDataForActiveUrlElements from '../modules/fetchDataForActiveUrlElements'
 import buildProjektNodes from '../modules/nodes/projekt'
+import updatePropertyInDb from '../modules/updatePropertyInDb'
 import writeTableStateToIndexdDb from '../modules/writeTableStateToIndexdDb'
 import initializeTableStateFromIdb from '../modules/initializeTableStateFromIdb'
 import initializeDb from '../modules/initializeDb'
@@ -306,90 +306,8 @@ class Store extends singleton {
 
   // updates data in database
   @action
-  updatePropertyInDb = (key, valuePassed) => {
-    const { row, valid } = this.activeDataset
-    const tablePassed = this.activeDataset.table
-    let value = valuePassed
-    let table = tablePassed
-
-    // ensure primary data exists
-    if (!key || !table || !row) {
-      return
-    }
-
-    // ensure numbers saved as numbers
-    if (value && !isNaN(value)) {
-      value = +value
-    }
-
-    // convert undefined to null
-    if (value === undefined) {
-      value = null
-    }
-
-    // ensure derived data exists
-    const tabelle = tables.find(t =>
-      t.table === table
-    )
-    // in tpopfeldkontr and tpopfreiwkontr need to find dbTable
-    if (tabelle.dbTable) {
-      table = tabelle.dbTable
-    }
-    const idField = tabelle ? tabelle.idField : undefined
-    if (!idField) {
-      return console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
-    }
-    const tabelleId = row[idField] || undefined
-    if (!tabelleId) {
-      return console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
-    }
-
-    // some fields contain 1 for true, 0 for false
-    // not necessary: done by RadioButton component
-    /*
-    const booleanFields = [`TPopKontrJungPflJN`, `TPopKontrPlan`]
-    if (booleanFields.includes(key)) {
-      value = value === 1
-    }*/
-
-    // update if no validation messages exist
-    const combinedValidationMessages = objectValues(valid).join(``)
-    if (combinedValidationMessages.length === 0) {
-      const { user } = this.app
-      const oldValue = row[key]
-      row[key] = value
-      axios.put(`${apiBaseUrl}/update/apflora/tabelle=${table}/tabelleIdFeld=${idField}/tabelleId=${tabelleId}/feld=${key}/wert=${value}/user=${user}`)
-        .then(() => {
-          // if ApArtId of ap is updated, url needs to change
-          if (table === `ap` && key === `ApArtId`) {
-            this.url[3] = value
-            this.history.push(`/${this.url.join(`/`)}${Object.keys(this.urlQuery).length > 0 ? `?${queryString.stringify(this.urlQuery)}` : ``}`)
-          }
-          // if beobNichtBeurteilt is set to beobNichtZuordnen, url needs to change
-          if (table === `beobzuordnung` && key === `BeobNichtZuordnen`) {
-            this.url[4] = (
-              value === 1 ?
-              `nicht-zuzuordnende-Beobachtungen` :
-              `nicht-beurteilte-Beobachtungen`
-            )
-            this.history.push(`/${this.url.join(`/`)}${Object.keys(this.urlQuery).length > 0 ? `?${queryString.stringify(this.urlQuery)}` : ``}`)
-          }
-          // if for a beobZugeordnet TPopId is set, url needs to change
-          // namely: PopId and TPopId
-          if (table === `beobzuordnung` && key === `TPopId` && value) {
-            const tpop = this.table.tpop.get(value)
-            this.url[5] = tpop.PopId
-            this.url[7] = value
-            this.history.push(`/${this.url.join(`/`)}${Object.keys(this.urlQuery).length > 0 ? `?${queryString.stringify(this.urlQuery)}` : ``}`)
-          }
-        })
-        .catch((error) => {
-          row[key] = oldValue
-          this.listError(error)
-          console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
-        })
-    }
-  }
+  updatePropertyInDb = (key, value) =>
+    updatePropertyInDb(this, key, value)
 
   // fetch all data of a table
   // primarily used for werte (domain) tables
