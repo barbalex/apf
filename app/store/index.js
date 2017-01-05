@@ -36,6 +36,7 @@ import initializeDb from '../modules/initializeDb'
 import getUrl from '../modules/getUrl'
 import getUrlQuery from '../modules/getUrlQuery'
 import fetchFields from '../modules/fetchFields'
+import insertDataset from '../modules/insertDataset'
 
 import NodeStore from './node'
 import UiStore from './ui'
@@ -123,46 +124,7 @@ class Store extends singleton {
   }
 
   @action
-  insertDataset = (tablePassed, parentId, baseUrl) => {
-    let table = tablePassed
-    if (!table) {
-      return console.log(`Error in action insertDataset: no table passed`)
-    }
-    // insert new dataset in db and fetch id
-    const tableMetadata = tables.find(t => t.table === table)
-    if (!tableMetadata) {
-      return console.log(`Error in action insertDataset: no table meta data found for table "${table}"`)
-    }
-    // some tables need to be translated, i.e. tpopfreiwkontr
-    if (tableMetadata.dbTable) {
-      table = tableMetadata.dbTable
-    }
-    const parentIdField = tableMetadata.parentIdField
-    const idField = tableMetadata.idField
-    if (!idField) {
-      return console.log(`new dataset not created as no idField could be found`)
-    }
-    axios.post(`${apiBaseUrl}/apflora/${table}/${parentIdField}/${parentId}`)
-      .then((result) => {
-        const row = result.data
-        // insert this dataset in store.table
-        this.table[table].set(row[idField], row)
-        // set new url
-        baseUrl.push(row[idField])
-        this.history.push(`/${baseUrl.join(`/`)}${Object.keys(this.urlQuery).length > 0 ? `?${queryString.stringify(this.urlQuery)}` : ``}`)
-        // if zieljahr, need to update ZielJahr
-        if (this.activeUrlElements.zieljahr) {
-          this.updateProperty(`ZielJahr`, this.activeUrlElements.zieljahr)
-          this.updatePropertyInDb(`ZielJahr`, this.activeUrlElements.zieljahr)
-        }
-        // if tpopfreiwkontr need to update TPopKontrTyp
-        if (tablePassed === `tpopfreiwkontr`) {
-          this.updateProperty(`TPopKontrTyp`, `Freiwilligen-Erfolgskontrolle`)
-          this.updatePropertyInDb(`TPopKontrTyp`, `Freiwilligen-Erfolgskontrolle`)
-        }
-      })
-      .catch(error => this.listError(error))
-  }
+  insertDataset = (table, parentId, baseUrl) => insertDataset(this, table, parentId, baseUrl)
 
   @action
   deleteDatasetDemand = (table, id, url, label) => {
