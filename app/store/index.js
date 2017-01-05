@@ -34,6 +34,7 @@ import manipulateUrl from '../modules/manipulateUrl'
 import writeTableStateToIndexdDb from '../modules/writeTableStateToIndexdDb'
 import initializeTableStateFromIdb from '../modules/initializeTableStateFromIdb'
 import initializeDb from '../modules/initializeDb'
+import getUrl from '../modules/getUrl'
 
 import NodeStore from './node'
 import UiStore from './ui'
@@ -70,21 +71,7 @@ class Store extends singleton {
    * url paths are used to control tree and forms
    */
   @computed get url() {
-    const pathNamePassed = this.history.location.pathname
-    const pathName = pathNamePassed.replace(`/`, ``)
-    const pathElements = pathName.split(`/`)
-    if (pathElements[0] === ``) {
-      // get rid of empty element(s) at start
-      pathElements.shift()
-    }
-    // convert numbers to numbers
-    // http://stackoverflow.com/questions/175739/is-there-a-built-in-way-in-javascript-to-check-if-a-string-is-a-valid-number
-    pathElements.forEach((e, index) => {
-      if (!isNaN(e)) {
-        pathElements[index] = +e
-      }
-    })
-    return pathElements
+    return getUrl(this)
   }
 
   /**
