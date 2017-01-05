@@ -20,6 +20,21 @@ export default (store, schemaNamePassed, tableName) => {
     if (tableName === `adb_lr`) {
       url = `${apiBaseUrl}/lrDelarze`
     }
+    const fetchDataFromIdb = store.db[tableName]
+      .then((values) => {
+        if (values) {
+          console.log(`fetchTable: values for ${tableName}:`, values)
+          const mapInStore = store.table[tableName]
+          values.forEach((v) => {
+            const key = v[idField]
+            if (!mapInStore.get(key)) {
+              mapInStore.set(key, v)
+            }
+          })
+        }
+      })
+      .catch(error => new Error(`error fetching data for table ${tableName} from idb:`, error))
+    /*
     const fetchDataFromIdb = localforage.getItem(tableName)
       .then((map) => {
         // console.log(`map from localforage:`, map)
@@ -35,7 +50,7 @@ export default (store, schemaNamePassed, tableName) => {
           })
         }
       })
-      .catch(error => new Error(`error fetching table ${tableName} from idb:`, error))
+      .catch(error => new Error(`error fetching table ${tableName} from idb:`, error))*/
     const fetchDataFromServer = axios.get(url)
       .then(({ data }) => {
         transaction(() => {

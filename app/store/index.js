@@ -106,7 +106,7 @@ class Store extends singleton {
     `saveTableState`,
     () => {
       // save table store
-      writeTableStateToIndexdDb(this.table)
+      writeTableStateToIndexdDb(this)
     },
     1000
   )
