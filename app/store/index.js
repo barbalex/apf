@@ -29,6 +29,7 @@ import getActiveDatasetFromUrl from '../modules/getActiveDatasetFromUrl'
 import getActiveUrlElements from '../modules/getActiveUrlElements'
 import fetchDataForActiveUrlElements from '../modules/fetchDataForActiveUrlElements'
 import buildProjektNodes from '../modules/nodes/projekt'
+import updateProperty from '../modules/updateProperty'
 import updatePropertyInDb from '../modules/updatePropertyInDb'
 import writeTableStateToIndexdDb from '../modules/writeTableStateToIndexdDb'
 import initializeTableStateFromIdb from '../modules/initializeTableStateFromIdb'
@@ -284,25 +285,8 @@ class Store extends singleton {
 
   // updates data in store
   @action
-  updateProperty = (key, valuePassed) => {
-    const { table, row } = this.activeDataset
-    let value = valuePassed
-    // ensure primary data exists
-    if (!key || !table || !row) {
-      return console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
-    }
-    // ensure numbers saved as numbers
-    if (value && !isNaN(value)) {
-      value = +value
-    }
-    // edge cases:
-    // if jahr of ziel is updated, url needs to change
-    if (table === `ziel` && key === `ZielJahr`) {
-      this.url[5] = value
-      this.history.push(`/${this.url.join(`/`)}${Object.keys(this.urlQuery).length > 0 ? `?${queryString.stringify(this.urlQuery)}` : ``}`)
-    }
-    row[key] = value
-  }
+  updateProperty = (key, value) =>
+    updateProperty(this, key, value)
 
   // updates data in database
   @action
@@ -311,6 +295,7 @@ class Store extends singleton {
 
   // fetch all data of a table
   // primarily used for werte (domain) tables
+  // and projekt
   @action
   fetchTable = (schemaName, tableName) =>
     fetchTableModule(this, schemaName, tableName)
@@ -320,7 +305,7 @@ class Store extends singleton {
     fetchBeobzuordnungModule(this, apArtId)
 
   // fetch data of table for id of parent table
-  // used for actual apflora data
+  // used for actual apflora data (but projekt)
   @action
   fetchTableByParentId = (schemaName, tableName, parentId) =>
     fetchTableByParentId(this, schemaName, tableName, parentId)
