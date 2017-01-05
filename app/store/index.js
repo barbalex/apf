@@ -13,6 +13,7 @@ import clone from 'lodash/clone'
 import isEqual from 'lodash/isEqual'
 import isString from 'lodash/isString'
 import queryString from 'query-string'
+import Dexie from 'dexie'
 
 import fetchTableModule from '../modules/fetchTable'
 import fetchBeobzuordnungModule from '../modules/fetchBeobzuordnung'
@@ -31,6 +32,7 @@ import fetchDataForActiveUrlElements from '../modules/fetchDataForActiveUrlEleme
 import buildProjektNodes from '../modules/nodes/projekt'
 import writeTableStateToIndexdDb from '../modules/writeTableStateToIndexdDb'
 import initializeTableStateFromIdb from '../modules/initializeTableStateFromIdb'
+import initializeDb from '../modules/initializeDb'
 
 import NodeStore from './node'
 import UiStore from './ui'
@@ -50,9 +52,12 @@ class Store extends singleton {
     this.deleteDatasetDemand = this.deleteDatasetDemand.bind(this)
     this.deleteDatasetAbort = this.deleteDatasetAbort.bind(this)
     this.deleteDatasetExecute = this.deleteDatasetExecute.bind(this)
+    this.db = new Dexie(`apflora`)
+    initializeDb(this.db)
     // initializeTableStateFromIdb(this)
   }
 
+  db
   history = ObservableHistory
   node = NodeStore
   ui = UiStore
