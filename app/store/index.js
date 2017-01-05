@@ -7,17 +7,15 @@
 
 import { action, autorun, autorunAsync, computed, observable } from 'mobx'
 import singleton from 'singleton'
-import clone from 'lodash/clone'
-import queryString from 'query-string'
 import Dexie from 'dexie'
 
-import fetchTableModule from '../modules/fetchTable'
+import fetchTable from '../modules/fetchTable'
 import fetchBeobzuordnungModule from '../modules/fetchBeobzuordnung'
 import fetchTableByParentId from '../modules/fetchTableByParentId'
 import fetchTpopForAp from '../modules/fetchTpopForAp'
 import fetchDatasetById from '../modules/fetchDatasetById'
 import fetchBeobBereitgestellt from '../modules/fetchBeobBereitgestellt'
-import getActiveDatasetFromUrl from '../modules/getActiveDatasetFromUrl'
+import updateActiveDatasetFromUrl from '../modules/updateActiveDatasetFromUrl'
 import getActiveUrlElements from '../modules/getActiveUrlElements'
 import fetchDataForActiveUrlElements from '../modules/fetchDataForActiveUrlElements'
 import buildProjektNodes from '../modules/nodes/projekt'
@@ -34,6 +32,8 @@ import insertDataset from '../modules/insertDataset'
 import deleteDatasetDemand from '../modules/deleteDatasetDemand'
 import deleteDatasetExecute from '../modules/deleteDatasetExecute'
 import toggleNode from '../modules/toggleNode'
+import listError from '../modules/listError'
+import setUrlQuery from '../modules/setUrlQuery'
 
 import NodeStore from './node'
 import UiStore from './ui'
@@ -47,7 +47,6 @@ class Store extends singleton {
     this.db = new Dexie(`apflora`)
     initializeDb(this.db)
     // initializeTableStateFromIdb(this)
-    this.fetchFields = this.fetchFields.bind(this)
   }
 
   db
@@ -98,8 +97,8 @@ class Store extends singleton {
   @observable previousActiveUrlElements
 
   // make sure all data needed for this url is fetched
-  updateData = autorun(
-    `updateData`,
+  fetchData = autorun(
+    `fetchData`,
     () => fetchDataForActiveUrlElements(this)
   )
 
@@ -127,16 +126,12 @@ class Store extends singleton {
   }
 
   @action
-  deleteDatasetExecute = () => deleteDatasetExecute(this)
+  deleteDatasetExecute = () =>
+    deleteDatasetExecute(this)
 
   @action
-  listError = (error) => {
-    this.app.errors.unshift(error)
-    setTimeout(() => {
-      this.app.errors.pop()
-    }, 1000 * 10)
-    console.log(`Error:`, error)
-  }
+  listError = error =>
+    listError(this, error)
 
   // updates data in store
   @action
@@ -153,7 +148,7 @@ class Store extends singleton {
   // and projekt
   @action
   fetchTable = (schemaName, tableName) =>
-    fetchTableModule(this, schemaName, tableName)
+    setTimeout(() => fetchTable(this, schemaName, tableName), 0)
 
   @action
   fetchBeobzuordnung = apArtId =>
@@ -162,8 +157,9 @@ class Store extends singleton {
   // fetch data of table for id of parent table
   // used for actual apflora data (but projekt)
   @action
-  fetchTableByParentId = (schemaName, tableName, parentId) =>
-    fetchTableByParentId(this, schemaName, tableName, parentId)
+  fetchTableByParentId = (schemaName, tableName, parentId) => {
+    setTimeout(() => fetchTableByParentId(this, schemaName, tableName, parentId), 0)
+  }
 
   @action
   fetchTpopForAp = apArtId =>
@@ -179,7 +175,8 @@ class Store extends singleton {
 
   // action when user clicks on a node in the tree
   @action
-  toggleNode = node => toggleNode(this, node)
+  toggleNode = node =>
+    toggleNode(this, node)
 
   /**
    * urlQueries are used to control tabs
@@ -187,23 +184,13 @@ class Store extends singleton {
    * or: strukturbaum, daten and karte in projekte
    */
   @action
-  setUrlQuery = (key, value) => {
-    const urlQuery = clone(this.urlQuery)
-    if (!value && value !== 0) {
-      delete urlQuery[key]
-    } else {
-      urlQuery[key] = value
-    }
-    const search = queryString.stringify(urlQuery)
-    this.history.push(`/${this.url.join(`/`)}${Object.keys(urlQuery).length > 0 ? `?${search}` : ``}`)
-  }
+  setUrlQuery = (key, value) =>
+    setUrlQuery(this, key, value)
 
   @observable activeDataset
   updateActiveDataset = autorun(
     `updateActiveDataset`,
-    () => {
-      this.activeDataset = getActiveDatasetFromUrl(this)
-    }
+    () => updateActiveDatasetFromUrl(this)
   )
 
   @computed get projektNodes() {

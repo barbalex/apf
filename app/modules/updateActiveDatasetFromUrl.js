@@ -183,5 +183,5 @@ export default (store) => {
     }
   }
   activeDataset.valid = validateActiveDataset(activeDataset.table, activeDataset.row, store.app.fields)
-  return activeDataset
+  store.activeDataset = activeDataset
 }
