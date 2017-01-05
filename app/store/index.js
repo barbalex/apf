@@ -9,7 +9,6 @@ import { action, autorun, autorunAsync, transaction, computed, observable } from
 import singleton from 'singleton'
 import axios from 'axios'
 import clone from 'lodash/clone'
-import isString from 'lodash/isString'
 import queryString from 'query-string'
 import Dexie from 'dexie'
 
@@ -35,6 +34,7 @@ import writeTableStateToIndexdDb from '../modules/writeTableStateToIndexdDb'
 import initializeTableStateFromIdb from '../modules/initializeTableStateFromIdb'
 import initializeDb from '../modules/initializeDb'
 import getUrl from '../modules/getUrl'
+import getUrlQuery from '../modules/getUrlQuery'
 
 import NodeStore from './node'
 import UiStore from './ui'
@@ -79,15 +79,7 @@ class Store extends singleton {
    * for instance: Entwicklung or Biotop in tpopfeldkontr
    */
   @computed get urlQuery() {
-    const query = queryString.parse(this.history.location.search)
-    /**
-     * arrays are converted to strings in url if only one element is contained
-     * need to convert it to array
-     */
-    if (query.projekteTabs && isString(query.projekteTabs)) {
-      query.projekteTabs = [query.projekteTabs]
-    }
-    return query
+    return getUrlQuery(this)
   }
 
   saveState = autorunAsync(
