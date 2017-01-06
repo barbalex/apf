@@ -1,7 +1,7 @@
 import sortBy from 'lodash/sortBy'
 
 import apberuebersichtNodes from './apberuebersicht'
-import apNodes from './ap'
+import apFolderNode from './apFolder'
 
 export default (store) => {
   // grab projekte as array and sort them by name
@@ -21,14 +21,7 @@ export default (store) => {
   // map through all projekt and create array of nodes
   return projekte.map((el) => {
     const myApberuebersichtnodes = apberuebersichtNodes(store, el.ProjId)
-    const myApNodes = apNodes(store, el.ProjId)
-    let apNodesMessage = myApNodes.length
-    if (store.table.apLoading) {
-      apNodesMessage = `...`
-    }
-    if (store.node.nodeLabelFilter.get(`ap`)) {
-      apNodesMessage = `${myApNodes.length} gefiltert`
-    }
+
     return {
       nodeType: `table`,
       menuType: `projekt`,
@@ -37,15 +30,7 @@ export default (store) => {
       expanded: el.ProjId === activeUrlElements.projekt,
       url: [`Projekte`, el.ProjId],
       children: [
-        {
-          nodeType: `folder`,
-          menuType: `apFolder`,
-          id: el.ProjId,
-          label: `Arten (${apNodesMessage})`,
-          expanded: activeUrlElements.apFolder,
-          url: [`Projekte`, el.ProjId, `Arten`],
-          children: myApNodes,
-        },
+        apFolderNode(store, el.ProjId),
         {
           menuType: `apberuebersichtFolder`,
           id: el.ProjId,
