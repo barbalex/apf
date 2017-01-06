@@ -27,7 +27,7 @@ export default (store, schemaNamePassed, tableName) => {
       .toArray()
       .then((values) => {
         if (values.length > 0) {
-          console.log(`fetchTable: fetching for table ${tableName} from idb`)
+          // console.log(`fetchTable: fetching for table ${tableName} from idb`)
           const mapInStore = store.table[tableName]
           transaction(() => {
             values.forEach((v) => {
