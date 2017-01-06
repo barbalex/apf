@@ -8,6 +8,7 @@ import popFolderNode from './popFolder'
 import idealbiotopFolderNode from './idealbiotopFolder'
 import beobzuordnungFolderNode from './beobzuordnungFolder'
 import beobNichtZuzuordnenFolderNode from './beobNichtZuzuordnenFolder'
+import qkFolderNode from './qkFolder'
 
 export default (store, projId) => {
   const { activeUrlElements } = store
@@ -41,15 +42,7 @@ export default (store, projId) => {
         beobNichtZuzuordnenFolderNode(store, el.ProjId, el.ApArtId),
         idealbiotopFolderNode(store, el.ProjId, el.ApArtId),
         assozartFolderNode(store, el.ProjId, el.ApArtId),
-        // qk folder
-        {
-          nodeType: `folder`,
-          menuType: `qkFolder`,
-          id: el.ApArtId,
-          label: `Qualitätskontrollen`,
-          expanded: false,
-          url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `Qualitaetskontrollen`],
-        },
+        qkFolderNode(store, el.ProjId, el.ApArtId),
       ],
     }
   })
