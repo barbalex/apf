@@ -9,6 +9,7 @@ import forEach from 'lodash/forEach'
 import clone from 'lodash/clone'
 
 const fetchDataForActiveUrlElements = (store) => {
+  console.log(`fetchDataForActiveUrlElements running`)
   const { activeUrlElements } = store
   const fetchingFromActiveElements = {
     exporte() {
@@ -149,7 +150,7 @@ const fetchDataForActiveUrlElements = (store) => {
     },
   }
 
-  console.log(`fetchDataForActiveUrlElements: store.previousActiveUrlElements:`, store.previousActiveUrlElements)
+  // console.log(`fetchDataForActiveUrlElements: store.previousActiveUrlElements:`, store.previousActiveUrlElements)
 
   const executeFunctions = () => {
     transaction(() => {
@@ -165,11 +166,8 @@ const fetchDataForActiveUrlElements = (store) => {
     executeFunctions()
     store.previousActiveUrlElements = clone(activeUrlElements)
   } else {
-    setTimeout(() => {
-      executeFunctions()
-      store.previousActiveUrlElements = clone(activeUrlElements)
-      // fetchDataForActiveUrlElements(store)
-    }, 0)
+    executeFunctions()
+    store.previousActiveUrlElements = clone(activeUrlElements)
   }
 }
 
