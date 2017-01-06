@@ -22,7 +22,6 @@ import updateProperty from '../modules/updateProperty'
 import updatePropertyInDb from '../modules/updatePropertyInDb'
 import manipulateUrl from '../modules/manipulateUrl'
 import writeTableStateToIndexdDb from '../modules/writeTableStateToIndexdDb'
-import initializeTableStateFromIdb from '../modules/initializeTableStateFromIdb'
 import getUrl from '../modules/getUrl'
 import getUrlQuery from '../modules/getUrlQuery'
 import fetchFields from '../modules/fetchFields'
@@ -40,10 +39,6 @@ import TableStore from './table'
 import ObservableHistory from './ObservableHistory'
 
 class Store extends singleton {
-  constructor() {
-    super()
-    // initializeTableStateFromIdb(this)
-  }
 
   history = ObservableHistory
   node = NodeStore
