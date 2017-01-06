@@ -3,7 +3,7 @@ import zieljahreFolderNode from './zieljahreFolder'
 import erfkritFolderNode from './erfkritFolder'
 import apberFolderNode from './apberFolder'
 import berFolderNode from './berFolder'
-import assozartNodes from './assozart'
+import assozartFolderNode from './assozartFolder'
 import popFolderNode from './popFolder'
 import idealbiotopFolderNode from './idealbiotopFolder'
 import beobzuordnungFolderNode from './beobzuordnungFolder'
@@ -23,7 +23,6 @@ export default (store, projId) => {
       const ae = adb_eigenschaften.get(el.ApArtId)
       label = ae ? ae.Artname : `(keine Art gewählt)`
     }
-    const myAssozartNodes = assozartNodes(store, el.ApArtId)
     return {
       nodeType: `table`,
       menuType: `ap`,
@@ -41,16 +40,7 @@ export default (store, projId) => {
         beobzuordnungFolderNode(store, el.ProjId, el.ApArtId),
         beobNichtZuzuordnenFolderNode(store, el.ProjId, el.ApArtId),
         idealbiotopFolderNode(store, el.ProjId, el.ApArtId),
-        // assozarten folder
-        {
-          nodeType: `folder`,
-          menuType: `assozartFolder`,
-          id: el.ApArtId,
-          label: `assoziierte Arten (${myAssozartNodes.length})`,
-          expanded: activeUrlElements.assozartFolder,
-          url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `assoziierte-Arten`],
-          children: myAssozartNodes,
-        },
+        assozartFolderNode(store, el.ProjId, el.ApArtId),
         // qk folder
         {
           nodeType: `folder`,
