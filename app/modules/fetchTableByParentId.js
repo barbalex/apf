@@ -11,6 +11,7 @@ const writeToStore = (store, data, tableName, idField) => {
       store.table[tableName].set(d[idField], d)
     )
   })
+  store.table[`${tableName}Loading`] = false
 }
 
 export default (store, schemaNamePassed, tableName, parentId) => {
@@ -36,6 +37,7 @@ export default (store, schemaNamePassed, tableName, parentId) => {
   const idField = tables.find(t => t.table === tableName).idField
   const parentIdField = tables.find(t => t.table === tableName).parentIdField
   const url = `${apiBaseUrl}/schema/${schemaName}/table/${tableName}/field/${parentIdField}/value/${parentId}`
+  store.table[`${tableName}Loading`] = true
 
   app.db[tableName]
     .toArray()

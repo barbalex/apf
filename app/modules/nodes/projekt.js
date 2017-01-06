@@ -22,6 +22,13 @@ export default (store) => {
   return projekte.map((el) => {
     const myApberuebersichtnodes = apberuebersichtNodes(store, el.ProjId)
     const myApNodes = apNodes(store, el.ProjId)
+    let apNodesMessage = myApNodes.length
+    if (store.table.apLoading) {
+      apNodesMessage = `...`
+    }
+    if (store.node.nodeLabelFilter.get(`ap`)) {
+      apNodesMessage = `${myApNodes.length} gefiltert`
+    }
     return {
       nodeType: `table`,
       menuType: `projekt`,
@@ -34,7 +41,7 @@ export default (store) => {
           nodeType: `folder`,
           menuType: `apFolder`,
           id: el.ProjId,
-          label: `Arten (${myApNodes.length})`,
+          label: `Arten (${apNodesMessage})`,
           expanded: activeUrlElements.apFolder,
           url: [`Projekte`, el.ProjId, `Arten`],
           children: myApNodes,
