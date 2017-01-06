@@ -1,5 +1,5 @@
 import sortBy from 'lodash/sortBy'
-import zielberNodes from './zielber'
+import zielberFolderNode from './zielberFolder'
 
 export default (store, jahr) => {
   const { activeUrlElements } = store
@@ -22,7 +22,6 @@ export default (store, jahr) => {
     const projId = store.table.ap.get(el.ApArtId).ProjId
     const zielWert = zieltypWerte.find(e => e.ZieltypId === el.ZielTyp)
     const zieltypTxt = zielWert ? zielWert.ZieltypTxt : `kein Zieltyp`
-    const myZielberNodes = zielberNodes(store, el.ZielId)
     return {
       nodeType: `table`,
       menuType: `ziel`,
@@ -32,15 +31,7 @@ export default (store, jahr) => {
       expanded: el.ZielId === activeUrlElements.ziel,
       url: [`Projekte`, projId, `Arten`, el.ApArtId, `AP-Ziele`, el.ZielJahr, el.ZielId],
       children: [
-        {
-          nodeType: `folder`,
-          menuType: `zielberFolder`,
-          id: el.ZielId,
-          label: `Berichte (${myZielberNodes.length})`,
-          expanded: el.ZielId === activeUrlElements.ziel && activeUrlElements.zielberFolder,
-          url: [`Projekte`, projId, `Arten`, el.ApArtId, `AP-Ziele`, el.ZielJahr, el.ZielId, `Berichte`],
-          children: myZielberNodes,
-        },
+        zielberFolderNode(store, projId, el.ApArtId, el.ZielJahr, el.ZielId),
       ],
     }
   })
