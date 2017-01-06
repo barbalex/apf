@@ -2,8 +2,8 @@ import sortBy from 'lodash/sortBy'
 import tpopberNodes from './tpopber'
 import tpopmassnberFolderNode from './tpopmassnberFolder'
 import tpopmassnFolderNode from './tpopmassnFolder'
-import tpopfeldkontrNodes from './tpopfeldkontr'
-import tpopfreiwkontrNodes from './tpopfreiwkontr'
+import tpopfeldkontrFolderNode from './tpopfeldkontrFolder'
+import tpopfreiwkontrFolderNode from './tpopfreiwkontrFolder'
 import tpopbeobNodes from './tpopbeob'
 
 export default ({ store, projId, apArtId, popId }) => {
@@ -15,8 +15,6 @@ export default ({ store, projId, apArtId, popId }) => {
   tpop = sortBy(tpop, `TPopNr`)
   // map through all projekt and create array of nodes
   let nodes = tpop.map((el) => {
-    const myFeldkontrNodes = tpopfeldkontrNodes({ store, projId, apArtId, popId, tpopId: el.TPopId })
-    const myFreiwkontrNodes = tpopfreiwkontrNodes({ store, projId, apArtId, popId, tpopId: el.TPopId })
     const myTpopberNodes = tpopberNodes({ store, projId, apArtId, popId, tpopId: el.TPopId })
     const myTpopbeobNodes = tpopbeobNodes({ store, tpopId: el.TPopId })
     const tpopId = el.TPopId
@@ -31,24 +29,8 @@ export default ({ store, projId, apArtId, popId }) => {
       children: [
         tpopmassnFolderNode({ store, projId, apArtId, popId, tpopId }),
         tpopmassnberFolderNode({ store, projId, apArtId, popId, tpopId }),
-        {
-          nodeType: `folder`,
-          menuType: `tpopfeldkontrFolder`,
-          id: el.TPopId,
-          label: `Feld-Kontrollen (${myFeldkontrNodes.length})`,
-          expanded: activeUrlElements.tpopfeldkontrFolder,
-          url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, el.PopId, `Teil-Populationen`, el.TPopId, `Feld-Kontrollen`],
-          children: myFeldkontrNodes,
-        },
-        {
-          nodeType: `folder`,
-          menuType: `tpopfreiwkontrFolder`,
-          id: el.TPopId,
-          label: `Freiwilligen-Kontrollen (${myFreiwkontrNodes.length})`,
-          expanded: activeUrlElements.tpopfreiwkontrFolder,
-          url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, el.PopId, `Teil-Populationen`, el.TPopId, `Freiwilligen-Kontrollen`],
-          children: myFreiwkontrNodes,
-        },
+        tpopfeldkontrFolderNode({ store, projId, apArtId, popId, tpopId }),
+        tpopfreiwkontrFolderNode({ store, projId, apArtId, popId, tpopId }),
         {
           nodeType: `folder`,
           menuType: `tpopberFolder`,
