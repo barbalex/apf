@@ -54,6 +54,8 @@ tables.forEach((t) => {
     tablesObject[t.table] = `${t.idField}`
   }
 })
+// add fields
+tablesObject.fields = `[table_schema+table_name+column_name]`
 const db = new Dexie(`apflora`)
 db  // eslint-disable-line no-trailing-spaces
   .version(1)
