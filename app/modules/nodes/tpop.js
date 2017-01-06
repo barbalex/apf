@@ -1,6 +1,6 @@
 import sortBy from 'lodash/sortBy'
 import tpopberNodes from './tpopber'
-import tpopmassnberNodes from './tpopmassnber'
+import tpopmassnberFolderNode from './tpopmassnberFolder'
 import tpopmassnFolderNode from './tpopmassnFolder'
 import tpopfeldkontrNodes from './tpopfeldkontr'
 import tpopfreiwkontrNodes from './tpopfreiwkontr'
@@ -15,7 +15,6 @@ export default ({ store, projId, apArtId, popId }) => {
   tpop = sortBy(tpop, `TPopNr`)
   // map through all projekt and create array of nodes
   let nodes = tpop.map((el) => {
-    const myMassnberNodes = tpopmassnberNodes({ store, projId, apArtId, popId, tpopId: el.TPopId })
     const myFeldkontrNodes = tpopfeldkontrNodes({ store, projId, apArtId, popId, tpopId: el.TPopId })
     const myFreiwkontrNodes = tpopfreiwkontrNodes({ store, projId, apArtId, popId, tpopId: el.TPopId })
     const myTpopberNodes = tpopberNodes({ store, projId, apArtId, popId, tpopId: el.TPopId })
@@ -31,15 +30,7 @@ export default ({ store, projId, apArtId, popId }) => {
       url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, el.PopId, `Teil-Populationen`, el.TPopId],
       children: [
         tpopmassnFolderNode({ store, projId, apArtId, popId, tpopId }),
-        {
-          nodeType: `folder`,
-          menuType: `tpopmassnberFolder`,
-          id: el.TPopId,
-          label: `Massnahmen-Berichte (${myMassnberNodes.length})`,
-          expanded: activeUrlElements.tpopmassnberFolder,
-          url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, el.PopId, `Teil-Populationen`, el.TPopId, `Massnahmen-Berichte`],
-          children: myMassnberNodes,
-        },
+        tpopmassnberFolderNode({ store, projId, apArtId, popId, tpopId }),
         {
           nodeType: `folder`,
           menuType: `tpopfeldkontrFolder`,
