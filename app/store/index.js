@@ -21,7 +21,6 @@ import buildProjektNodes from '../modules/nodes/projekt'
 import updateProperty from '../modules/updateProperty'
 import updatePropertyInDb from '../modules/updatePropertyInDb'
 import manipulateUrl from '../modules/manipulateUrl'
-import writeTableStateToIndexdDb from '../modules/writeTableStateToIndexdDb'
 import getUrl from '../modules/getUrl'
 import getUrlQuery from '../modules/getUrlQuery'
 import fetchFields from '../modules/fetchFields'
@@ -61,16 +60,6 @@ class Store extends singleton {
   @computed get urlQuery() {
     return getUrlQuery(this)
   }
-
-  /*
-  saveState = autorunAsync(
-    `saveTableState`,
-    () => {
-      // save table store
-      writeTableStateToIndexdDb(this)
-    },
-    1000
-  )*/
 
   manipulateUrl = autorun(
     `manipulateUrl`,
