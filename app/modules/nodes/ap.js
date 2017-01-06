@@ -5,6 +5,7 @@ import apberFolderNode from './apberFolder'
 import berFolderNode from './berFolder'
 import assozartNodes from './assozart'
 import popFolderNode from './popFolder'
+import idealbiotopFolderNode from './idealbiotopFolder'
 import beobzuordnungFolderNode from './beobzuordnungFolder'
 import beobNichtZuzuordnenFolderNode from './beobNichtZuzuordnenFolder'
 
@@ -39,15 +40,7 @@ export default (store, projId) => {
         berFolderNode(store, el.ProjId, el.ApArtId),
         beobzuordnungFolderNode(store, el.ProjId, el.ApArtId),
         beobNichtZuzuordnenFolderNode(store, el.ProjId, el.ApArtId),
-        // idealbiotop folder
-        {
-          nodeType: `folder`,
-          menuType: `idealbiotopFolder`,
-          id: el.ApArtId,
-          label: `Idealbiotop`,
-          expanded: activeUrlElements.idealbiotopFolder,
-          url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `Idealbiotop`],
-        },
+        idealbiotopFolderNode(store, el.ProjId, el.ApArtId),
         // assozarten folder
         {
           nodeType: `folder`,
