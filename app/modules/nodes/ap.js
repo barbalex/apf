@@ -4,7 +4,7 @@ import erfkritNodes from './erfkrit'
 import apberNodes from './apber'
 import berNodes from './ber'
 import assozartNodes from './assozart'
-import popNodes from './pop'
+import popFolderNode from './popFolder'
 import beobzuordnungNodes from './beobzuordnung'
 import beobNichtZuzuordnenNodes from './beobNichtZuzuordnen'
 
@@ -29,7 +29,6 @@ export default (store, projId) => {
     const myApberNodes = apberNodes(store, el.ApArtId)
     const myBerNodes = berNodes(store, el.ApArtId)
     const myAssozartNodes = assozartNodes(store, el.ApArtId)
-    const myPopNodes = popNodes(store, el.ApArtId)
     const myBeobzuordnungNodes = beobzuordnungNodes(store, el.ApArtId)
     const myBeobNichtZuzuordnenNodes = beobNichtZuzuordnenNodes(store, el.ApArtId)
     // const myBeobNichtZuzuordnenNodes = []
@@ -42,16 +41,7 @@ export default (store, projId) => {
       expanded: el.ApArtId === activeUrlElements.ap,
       url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId],
       children: [
-        // pop folder
-        {
-          nodeType: `folder`,
-          menuType: `popFolder`,
-          id: el.ApArtId,
-          label: `Populationen (${myPopNodes.length})`,
-          expanded: activeUrlElements.popFolder,
-          url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `Populationen`],
-          children: myPopNodes,
-        },
+        popFolderNode(store, el.ProjId, el.ApArtId),
         // ziel folder
         {
           nodeType: `folder`,
