@@ -5,7 +5,7 @@ import apberFolderNode from './apberFolder'
 import berFolderNode from './berFolder'
 import assozartNodes from './assozart'
 import popFolderNode from './popFolder'
-import beobzuordnungNodes from './beobzuordnung'
+import beobzuordnungFolderNode from './beobzuordnungFolder'
 import beobNichtZuzuordnenNodes from './beobNichtZuzuordnen'
 
 export default (store, projId) => {
@@ -23,7 +23,6 @@ export default (store, projId) => {
       label = ae ? ae.Artname : `(keine Art gewählt)`
     }
     const myAssozartNodes = assozartNodes(store, el.ApArtId)
-    const myBeobzuordnungNodes = beobzuordnungNodes(store, el.ApArtId)
     const myBeobNichtZuzuordnenNodes = beobNichtZuzuordnenNodes(store, el.ApArtId)
     return {
       nodeType: `table`,
@@ -39,16 +38,7 @@ export default (store, projId) => {
         erfkritFolderNode(store, el.ProjId, el.ApArtId),
         apberFolderNode(store, el.ProjId, el.ApArtId),
         berFolderNode(store, el.ProjId, el.ApArtId),
-        // beobNichtBeurteilt folder
-        {
-          nodeType: `folder`,
-          menuType: `beobzuordnungFolder`,
-          id: el.ApArtId,
-          label: `nicht beurteilte Beobachtungen (${myBeobzuordnungNodes.length})`,
-          expanded: activeUrlElements.beobzuordnungFolder,
-          url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `nicht-beurteilte-Beobachtungen`],
-          children: myBeobzuordnungNodes,
-        },
+        beobzuordnungFolderNode(store, el.ProjId, el.ApArtId),
         // beobNichtZuzuordnen folder
         {
           nodeType: `folder`,

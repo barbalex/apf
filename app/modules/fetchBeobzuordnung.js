@@ -25,6 +25,7 @@ const writeToStore = (store, data) => {
       store.table.beobzuordnung.set(zuordnung.NO_NOTE, zuordnung)
     })
   })
+  store.table.beob_bereitgestelltLoading = false
 }
 
 export default (store, apArtId) => {
@@ -33,6 +34,7 @@ export default (store, apArtId) => {
     return new Error(`action fetchBeobzuordnung: apArtId must be passed`)
   }
   const url = `${apiBaseUrl}/beobzuordnung/${apArtId}`
+  store.table.beob_bereitgestelltLoading = true
   app.db.beobzuordnung
     .toArray()
     .then((data) => {
