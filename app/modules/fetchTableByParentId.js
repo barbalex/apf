@@ -55,6 +55,7 @@ export default (store, schemaNamePassed, tableName, parentId) => {
           store.table[tableName].set(d[idField], d)
         )
       })
+      app.db[tableName].bulkPut(data)
     })
     .catch(error => new Error(`error fetching data for table ${tableName}:`, error))
 }

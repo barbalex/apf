@@ -62,6 +62,7 @@ class Store extends singleton {
     return getUrlQuery(this)
   }
 
+  /*
   saveState = autorunAsync(
     `saveTableState`,
     () => {
@@ -69,7 +70,7 @@ class Store extends singleton {
       writeTableStateToIndexdDb(this)
     },
     1000
-  )
+  )*/
 
   manipulateUrl = autorun(
     `manipulateUrl`,

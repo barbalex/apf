@@ -47,6 +47,7 @@ export default (store, schemaNamePassed, tableName) => {
           )
           store.table[`${tableName}Loading`] = false
         })
+        app.db[tableName].bulkPut(data)
       })
       .catch(error => new Error(`error fetching data for table ${tableName}:`, error))
   }
