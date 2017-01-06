@@ -5,7 +5,7 @@
  */
 /* eslint-disable no-console, no-param-reassign */
 
-import { action, autorun, autorunAsync, computed, observable } from 'mobx'
+import { action, autorun, computed, observable } from 'mobx'
 import singleton from 'singleton'
 
 import fetchTable from '../modules/fetchTable'
