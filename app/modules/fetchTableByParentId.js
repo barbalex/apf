@@ -42,7 +42,7 @@ export default (store, schemaNamePassed, tableName, parentId) => {
   app.db[tableName]
     .toArray()
     .then((data) => {
-      if (data) {
+      if (data.length > 0) {
         writeToStore(store, data, tableName, idField)
       }
     })
