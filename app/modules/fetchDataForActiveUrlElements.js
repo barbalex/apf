@@ -73,9 +73,7 @@ const fetchDataForActiveUrlElements = (store) => {
     },
     zielberFolder() {},
     zielber() {},
-    popFolder() {
-      store.fetchTableByParentId(`apflora`, `pop`, activeUrlElements.ap)
-    },
+    popFolder() {},
     pop() {
       store.fetchTableByParentId(`apflora`, `tpop`, activeUrlElements.pop)
       store.fetchTableByParentId(`apflora`, `popber`, activeUrlElements.pop)
