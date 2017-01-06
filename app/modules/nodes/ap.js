@@ -6,7 +6,7 @@ import berFolderNode from './berFolder'
 import assozartNodes from './assozart'
 import popFolderNode from './popFolder'
 import beobzuordnungFolderNode from './beobzuordnungFolder'
-import beobNichtZuzuordnenNodes from './beobNichtZuzuordnen'
+import beobNichtZuzuordnenFolderNode from './beobNichtZuzuordnenFolder'
 
 export default (store, projId) => {
   const { activeUrlElements } = store
@@ -23,7 +23,6 @@ export default (store, projId) => {
       label = ae ? ae.Artname : `(keine Art gewählt)`
     }
     const myAssozartNodes = assozartNodes(store, el.ApArtId)
-    const myBeobNichtZuzuordnenNodes = beobNichtZuzuordnenNodes(store, el.ApArtId)
     return {
       nodeType: `table`,
       menuType: `ap`,
@@ -39,16 +38,7 @@ export default (store, projId) => {
         apberFolderNode(store, el.ProjId, el.ApArtId),
         berFolderNode(store, el.ProjId, el.ApArtId),
         beobzuordnungFolderNode(store, el.ProjId, el.ApArtId),
-        // beobNichtZuzuordnen folder
-        {
-          nodeType: `folder`,
-          menuType: `beobNichtZuzuordnenFolder`,
-          id: el.ApArtId,
-          label: `nicht zuzuordnende Beobachtungen (${myBeobNichtZuzuordnenNodes.length})`,
-          expanded: activeUrlElements.beobNichtZuzuordnenFolder,
-          url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `nicht-zuzuordnende-Beobachtungen`],
-          children: myBeobNichtZuzuordnenNodes,
-        },
+        beobNichtZuzuordnenFolderNode(store, el.ProjId, el.ApArtId),
         // idealbiotop folder
         {
           nodeType: `folder`,

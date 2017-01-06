@@ -11,6 +11,7 @@ const writeToStore = (store, data) => {
       store.table.beob_bereitgestellt.set(d.BeobId, d)
     })
   })
+  store.table.beob_bereitgestelltLoading = false
 }
 
 export default (store, apArtId) => {
@@ -28,6 +29,7 @@ export default (store, apArtId) => {
   }
 
   const url = `${apiBaseUrl}/schema/beob/table/beob_bereitgestellt/field/NO_ISFS/value/${apArtId}`
+  store.table.beob_bereitgestelltLoading = true
   app.db.beob_bereitgestellt
     .toArray()
     .then((data) => {
