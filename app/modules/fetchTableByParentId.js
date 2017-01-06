@@ -36,13 +36,15 @@ export default (store, schemaNamePassed, tableName, parentId) => {
     .toArray()
     .then((values) => {
       if (values) {
-        console.log(`fetchTableByParentId: fetching for table ${tableName} from idb:`, values)
+        console.log(`fetchTableByParentId: fetching for table ${tableName} from idb`)
         const mapInStore = store.table[tableName]
-        values.forEach((v) => {
-          const key = v[idField]
-          if (!mapInStore.get(key)) {
-            mapInStore.set(key, v)
-          }
+        transaction(() => {
+          values.forEach((v) => {
+            const key = v[idField]
+            if (!mapInStore.get(key)) {
+              mapInStore.set(key, v)
+            }
+          })
         })
       }
     })
