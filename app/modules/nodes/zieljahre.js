@@ -9,13 +9,14 @@ export default (store, apArtId) => {
   // show only nodes of active ap
   ziele = ziele.filter(a => a.ApArtId === apArtId)
   // filter by node.nodeLabelFilter
-  const filterString = store.node.nodeLabelFilter.get(`zieljahr`)
+  const filterString = store.node.nodeLabelFilter.get(`ziel`)
+  const zieltypWerte = Array.from(store.table.ziel_typ_werte.values())
   if (filterString) {
     ziele = ziele.filter((p) => {
-      if (p.ZielJahr !== undefined && p.ZielJahr !== null) {
-        return p.ZielJahr.toString().includes(filterString)
-      }
-      return false
+      const zielWert = zieltypWerte.find(e => e.ZieltypId === p.ZielTyp)
+      const zieltypTxt = zielWert ? zielWert.ZieltypTxt : `kein Zieltyp`
+      const label = `${p.ZielBezeichnung || `(kein Ziel)`} (${zieltypTxt})`
+      return label.toLowerCase().includes(filterString.toLowerCase())
     })
   }
   if (ziele.length > 0) {

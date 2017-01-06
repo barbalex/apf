@@ -63,10 +63,10 @@ const fetchDataForActiveUrlElements = (store) => {
     },
     zielFolder() {
       store.fetchTableByParentId(`apflora`, `ziel`, activeUrlElements.ap)
+      store.fetchTable(`apflora`, `ziel_typ_werte`)
     },
     zieljahr() {
       store.fetchTableByParentId(`apflora`, `ziel`, activeUrlElements.ap)
-      store.fetchTable(`apflora`, `ziel_typ_werte`)
     },
     ziel() {
       store.fetchTableByParentId(`apflora`, `zielber`, activeUrlElements.ziel)

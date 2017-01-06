@@ -1,5 +1,5 @@
 import sortBy from 'lodash/sortBy'
-import zieljahreNodes from './zieljahre'
+import zieljahreFolderNode from './zieljahreFolder'
 import erfkritNodes from './erfkrit'
 import apberNodes from './apber'
 import berNodes from './ber'
@@ -22,10 +22,7 @@ export default (store, projId) => {
       const ae = adb_eigenschaften.get(el.ApArtId)
       label = ae ? ae.Artname : `(keine Art gewählt)`
     }
-    const ziele = Array.from(store.table.ziel.values())
-      .filter(a => a.ApArtId === el.ApArtId)
     const myErfkritNodes = erfkritNodes(store, el.ApArtId)
-    const myZieljahreNodes = zieljahreNodes(store, el.ApArtId)
     const myApberNodes = apberNodes(store, el.ApArtId)
     const myBerNodes = berNodes(store, el.ApArtId)
     const myAssozartNodes = assozartNodes(store, el.ApArtId)
@@ -43,15 +40,7 @@ export default (store, projId) => {
       children: [
         popFolderNode(store, el.ProjId, el.ApArtId),
         // ziel folder
-        {
-          nodeType: `folder`,
-          menuType: `zielFolder`,
-          id: el.ApArtId,
-          label: `AP-Ziele (${ziele.length})`,
-          expanded: activeUrlElements.zielFolder,
-          url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `AP-Ziele`],
-          children: myZieljahreNodes,
-        },
+        zieljahreFolderNode(store, el.ProjId, el.ApArtId),
         // erfkrit folder
         {
           nodeType: `folder`,
