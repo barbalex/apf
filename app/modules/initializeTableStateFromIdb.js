@@ -1,3 +1,5 @@
+import app from 'ampersand-app'
+
 import tableNames from './tableStoreNames'
 import tables from './tables'
 
@@ -7,7 +9,7 @@ export default (store) => {
     if (metadata) {
       const idField = metadata.idField
       if (idField) {
-        store.db[tableName]
+        app.db[tableName]
           .toArray()
           .then((values) => {
             if (values.length > 0) {

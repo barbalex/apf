@@ -1,5 +1,6 @@
 import { transaction } from 'mobx'
 import axios from 'axios'
+import app from 'ampersand-app'
 
 import apiBaseUrl from './apiBaseUrl'
 import tables from './tables'
@@ -20,9 +21,9 @@ export default (store, schemaNamePassed, tableName) => {
     }
 
     // console.log(`fetchTable: tableName:`, tableName)
-    // console.log(`fetchTable: store.db[tableName]:`, store.db[tableName])
+    // console.log(`fetchTable: app.db[tableName]:`, app.db[tableName])
 
-    store.db[tableName]
+    app.db[tableName]
       .toArray()
       .then((values) => {
         if (values.length > 0) {

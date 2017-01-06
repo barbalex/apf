@@ -1,5 +1,7 @@
 import { transaction } from 'mobx'
 import axios from 'axios'
+import app from 'ampersand-app'
+
 import apiBaseUrl from './apiBaseUrl'
 import tables from './tables'
 
@@ -28,9 +30,9 @@ export default (store, schemaNamePassed, tableName, parentId) => {
   const url = `${apiBaseUrl}/schema/${schemaName}/table/${tableName}/field/${parentIdField}/value/${parentId}`
 
   // console.log(`fetchTableByParentId: tableName:`, tableName)
-  // console.log(`fetchTableByParentId: store.db[tableName]:`, store.db[tableName])
+  // console.log(`fetchTableByParentId: app.db[tableName]:`, app.db[tableName])
 
-  store.db[tableName]
+  app.db[tableName]
     .toArray()
     .then((values) => {
       if (values) {

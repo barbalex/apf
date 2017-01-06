@@ -16,7 +16,7 @@ export default (store) => {
     },
     projektFolder() {
       // setTimeout is necessary on first call
-      // to prevent store.db[tableName] from being undefined
+      // to prevent db[tableName] from being undefined
       setTimeout(
         () => store.fetchTable(`apflora`, `projekt`),
         0

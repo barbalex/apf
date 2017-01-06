@@ -34,6 +34,10 @@ import styled from 'styled-components'
 
 import 'file-loader?name=beziehungen.png&outputPath=etc/!./etc/beziehungen.png'
 
+import app from 'ampersand-app'
+import Dexie from 'dexie'
+import tables from './modules/tables'
+
 // import components
 import store from './store'
 import styles from './app.css'  // eslint-disable-line no-unused-vars
@@ -42,6 +46,24 @@ import Projekte from './components/Projekte'
 
 import apiBaseUrl from './modules/apiBaseUrl'
 import updateFromSocket from './modules/updateFromSocket'
+
+// initiate idb
+const tablesObject = {}
+tables.forEach((t) => {
+  if (t.table && t.idField) {
+    tablesObject[t.table] = `${t.idField}`
+  }
+})
+const db = new Dexie(`apflora`)
+db  // eslint-disable-line no-trailing-spaces
+  .version(1)
+  .stores(tablesObject)
+app.extend({
+  init() {
+    this.db = db
+  },
+})
+app.init()
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
@@ -56,6 +78,7 @@ const theme = Object.assign({}, darkBaseTheme, {
 // make store accessible in dev
 window.app = {}
 window.app.store = store
+window.app.db = db
 
 // load immediately because is used to validate active dataset
 store.fetchFields()

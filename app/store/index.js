@@ -7,7 +7,6 @@
 
 import { action, autorun, autorunAsync, computed, observable } from 'mobx'
 import singleton from 'singleton'
-import Dexie from 'dexie'
 
 import fetchTable from '../modules/fetchTable'
 import fetchBeobzuordnungModule from '../modules/fetchBeobzuordnung'
@@ -44,12 +43,9 @@ import ObservableHistory from './ObservableHistory'
 class Store extends singleton {
   constructor() {
     super()
-    this.db = new Dexie(`apflora`)
-    initializeDb(this.db)
     // initializeTableStateFromIdb(this)
   }
 
-  db
   history = ObservableHistory
   node = NodeStore
   ui = UiStore
