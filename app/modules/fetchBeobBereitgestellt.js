@@ -1,5 +1,7 @@
 import { transaction, computed } from 'mobx'
 import axios from 'axios'
+import app from 'ampersand-app'
+
 import apiBaseUrl from './apiBaseUrl'
 
 export default (store, apArtId) => {
@@ -17,15 +19,28 @@ export default (store, apArtId) => {
   }
 
   const url = `${apiBaseUrl}/schema/beob/table/beob_bereitgestellt/field/NO_ISFS/value/${apArtId}`
-  return axios.get(url)
+  app.db.beob_bereitgestellt
+    .toArray()
+    .then((values) => {
+      if (values.length > 0) {
+        console.log(`fetching beob_bereitgestellt from idb`)
+        transaction(() => {
+          values.forEach((d) => {
+            d.beobzuordnung = computed(() => store.table.beobzuordnung.get(d.BeobId))
+            store.table.beob_bereitgestellt.set(d.BeobId, d)
+          })
+        })
+      }
+    })
+    .then(() => axios.get(url))
     .then(({ data }) => {
       transaction(() => {
         data.forEach((d) => {
-          // set beobzuordnung
           d.beobzuordnung = computed(() => store.table.beobzuordnung.get(d.BeobId))
           store.table.beob_bereitgestellt.set(d.BeobId, d)
         })
       })
+      app.db.beob_bereitgestellt.bulkPut(data)
     })
     .catch(error => new Error(`error fetching data for table beob_bereitgestellt:`, error))
 }
