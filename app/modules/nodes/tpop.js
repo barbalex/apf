@@ -1,7 +1,7 @@
 import sortBy from 'lodash/sortBy'
 import tpopberNodes from './tpopber'
 import tpopmassnberNodes from './tpopmassnber'
-import tpopmassnNodes from './tpopmassn'
+import tpopmassnFolderNode from './tpopmassnFolder'
 import tpopfeldkontrNodes from './tpopfeldkontr'
 import tpopfreiwkontrNodes from './tpopfreiwkontr'
 import tpopbeobNodes from './tpopbeob'
@@ -15,12 +15,12 @@ export default ({ store, projId, apArtId, popId }) => {
   tpop = sortBy(tpop, `TPopNr`)
   // map through all projekt and create array of nodes
   let nodes = tpop.map((el) => {
-    const myMassnNodes = tpopmassnNodes({ store, projId, apArtId, popId, tpopId: el.TPopId })
     const myMassnberNodes = tpopmassnberNodes({ store, projId, apArtId, popId, tpopId: el.TPopId })
     const myFeldkontrNodes = tpopfeldkontrNodes({ store, projId, apArtId, popId, tpopId: el.TPopId })
     const myFreiwkontrNodes = tpopfreiwkontrNodes({ store, projId, apArtId, popId, tpopId: el.TPopId })
     const myTpopberNodes = tpopberNodes({ store, projId, apArtId, popId, tpopId: el.TPopId })
     const myTpopbeobNodes = tpopbeobNodes({ store, tpopId: el.TPopId })
+    const tpopId = el.TPopId
     return {
       nodeType: `table`,
       menuType: `tpop`,
@@ -30,15 +30,7 @@ export default ({ store, projId, apArtId, popId }) => {
       expanded: el.TPopId === activeUrlElements.tpop,
       url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, el.PopId, `Teil-Populationen`, el.TPopId],
       children: [
-        {
-          nodeType: `folder`,
-          menuType: `tpopmassnFolder`,
-          id: el.TPopId,
-          label: `Massnahmen (${myMassnNodes.length})`,
-          expanded: activeUrlElements.tpopmassnFolder,
-          url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, el.PopId, `Teil-Populationen`, el.TPopId, `Massnahmen`],
-          children: myMassnNodes,
-        },
+        tpopmassnFolderNode({ store, projId, apArtId, popId, tpopId }),
         {
           nodeType: `folder`,
           menuType: `tpopmassnberFolder`,
