@@ -5,7 +5,7 @@
  */
 /* eslint-disable no-console, no-param-reassign */
 
-import { action, autorun, computed, observable } from 'mobx'
+import { action, autorun, autorunAsync, computed, observable } from 'mobx'
 import singleton from 'singleton'
 
 import fetchTable from '../modules/fetchTable'
@@ -77,7 +77,7 @@ class Store extends singleton {
   @observable previousActiveUrlElements
 
   // make sure all data needed for this url is fetched
-  fetchData = autorun(
+  fetchData = autorunAsync(
     `fetchData`,
     () => fetchDataForActiveUrlElements(this)
   )

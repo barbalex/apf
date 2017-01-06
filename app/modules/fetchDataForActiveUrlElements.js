@@ -4,10 +4,11 @@
  * and only fetch what is new
  */
 
+import { transaction } from 'mobx'
 import forEach from 'lodash/forEach'
 import clone from 'lodash/clone'
 
-export default (store) => {
+const fetchDataForActiveUrlElements = (store) => {
   const { activeUrlElements } = store
   const fetchingFromActiveElements = {
     exporte() {
@@ -148,17 +149,28 @@ export default (store) => {
     },
   }
 
-  /*
-  console.log(`fetchDataForActiveUrlElements: activeUrlElements.projekt:`, activeUrlElements.projekt)
-  if (store.previousActiveUrlElements) {
-    console.log(`fetchDataForActiveUrlElements: store.previousActiveUrlElements.projekt:`, store.previousActiveUrlElements.projekt)
-  }
-  */
+  console.log(`fetchDataForActiveUrlElements: store.previousActiveUrlElements:`, store.previousActiveUrlElements)
 
-  forEach(fetchingFromActiveElements, (func, key) => {
-    if (activeUrlElements[key]) {
-      func()
-    }
-  })
-  store.previousActiveUrlElements = clone(activeUrlElements)
+  const executeFunctions = () => {
+    transaction(() => {
+      forEach(fetchingFromActiveElements, (func, key) => {
+        if (activeUrlElements[key]) {
+          func()
+        }
+      })
+    })
+  }
+
+  if (store.previousActiveUrlElements) {
+    executeFunctions()
+    store.previousActiveUrlElements = clone(activeUrlElements)
+  } else {
+    setTimeout(() => {
+      executeFunctions()
+      store.previousActiveUrlElements = clone(activeUrlElements)
+      // fetchDataForActiveUrlElements(store)
+    }, 0)
+  }
 }
+
+export default fetchDataForActiveUrlElements
