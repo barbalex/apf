@@ -1,6 +1,6 @@
 import sortBy from 'lodash/sortBy'
 import zieljahreFolderNode from './zieljahreFolder'
-import erfkritNodes from './erfkrit'
+import erfkritFolderNode from './erfkritFolder'
 import apberNodes from './apber'
 import berNodes from './ber'
 import assozartNodes from './assozart'
@@ -22,13 +22,11 @@ export default (store, projId) => {
       const ae = adb_eigenschaften.get(el.ApArtId)
       label = ae ? ae.Artname : `(keine Art gewählt)`
     }
-    const myErfkritNodes = erfkritNodes(store, el.ApArtId)
     const myApberNodes = apberNodes(store, el.ApArtId)
     const myBerNodes = berNodes(store, el.ApArtId)
     const myAssozartNodes = assozartNodes(store, el.ApArtId)
     const myBeobzuordnungNodes = beobzuordnungNodes(store, el.ApArtId)
     const myBeobNichtZuzuordnenNodes = beobNichtZuzuordnenNodes(store, el.ApArtId)
-    // const myBeobNichtZuzuordnenNodes = []
     return {
       nodeType: `table`,
       menuType: `ap`,
@@ -39,18 +37,8 @@ export default (store, projId) => {
       url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId],
       children: [
         popFolderNode(store, el.ProjId, el.ApArtId),
-        // ziel folder
         zieljahreFolderNode(store, el.ProjId, el.ApArtId),
-        // erfkrit folder
-        {
-          nodeType: `folder`,
-          menuType: `erfkritFolder`,
-          id: el.ApArtId,
-          label: `AP-Erfolgskriterien (${myErfkritNodes.length})`,
-          expanded: activeUrlElements.erfkritFolder,
-          url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `AP-Erfolgskriterien`],
-          children: myErfkritNodes,
-        },
+        erfkritFolderNode(store, el.ProjId, el.ApArtId),
         // apber folder
         {
           nodeType: `folder`,
