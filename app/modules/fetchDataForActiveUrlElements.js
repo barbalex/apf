@@ -150,25 +150,14 @@ const fetchDataForActiveUrlElements = (store) => {
     },
   }
 
-  // console.log(`fetchDataForActiveUrlElements: store.previousActiveUrlElements:`, store.previousActiveUrlElements)
-
-  const executeFunctions = () => {
-    transaction(() => {
-      forEach(fetchingFromActiveElements, (func, key) => {
-        if (activeUrlElements[key]) {
-          func()
-        }
-      })
+  transaction(() => {
+    forEach(fetchingFromActiveElements, (func, key) => {
+      if (activeUrlElements[key]) {
+        func()
+      }
     })
-  }
-
-  if (store.previousActiveUrlElements) {
-    executeFunctions()
-    store.previousActiveUrlElements = clone(activeUrlElements)
-  } else {
-    executeFunctions()
-    store.previousActiveUrlElements = clone(activeUrlElements)
-  }
+  })
+  store.previousActiveUrlElements = clone(activeUrlElements)
 }
 
 export default fetchDataForActiveUrlElements
