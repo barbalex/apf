@@ -5,6 +5,14 @@ import app from 'ampersand-app'
 import apiBaseUrl from './apiBaseUrl'
 import tables from './tables'
 
+const writeToStore = (store, data, tableName, idField) => {
+  transaction(() => {
+    data.forEach(d =>
+      store.table[tableName].set(d[idField], d)
+    )
+  })
+}
+
 export default (store, schemaNamePassed, tableName, parentId) => {
   if (!tableName) {
     return new Error(`action fetchTableByParentId: tableName must be passed`)
@@ -29,32 +37,16 @@ export default (store, schemaNamePassed, tableName, parentId) => {
   const parentIdField = tables.find(t => t.table === tableName).parentIdField
   const url = `${apiBaseUrl}/schema/${schemaName}/table/${tableName}/field/${parentIdField}/value/${parentId}`
 
-  // console.log(`fetchTableByParentId: tableName:`, tableName)
-  // console.log(`fetchTableByParentId: app.db[tableName]:`, app.db[tableName])
-
   app.db[tableName]
     .toArray()
-    .then((values) => {
-      if (values) {
-        console.log(`fetchTableByParentId: fetching for table ${tableName} from idb`)
-        const mapInStore = store.table[tableName]
-        transaction(() => {
-          values.forEach((v) => {
-            const key = v[idField]
-            if (!mapInStore.get(key)) {
-              mapInStore.set(key, v)
-            }
-          })
-        })
+    .then((data) => {
+      if (data) {
+        writeToStore(store, data, tableName, idField)
       }
     })
     .then(() => axios.get(url))
     .then(({ data }) => {
-      transaction(() => {
-        data.forEach(d =>
-          store.table[tableName].set(d[idField], d)
-        )
-      })
+      writeToStore(store, data, tableName, idField)
       app.db[tableName].bulkPut(data)
     })
     .catch(error => new Error(`error fetching data for table ${tableName}:`, error))
