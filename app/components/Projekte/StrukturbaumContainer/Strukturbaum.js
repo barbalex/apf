@@ -107,10 +107,16 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
   }
 
   noRowsRenderer() {
+    const { store } = this.props
+    const message = (
+      store.table.projektLoading ?
+      `lade Daten...` :
+      `keine Daten`
+    )
     return (
       <Container>
         <LoadingDiv>
-          (noch?) keine Daten
+          {message}
         </LoadingDiv>
       </Container>
     )
