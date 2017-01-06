@@ -4,7 +4,7 @@ import tpopmassnberFolderNode from './tpopmassnberFolder'
 import tpopmassnFolderNode from './tpopmassnFolder'
 import tpopfeldkontrFolderNode from './tpopfeldkontrFolder'
 import tpopfreiwkontrFolderNode from './tpopfreiwkontrFolder'
-import tpopbeobNodes from './tpopbeob'
+import tpopbeobFolderNode from './tpopbeobFolder'
 
 export default ({ store, projId, apArtId, popId }) => {
   const { activeUrlElements } = store
@@ -15,7 +15,6 @@ export default ({ store, projId, apArtId, popId }) => {
   tpop = sortBy(tpop, `TPopNr`)
   // map through all projekt and create array of nodes
   let nodes = tpop.map((el) => {
-    const myTpopbeobNodes = tpopbeobNodes({ store, tpopId: el.TPopId })
     const tpopId = el.TPopId
     return {
       nodeType: `table`,
@@ -31,15 +30,7 @@ export default ({ store, projId, apArtId, popId }) => {
         tpopfeldkontrFolderNode({ store, projId, apArtId, popId, tpopId }),
         tpopfreiwkontrFolderNode({ store, projId, apArtId, popId, tpopId }),
         tpopberFolderNode({ store, projId, apArtId, popId, tpopId }),
-        {
-          nodeType: `folder`,
-          menuType: `tpopbeobFolder`,
-          id: el.TPopId,
-          label: `Beobachtungen (${myTpopbeobNodes.length})`,
-          expanded: activeUrlElements.tpopbeobFolder,
-          url: [`Projekte`, projId, `Arten`, apArtId, `Populationen`, el.PopId, `Teil-Populationen`, el.TPopId, `Beobachtungen`],
-          children: myTpopbeobNodes,
-        },
+        tpopbeobFolderNode({ store, projId, apArtId, popId, tpopId }),
       ],
     }
   })
