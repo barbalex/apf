@@ -1,7 +1,7 @@
 import sortBy from 'lodash/sortBy'
 import zieljahreFolderNode from './zieljahreFolder'
 import erfkritFolderNode from './erfkritFolder'
-import apberNodes from './apber'
+import apberFolderNode from './apberFolder'
 import berNodes from './ber'
 import assozartNodes from './assozart'
 import popFolderNode from './popFolder'
@@ -22,7 +22,6 @@ export default (store, projId) => {
       const ae = adb_eigenschaften.get(el.ApArtId)
       label = ae ? ae.Artname : `(keine Art gewählt)`
     }
-    const myApberNodes = apberNodes(store, el.ApArtId)
     const myBerNodes = berNodes(store, el.ApArtId)
     const myAssozartNodes = assozartNodes(store, el.ApArtId)
     const myBeobzuordnungNodes = beobzuordnungNodes(store, el.ApArtId)
@@ -39,16 +38,7 @@ export default (store, projId) => {
         popFolderNode(store, el.ProjId, el.ApArtId),
         zieljahreFolderNode(store, el.ProjId, el.ApArtId),
         erfkritFolderNode(store, el.ProjId, el.ApArtId),
-        // apber folder
-        {
-          nodeType: `folder`,
-          menuType: `apberFolder`,
-          id: el.ApArtId,
-          label: `AP-Berichte (${myApberNodes.length})`,
-          expanded: activeUrlElements.apberFolder,
-          url: [`Projekte`, el.ProjId, `Arten`, el.ApArtId, `AP-Berichte`],
-          children: myApberNodes,
-        },
+        apberFolderNode(store, el.ProjId, el.ApArtId),
         // ber folder
         {
           nodeType: `folder`,
