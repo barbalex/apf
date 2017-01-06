@@ -9,7 +9,6 @@ import forEach from 'lodash/forEach'
 import clone from 'lodash/clone'
 
 const fetchDataForActiveUrlElements = (store) => {
-  console.log(`fetchDataForActiveUrlElements running`)
   const { activeUrlElements } = store
   const fetchingFromActiveElements = {
     exporte() {
@@ -17,12 +16,7 @@ const fetchDataForActiveUrlElements = (store) => {
       store.fetchTable(`beob`, `adb_eigenschaften`)
     },
     projektFolder() {
-      // setTimeout is necessary on first call
-      // to prevent db[tableName] from being undefined
-      setTimeout(
-        () => store.fetchTable(`apflora`, `projekt`),
-        0
-      )
+      store.fetchTable(`apflora`, `projekt`)
     },
     projekt() {
       store.fetchTableByParentId(`apflora`, `ap`, activeUrlElements.projekt)
@@ -35,31 +29,25 @@ const fetchDataForActiveUrlElements = (store) => {
       store.fetchTable(`beob`, `adb_eigenschaften`)
     },
     ap() {
+      store.fetchTableByParentId(`apflora`, `pop`, activeUrlElements.ap)
+      store.fetchTableByParentId(`apflora`, `ziel`, activeUrlElements.ap)
+      store.fetchTableByParentId(`apflora`, `erfkrit`, activeUrlElements.ap)
+      store.fetchTableByParentId(`apflora`, `apber`, activeUrlElements.ap)
+      store.fetchTableByParentId(`apflora`, `ber`, activeUrlElements.ap)
       store.fetchTableByParentId(`apflora`, `assozart`, activeUrlElements.ap)
       store.fetchTableByParentId(`apflora`, `idealbiotop`, activeUrlElements.ap)
-      store.fetchTableByParentId(`apflora`, `apber`, activeUrlElements.ap)
-      store.fetchTableByParentId(`apflora`, `erfkrit`, activeUrlElements.ap)
-      store.fetchTableByParentId(`apflora`, `ber`, activeUrlElements.ap)
-      store.fetchTableByParentId(`apflora`, `ziel`, activeUrlElements.ap)
-      store.fetchTableByParentId(`apflora`, `pop`, activeUrlElements.ap)
+      store.fetchTable(`apflora`, `adresse`)
       store.fetchBeobBereitgestellt(activeUrlElements.ap)
       store.fetchBeobzuordnung(activeUrlElements.ap)
-      store.fetchTable(`apflora`, `adresse`)
     },
-    assozartFolder() {
-      store.fetchTableByParentId(`apflora`, `assozart`, activeUrlElements.ap)
-    },
-    idealbiotopFolder() {
-      store.fetchTableByParentId(`apflora`, `idealbiotop`, activeUrlElements.ap)
-    },
+    assozartFolder() {},
+    idealbiotopFolder() {},
     beobNichtZuzuordnenFolder() {
       store.fetchTable(`beob`, `beob_quelle`)
-      store.fetchTableByParentId(`apflora`, `pop`, activeUrlElements.ap)
       store.fetchTpopForAp(activeUrlElements.ap)
     },
     beobzuordnungFolder() {
       store.fetchTable(`beob`, `beob_quelle`)
-      store.fetchTableByParentId(`apflora`, `pop`, activeUrlElements.ap)
       store.fetchTpopForAp(activeUrlElements.ap)
     },
     berFolder() {
@@ -83,12 +71,8 @@ const fetchDataForActiveUrlElements = (store) => {
     ziel() {
       store.fetchTableByParentId(`apflora`, `zielber`, activeUrlElements.ziel)
     },
-    zielberFolder() {
-      store.fetchTableByParentId(`apflora`, `zielber`, activeUrlElements.ziel)
-    },
-    zielber() {
-      store.fetchTableByParentId(`apflora`, `zielber`, activeUrlElements.ziel)
-    },
+    zielberFolder() {},
+    zielber() {},
     popFolder() {
       store.fetchTableByParentId(`apflora`, `pop`, activeUrlElements.ap)
     },
