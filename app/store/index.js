@@ -45,6 +45,7 @@ class Store extends singleton {
   app = AppStore
   table = TableStore
   @observable datasetToDelete = {}
+  idsOfFieldsOfTablesFetched = {}
 
   /**
    * url paths are used to control tree and forms
