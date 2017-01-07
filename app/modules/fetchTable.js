@@ -43,6 +43,7 @@ export default (store, schemaNamePassed, tableName) => {
       .then(({ data }) => {
         writeToStore(store, data, tableName, idField)
         app.db[tableName].bulkPut(data)
+        store.table[`${tableName}Loading`] = false
       })
       .catch(error => new Error(`error fetching data for table ${tableName}:`, error))
   }
