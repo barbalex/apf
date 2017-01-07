@@ -12,6 +12,8 @@ import 'babel-polyfill'
 // Load the manifest.json file and the .htaccess file
 import '!file?name=[name].[ext]!./manifest.json'
 import 'file?name=[name].[ext]!./.htaccess'
+// import 'file?name=[name].[ext]!././etc/beziehungen.png'
+import 'file-loader?name=beziehungen.png&outputPath=etc/!./etc/beziehungen.png'
 /* eslint-enable import/no-webpack-loader-syntax, import/extensions */
 
 // Import all the third party stuff
@@ -31,8 +33,6 @@ import Helmet from 'react-helmet'
 import 'sanitize.css/sanitize.css'
 
 import styled from 'styled-components'
-
-import 'file-loader?name=beziehungen.png&outputPath=etc/!./etc/beziehungen.png'
 
 import app from 'ampersand-app'
 import Dexie from 'dexie'
