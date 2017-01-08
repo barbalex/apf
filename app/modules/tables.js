@@ -1,4 +1,5 @@
 /* eslint-disable max-len */
+// TODO: parentTable is not used any more, remove
 
 export default [
   {
