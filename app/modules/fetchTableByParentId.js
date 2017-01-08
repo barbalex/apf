@@ -5,13 +5,24 @@ import app from 'ampersand-app'
 import apiBaseUrl from './apiBaseUrl'
 import tables from './tables'
 
-const writeToStore = (store, data, tableName, idField) => {
+const writeToStore = (store, data, tableName, idField, parentId) => {
+  const { valuesForWhichTableDataWasFetched } = store
   transaction(() => {
     data.forEach(d =>
       store.table[tableName].set(d[idField], d)
     )
   })
   store.table[`${tableName}Loading`] = false
+  // record that data was fetched for this value
+  if (!valuesForWhichTableDataWasFetched[tableName]) {
+    valuesForWhichTableDataWasFetched[tableName] = {}
+  }
+  if (!valuesForWhichTableDataWasFetched[tableName][idField]) {
+    valuesForWhichTableDataWasFetched[tableName][idField] = []
+  }
+  if (!valuesForWhichTableDataWasFetched[tableName][idField].includes(parentId)) {
+    valuesForWhichTableDataWasFetched[tableName][idField].push(parentId)
+  }
 }
 
 export default (store, schemaNamePassed, tableName, parentId) => {
@@ -22,20 +33,19 @@ export default (store, schemaNamePassed, tableName, parentId) => {
     return new Error(`action fetchTableByParentId: parentId must be passed`)
   }
   const schemaName = schemaNamePassed || `apflora`
+  const idField = tables.find(t => t.table === tableName).idField
+  const parentIdField = tables.find(t => t.table === tableName).parentIdField
 
   // only fetch if not yet fetched
-  const parentTableTable = tables.find(t => t.table === tableName)
-  const parentTable = parentTableTable ? parentTableTable.parentTable : null
+  const { valuesForWhichTableDataWasFetched } = store
   if (
-    parentTable &&
-    store.previousActiveUrlElements &&
-    store.previousActiveUrlElements[parentTable] &&
-    store.previousActiveUrlElements[parentTable] === parentId
+    valuesForWhichTableDataWasFetched[tableName] &&
+    valuesForWhichTableDataWasFetched[tableName][idField] &&
+    valuesForWhichTableDataWasFetched[tableName][idField].includes(parentId)
   ) {
     return
   }
-  const idField = tables.find(t => t.table === tableName).idField
-  const parentIdField = tables.find(t => t.table === tableName).parentIdField
+
   const url = `${apiBaseUrl}/schema/${schemaName}/table/${tableName}/field/${parentIdField}/value/${parentId}`
   store.table[`${tableName}Loading`] = true
 
@@ -43,12 +53,12 @@ export default (store, schemaNamePassed, tableName, parentId) => {
     .toArray()
     .then((data) => {
       if (data.length > 0) {
-        writeToStore(store, data, tableName, idField)
+        writeToStore(store, data, tableName, idField, parentId)
       }
     })
     .then(() => axios.get(url))
     .then(({ data }) => {
-      writeToStore(store, data, tableName, idField)
+      writeToStore(store, data, tableName, idField, parentId)
       app.db[tableName].bulkPut(data)
     })
     .catch(error => new Error(`error fetching data for table ${tableName}:`, error))

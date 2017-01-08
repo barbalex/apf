@@ -45,7 +45,7 @@ class Store extends singleton {
   app = AppStore
   table = TableStore
   @observable datasetToDelete = {}
-  idsOfFieldsOfTablesFetched = {}
+  valuesForWhichTableDataWasFetched = {}
 
   /**
    * url paths are used to control tree and forms
@@ -75,7 +75,6 @@ class Store extends singleton {
   )
 
   @observable activeUrlElements
-  @observable previousActiveUrlElements
 
   // make sure all data needed for this url is fetched
   fetchData = autorunAsync(
