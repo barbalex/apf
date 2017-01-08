@@ -11,7 +11,9 @@ export default (store) => {
   let table = tablePassed
   const tableMetadata = tables.find(t => t.table === table)
   if (!tableMetadata) {
-    return console.log(`Error in action deleteDatasetDemand: no table meta data found for table "${table}"`)
+    return store.listError(
+      new Error(`Error in action deleteDatasetDemand: no table meta data found for table "${table}"`)
+    )
   }
   // some tables need to be translated, i.e. tpopfreiwkontr
   if (tableMetadata.dbTable) {

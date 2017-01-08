@@ -207,7 +207,9 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
           this.setState({ messages })
         }
       })
-      .catch(error => console.log(error))
+      .catch(error =>
+        store.listError(error)
+      )
   }
 
   render() {

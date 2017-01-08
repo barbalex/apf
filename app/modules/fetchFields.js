@@ -12,7 +12,6 @@ export default (store) => {
       .toArray()
       .then((values) => {
         if (values.length > 0) {
-          // console.log(`fetching fields from idb`)
           transaction(() => {
             store.app.fields = values
             store.app.fieldsLoading = false
@@ -27,6 +26,6 @@ export default (store) => {
         })
         app.db.fields.bulkPut(data)
       })
-      .catch(error => console.log(`error fetching fields:`, error))
+      .catch(error => store.listError(error))
   }
 }

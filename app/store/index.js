@@ -88,7 +88,11 @@ class Store extends singleton {
 
   @action
   updateLabelFilter = (table, value) => {
-    if (!table) return console.log(`nodeLabelFilter cant be updated: no table passed`)
+    if (!table) {
+      return this.listError(
+        new Error(`nodeLabelFilter cant be updated: no table passed`)
+      )
+    }
     this.node.nodeLabelFilter.set(table, value)
   }
 

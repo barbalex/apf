@@ -21,7 +21,6 @@ class MyCheckbox extends Component { // eslint-disable-line react/prefer-statele
       updatePropertyInDb,
     } = this.props
 
-    const checked = value === 1
     /**
      * This give an error:
      * warning.js:36 Warning: React.createElement:
@@ -31,11 +30,12 @@ class MyCheckbox extends Component { // eslint-disable-line react/prefer-statele
      *
      * NO FUCKING IDEA WHY THIS HAPPENS
      */
-    console.log(`fieldName:`, fieldName)
-    console.log(`value:`, value)
-    console.log(`value === 1:`, value === 1)
-    console.log(`label:`, label)
-    console.log(`checked:`, checked)
+    // const checked = value === 1
+    // console.log(`fieldName:`, fieldName)
+    // console.log(`value:`, value)
+    // console.log(`value === 1:`, value === 1)
+    // console.log(`label:`, label)
+    // console.log(`checked:`, checked)
 
     return (
       <div>
@@ -43,9 +43,9 @@ class MyCheckbox extends Component { // eslint-disable-line react/prefer-statele
         <Checkbox
           checked={value === 1}
           onCheck={(e, isInputChecked) => {
-            console.log(`isInputChecked:`, isInputChecked)
+            // console.log(`isInputChecked:`, isInputChecked)
             const val = isInputChecked ? 1 : null
-            console.log(`val:`, val)
+            // console.log(`val:`, val)
             updatePropertyInDb(fieldName, val)
           }}
         />

@@ -8,12 +8,16 @@ import insertDatasetInIdb from './insertDatasetInIdb'
 export default (store, tablePassed, parentId, baseUrl) => {
   let table = tablePassed
   if (!table) {
-    return console.log(`Error in action insertDataset: no table passed`)
+    return store.listError(
+      new Error(`no table passed`)
+    )
   }
   // insert new dataset in db and fetch id
   const tableMetadata = tables.find(t => t.table === table)
   if (!tableMetadata) {
-    return console.log(`Error in action insertDataset: no table meta data found for table "${table}"`)
+    return store.listError(
+      new Error(`no table meta data found for table "${table}"`)
+    )
   }
   // some tables need to be translated, i.e. tpopfreiwkontr
   if (tableMetadata.dbTable) {
@@ -22,7 +26,9 @@ export default (store, tablePassed, parentId, baseUrl) => {
   const parentIdField = tableMetadata.parentIdField
   const idField = tableMetadata.idField
   if (!idField) {
-    return console.log(`new dataset not created as no idField could be found`)
+    return store.listError(
+      new Error(`new dataset not created as no idField could be found`)
+    )
   }
   const url = `${apiBaseUrl}/apflora/${table}/${parentIdField}/${parentId}`
   axios.post(url)

@@ -38,11 +38,23 @@ export default (store, key, valuePassed) => {
   }
   const idField = tabelle ? tabelle.idField : undefined
   if (!idField) {
-    return console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
+    return store.listError(
+      new Error(
+        `change was not saved:
+        field: ${key}, table: ${table}, value: ${value}
+        Reason: idField was not found`
+      )
+    )
   }
   const tabelleId = row[idField] || undefined
   if (!tabelleId) {
-    return console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
+    return store.listError(
+      new Error(
+        `change was not saved:
+        field: ${key}, table: ${table}, value: ${value}
+        Reason: tabelleId was not found`
+      )
+    )
   }
 
   // some fields contain 1 for true, 0 for false
@@ -67,7 +79,8 @@ export default (store, key, valuePassed) => {
         // if ApArtId of ap is updated, url needs to change
         if (table === `ap` && key === `ApArtId`) {
           store.url[3] = value
-          store.history.push(`/${store.url.join(`/`)}${Object.keys(store.urlQuery).length > 0 ? `?${queryString.stringify(store.urlQuery)}` : ``}`)
+          const newUrl = `/${store.url.join(`/`)}${Object.keys(store.urlQuery).length > 0 ? `?${queryString.stringify(store.urlQuery)}` : ``}`
+          store.history.push(newUrl)
         }
         // if beobNichtBeurteilt is set to beobNichtZuordnen, url needs to change
         if (table === `beobzuordnung` && key === `BeobNichtZuordnen`) {
@@ -76,7 +89,8 @@ export default (store, key, valuePassed) => {
             `nicht-zuzuordnende-Beobachtungen` :
             `nicht-beurteilte-Beobachtungen`
           )
-          store.history.push(`/${store.url.join(`/`)}${Object.keys(store.urlQuery).length > 0 ? `?${queryString.stringify(store.urlQuery)}` : ``}`)
+          const newUrl = `/${store.url.join(`/`)}${Object.keys(store.urlQuery).length > 0 ? `?${queryString.stringify(store.urlQuery)}` : ``}`
+          store.history.push(newUrl)
         }
         // if for a beobZugeordnet TPopId is set, url needs to change
         // namely: PopId and TPopId
@@ -84,13 +98,14 @@ export default (store, key, valuePassed) => {
           const tpop = store.table.tpop.get(value)
           store.url[5] = tpop.PopId
           store.url[7] = value
-          store.history.push(`/${store.url.join(`/`)}${Object.keys(store.urlQuery).length > 0 ? `?${queryString.stringify(store.urlQuery)}` : ``}`)
+          const newUrl = `/${store.url.join(`/`)}${Object.keys(store.urlQuery).length > 0 ? `?${queryString.stringify(store.urlQuery)}` : ``}`
+          store.history.push(newUrl)
         }
       })
       .catch((error) => {
+        // revert change in store
         row[key] = oldValue
         store.listError(error)
-        console.log(`change was not saved: field: ${key}, table: ${table}, value: ${value}`)
       })
   }
 }

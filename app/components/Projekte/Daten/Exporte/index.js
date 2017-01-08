@@ -79,6 +79,7 @@ export default class Exporte extends React.Component { // eslint-disable-line re
   }
 
   downloadFromView({ view, fileName, apArtId }) {  // eslint-disable-line class-methods-use-this
+    const { store } = this.props
     const file = `${fileName}_${format(new Date(), `YYYY-MM-DD_HH-mm-ss`)}`
     const url = `${apiBaseUrl}/exportView/csv/view=${view}/filename=${file}${apArtId ? `/${apArtId}` : ``}`
     axios.get(url)
@@ -91,12 +92,12 @@ export default class Exporte extends React.Component { // eslint-disable-line re
         }
       })
       .catch((error) => {
-        console.log(`error fetching fields:`, error)
         if (this.state.artFuerEierlegendeWollmilchsau) {
           this.setState({
             artFuerEierlegendeWollmilchsau: ``,
           })
         }
+        store.listError(error)
       })
   }
 

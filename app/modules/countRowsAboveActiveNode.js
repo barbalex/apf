@@ -19,7 +19,7 @@ const addExpandedChildren = (node) => {
   }
 }
 
-const findActiveNodeInNodes = (nodes, nodeIdPathPassed) => {
+const findActiveNodeInNodes = (store, nodes, nodeIdPathPassed) => {
   if (!nodes) return
   const nodeIdPath = nodeIdPathPassed.slice(0)
   const nodeId = nodeIdPath.shift()
@@ -34,22 +34,22 @@ const findActiveNodeInNodes = (nodes, nodeIdPathPassed) => {
       if (activeNode.children && activeNode.children.length > 0 && activeNode.expanded) {
         findActiveNodeInNodes(activeNode.children, nodeIdPath)
       } else {
-        console.log(`Error: nodeIdPath not yet empty but no more children`)  // eslint-disable-line no-console
+        store.listError(new Error(`nodeIdPath not yet empty but no more children`))  // eslint-disable-line no-console
       }
     }
   } else {
-    console.log(`error: nodeId from nodeIdPath not found`)  // eslint-disable-line no-console
+    store.listError(new Error(`nodeId from nodeIdPath not found`))  // eslint-disable-line no-console
   }
 }
 
-export default (nodes, activeNode, previousCount) => {
+export default (store, nodes, activeNode, previousCount) => {
   // if anything goes wrong: return previous count
   if (!nodes) return previousCount
   if (!nodes.length) return previousCount
   if (!activeNode) return previousCount
   globalCounter = 0
   const nodeIdPath = activeNode.nodeIdPath.slice(0)
-  findActiveNodeInNodes(nodes, nodeIdPath)
+  findActiveNodeInNodes(store, nodes, nodeIdPath)
   // seems like this is always one too much
   if (globalCounter > 1) return globalCounter - 1
   return previousCount
