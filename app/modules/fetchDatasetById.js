@@ -5,12 +5,23 @@ import app from 'ampersand-app'
 import apiBaseUrl from './apiBaseUrl'
 import tables from './tables'
 
-const writeToStore = (store, data, tableName, id) => {
+const writeToStore = (store, data, tableName, idField, id) => {
   transaction(() => {
     data.forEach(d =>
       store.table[tableName].set(id, d)
     )
   })
+  // record that data was fetched for this value
+  const { valuesForWhichTableDataWasFetched } = store
+  if (!valuesForWhichTableDataWasFetched[tableName]) {
+    valuesForWhichTableDataWasFetched[tableName] = {}
+  }
+  if (!valuesForWhichTableDataWasFetched[tableName][idField]) {
+    valuesForWhichTableDataWasFetched[tableName][idField] = []
+  }
+  if (!valuesForWhichTableDataWasFetched[tableName][idField].includes(id)) {
+    valuesForWhichTableDataWasFetched[tableName][idField].push(id)
+  }
 }
 
 export default ({ store, schemaName, tableName, id }) => {
@@ -23,18 +34,29 @@ export default ({ store, schemaName, tableName, id }) => {
   schemaName = schemaName || `apflora`
 
   const idField = tables.find(t => t.table === tableName).idField
+
+  // only fetch if not yet fetched
+  const { valuesForWhichTableDataWasFetched } = store
+  if (
+    valuesForWhichTableDataWasFetched[tableName] &&
+    valuesForWhichTableDataWasFetched[tableName][idField] &&
+    valuesForWhichTableDataWasFetched[tableName][idField].includes(id)
+  ) {
+    return
+  }
+
   const url = `${apiBaseUrl}/schema/${schemaName}/table/${tableName}/field/${idField}/value/${id}`
 
   app.db[tableName]
     .toArray()
     .then((data) => {
       if (data.length > 0) {
-        writeToStore(store, data, tableName, id)
+        writeToStore(store, data, tableName, idField, id)
       }
     })
     .then(() => axios.get(url))
     .then(({ data }) => {
-      writeToStore(store, data, tableName, id)
+      writeToStore(store, data, tableName, idField, id)
       app.db[tableName].bulkPut(data)
     })
     .catch(error => new Error(`error fetching data for table ${tableName}:`, error))
