@@ -1,18 +1,10 @@
-import { transaction } from 'mobx'
 import axios from 'axios'
 import app from 'ampersand-app'
 
 import apiBaseUrl from './apiBaseUrl'
 import tables from './tables'
 import recordValuesForWhichTableDataWasFetched from './recordValuesForWhichTableDataWasFetched'
-
-const writeToStore = (store, data, tableName, id) => {
-  transaction(() => {
-    data.forEach(d =>
-      store.table[tableName].set(id, d)
-    )
-  })
-}
+import writeToStore from './writeToStore'
 
 export default ({ store, schemaName, tableName, id }) => {
   if (!tableName) {
@@ -39,13 +31,15 @@ export default ({ store, schemaName, tableName, id }) => {
 
   app.db[tableName]
     .toArray()
-    .then(data =>
-      writeToStore(store, data, tableName, id)
-    )
+    .then((data) => {
+      // dont write all data - filter for needed id first
+      const dataToWrite = data.filter(d => d[idField] === id)
+      writeToStore({ store, data: dataToWrite, table: tableName, field: idField })
+    })
     .then(() => axios.get(url))
     .then(({ data }) => {
       // leave ui react before this happens
-      setTimeout(() => writeToStore(store, data, tableName, id))
+      setTimeout(() => writeToStore({ store, data, table: tableName, field: idField }))
       recordValuesForWhichTableDataWasFetched({ store, table: tableName, field: idField, value: id })
       setTimeout(() => app.db[tableName].bulkPut(data))
     })
