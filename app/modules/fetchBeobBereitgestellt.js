@@ -4,15 +4,17 @@ import app from 'ampersand-app'
 
 import apiBaseUrl from './apiBaseUrl'
 
-const writeToStore = (store, data, apArtId) => {
-  const { valuesForWhichTableDataWasFetched } = store
+const writeToStore = (store, data) => {
   transaction(() => {
     data.forEach((d) => {
       d.beobzuordnung = computed(() => store.table.beobzuordnung.get(d.BeobId))
       store.table.beob_bereitgestellt.set(d.BeobId, d)
     })
   })
-  store.table.beob_bereitgestelltLoading = false
+}
+
+const recordLoading = (store, apArtId) => {
+  const { valuesForWhichTableDataWasFetched } = store
   // record that data was fetched for this value
   if (!valuesForWhichTableDataWasFetched.beob_bereitgestellt) {
     valuesForWhichTableDataWasFetched.beob_bereitgestellt = {}
@@ -46,13 +48,14 @@ export default (store, apArtId) => {
     .toArray()
     .then((data) => {
       if (data.length > 0) {
-        // console.log(`fetching beob_bereitgestellt from idb`)
-        writeToStore(store, data, apArtId)
+        writeToStore(store, data)
+        store.table.beob_bereitgestelltLoading = false
       }
     })
     .then(() => axios.get(url))
     .then(({ data }) => {
-      writeToStore(store, data, apArtId)
+      writeToStore(store, data)
+      recordLoading(store, apArtId)
       // leave ui react before this happens
       setTimeout(() => app.db.beob_bereitgestellt.bulkPut(data), 0)
     })

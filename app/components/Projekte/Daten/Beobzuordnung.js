@@ -41,6 +41,18 @@ const MaxHeightDiv = styled.div`
   max-height: 250px;
   overflow-x: auto;
 `
+const nichtZuordnenPopover = (
+  <Container>
+    <LabelPopoverTitleRow>
+      Legende
+    </LabelPopoverTitleRow>
+    <LabelPopoverContentRow>
+      {`Will heissen: Die Beobachtung kann nicht zugeordnet werden.`}<br />
+      {`Mögliche Gründe: Unsichere Bestimmung, nicht lokalisierbar.`}<br />
+      {`Bitte im Bemerkungsfeld begründen.`}
+    </LabelPopoverContentRow>
+  </Container>
+)
 
 @inject(`store`)
 @observer
@@ -49,21 +61,6 @@ class Beob extends Component { // eslint-disable-line react/prefer-stateless-fun
   static propTypes = {
     store: PropTypes.object.isRequired,
     typ: PropTypes.string.isRequired,
-  }
-
-  get nichtZuordnenPopover() {
-    return (
-      <Container>
-        <LabelPopoverTitleRow>
-          Legende
-        </LabelPopoverTitleRow>
-        <LabelPopoverContentRow>
-          {`Will heissen: Die Beobachtung kann nicht zugeordnet werden.`}<br />
-          {`Mögliche Gründe: Unsichere Bestimmung, nicht lokalisierbar.`}<br />
-          {`Bitte im Bemerkungsfeld begründen.`}
-        </LabelPopoverContentRow>
-      </Container>
-    )
   }
 
   get beob() {
@@ -168,7 +165,7 @@ class Beob extends Component { // eslint-disable-line react/prefer-stateless-fun
             fieldName="BeobNichtZuordnen"
             value={activeDataset.row.BeobNichtZuordnen}
             updatePropertyInDb={store.updatePropertyInDb}
-            popover={this.nichtZuordnenPopover}
+            popover={nichtZuordnenPopover}
           />
           {
             showTPopId &&

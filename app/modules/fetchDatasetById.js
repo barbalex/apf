@@ -5,12 +5,15 @@ import app from 'ampersand-app'
 import apiBaseUrl from './apiBaseUrl'
 import tables from './tables'
 
-const writeToStore = (store, data, tableName, idField, id) => {
+const writeToStore = (store, data, tableName, id) => {
   transaction(() => {
     data.forEach(d =>
       store.table[tableName].set(id, d)
     )
   })
+}
+
+const recordLoading = (store, tableName, idField, id) => {
   // record that data was fetched for this value
   const { valuesForWhichTableDataWasFetched } = store
   if (!valuesForWhichTableDataWasFetched[tableName]) {
@@ -51,12 +54,13 @@ export default ({ store, schemaName, tableName, id }) => {
     .toArray()
     .then((data) => {
       if (data.length > 0) {
-        writeToStore(store, data, tableName, idField, id)
+        writeToStore(store, data, tableName, id)
       }
     })
     .then(() => axios.get(url))
     .then(({ data }) => {
-      writeToStore(store, data, tableName, idField, id)
+      writeToStore(store, data, tableName, id)
+      recordLoading(store, tableName, idField, id)
       // leave ui react before this happens
       setTimeout(() => app.db[tableName].bulkPut(data), 0)
     })

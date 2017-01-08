@@ -4,8 +4,7 @@ import app from 'ampersand-app'
 
 import apiBaseUrl from './apiBaseUrl'
 
-const writeToStore = (store, data, apArtId) => {
-  const { valuesForWhichTableDataWasFetched } = store
+const writeToStore = (store, data) => {
   transaction(() => {
     data.forEach((zuordnung) => {
       // set computed value "beob_bereitgestellt"
@@ -26,7 +25,10 @@ const writeToStore = (store, data, apArtId) => {
       store.table.beobzuordnung.set(zuordnung.NO_NOTE, zuordnung)
     })
   })
-  store.table.beobzuordnungLoading = false
+}
+
+const recordLoading = (store, apArtId) => {
+  const { valuesForWhichTableDataWasFetched } = store
   // record that data was fetched for this value
   if (!valuesForWhichTableDataWasFetched.beobzuordnung) {
     valuesForWhichTableDataWasFetched.beobzuordnung = {}
@@ -61,13 +63,14 @@ export default (store, apArtId) => {
     .toArray()
     .then((data) => {
       if (data.length > 0) {
-        // console.log(`fetching beobzuordnung from idb`)
-        writeToStore(store, data, apArtId)
+        writeToStore(store, data)
+        store.table.beobzuordnungLoading = false
       }
     })
     .then(() => axios.get(url))
     .then(({ data }) => {
-      writeToStore(store, data, apArtId)
+      writeToStore(store, data)
+      recordLoading(store, apArtId)
       // leave ui react before this happens
       setTimeout(() => app.db.beobzuordnung.bulkPut(data), 0)
     })
