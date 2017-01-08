@@ -3,6 +3,7 @@ import axios from 'axios'
 import app from 'ampersand-app'
 
 import apiBaseUrl from './apiBaseUrl'
+import recordValuesForWhichTableDataWasFetched from './recordValuesForWhichTableDataWasFetched'
 
 const writeToStore = (store, data) => {
   transaction(() => {
@@ -11,20 +12,6 @@ const writeToStore = (store, data) => {
       store.table.beob_bereitgestellt.set(d.BeobId, d)
     })
   })
-}
-
-const recordLoading = (store, apArtId) => {
-  const { valuesForWhichTableDataWasFetched } = store
-  // record that data was fetched for this value
-  if (!valuesForWhichTableDataWasFetched.beob_bereitgestellt) {
-    valuesForWhichTableDataWasFetched.beob_bereitgestellt = {}
-  }
-  if (!valuesForWhichTableDataWasFetched.beob_bereitgestellt.NO_ISFS) {
-    valuesForWhichTableDataWasFetched.beob_bereitgestellt.NO_ISFS = []
-  }
-  if (!valuesForWhichTableDataWasFetched.beob_bereitgestellt.NO_ISFS.includes(apArtId)) {
-    valuesForWhichTableDataWasFetched.beob_bereitgestellt.NO_ISFS.push(apArtId)
-  }
 }
 
 export default (store, apArtId) => {
@@ -47,17 +34,15 @@ export default (store, apArtId) => {
   app.db.beob_bereitgestellt
     .toArray()
     .then((data) => {
-      if (data.length > 0) {
-        writeToStore(store, data)
-        store.table.beob_bereitgestelltLoading = false
-      }
+      writeToStore(store, data)
+      store.table.beob_bereitgestelltLoading = false
     })
     .then(() => axios.get(url))
     .then(({ data }) => {
-      writeToStore(store, data)
-      recordLoading(store, apArtId)
       // leave ui react before this happens
-      setTimeout(() => app.db.beob_bereitgestellt.bulkPut(data), 0)
+      setTimeout(() => writeToStore(store, data))
+      recordValuesForWhichTableDataWasFetched({ store, table: `beob_bereitgestellt`, field: `NO_ISFS`, value: apArtId })
+      setTimeout(() => app.db.beob_bereitgestellt.bulkPut(data))
     })
     .catch(error => new Error(`error fetching data for table beob_bereitgestellt:`, error))
 }

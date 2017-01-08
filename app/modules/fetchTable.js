@@ -10,7 +10,6 @@ const writeToStore = (store, data, tableName, idField) => {
     data.forEach(d =>
       store.table[tableName].set(d[idField], d)
     )
-    store.table[`${tableName}Loading`] = false
   })
 }
 
@@ -35,18 +34,15 @@ export default (store, schemaNamePassed, tableName) => {
     app.db[tableName]
       .toArray()
       .then((data) => {
-        if (data.length > 0) {
-          writeToStore(store, data, tableName, idField)
-        }
+        writeToStore(store, data, tableName, idField)
+        store.table[`${tableName}Loading`] = false
       })
       .then(() => axios.get(url))
       .then(({ data }) => {
-        writeToStore(store, data, tableName, idField)
-        store.table[`${tableName}Loading`] = false
         // leave ui react before this happens
-        setTimeout(() => app.db[tableName].bulkPut(data), 0)
+        setTimeout(() => writeToStore(store, data, tableName, idField))
+        setTimeout(() => app.db[tableName].bulkPut(data))
       })
       .catch(error => new Error(`error fetching data for table ${tableName}:`, error))
   }
-  // ignore that was not loaded
 }

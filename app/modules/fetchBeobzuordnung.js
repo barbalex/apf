@@ -3,6 +3,7 @@ import axios from 'axios'
 import app from 'ampersand-app'
 
 import apiBaseUrl from './apiBaseUrl'
+import recordValuesForWhichTableDataWasFetched from './recordValuesForWhichTableDataWasFetched'
 
 const writeToStore = (store, data) => {
   transaction(() => {
@@ -27,20 +28,6 @@ const writeToStore = (store, data) => {
   })
 }
 
-const recordLoading = (store, apArtId) => {
-  const { valuesForWhichTableDataWasFetched } = store
-  // record that data was fetched for this value
-  if (!valuesForWhichTableDataWasFetched.beobzuordnung) {
-    valuesForWhichTableDataWasFetched.beobzuordnung = {}
-  }
-  if (!valuesForWhichTableDataWasFetched.beobzuordnung.NO_ISFS) {
-    valuesForWhichTableDataWasFetched.beobzuordnung.NO_ISFS = []
-  }
-  if (!valuesForWhichTableDataWasFetched.beobzuordnung.NO_ISFS.includes(apArtId)) {
-    valuesForWhichTableDataWasFetched.beobzuordnung.NO_ISFS.push(apArtId)
-  }
-}
-
 export default (store, apArtId) => {
   // console.log(`module fetchBeobzuordnung: apArtId:`, apArtId)
   const { valuesForWhichTableDataWasFetched } = store
@@ -62,17 +49,15 @@ export default (store, apArtId) => {
   app.db.beobzuordnung
     .toArray()
     .then((data) => {
-      if (data.length > 0) {
-        writeToStore(store, data)
-        store.table.beobzuordnungLoading = false
-      }
+      writeToStore(store, data)
+      store.table.beobzuordnungLoading = false
     })
     .then(() => axios.get(url))
     .then(({ data }) => {
-      writeToStore(store, data)
-      recordLoading(store, apArtId)
       // leave ui react before this happens
-      setTimeout(() => app.db.beobzuordnung.bulkPut(data), 0)
+      setTimeout(() => writeToStore(store, data))
+      recordValuesForWhichTableDataWasFetched({ store, table: `beobzuordnung`, field: `NO_ISFS`, value: apArtId })
+      setTimeout(() => app.db.beobzuordnung.bulkPut(data))
     })
     .catch(error => new Error(`error fetching table beobzuordnung:`, error))
 }

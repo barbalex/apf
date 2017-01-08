@@ -25,7 +25,7 @@ export default (store) => {
           store.app.fieldsLoading = false
         })
         // leave ui react before this happens
-        setTimeout(() => app.db.fields.bulkPut(data), 0)
+        setTimeout(() => app.db.fields.bulkPut(data))
       })
       .catch(error => store.listError(error))
   }

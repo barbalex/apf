@@ -4,25 +4,14 @@ import app from 'ampersand-app'
 
 import apiBaseUrl from './apiBaseUrl'
 import tables from './tables'
+import recordValuesForWhichTableDataWasFetched from './recordValuesForWhichTableDataWasFetched'
 
-const writeToStore = (store, data, tableName, idField, parentId) => {
-  const { valuesForWhichTableDataWasFetched } = store
+const writeToStore = (store, data, tableName, idField) => {
   transaction(() => {
     data.forEach(d =>
       store.table[tableName].set(d[idField], d)
     )
   })
-  store.table[`${tableName}Loading`] = false
-  // record that data was fetched for this value
-  if (!valuesForWhichTableDataWasFetched[tableName]) {
-    valuesForWhichTableDataWasFetched[tableName] = {}
-  }
-  if (!valuesForWhichTableDataWasFetched[tableName][idField]) {
-    valuesForWhichTableDataWasFetched[tableName][idField] = []
-  }
-  if (!valuesForWhichTableDataWasFetched[tableName][idField].includes(parentId)) {
-    valuesForWhichTableDataWasFetched[tableName][idField].push(parentId)
-  }
 }
 
 export default (store, schemaNamePassed, tableName, parentId) => {
@@ -52,15 +41,15 @@ export default (store, schemaNamePassed, tableName, parentId) => {
   app.db[tableName]
     .toArray()
     .then((data) => {
-      if (data.length > 0) {
-        writeToStore(store, data, tableName, idField, parentId)
-      }
+      writeToStore(store, data, tableName, idField)
+      store.table[`${tableName}Loading`] = false
     })
     .then(() => axios.get(url))
     .then(({ data }) => {
-      writeToStore(store, data, tableName, idField, parentId)
       // leave ui react before this happens
-      setTimeout(() => app.db[tableName].bulkPut(data), 0)
+      setTimeout(() => writeToStore(store, data, tableName, idField))
+      recordValuesForWhichTableDataWasFetched({ store, table: tableName, field: idField, value: parentId })
+      setTimeout(() => app.db[tableName].bulkPut(data))
     })
     .catch(error => new Error(`error fetching data for table ${tableName}:`, error))
 }

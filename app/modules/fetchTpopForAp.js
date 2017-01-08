@@ -3,24 +3,14 @@ import axios from 'axios'
 import app from 'ampersand-app'
 
 import apiBaseUrl from './apiBaseUrl'
+import recordValuesForWhichTableDataWasFetched from './recordValuesForWhichTableDataWasFetched'
 
-const writeToStore = (store, data, apArtId) => {
-  const { valuesForWhichTableDataWasFetched } = store
+const writeToStore = (store, data) => {
   transaction(() => {
     data.forEach(d =>
       store.table.tpop.set(d.TPopId, d)
     )
   })
-  // record that data was fetched for this value
-  if (!valuesForWhichTableDataWasFetched.tpopForAp) {
-    valuesForWhichTableDataWasFetched.tpopForAp = {}
-  }
-  if (!valuesForWhichTableDataWasFetched.tpopForAp.ApArtId) {
-    valuesForWhichTableDataWasFetched.tpopForAp.ApArtId = []
-  }
-  if (!valuesForWhichTableDataWasFetched.tpopForAp.ApArtId.includes(apArtId)) {
-    valuesForWhichTableDataWasFetched.tpopForAp.ApArtId.push(apArtId)
-  }
 }
 
 export default (store, apArtId) => {
@@ -43,15 +33,14 @@ export default (store, apArtId) => {
   app.db.tpop
     .toArray()
     .then((data) => {
-      if (data) {
-        writeToStore(store, data, apArtId)
-      }
+      writeToStore(store, data)
+      recordValuesForWhichTableDataWasFetched({ store, table: `tpopForAp`, field: `ApArtId`, value: apArtId })
     })
     .then(() => axios.get(url))
     .then(({ data }) => {
-      writeToStore(store, data, apArtId)
       // leave ui react before this happens
-      setTimeout(() => app.db.tpop.bulkPut(data), 0)
+      setTimeout(() => writeToStore(store, data))
+      setTimeout(() => app.db.tpop.bulkPut(data))
     })
     .catch(error => new Error(`error fetching tpop for ap ${apArtId}:`, error))
 }
