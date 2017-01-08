@@ -3,6 +3,7 @@ import queryString from 'query-string'
 
 import apiBaseUrl from './apiBaseUrl'
 import tables from './tables'
+import insertDatasetInIdb from './insertDatasetInIdb'
 
 export default (store, tablePassed, parentId, baseUrl) => {
   let table = tablePassed
@@ -23,14 +24,18 @@ export default (store, tablePassed, parentId, baseUrl) => {
   if (!idField) {
     return console.log(`new dataset not created as no idField could be found`)
   }
-  axios.post(`${apiBaseUrl}/apflora/${table}/${parentIdField}/${parentId}`)
+  const url = `${apiBaseUrl}/apflora/${table}/${parentIdField}/${parentId}`
+  axios.post(url)
     .then((result) => {
       const row = result.data
       // insert this dataset in store.table
       store.table[table].set(row[idField], row)
+      // insert this dataset in idb
+      insertDatasetInIdb(store, table, row)
       // set new url
       baseUrl.push(row[idField])
-      store.history.push(`/${baseUrl.join(`/`)}${Object.keys(store.urlQuery).length > 0 ? `?${queryString.stringify(store.urlQuery)}` : ``}`)
+      const newUrl = `/${baseUrl.join(`/`)}${Object.keys(store.urlQuery).length > 0 ? `?${queryString.stringify(store.urlQuery)}` : ``}`
+      store.history.push(newUrl)
       // if zieljahr, need to update ZielJahr
       if (store.activeUrlElements.zieljahr) {
         store.updateProperty(`ZielJahr`, store.activeUrlElements.zieljahr)
