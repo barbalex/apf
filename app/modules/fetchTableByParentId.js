@@ -59,7 +59,8 @@ export default (store, schemaNamePassed, tableName, parentId) => {
     .then(() => axios.get(url))
     .then(({ data }) => {
       writeToStore(store, data, tableName, idField, parentId)
-      app.db[tableName].bulkPut(data)
+      // leave ui react before this happens
+      setTimeout(() => app.db[tableName].bulkPut(data), 0)
     })
     .catch(error => new Error(`error fetching data for table ${tableName}:`, error))
 }

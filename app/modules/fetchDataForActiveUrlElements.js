@@ -6,7 +6,6 @@
 
 import { transaction } from 'mobx'
 import forEach from 'lodash/forEach'
-import clone from 'lodash/clone'
 
 const fetchDataForActiveUrlElements = (store) => {
   const { activeUrlElements } = store
