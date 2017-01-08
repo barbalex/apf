@@ -139,7 +139,6 @@ const fetchDataForActiveUrlElements = (store) => {
       }
     })
   })
-  store.previousActiveUrlElements = clone(activeUrlElements)
 }
 
 export default fetchDataForActiveUrlElements
