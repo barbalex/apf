@@ -5,6 +5,7 @@ import objectValues from 'lodash/values'
 
 import apiBaseUrl from './apiBaseUrl'
 import tables from './tables'
+import updatePropertyInIdb from './updatePropertyInIdb'
 
 export default (store, key, valuePassed) => {
   const { row, valid } = store.activeDataset
@@ -58,8 +59,11 @@ export default (store, key, valuePassed) => {
     const { user } = store.app
     const oldValue = row[key]
     row[key] = value
-    axios.put(`${apiBaseUrl}/update/apflora/tabelle=${table}/tabelleIdFeld=${idField}/tabelleId=${tabelleId}/feld=${key}/wert=${value}/user=${user}`)
+    const url = `${apiBaseUrl}/update/apflora/tabelle=${table}/tabelleIdFeld=${idField}/tabelleId=${tabelleId}/feld=${key}/wert=${value}/user=${user}`
+    axios.put(url)
       .then(() => {
+        // update in idb
+        updatePropertyInIdb(store, table, tabelleId, key, value)
         // if ApArtId of ap is updated, url needs to change
         if (table === `ap` && key === `ApArtId`) {
           store.url[3] = value
