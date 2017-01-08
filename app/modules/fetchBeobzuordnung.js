@@ -68,7 +68,8 @@ export default (store, apArtId) => {
     .then(() => axios.get(url))
     .then(({ data }) => {
       writeToStore(store, data, apArtId)
-      app.db.beobzuordnung.bulkPut(data)
+      // leave ui react before this happens
+      setTimeout(() => app.db.beobzuordnung.bulkPut(data), 0)
     })
     .catch(error => new Error(`error fetching table beobzuordnung:`, error))
 }
