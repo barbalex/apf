@@ -3,6 +3,7 @@ import queryString from 'query-string'
 
 import apiBaseUrl from './apiBaseUrl'
 import tables from './tables'
+import deleteDatasetInIdb from './deleteDatasetInIdb'
 
 export default (store) => {
   // deleteDatasetDemand checks variables
@@ -16,10 +17,13 @@ export default (store) => {
   if (tableMetadata.dbTable) {
     table = tableMetadata.dbTable
   }
-  axios.delete(`${apiBaseUrl}/apflora/tabelle=${table}/tabelleIdFeld=${idField}/tabelleId=${id}`)
+  const deleteUrl = `${apiBaseUrl}/apflora/tabelle=${table}/tabelleIdFeld=${idField}/tabelleId=${id}`
+  axios.delete(deleteUrl)
     .then(() => {
       // remove this dataset in store.table
       store.table[table].delete(id)
+      // remove from idb
+      deleteDatasetInIdb(store, table, id)
       // set new url
       url.pop()
       store.history.push(`/${url.join(`/`)}${Object.keys(store.urlQuery).length > 0 ? `?${queryString.stringify(store.urlQuery)}` : ``}`)
