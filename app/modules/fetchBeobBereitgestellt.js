@@ -36,12 +36,12 @@ export default (store, apArtId) => {
     .then((data) => {
       writeToStore(store, data)
       store.table.beob_bereitgestelltLoading = false
+      recordValuesForWhichTableDataWasFetched({ store, table: `beob_bereitgestellt`, field: `NO_ISFS`, value: apArtId })
     })
     .then(() => axios.get(url))
     .then(({ data }) => {
       // leave ui react before this happens
       setTimeout(() => writeToStore(store, data))
-      recordValuesForWhichTableDataWasFetched({ store, table: `beob_bereitgestellt`, field: `NO_ISFS`, value: apArtId })
       setTimeout(() => app.db.beob_bereitgestellt.bulkPut(data))
     })
     .catch(error => new Error(`error fetching data for table beob_bereitgestellt:`, error))

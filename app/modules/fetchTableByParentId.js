@@ -35,12 +35,12 @@ export default (store, schemaNamePassed, tableName, parentId) => {
     .then((data) => {
       writeToStore({ store, data, table: tableName, field: idField })
       store.table[`${tableName}Loading`] = false
+      recordValuesForWhichTableDataWasFetched({ store, table: tableName, field: idField, value: parentId })
     })
     .then(() => axios.get(url))
     .then(({ data }) => {
       // leave ui react before this happens
       setTimeout(() => writeToStore({ store, data, table: tableName, field: idField }))
-      recordValuesForWhichTableDataWasFetched({ store, table: tableName, field: idField, value: parentId })
       setTimeout(() => app.db[tableName].bulkPut(data))
     })
     .catch(error => new Error(`error fetching data for table ${tableName}:`, error))

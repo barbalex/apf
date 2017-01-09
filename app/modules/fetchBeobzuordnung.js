@@ -13,7 +13,7 @@ const writeToStore = (store, data) => {
         store.table.beob_bereitgestellt.get(zuordnung.NO_NOTE)
       )
       // set computed value "type"
-      const type = computed(() => {
+      zuordnung.type = computed(() => {
         if (zuordnung.BeobNichtZuordnen && zuordnung.BeobNichtZuordnen === 1) {
           return `nichtZuzuordnen`
         }
@@ -22,7 +22,6 @@ const writeToStore = (store, data) => {
         }
         return `nichtBeurteilt`
       })
-      zuordnung.type = type
       store.table.beobzuordnung.set(zuordnung.NO_NOTE, zuordnung)
     })
   })
@@ -51,12 +50,12 @@ export default (store, apArtId) => {
     .then((data) => {
       writeToStore(store, data)
       store.table.beobzuordnungLoading = false
+      recordValuesForWhichTableDataWasFetched({ store, table: `beobzuordnung`, field: `NO_ISFS`, value: apArtId })
     })
     .then(() => axios.get(url))
     .then(({ data }) => {
       // leave ui react before this happens
       setTimeout(() => writeToStore(store, data))
-      recordValuesForWhichTableDataWasFetched({ store, table: `beobzuordnung`, field: `NO_ISFS`, value: apArtId })
       setTimeout(() => app.db.beobzuordnung.bulkPut(data))
     })
     .catch(error => new Error(`error fetching table beobzuordnung:`, error))

@@ -6,9 +6,8 @@ import tables from './tables'
 import writeToStore from './writeToStore'
 
 export default (store, schemaNamePassed, tableName) => {
-  // console.log(`module fetchTable: tableName:`, tableName)
   if (!tableName) {
-    return new Error(`action fetchTable: tableName must be passed`)
+    return store.listError(new Error(`action fetchTable: tableName must be passed`))
   }
   const schemaName = schemaNamePassed || `apflora`
   // only fetch if not yet fetched
@@ -20,9 +19,6 @@ export default (store, schemaNamePassed, tableName) => {
       url = `${apiBaseUrl}/lrDelarze`
     }
 
-    // console.log(`fetchTable: tableName:`, tableName)
-    // console.log(`fetchTable: app.db[tableName]:`, app.db[tableName])
-
     app.db[tableName]
       .toArray()
       .then((data) => {
@@ -32,7 +28,10 @@ export default (store, schemaNamePassed, tableName) => {
       .then(() => axios.get(url))
       .then(({ data }) => {
         // leave ui react before this happens
-        setTimeout(() => writeToStore({ store, data, table: tableName, field: idField }))
+        setTimeout(() => {
+          // app.writeToStoreWorker.postMessage(`testmessage`)
+          writeToStore({ store, data, table: tableName, field: idField })
+        })
         setTimeout(() => app.db[tableName].bulkPut(data))
       })
       .catch(error => new Error(`error fetching data for table ${tableName}:`, error))

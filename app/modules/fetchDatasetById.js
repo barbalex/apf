@@ -35,12 +35,12 @@ export default ({ store, schemaName, tableName, id }) => {
       // dont write all data - filter for needed id first
       const dataToWrite = data.filter(d => d[idField] === id)
       writeToStore({ store, data: dataToWrite, table: tableName, field: idField })
+      recordValuesForWhichTableDataWasFetched({ store, table: tableName, field: idField, value: id })
     })
     .then(() => axios.get(url))
     .then(({ data }) => {
       // leave ui react before this happens
       setTimeout(() => writeToStore({ store, data, table: tableName, field: idField }))
-      recordValuesForWhichTableDataWasFetched({ store, table: tableName, field: idField, value: id })
       setTimeout(() => app.db[tableName].bulkPut(data))
     })
     .catch(error => new Error(`error fetching data for table ${tableName}:`, error))
