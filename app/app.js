@@ -45,7 +45,9 @@ import AppBar from './components/AppBar'
 import Projekte from './components/Projekte'
 
 import apiBaseUrl from './modules/apiBaseUrl'
+// import appBaseUrl from './modules/appBaseUrl'
 import updateFromSocket from './modules/updateFromSocket'
+// import './modules/writeToStoreWorker'
 
 // initiate idb
 const tablesObject = {}
@@ -60,9 +62,14 @@ const db = new Dexie(`apflora`)
 db  // eslint-disable-line no-trailing-spaces
   .version(1)
   .stores(tablesObject)
+
+// const writeToStoreWorker = new Worker(`${appBaseUrl}/modules/writeToStoreWorker.js`)
+// writeToStoreWorker.onmessage = e => console.log(`message received from writeToStoreWorker:`, e)
+
 app.extend({
   init() {
     this.db = db
+    // this.writeToStoreWorker = writeToStoreWorker
   },
 })
 app.init()
@@ -81,6 +88,7 @@ const theme = Object.assign({}, darkBaseTheme, {
 window.app = {}
 window.app.store = store
 window.app.db = db
+// window.app.writeToStoreWorker = writeToStoreWorker
 
 // load immediately because is used to validate active dataset
 store.fetchFields()
