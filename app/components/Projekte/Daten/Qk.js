@@ -62,28 +62,29 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
     const { berichtjahr } = this.state
     const messages = []
     const qkTypes = [
-      // pop ohne Nr/Name/Status/bekannt seit/Koordinaten/tpop
+      // Population: ohne Nr/Name/Status/bekannt seit/Koordinaten/tpop
       { type: `view`, name: `v_qk2_pop_ohnepopnr` },
       { type: `view`, name: `v_qk2_pop_ohnepopname` },
       { type: `view`, name: `v_qk2_pop_ohnepopstatus` },
       { type: `view`, name: `v_qk2_pop_ohnebekanntseit` },
       { type: `view`, name: `v_qk2_pop_ohnekoord` },
       { type: `view`, name: `v_qk2_pop_ohnetpop` },
-      // pop mit Status unklar, ohne Begründung
+      // Population: mit Status unklar, ohne Begründung
       { type: `view`, name: `v_qk2_pop_mitstatusunklarohnebegruendung` },
-      // pop mit mehrdeutiger Nr
+      // Population: mit mehrdeutiger Nr
       { type: `view`, name: `v_qk2_pop_popnrmehrdeutig` },
-      // Pop ohne verlangten Pop-Bericht im Berichtjahr
+      // Population: ohne verlangten Pop-Bericht im Berichtjahr
       { type: `query`, name: `qk2PopOhnePopber`, berichtjahr },
-      // Pop ohne verlangten Pop-Massn-Bericht im Berichtjahr
+      // Population: ohne verlangten Pop-Massn-Bericht im Berichtjahr
       { type: `query`, name: `qk2PopOhnePopmassnber`, berichtjahr },
-      // Entsprechen Koordinaten der Pop einer der TPops?
+      // Population: Entsprechen Koordinaten der Pop einer der TPops?
       { type: `view`, name: `v_qk2_pop_koordentsprechenkeinertpop` },
-      // pop mit Status ansaatversuch, es gibt tpop mit status aktuell
+      // Population: Status ist ansaatversuch,
+      // es gibt tpop mit status aktuell oder erloschene, die vor Beginn AP bestanden
       { type: `view`, name: `v_qk2_pop_statusansaatversuchmitaktuellentpop` },
-      // pop mit Status ansaatversuch, alle tpop sind gemäss Status erloschen
+      // Population: Status ist ansaatversuch, alle tpop sind gemäss Status erloschen
       { type: `view`, name: `v_qk2_pop_statusansaatversuchalletpoperloschen` },
-      // pop mit Status ansaatversuch, es gibt tpop mit status ursprünglich erloschen
+      // Population: Status ist ansaatversuch, es gibt tpop mit status ursprünglich erloschen
       { type: `view`, name: `v_qk2_pop_statusansaatversuchmittpopursprerloschen` },
       // Population: Status ist "erloschen" (ursprünglich oder angesiedelt),
       // es gibt aber eine Teilpopulation mit Status "aktuell" (ursprünglich oder angesiedelt)
@@ -97,13 +98,13 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
       { type: `view`, name: `v_qk2_pop_statusaktuellletzterpopbererloschen` },
       // Population: Status ist "erloschen", der letzte Populations-Bericht meldet aber "aktuell"
       { type: `view`, name: `v_qk2_pop_statuserloschenletzterpopberaktuell` },
+      // Population: Status ist "potenzieller Wuchs-/Ansiedlungsort",
+      // es gibt aber eine Teilpopulation mit Status "angesiedelt" oder "ursprünglich":
+      { type: `view`, name: `v_qk2_pop_statusaktuellletzterpopbererloschen` },
       // Teilpopulation: Status ist "aktuell", der letzte Teilpopulations-Bericht meldet aber "erloschen"
       { type: `view`, name: `v_qk2_tpop_statusaktuellletzterpopbererloschen` },
       // Teilpopulation: Status ist "erloschen", der letzte Teilpopulations-Bericht meldet aber "aktuell"
       { type: `view`, name: `v_qk2_tpop_statuserloschenletzterpopberaktuell` },
-      // Population: Status ist "potenzieller Wuchs-/Ansiedlungsort",
-      // es gibt aber eine Teilpopulation mit Status "angesiedelt" oder "ursprünglich":
-      { type: `view`, name: `v_qk2_pop_statusaktuellletzterpopbererloschen` },
       // tpop ohne Nr/Flurname/Status/bekannt seit/Koordinaten
       { type: `view`, name: `v_qk2_tpop_ohnenr` },
       { type: `view`, name: `v_qk2_tpop_ohneflurname` },
@@ -114,7 +115,7 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
       // tpop relevant, die nicht relevant sein sollten
       { type: `view`, name: `v_qk2_tpop_statuspotentiellfuerapberrelevant` },
       { type: `view`, name: `v_qk2_tpop_erloschenundrelevantaberletztebeobvor1950` },
-      // pop/tpop mit Status unklar ohne Begründung
+      // tpop mit Status unklar ohne Begründung
       { type: `view`, name: `v_qk2_tpop_mitstatusunklarohnebegruendung` },
       // tpop mit mehrdeutiger Kombination von PopNr und TPopNr
       { type: `view`, name: `v_qk2_tpop_popnrtpopnrmehrdeutig` },
