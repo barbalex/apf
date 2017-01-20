@@ -591,7 +591,8 @@ export default class Exporte extends React.Component { // eslint-disable-line re
                 }
               >
                 <div>Beobachtungen</div>
-                <div>zugeordnet und nicht zuzuordnen</div>
+                <div>zugeordnet, nicht zuzuordnen</div>
+                <div>und nicht zugeordnet</div>
                 <div>nur von Infospezies</div>
               </DownloadCardButton>
             </DownloadCardText>
