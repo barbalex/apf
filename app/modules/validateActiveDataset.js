@@ -3,17 +3,13 @@ import Joi from 'joi-browser'
 
 export default (table, row, allFields) => {
   const valid = {}
-  if (table === null && row === null) {
-    // happens when to folder is called
-    return valid
-  }
   if (!table || !row || !allFields || !allFields.length) {
-    console.log(`validateActiveDataset: table, row or fields missing`)  // eslint-disable-line no-console
     return valid
   }
   const fields = allFields.filter(f => f.table_schema === `apflora` && f.table_name === table)
   if (fields.length === 0) {
-    console.log(`validateActiveDataset: no fields found for table ${table}`)  // eslint-disable-line no-console
+    // eslint-disable-next-line no-console
+    console.log(`validateActiveDataset: no fields found for table ${table}`)
     return valid
   }
 
