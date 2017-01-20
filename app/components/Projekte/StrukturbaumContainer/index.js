@@ -70,7 +70,7 @@ const LabelFilterContainer = styled.div`
 class StrukturbaumContainer extends Component { // eslint-disable-line react/prefer-stateless-function
 
   static propTypes = {
-    store: PropTypes.object,
+    store: PropTypes.object.isRequired,
   }
 
   constructor() {
