@@ -1,4 +1,4 @@
-import { transaction, computed } from 'mobx'
+import { runInAction, computed } from 'mobx'
 import axios from 'axios'
 import app from 'ampersand-app'
 
@@ -6,7 +6,7 @@ import apiBaseUrl from './apiBaseUrl'
 import recordValuesForWhichTableDataWasFetched from './recordValuesForWhichTableDataWasFetched'
 
 const writeToStore = (store, data) => {
-  transaction(() => {
+  runInAction(() => {
     data.forEach((d) => {
       d.beobzuordnung = computed(() => store.table.beobzuordnung.get(d.BeobId))
       store.table.beob_bereitgestellt.set(d.BeobId, d)

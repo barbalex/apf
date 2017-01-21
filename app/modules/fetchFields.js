@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { transaction } from 'mobx'
+import { runInAction } from 'mobx'
 import app from 'ampersand-app'
 
 import apiBaseUrl from './apiBaseUrl'
@@ -12,7 +12,7 @@ export default (store) => {
       .toArray()
       .then((values) => {
         if (values.length > 0) {
-          transaction(() => {
+          runInAction(() => {
             store.app.fields = values
             store.app.fieldsLoading = false
           })
@@ -20,7 +20,7 @@ export default (store) => {
       })
       .then(() => axios.get(`${apiBaseUrl}/felder`))
       .then(({ data }) => {
-        transaction(() => {
+        runInAction(() => {
           store.app.fields = data
           store.app.fieldsLoading = false
         })

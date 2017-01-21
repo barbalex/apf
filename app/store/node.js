@@ -1,8 +1,8 @@
-import { observable, asMap } from 'mobx'
+import { observable } from 'mobx'
 
 class Node {
   @observable loadingAllNodes = false
-  @observable nodeLabelFilter = asMap({})
+  nodeLabelFilter = observable.map({})
   @observable nrOfRowsAboveActiveNode = 0
 }
 

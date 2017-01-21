@@ -6,7 +6,7 @@ import tableNames from '../modules/tableStoreNames'
 
 const initiateObservables = (tableClass) => {
   tableNames.forEach((tableName) => {
-    tableClass[tableName] = map()
+    tableClass[tableName] = observable.map()
   })
 }
 

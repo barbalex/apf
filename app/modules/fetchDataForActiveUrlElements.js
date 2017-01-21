@@ -4,7 +4,7 @@
  * and only fetch what is new
  */
 
-import { transaction } from 'mobx'
+import { runInAction } from 'mobx'
 import forEach from 'lodash/forEach'
 
 const fetchDataForActiveUrlElements = (store) => {
@@ -131,7 +131,7 @@ const fetchDataForActiveUrlElements = (store) => {
     },
   }
 
-  transaction(() => {
+  runInAction(() => {
     forEach(fetchingFromActiveElements, (func, key) => {
       if (activeUrlElements[key]) {
         func()

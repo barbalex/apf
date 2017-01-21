@@ -1,7 +1,7 @@
-import { transaction } from 'mobx'
+import { runInAction } from 'mobx'
 
 export default ({ store, data, table, field }) => {
-  transaction(() => {
+  runInAction(() => {
     data.forEach(d =>
       store.table[table].set(d[field], d)
     )
