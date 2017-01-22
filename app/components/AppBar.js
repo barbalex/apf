@@ -90,7 +90,7 @@ const MyAppBar = ({ store, onClickButton }) => {
   )
 }
 
-MyAppBar.PropTypes = {
+MyAppBar.propTypes = {
   store: PropTypes.object.isRequired,
   onClickButton: PropTypes.func.isRequired,
 }

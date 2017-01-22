@@ -67,7 +67,7 @@ const Projekte = ({ store }) => {
   )
 }
 
-Projekte.PropTypes = {
+Projekte.propTypes = {
   store: PropTypes.object.isRequired,
 }
 
