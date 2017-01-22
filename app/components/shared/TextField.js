@@ -1,56 +1,67 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PropTypes } from 'react'
 import { observer } from 'mobx-react'
 import TextField from 'material-ui/TextField'
+import withHandlers from 'recompose/withHandlers'
+import compose from 'recompose/compose'
 
-@observer
-class MyTextField extends Component { // eslint-disable-line react/prefer-stateless-function
+const enhance = compose(
+  withHandlers({
+    onChange: props =>
+      (event, val) =>
+        props.updateProperty(props.fieldName, val),
+    onBlur: props =>
+      event =>
+        props.updatePropertyInDb(props.fieldName, event.target.value),
+  }),
+  observer
+)
 
-  static propTypes = {
-    label: PropTypes.string.isRequired,
-    fieldName: PropTypes.string.isRequired,
-    value: PropTypes.any,
-    errorText: PropTypes.string,
-    type: PropTypes.string,
-    multiLine: PropTypes.bool,
-    disabled: PropTypes.bool,
-    updateProperty: PropTypes.func,
-    updatePropertyInDb: PropTypes.func,
-    hintText: PropTypes.string,
-  }
+const MyTextField = ({
+  label,
+  value,
+  errorText,
+  type,
+  multiLine,
+  disabled,
+  hintText,
+  onChange,
+  onBlur,
+}) =>
+  <TextField
+    floatingLabelText={label}
+    hintText={hintText}
+    type={type}
+    multiLine={multiLine}
+    value={value || ``}
+    errorText={errorText}
+    disabled={disabled}
+    fullWidth
+    onChange={onChange}
+    onBlur={onBlur}
+  />
 
-  render() {
-    const {
-      label,
-      fieldName,
-      value,
-      errorText,
-      type,
-      multiLine,
-      updateProperty,
-      updatePropertyInDb,
-      disabled,
-      hintText,
-    } = this.props
-
-    return (
-      <TextField
-        floatingLabelText={label}
-        hintText={hintText || ``}
-        type={type || `text`}
-        multiLine={multiLine || false}
-        value={value || ``}
-        errorText={errorText || ``}
-        disabled={disabled || false}
-        fullWidth
-        onChange={(event, val) =>
-          updateProperty(fieldName, val)
-        }
-        onBlur={event =>
-          updatePropertyInDb(fieldName, event.target.value)
-        }
-      />
-    )
-  }
+MyTextField.propTypes = {
+  label: PropTypes.string.isRequired,
+  fieldName: PropTypes.string.isRequired,
+  value: PropTypes.any,
+  errorText: PropTypes.string,
+  type: PropTypes.string,
+  multiLine: PropTypes.bool,
+  disabled: PropTypes.bool,
+  hintText: PropTypes.string,
+  updateProperty: PropTypes.func.isRequired,
+  updatePropertyInDb: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onBlur: PropTypes.func.isRequired,
 }
 
-export default MyTextField
+MyTextField.defaultProps = {
+  value: ``,
+  errorText: ``,
+  type: `text`,
+  multiLine: false,
+  disabled: false,
+  hintText: ``,
+}
+
+export default enhance(MyTextField)
