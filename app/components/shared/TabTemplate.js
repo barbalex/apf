@@ -1,13 +1,20 @@
-import React, { Component, PropTypes } from 'react'
+import { PropTypes } from 'react'
 
-class TabTemplate extends React.Component {
-  render() {
-    if (!this.props.selected) {
-      return null
-    }
-
-    return this.props.children
+const TabTemplate = ({ selected, children }) => {
+  if (!selected) {
+    return null
   }
+  return children
+}
+
+TabTemplate.propTypes = {
+  selected: PropTypes.bool,
+  children: PropTypes.any,
+}
+
+TabTemplate.defaultProps = {
+  selected: false,
+  children: null,
 }
 
 export default TabTemplate
