@@ -1,51 +1,46 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PropTypes } from 'react'
 import { observer } from 'mobx-react'
 import TextField from 'material-ui/TextField'
 import { orange500 } from 'material-ui/styles/colors'
+import compose from 'recompose/compose'
+import withState from 'recompose/withState'
+import withHandlers from 'recompose/withHandlers'
 
-@observer
-class MyTextField extends Component { // eslint-disable-line react/prefer-stateless-function
+const enhance = compose(
+  withState(`errorText`, `updateErrorText`, ``),
+  withHandlers({
+    onChange: props => () => {
+      props.updateErrorText(`Dieser Wert ist nicht veränderbar`)
+      setTimeout(() => props.updateErrorText(``), 5000)
+    },
+  }),
+  observer
+)
 
-  static propTypes = {
-    label: PropTypes.string.isRequired,
-    value: PropTypes.any,
-    key: PropTypes.any,
-    errorText: PropTypes.string,
-  }
+const MyTextField = ({
+  label,
+  value,
+  errorText,
+  onChange,
+}) =>
+  <TextField
+    floatingLabelText={label}
+    errorText={errorText}
+    value={value || ``}
+    fullWidth
+    errorStyle={{ color: orange500 }}
+    onChange={onChange}
+  />
 
-  constructor() {
-    super()
-    this.state = {
-      errorText: ``,
-    }
-  }
-
-  render() {
-    const {
-      label,
-      value,
-    } = this.props
-    const { errorText } = this.state
-
-    return (
-      <TextField
-        floatingLabelText={label}
-        errorText={errorText}
-        value={value || ``}
-        fullWidth
-        errorStyle={{ color: orange500 }}
-        onChange={() => {
-          this.setState({
-            errorText: `Dieser Wert ist nicht veränderbar`,
-          })
-          const that = this
-          setTimeout(() => that.setState({
-            errorText: ``,
-          }), 5000)
-        }}
-      />
-    )
-  }
+MyTextField.propTypes = {
+  label: PropTypes.string.isRequired,
+  value: PropTypes.any,
+  errorText: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 }
 
-export default MyTextField
+MyTextField.defaultProps = {
+  value: ``,
+}
+
+export default enhance(MyTextField)

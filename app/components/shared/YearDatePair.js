@@ -64,8 +64,8 @@ const YearDatePair = ({
       <TextField
         floatingLabelText={yearLabel}
         type="number"
-        value={yearValue || ``}
-        errorText={yearErrorText || ``}
+        value={yearValue}
+        errorText={yearErrorText}
         fullWidth
         onChange={(event, val) =>
           updateProperty(yearFieldName, val)
@@ -74,8 +74,8 @@ const YearDatePair = ({
       />
       <DatePicker
         floatingLabelText={dateLabel}
-        value={dateValueObject || ``}
-        errorText={dateErrorText || ``}
+        value={dateValueObject}
+        errorText={dateErrorText}
         DateTimeFormat={window.Intl.DateTimeFormat}
         locale="de-CH-1996"
         formatDate={v => format(v, `DD.MM.YYYY`)}
