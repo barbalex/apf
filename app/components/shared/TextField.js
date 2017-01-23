@@ -49,10 +49,11 @@ MyTextField.propTypes = {
   multiLine: PropTypes.bool,
   disabled: PropTypes.bool,
   hintText: PropTypes.string,
-  updateProperty: PropTypes.func.isRequired,
-  updatePropertyInDb: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   onBlur: PropTypes.func.isRequired,
+  // no idea why but this CAN get passed as undefined...
+  updateProperty: PropTypes.func,
+  updatePropertyInDb: PropTypes.func,
 }
 
 MyTextField.defaultProps = {
@@ -62,6 +63,8 @@ MyTextField.defaultProps = {
   multiLine: false,
   disabled: false,
   hintText: ``,
+  updateProperty: null,
+  updatePropertyInDb: null,
 }
 
 export default enhance(MyTextField)

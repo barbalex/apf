@@ -56,7 +56,7 @@ const LabelPopoverRowColumnRight = styled.div`
 class Ap extends Component { // eslint-disable-line react/prefer-stateless-function
 
   static propTypes = {
-    store: PropTypes.object,
+    store: PropTypes.object.isRequired,
   }
 
   componentDidMount() {
@@ -141,7 +141,11 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
 
   render() {
     const { store } = this.props
-    const { activeDataset } = store
+    const {
+      activeDataset,
+      updateProperty,
+      updatePropertyInDb,
+    } = store
 
     return (
       <Container>
@@ -158,7 +162,7 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
               value: `TaxonomieId`,
               text: `Artname`,
             }}
-            updatePropertyInDb={store.updatePropertyInDb}
+            updatePropertyInDb={updatePropertyInDb}
           />
           <FieldContainer>
             <LabelWithPopover label="Aktionsplan">
@@ -187,7 +191,7 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
               value={activeDataset.row.ApStatus}
               errorText={activeDataset.valid.ApStatus}
               dataSource={this.apStati}
-              updatePropertyInDb={store.updatePropertyInDb}
+              updatePropertyInDb={updatePropertyInDb}
             />
           </FieldContainer>
           <TextField
@@ -196,8 +200,8 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
             value={activeDataset.row.ApJahr}
             errorText={activeDataset.valid.ApJahr}
             type="number"
-            updateProperty={store.updateProperty}
-            updatePropertyInDb={store.updatePropertyInDb}
+            updateProperty={updateProperty}
+            updatePropertyInDb={updatePropertyInDb}
           />
           <FieldContainer>
             <LabelWithPopover label="Stand Umsetzung">
@@ -226,7 +230,7 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
               value={activeDataset.row.ApUmsetzung}
               errorText={activeDataset.valid.ApUmsetzung}
               dataSource={this.apUmsetzungen}
-              updatePropertyInDb={store.updatePropertyInDb}
+              updatePropertyInDb={updatePropertyInDb}
             />
           </FieldContainer>
           <SelectField
@@ -237,7 +241,7 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
             dataSource={this.adressen}
             valueProp="AdrId"
             labelProp="AdrName"
-            updatePropertyInDb={store.updatePropertyInDb}
+            updatePropertyInDb={updatePropertyInDb}
           />
           <FieldContainer>
             <TextField

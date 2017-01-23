@@ -23,21 +23,20 @@ const MySelectField = ({
 }) =>
   <SelectField
     floatingLabelText={label}
-    value={value || ``}
+    value={value}
     fullWidth
     onChange={onChange}
   >
     {
-      dataSource.map(e =>
+      dataSource.map((e, index) =>
         <MenuItem
           value={e[valueProp]}
           primaryText={e[labelProp]}
-          key={e[valueProp]}
+          key={index}
         />
       )
     }
   </SelectField>
-
 
 MySelectField.propTypes = {
   label: PropTypes.string.isRequired,
