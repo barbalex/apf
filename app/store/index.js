@@ -1,6 +1,7 @@
 /* eslint-disable no-console, no-param-reassign */
 
 import { extendObservable, action, autorun, autorunAsync, computed, observable } from 'mobx'
+import $ from 'jquery'
 
 import fetchTable from '../modules/fetchTable'
 import fetchBeobzuordnungModule from '../modules/fetchBeobzuordnung'
@@ -26,16 +27,27 @@ import listError from '../modules/listError'
 import setUrlQuery from '../modules/setUrlQuery'
 
 import NodeStore from './node'
-import UiStore from './ui'
-import AppStore from './app'
 import TableStore from './table'
 import ObservableHistory from './ObservableHistory'
 
 const Store = {
   history: ObservableHistory,
   node: NodeStore,
-  ui: UiStore,
-  app: AppStore,
+  ui: {
+    windowWidth: observable($(window).width()),
+    windowHeight: observable($(window).height()),
+    treeHeight: observable(0),
+    lastClickY: observable(0),
+    treeTopPosition: observable(0),
+  },
+  app: {
+    errors: observable([]),
+    // TODO: get user else
+    user: observable(`z`),
+    fields: observable([]),
+    fieldsLoading: observable(false),
+    map: observable(null),
+  },
   table: TableStore,
   valuesForWhichTableDataWasFetched: {},
   datasetToDelete: observable({}),
