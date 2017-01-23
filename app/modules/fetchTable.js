@@ -11,7 +11,7 @@ export default (store, schemaNamePassed, tableName) => {
   }
   const schemaName = schemaNamePassed || `apflora`
   // only fetch if not yet fetched
-  if (store.table[tableName].size === 0 && !store.table[`${tableName}Loading`]) {
+  if (store.table[tableName].size === 0) {
     const idField = tables.find(t => t.table === tableName).idField
     store.table[`${tableName}Loading`] = true
     let url = `${apiBaseUrl}/schema/${schemaName}/table/${tableName}`

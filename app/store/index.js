@@ -26,13 +26,16 @@ import toggleNode from '../modules/toggleNode'
 import listError from '../modules/listError'
 import setUrlQuery from '../modules/setUrlQuery'
 
-import NodeStore from './node'
 import TableStore from './table'
 import ObservableHistory from './ObservableHistory'
 
 const Store = {
   history: ObservableHistory,
-  node: NodeStore,
+  node: {
+    loadingAllNodes: observable(false),
+    nodeLabelFilter: observable.map({}),
+    nrOfRowsAboveActiveNode: observable(0),
+  },
   ui: {
     windowWidth: observable($(window).width()),
     windowHeight: observable($(window).height()),
@@ -45,7 +48,7 @@ const Store = {
     // TODO: get user else
     user: observable(`z`),
     fields: observable([]),
-    fieldsLoading: observable(false),
+    fieldsLoading: observable(true),
     map: observable(null),
   },
   table: TableStore,
@@ -153,6 +156,7 @@ extendObservable(
 
 // don't know why but combining this with last extend call
 // creates an error in an autorun
+// well, probably because needed actions are not part of Store yet
 extendObservable(
   Store,
   {

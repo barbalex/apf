@@ -1,6 +1,4 @@
-/* eslint-disable camelcase, no-unused-vars */
-import { observable, map } from 'mobx'
-import localforage from 'localforage'
+import { observable } from 'mobx'
 
 import tableNames from '../modules/tableStoreNames'
 
@@ -8,6 +6,8 @@ const initiateObservables = (tableClass) => {
   tableNames.forEach((tableName) => {
     tableClass[tableName] = observable.map()
     const trueOrFalse = tableName === `projekt`
+    // believe this is not used
+    // TODO: use or remove
     tableClass[`${tableName}Loading`] = observable(trueOrFalse)
   })
 }

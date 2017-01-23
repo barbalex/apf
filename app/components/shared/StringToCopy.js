@@ -1,63 +1,60 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PropTypes } from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import FlatButton from 'material-ui/FlatButton'
 import styled from 'styled-components'
+import withHandlers from 'recompose/withHandlers'
+import withState from 'recompose/withState'
+import compose from 'recompose/compose'
 
-class StringToCopy extends Component { // eslint-disable-line react/prefer-stateless-function
+const enhance = compose(
+  withState(`copied`, `updateCopied`, false),
+  withHandlers({
+    onCopy: props => () => {
+      props.updateCopied(true)
+      setTimeout(() => {
+        props.updateCopied(false)
+      }, 10000)
+    },
+  }),
+)
 
-  static propTypes = {
-    text: PropTypes.string.isRequired,
-  }
+const StringToCopy = ({
+  text,
+  copied,
+}) => {
+  const Container = styled.div`
+    display: flex;
+    justify-content: space-between;
+  `
+  const GuidContainer = styled.div`
+    flex-grow: 1;
+  `
+  const CopyButtonContainer = styled.div`
+    margin-top: -7px;
+  `
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      copied: false,
-    }
-    this.state.copied = false
-    this.onCopy = this.onCopy.bind(this)
-  }
-
-  onCopy() {
-    this.setState({ copied: true })
-    const that = this
-    setTimeout(() => {
-      that.setState({ copied: false })
-    }, 10000)
-  }
-
-  render() {
-    const { text } = this.props
-    const { copied } = this.state
-    const Container = styled.div`
-      display: flex;
-      justify-content: space-between;
-    `
-    const GuidContainer = styled.div`
-      flex-grow: 1;
-    `
-    const CopyButtonContainer = styled.div`
-      margin-top: -7px;
-    `
-
-    return (
-      <Container>
-        <GuidContainer>
-          {text}
-        </GuidContainer>
-        <CopyButtonContainer>
-          <CopyToClipboard
-            text={text}
-            onCopy={this.onCopy}
-          >
-            <FlatButton
-              label={copied ? `kopiert` : `kopieren`}
-            />
-          </CopyToClipboard>
-        </CopyButtonContainer>
-      </Container>
-    )
-  }
+  return (
+    <Container>
+      <GuidContainer>
+        {text}
+      </GuidContainer>
+      <CopyButtonContainer>
+        <CopyToClipboard
+          text={text}
+          onCopy={this.onCopy}
+        >
+          <FlatButton
+            label={copied ? `kopiert` : `kopieren`}
+          />
+        </CopyToClipboard>
+      </CopyButtonContainer>
+    </Container>
+  )
 }
 
-export default StringToCopy
+StringToCopy.propTypes = {
+  text: PropTypes.string.isRequired,
+  copied: PropTypes.bool.isRequired,
+}
+
+export default enhance(StringToCopy)
