@@ -36,7 +36,6 @@ class ObservableHistory extends singleton {
 
   mouseIsInDoc = true
 
-
   history = createHistory()
   action = this.history.action
   push = this.history.push
