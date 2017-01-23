@@ -69,6 +69,7 @@ db  // eslint-disable-line no-trailing-spaces
 app.extend({
   init() {
     this.db = db
+    this.store = store
     // this.writeToStoreWorker = writeToStoreWorker
   },
 })
@@ -85,9 +86,7 @@ const theme = Object.assign({}, darkBaseTheme, {
 })
 
 // make store accessible in dev
-window.app = {}
-window.app.store = store
-window.app.db = db
+window.app = app
 // window.app.writeToStoreWorker = writeToStoreWorker
 
 // load immediately because is used to validate active dataset

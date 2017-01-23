@@ -1,5 +1,5 @@
-export default (store) => {
-  const pathNamePassed = store.history.location.pathname
+export default (pathname) => {
+  const pathNamePassed = pathname
   const pathName = pathNamePassed.replace(`/`, ``)
   const pathElements = pathName.split(`/`)
   if (pathElements[0] === ``) {

@@ -17,7 +17,7 @@ const FilterField = styled(TextField)`
 class LabelFilter extends Component { // eslint-disable-line react/prefer-stateless-function
 
   static propTypes = {
-    store: PropTypes.object,
+    store: PropTypes.object.isRequired,
   }
 
   render() {  // eslint-disable-line class-methods-use-this
@@ -25,16 +25,13 @@ class LabelFilter extends Component { // eslint-disable-line react/prefer-statel
     const { activeDataset, node } = store
     let labelText = `filtern`
     let filterValue = ``
-    let filteredTable
-    if (activeDataset) {
-      filteredTable = activeDataset.folder || activeDataset.table
-      if (filteredTable) {
-        filterValue = node.nodeLabelFilter.get(filteredTable)
-        const table = tables.find(t => t.table === filteredTable)
-        const tableLabel = table ? table.label : null
-        if (tableLabel) {
-          labelText = `${tableLabel} filtern`
-        }
+    const filteredTable = activeDataset.folder || activeDataset.table
+    if (filteredTable) {
+      filterValue = node.nodeLabelFilter.get(filteredTable)
+      const table = tables.find(t => t.table === filteredTable)
+      const tableLabel = table ? table.label : null
+      if (tableLabel) {
+        labelText = `${tableLabel} filtern`
       }
     }
 

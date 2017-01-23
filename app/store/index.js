@@ -1,12 +1,6 @@
-/**
- * Note: we are using singleton to make sure that it's one instance only,
- * because the store can be used outside react components, eg. routes.js
- * from: http://stackoverflow.com/questions/35850871/how-to-connect-state-to-props-with-mobx-js-observer-when-use-es6-class/36164488#36164488
- */
 /* eslint-disable no-console, no-param-reassign */
 
-import { action, autorun, autorunAsync, computed, observable } from 'mobx'
-import singleton from 'singleton'
+import { extendObservable, action, autorun, autorunAsync, computed, observable } from 'mobx'
 
 import fetchTable from '../modules/fetchTable'
 import fetchBeobzuordnungModule from '../modules/fetchBeobzuordnung'
@@ -37,149 +31,130 @@ import AppStore from './app'
 import TableStore from './table'
 import ObservableHistory from './ObservableHistory'
 
-class Store extends singleton {
-
-  history = ObservableHistory
-  node = NodeStore
-  ui = UiStore
-  app = AppStore
-  table = TableStore
-  @observable datasetToDelete = {}
-  valuesForWhichTableDataWasFetched = {}
-
-  /**
-   * url paths are used to control tree and forms
-   */
-  @computed get url() {
-    return getUrl(this)
-  }
-
-  /**
-   * urlQueries are used to control tabs
-   * for instance: Entwicklung or Biotop in tpopfeldkontr
-   */
-  @computed get urlQuery() {
-    return getUrlQuery(this)
-  }
-
-  manipulateUrl = autorun(
-    `manipulateUrl`,
-    () => manipulateUrl(this)
-  )
-
-  updateActiveUrlElements = autorun(
-    `updateActiveUrlElements`,
-    () => {
-      this.activeUrlElements = getActiveUrlElements(this.url)
-    }
-  )
-
-  @observable activeUrlElements
-
-  // make sure all data needed for this url is fetched
-  fetchData = autorunAsync(
-    `fetchData`,
-    () => fetchDataForActiveUrlElements(this)
-  )
-
-  @action
-  fetchFields = () =>
-    fetchFields(this)
-
-  @action
-  updateLabelFilter = (table, value) => {
-    if (!table) {
-      return this.listError(
-        new Error(`nodeLabelFilter cant be updated: no table passed`)
-      )
-    }
-    this.node.nodeLabelFilter.set(table, value)
-  }
-
-  @action
-  insertDataset = (table, parentId, baseUrl) =>
-    insertDataset(this, table, parentId, baseUrl)
-
-  @action
-  deleteDatasetDemand = (table, id, url, label) =>
-    deleteDatasetDemand(this, table, id, url, label)
-
-  @action
-  deleteDatasetAbort = () => {
-    this.datasetToDelete = {}
-  }
-
-  @action
-  deleteDatasetExecute = () =>
-    deleteDatasetExecute(this)
-
-  @action
-  listError = error =>
-    listError(this, error)
-
-  // updates data in store
-  @action
-  updateProperty = (key, value) =>
-    updateProperty(this, key, value)
-
-  // updates data in database
-  @action
-  updatePropertyInDb = (key, value) =>
-    updatePropertyInDb(this, key, value)
-
-  // fetch all data of a table
-  // primarily used for werte (domain) tables
-  // and projekt
-  @action
-  fetchTable = (schemaName, tableName) =>
-    fetchTable(this, schemaName, tableName)
-
-  @action
-  fetchBeobzuordnung = apArtId =>
-    fetchBeobzuordnungModule(this, apArtId)
-
-  // fetch data of table for id of parent table
-  // used for actual apflora data (but projekt)
-  @action
-  fetchTableByParentId = (schemaName, tableName, parentId) =>
-    fetchTableByParentId(this, schemaName, tableName, parentId)
-
-  @action
-  fetchTpopForAp = apArtId =>
-    fetchTpopForAp(this, apArtId)
-
-  @action
-  fetchDatasetById = ({ schemaName, tableName, id }) =>
-    fetchDatasetById({ store: this, schemaName, tableName, id })
-
-  @action
-  fetchBeobBereitgestellt = apArtId =>
-    fetchBeobBereitgestellt(this, apArtId)
-
-  // action when user clicks on a node in the tree
-  @action
-  toggleNode = node =>
-    toggleNode(this, node)
-
-  /**
-   * urlQueries are used to control tabs
-   * for instance: Entwicklung or Biotop in tpopfeldkontr
-   * or: strukturbaum, daten and karte in projekte
-   */
-  @action
-  setUrlQuery = (key, value) =>
-    setUrlQuery(this, key, value)
-
-  @observable activeDataset
-  updateActiveDataset = autorun(
-    `updateActiveDataset`,
-    () => updateActiveDatasetFromUrl(this)
-  )
-
-  @computed
-  get projektNodes() {
-    return buildProjektNodes(this)
-  }
+const Store = {
+  history: ObservableHistory,
+  node: NodeStore,
+  ui: UiStore,
+  app: AppStore,
+  table: TableStore,
+  valuesForWhichTableDataWasFetched: {},
+  datasetToDelete: observable({}),
+  activeUrlElements: observable({}),
 }
 
-export default Store.get()
+extendObservable(
+  Store,
+  {
+    fetchFields: action(() =>
+      fetchFields(Store)
+    ),
+    updateLabelFilter: action((table, value) => {
+      if (!table) {
+        return Store.listError(
+          new Error(`nodeLabelFilter cant be updated: no table passed`)
+        )
+      }
+      Store.node.nodeLabelFilter.set(table, value)
+    }),
+    insertDataset: action((table, parentId, baseUrl) =>
+      insertDataset(Store, table, parentId, baseUrl)
+    ),
+    deleteDatasetDemand: action((table, id, url, label) =>
+      deleteDatasetDemand(Store, table, id, url, label)
+    ),
+    deleteDatasetAbort: action(() => {
+      Store.datasetToDelete = {}
+    }),
+    deleteDatasetExecute: action(() =>
+      deleteDatasetExecute(Store)
+    ),
+    listError: action(error =>
+      listError(Store, error)
+    ),
+    // updates data in store
+    updateProperty: action((key, value) =>
+      updateProperty(Store, key, value)
+    ),
+    // updates data in database
+    updatePropertyInDb: action((key, value) =>
+      updatePropertyInDb(Store, key, value)
+    ),
+    // fetch all data of a table
+    // primarily used for werte (domain) tables
+    // and projekt
+    fetchTable: action((schemaName, tableName) =>
+      fetchTable(Store, schemaName, tableName)
+    ),
+    fetchBeobzuordnung: action(apArtId =>
+      fetchBeobzuordnungModule(Store, apArtId)
+    ),
+    // fetch data of table for id of parent table
+    // used for actual apflora data (but projekt)
+    fetchTableByParentId: action((schemaName, tableName, parentId) =>
+      fetchTableByParentId(Store, schemaName, tableName, parentId)
+    ),
+    fetchTpopForAp: action(apArtId =>
+      fetchTpopForAp(Store, apArtId)
+    ),
+    fetchDatasetById: action(({ schemaName, tableName, id }) =>
+      fetchDatasetById({ store: Store, schemaName, tableName, id })
+    ),
+    fetchBeobBereitgestellt: action(apArtId =>
+      fetchBeobBereitgestellt(Store, apArtId)
+    ),
+    // action when user clicks on a node in the tree
+    toggleNode: action(node =>
+      toggleNode(Store, node)
+    ),
+    /**
+     * urlQueries are used to control tabs
+     * for instance: Entwicklung or Biotop in tpopfeldkontr
+     * or: strukturbaum, daten and karte in projekte
+     */
+    setUrlQuery: action((key, value) =>
+      setUrlQuery(Store, key, value)
+    ),
+    /**
+     * url paths are used to control tree and forms
+     */
+    url: computed(() =>
+      getUrl(Store.history.location.pathname)
+    ),
+    /**
+     * urlQueries are used to control tabs
+     * for instance: Entwicklung or Biotop in tpopfeldkontr
+     */
+    urlQuery: computed(() =>
+      getUrlQuery(Store.history.location.search)
+    ),
+    projektNodes: computed(() =>
+      buildProjektNodes(Store)
+    ),
+    activeDataset: computed(() =>
+      updateActiveDatasetFromUrl(Store)
+    ),
+    activeUrlElements: computed(() =>
+      getActiveUrlElements(Store.url)
+    ),
+  }
+)
+
+// don't know why but combining this with last extend call
+// creates an error in an autorun
+extendObservable(
+  Store,
+  {
+    manipulateUrl: autorun(
+      `manipulateUrl`,
+      () => manipulateUrl(Store)
+    ),
+    reactWhenUrlHasChanged: autorunAsync(
+      `reactWhenUrlHasChanged`,
+      () => {
+        fetchDataForActiveUrlElements(Store)
+      }
+    ),
+  }
+)
+
+export default Store
