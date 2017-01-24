@@ -4,6 +4,8 @@
  * https://rawgit.com/bvaughn/react-virtualized/master/playground/tree.html
  * https://github.com/bvaughn/react-virtualized/blob/master/playground/tree.js
  *
+ * need class because of ref
+ *
  */
 
 import React, { Component, PropTypes } from 'react'

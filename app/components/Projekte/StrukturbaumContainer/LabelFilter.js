@@ -1,9 +1,12 @@
 /* eslint-disable no-console, jsx-a11y/no-static-element-interactions */
 
-import React, { Component, PropTypes } from 'react'
+import React, { PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import TextField from 'material-ui/TextField'
 import styled from 'styled-components'
+import compose from 'recompose/compose'
+import withHandlers from 'recompose/withHandlers'
+import withProps from 'recompose/withProps'
 
 import tables from '../../../modules/tables'
 
@@ -12,40 +15,58 @@ const FilterField = styled(TextField)`
   padding: 0 0.8em 0 0.8em;
 `
 
-@inject(`store`)
-@observer
-class LabelFilter extends Component { // eslint-disable-line react/prefer-stateless-function
-
-  static propTypes = {
-    store: PropTypes.object.isRequired,
-  }
-
-  render() {  // eslint-disable-line class-methods-use-this
-    const { store } = this.props
-    const { activeDataset, node } = store
-    let labelText = `filtern`
-    let filterValue = ``
-    const filteredTable = activeDataset.folder || activeDataset.table
-    if (filteredTable) {
-      filterValue = node.nodeLabelFilter.get(filteredTable)
-      const table = tables.find(t => t.table === filteredTable)
-      const tableLabel = table ? table.label : null
-      if (tableLabel) {
-        labelText = `${tableLabel} filtern`
-      }
+const enhance = compose(
+  inject(`store`),
+  withProps((props) => {
+    const { activeDataset } = props.store
+    let filteredTable = ``
+    if (activeDataset && activeDataset.folder) {
+      filteredTable = activeDataset.folder
     }
+    if (activeDataset && activeDataset.table) {
+      filteredTable = activeDataset.table
+    }
+    return { filteredTable }
+  }),
+  withHandlers({
+    onChange: props => (event, val) =>
+      props.store.updateLabelFilter(props.filteredTable, val)
+    ,
+  }),
+  observer
+)
 
-    return (
-      <FilterField
-        floatingLabelText={labelText}
-        fullWidth
-        value={filterValue || ``}
-        onChange={(event, val) =>
-          store.updateLabelFilter(filteredTable, val)
-        }
-      />
-    )
+const LabelFilter = ({
+  store,
+  onChange,
+  filteredTable,
+}) => {
+  const { node } = store
+  let labelText = `filtern`
+  let filterValue = ``
+  if (filteredTable) {
+    filterValue = node.nodeLabelFilter.get(filteredTable) || ``
+    const table = tables.find(t => t.table === filteredTable)
+    const tableLabel = table ? table.label : null
+    if (tableLabel) {
+      labelText = `${tableLabel} filtern`
+    }
   }
+
+  return (
+    <FilterField
+      floatingLabelText={labelText}
+      fullWidth
+      value={filterValue}
+      onChange={onChange}
+    />
+  )
 }
 
-export default LabelFilter
+LabelFilter.propTypes = {
+  store: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired,
+  filteredTable: PropTypes.string.isRequired,
+}
+
+export default enhance(LabelFilter)
