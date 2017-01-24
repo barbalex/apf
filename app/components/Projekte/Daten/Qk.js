@@ -7,6 +7,9 @@ import Linkify from 'react-linkify'
 import isArray from 'lodash/isArray'
 import styled from 'styled-components'
 import { Card, CardText } from 'material-ui/Card'
+import compose from 'recompose/compose'
+import withState from 'recompose/withState'
+import withHandlers from 'recompose/withHandlers'
 
 import FormTitle from '../../shared/FormTitle'
 import apiBaseUrl from '../../../modules/apiBaseUrl'
@@ -35,21 +38,42 @@ const FilterField = styled(TextField)`
   margin-bottom: 10px;
 `
 
-@inject(`store`)
-@observer
+const enhance = compose(
+  inject(`store`),
+  withState(`berichtjahr`, `changeBerichtjahr`, parseInt(dateFns.format(new Date(), `YYYY`), 10)),
+  withState(`messages`, `changeMessages`, []),
+  withState(`filter`, `changeFilter`, null),
+  withHandlers({
+    onClickDiv: props => (event) => {
+      event.preventDefault()
+      props.changePopupOpen(!props.popupOpen)
+      props.changePopupAnchorEl(event.currentTarget)
+    },
+    onRequestClosePopover: props => () =>
+      props.changePopupOpen(false)
+    ,
+  }),
+  observer
+)
+
 class Qk extends Component { // eslint-disable-line react/prefer-stateless-function
 
   static propTypes = {
-    store: PropTypes.object,
+    store: PropTypes.object.isRequired,
+    berichtjahr: PropTypes.number.isRequired,
+    changeBerichtjahr: PropTypes.func.isRequired,
+    messages: PropTypes.array.isRequired,
+    filter: PropTypes.string,
+    changeMessages: PropTypes.func.isRequired,
+    changeFilter: PropTypes.func.isRequired,
+  }
+
+  static defaultProps = {
+    filter: ``,
   }
 
   constructor() {
     super()
-    this.state = {
-      berichtjahr: dateFns.format(new Date(), `YYYY`),
-      messages: [],
-      filter: null,
-    }
     this.check = this.check.bind(this)
   }
 
@@ -58,8 +82,7 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
   }
 
   check() {
-    const { store } = this.props
-    const { berichtjahr } = this.state
+    const { store, berichtjahr, changeMessages } = this.props
     const messages = []
     const qkTypes = [
       // Population: ohne Nr/Name/Status/bekannt seit/Koordinaten/tpop
@@ -182,7 +205,7 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
             const hw = res.data[0].hw
             const url = res.data.map(d => d.url)
             messages.push({ hw, url })
-            this.setState({ messages })
+            changeMessages(messages)
           }
           return null
         })
@@ -200,12 +223,12 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
             hw: `Teilpopulation ist als 'Für AP-Bericht relevant' markiert, liegt aber ausserhalb des Kt. Zürich und sollte daher nicht relevant sein:`,
             url: tpops.map(tpop => [`Projekte`, 1, `Arten`, tpop.ApArtId, `Populationen`, tpop.PopId, `Teil-Populationen`, tpop.TPopId]),
           })
-          this.setState({ messages })
+          changeMessages(messages)
         }
         // if no messages: tell user
         if (messages.length === 0) {
           messages.push({ hw: `Wow: Scheint alles i.O. zu sein!` })
-          this.setState({ messages })
+          changeMessages(messages)
         }
       })
       .catch(error =>
@@ -214,7 +237,13 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
   }
 
   render() {
-    const { berichtjahr, messages, filter } = this.state
+    const {
+      berichtjahr,
+      messages,
+      filter,
+      changeBerichtjahr,
+      changeFilter,
+    } = this.props
     const messagesFiltered = (
       filter ?
       messages.filter(m =>
@@ -230,11 +259,11 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
           <TextField
             floatingLabelText="Berichtjahr"
             type="number"
-            value={berichtjahr || ``}
+            value={berichtjahr}
             fullWidth
-            onChange={(event, val) => {
-              this.setState({ berichtjahr: val })
-            }}
+            onChange={(event, val) =>
+              changeBerichtjahr(val)
+            }
             onBlur={this.check}
           />
           <FilterField
@@ -243,7 +272,7 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
             value={filter || ``}
             fullWidth
             onChange={(event, val) =>
-              this.setState({ filter: val })
+              changeFilter(val)
             }
           />
           {
@@ -289,4 +318,4 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
   }
 }
 
-export default Qk
+export default enhance(Qk)
