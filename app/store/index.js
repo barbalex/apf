@@ -25,6 +25,7 @@ import deleteDatasetExecute from '../modules/deleteDatasetExecute'
 import toggleNode from '../modules/toggleNode'
 import listError from '../modules/listError'
 import setUrlQuery from '../modules/setUrlQuery'
+import setQk from '../modules/setQk'
 
 import TableStore from './table'
 import ObservableHistory from './ObservableHistory'
@@ -53,8 +54,12 @@ function Store() {
   }
   this.table = TableStore
   this.valuesForWhichTableDataWasFetched = {}
+  this.qk = observable.map()
   extendObservable(this, {
     datasetToDelete: {},
+    setQk: action(({ berichtjahr, messages, filter }) =>
+      setQk({ store: this, berichtjahr, messages, filter })
+    ),
     fetchFields: action(() =>
       fetchFields(this)
     ),

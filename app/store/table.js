@@ -2,13 +2,13 @@ import { observable } from 'mobx'
 
 import tableNames from '../modules/tableStoreNames'
 
-const initiateObservables = (tableClass) => {
+const initiateObservables = (tableObject) => {
   tableNames.forEach((tableName) => {
-    tableClass[tableName] = observable.map()
+    tableObject[tableName] = observable.map()
     const trueOrFalse = tableName === `projekt`
     // believe this is not used
     // TODO: use or remove
-    tableClass[`${tableName}Loading`] = observable(trueOrFalse)
+    tableObject[`${tableName}Loading`] = observable(trueOrFalse)
   })
 }
 
