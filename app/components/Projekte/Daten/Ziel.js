@@ -1,7 +1,9 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import sortBy from 'lodash/sortBy'
 import styled from 'styled-components'
+import compose from 'recompose/compose'
+import withProps from 'recompose/withProps'
 
 import RadioButtonGroup from '../../shared/RadioButtonGroup'
 import Label from '../../shared/Label'
@@ -19,65 +21,65 @@ const FieldsContainer = styled.div`
   padding-bottom: 95px;
 `
 
-@inject(`store`)
-@observer
-class Ziel extends Component { // eslint-disable-line react/prefer-stateless-function
-
-  static propTypes = {
-    store: PropTypes.object,
-  }
-
-  get zielTypWerte() {
-    const { store } = this.props
-    let werte = Array.from(store.table.ziel_typ_werte.values())
-    werte = sortBy(werte, `ZieltypOrd`)
-    werte = werte.map(el => ({
+const enhance = compose(
+  inject(`store`),
+  withProps((props) => {
+    let zielTypWerte = Array.from(
+      props.store.table.ziel_typ_werte.values()
+    )
+    zielTypWerte = sortBy(zielTypWerte, `ZieltypOrd`)
+    zielTypWerte = zielTypWerte.map(el => ({
       value: el.ZieltypId,
       label: el.ZieltypTxt,
     }))
-    return werte
-  }
+    return { zielTypWerte }
+  }),
+  observer
+)
 
-  render() {
-    const { store } = this.props
-    const { activeDataset } = store
+const Ziel = ({ store, zielTypWerte }) => {
+  const { activeDataset } = store
 
-    return (
-      <Container>
-        <FormTitle title="Ziel" />
-        <FieldsContainer>
-          <TextField
-            label="Jahr"
-            fieldName="ZielJahr"
-            value={activeDataset.row.ZielJahr}
-            errorText={activeDataset.valid.ZielJahr}
-            type="number"
-            updateProperty={store.updateProperty}
-            updatePropertyInDb={store.updatePropertyInDb}
-          />
-          <Label label="Zieltyp" />
-          <RadioButtonGroup
-            fieldName="ZielTyp"
-            value={activeDataset.row.ZielTyp}
-            errorText={activeDataset.valid.ZielTyp}
-            dataSource={this.zielTypWerte}
-            updatePropertyInDb={store.updatePropertyInDb}
-          />
-          <TextField
-            label="Ziel"
-            fieldName="ZielBezeichnung"
-            value={activeDataset.row.ZielBezeichnung}
-            errorText={activeDataset.valid.ZielBezeichnung}
-            type="text"
-            multiLine
-            fullWidth
-            updateProperty={store.updateProperty}
-            updatePropertyInDb={store.updatePropertyInDb}
-          />
-        </FieldsContainer>
-      </Container>
-    )
-  }
+  return (
+    <Container>
+      <FormTitle title="Ziel" />
+      <FieldsContainer>
+        <TextField
+          label="Jahr"
+          fieldName="ZielJahr"
+          value={activeDataset.row.ZielJahr}
+          errorText={activeDataset.valid.ZielJahr}
+          type="number"
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+        <Label label="Zieltyp" />
+        <RadioButtonGroup
+          fieldName="ZielTyp"
+          value={activeDataset.row.ZielTyp}
+          errorText={activeDataset.valid.ZielTyp}
+          dataSource={zielTypWerte}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+        <TextField
+          label="Ziel"
+          fieldName="ZielBezeichnung"
+          value={activeDataset.row.ZielBezeichnung}
+          errorText={activeDataset.valid.ZielBezeichnung}
+          type="text"
+          multiLine
+          fullWidth
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+      </FieldsContainer>
+    </Container>
+  )
 }
 
-export default Ziel
+Ziel.propTypes = {
+  store: PropTypes.object.isRequired,
+  zielTypWerte: PropTypes.array.isRequired,
+}
+
+export default enhance(Ziel)

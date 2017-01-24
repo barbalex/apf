@@ -44,13 +44,14 @@ const MyRadioButtonGroup = ({
 MyRadioButtonGroup.propTypes = {
   fieldName: PropTypes.string.isRequired,
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  dataSource: PropTypes.arrayOf(PropTypes.object).isRequired,
+  dataSource: PropTypes.arrayOf(PropTypes.object),
   updatePropertyInDb: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
 }
 
 MyRadioButtonGroup.defaultProps = {
   value: null,
+  dataSource: [],
 }
 
 export default enhance(MyRadioButtonGroup)
