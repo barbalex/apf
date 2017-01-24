@@ -56,65 +56,65 @@ function Store() {
   extendObservable(this, {
     datasetToDelete: {},
     fetchFields: action(() =>
-      fetchFields(MyStore)
+      fetchFields(this)
     ),
     updateLabelFilter: action((table, value) => {
       if (!table) {
-        return MyStore.listError(
+        return this.listError(
           new Error(`nodeLabelFilter cant be updated: no table passed`)
         )
       }
-      MyStore.node.nodeLabelFilter.set(table, value)
+      this.node.nodeLabelFilter.set(table, value)
     }),
     insertDataset: action((table, parentId, baseUrl) =>
-      insertDataset(MyStore, table, parentId, baseUrl)
+      insertDataset(this, table, parentId, baseUrl)
     ),
     deleteDatasetDemand: action((table, id, url, label) =>
-      deleteDatasetDemand(MyStore, table, id, url, label)
+      deleteDatasetDemand(this, table, id, url, label)
     ),
     deleteDatasetAbort: action(() => {
-      MyStore.datasetToDelete = {}
+      this.datasetToDelete = {}
     }),
     deleteDatasetExecute: action(() =>
-      deleteDatasetExecute(MyStore)
+      deleteDatasetExecute(this)
     ),
     listError: action(error =>
-      listError(MyStore, error)
+      listError(this, error)
     ),
     // updates data in store
     updateProperty: action((key, value) =>
-      updateProperty(MyStore, key, value)
+      updateProperty(this, key, value)
     ),
     // updates data in database
     updatePropertyInDb: action((key, value) =>
-      updatePropertyInDb(MyStore, key, value)
+      updatePropertyInDb(this, key, value)
     ),
     // fetch all data of a table
     // primarily used for werte (domain) tables
     // and projekt
     fetchTable: action((schemaName, tableName) =>
-      fetchTable(MyStore, schemaName, tableName)
+      fetchTable(this, schemaName, tableName)
     ),
     fetchBeobzuordnung: action(apArtId =>
-      fetchBeobzuordnungModule(MyStore, apArtId)
+      fetchBeobzuordnungModule(this, apArtId)
     ),
     // fetch data of table for id of parent table
     // used for actual apflora data (but projekt)
     fetchTableByParentId: action((schemaName, tableName, parentId) =>
-      fetchTableByParentId(MyStore, schemaName, tableName, parentId)
+      fetchTableByParentId(this, schemaName, tableName, parentId)
     ),
     fetchTpopForAp: action(apArtId =>
-      fetchTpopForAp(MyStore, apArtId)
+      fetchTpopForAp(this, apArtId)
     ),
     fetchDatasetById: action(({ schemaName, tableName, id }) =>
-      fetchDatasetById({ store: MyStore, schemaName, tableName, id })
+      fetchDatasetById({ store: this, schemaName, tableName, id })
     ),
     fetchBeobBereitgestellt: action(apArtId =>
-      fetchBeobBereitgestellt(MyStore, apArtId)
+      fetchBeobBereitgestellt(this, apArtId)
     ),
     // action when user clicks on a node in the tree
     toggleNode: action(node =>
-      toggleNode(MyStore, node)
+      toggleNode(this, node)
     ),
     /**
      * urlQueries are used to control tabs
@@ -122,29 +122,29 @@ function Store() {
      * or: strukturbaum, daten and karte in projekte
      */
     setUrlQuery: action((key, value) =>
-      setUrlQuery(MyStore, key, value)
+      setUrlQuery(this, key, value)
     ),
     /**
      * url paths are used to control tree and forms
      */
     url: computed(() =>
-      getUrl(MyStore.history.location.pathname)
+      getUrl(this.history.location.pathname)
     ),
     /**
      * urlQueries are used to control tabs
      * for instance: Entwicklung or Biotop in tpopfeldkontr
      */
     urlQuery: computed(() =>
-      getUrlQuery(MyStore.history.location.search)
+      getUrlQuery(this.history.location.search)
     ),
     projektNodes: computed(() =>
-      buildProjektNodes(MyStore)
+      buildProjektNodes(this)
     ),
     activeDataset: computed(() =>
-      updateActiveDatasetFromUrl(MyStore)
+      updateActiveDatasetFromUrl(this)
     ),
     activeUrlElements: computed(() =>
-      getActiveUrlElements(MyStore.url)
+      getActiveUrlElements(this.url)
     ),
   })
 }
