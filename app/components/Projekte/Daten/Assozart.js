@@ -24,7 +24,7 @@ const FieldsContainer = styled.div`
 class Assozart extends Component { // eslint-disable-line react/prefer-stateless-function
 
   static propTypes = {
-    store: PropTypes.object,
+    store: PropTypes.object.isRequired,
   }
 
   get artList() {
@@ -59,7 +59,6 @@ class Assozart extends Component { // eslint-disable-line react/prefer-stateless
           <AutoComplete
             label="Art"
             fieldName="AaSisfNr"
-            value={activeDataset.row.AaSisfNr}
             valueText={artname()}
             errorText={activeDataset.valid.ApArtId}
             dataSource={this.artList}

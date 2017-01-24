@@ -154,7 +154,6 @@ class Ap extends Component { // eslint-disable-line react/prefer-stateless-funct
           <AutoComplete
             label="Art"
             fieldName="ApArtId"
-            value={this.apArtId}
             valueText={this.artValues.artname}
             errorText={activeDataset.valid.ApArtId}
             dataSource={this.artList}
