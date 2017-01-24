@@ -29,97 +29,92 @@ import setUrlQuery from '../modules/setUrlQuery'
 import TableStore from './table'
 import ObservableHistory from './ObservableHistory'
 
-const Store = {
-  history: ObservableHistory,
-  node: {
+function Store() {
+  this.history = ObservableHistory
+  this.node = {
     loadingAllNodes: observable(false),
     nodeLabelFilter: observable.map({}),
     nrOfRowsAboveActiveNode: observable(0),
-  },
-  ui: {
+  }
+  this.ui = {
     windowWidth: observable($(window).width()),
     windowHeight: observable($(window).height()),
     treeHeight: observable(0),
     lastClickY: observable(0),
     treeTopPosition: observable(0),
-  },
-  app: {
+  }
+  this.app = {
     errors: observable([]),
     // TODO: get user else
     user: observable(`z`),
     fields: observable([]),
     fieldsLoading: observable(true),
     map: observable(null),
-  },
-  table: TableStore,
-  valuesForWhichTableDataWasFetched: {},
-  datasetToDelete: observable({}),
-  activeUrlElements: observable({}),
-}
-
-extendObservable(
-  Store,
-  {
+  }
+  this.table = TableStore
+  this.valuesForWhichTableDataWasFetched = {}
+  extendObservable(this, {
+    datasetToDelete: {},
     fetchFields: action(() =>
-      fetchFields(Store)
+      fetchFields(MyStore)
     ),
     updateLabelFilter: action((table, value) => {
       if (!table) {
-        return Store.listError(
+        return MyStore.listError(
           new Error(`nodeLabelFilter cant be updated: no table passed`)
         )
       }
-      Store.node.nodeLabelFilter.set(table, value)
+      MyStore.node.nodeLabelFilter.set(table, value)
     }),
     insertDataset: action((table, parentId, baseUrl) =>
-      insertDataset(Store, table, parentId, baseUrl)
+      insertDataset(MyStore, table, parentId, baseUrl)
     ),
     deleteDatasetDemand: action((table, id, url, label) =>
-      deleteDatasetDemand(Store, table, id, url, label)
+      deleteDatasetDemand(MyStore, table, id, url, label)
     ),
     deleteDatasetAbort: action(() => {
-      Store.datasetToDelete = {}
+      MyStore.datasetToDelete = {}
     }),
     deleteDatasetExecute: action(() =>
-      deleteDatasetExecute(Store)
+      deleteDatasetExecute(MyStore)
     ),
     listError: action(error =>
-      listError(Store, error)
+      listError(MyStore, error)
     ),
     // updates data in store
     updateProperty: action((key, value) =>
-      updateProperty(Store, key, value)
+      updateProperty(MyStore, key, value)
     ),
     // updates data in database
     updatePropertyInDb: action((key, value) =>
-      updatePropertyInDb(Store, key, value)
+      updatePropertyInDb(MyStore, key, value)
     ),
     // fetch all data of a table
     // primarily used for werte (domain) tables
     // and projekt
     fetchTable: action((schemaName, tableName) =>
-      fetchTable(Store, schemaName, tableName)
+      fetchTable(MyStore, schemaName, tableName)
     ),
     fetchBeobzuordnung: action(apArtId =>
-      fetchBeobzuordnungModule(Store, apArtId)
+      fetchBeobzuordnungModule(MyStore, apArtId)
     ),
     // fetch data of table for id of parent table
     // used for actual apflora data (but projekt)
     fetchTableByParentId: action((schemaName, tableName, parentId) =>
-      fetchTableByParentId(Store, schemaName, tableName, parentId)
+      fetchTableByParentId(MyStore, schemaName, tableName, parentId)
     ),
     fetchTpopForAp: action(apArtId =>
-      fetchTpopForAp(Store, apArtId)
+      fetchTpopForAp(MyStore, apArtId)
     ),
     fetchDatasetById: action(({ schemaName, tableName, id }) =>
-      fetchDatasetById({ store: Store, schemaName, tableName, id })
+      fetchDatasetById({ store: MyStore, schemaName, tableName, id })
     ),
     fetchBeobBereitgestellt: action(apArtId =>
-      fetchBeobBereitgestellt(Store, apArtId)
+      fetchBeobBereitgestellt(MyStore, apArtId)
     ),
     // action when user clicks on a node in the tree
     toggleNode: action(node =>
-      toggleNode(Store, node)
+      toggleNode(MyStore, node)
     ),
     /**
      * urlQueries are used to control tabs
@@ -127,50 +122,52 @@ extendObservable(
      * or: strukturbaum, daten and karte in projekte
      */
     setUrlQuery: action((key, value) =>
-      setUrlQuery(Store, key, value)
+      setUrlQuery(MyStore, key, value)
     ),
     /**
      * url paths are used to control tree and forms
      */
     url: computed(() =>
-      getUrl(Store.history.location.pathname)
+      getUrl(MyStore.history.location.pathname)
     ),
     /**
      * urlQueries are used to control tabs
      * for instance: Entwicklung or Biotop in tpopfeldkontr
      */
     urlQuery: computed(() =>
-      getUrlQuery(Store.history.location.search)
+      getUrlQuery(MyStore.history.location.search)
     ),
     projektNodes: computed(() =>
-      buildProjektNodes(Store)
+      buildProjektNodes(MyStore)
     ),
     activeDataset: computed(() =>
-      updateActiveDatasetFromUrl(Store)
+      updateActiveDatasetFromUrl(MyStore)
     ),
     activeUrlElements: computed(() =>
-      getActiveUrlElements(Store.url)
+      getActiveUrlElements(MyStore.url)
     ),
-  }
-)
+  })
+}
+
+const MyStore = new Store()
 
 // don't know why but combining this with last extend call
 // creates an error in an autorun
-// well, probably because needed actions are not part of Store yet
+// maybe needed actions are not part of Store yet?
 extendObservable(
-  Store,
+  MyStore,
   {
     manipulateUrl: autorun(
       `manipulateUrl`,
-      () => manipulateUrl(Store)
+      () => manipulateUrl(MyStore)
     ),
     reactWhenUrlHasChanged: autorunAsync(
       `reactWhenUrlHasChanged`,
       () => {
-        fetchDataForActiveUrlElements(Store)
+        fetchDataForActiveUrlElements(MyStore)
       }
     ),
   }
 )
 
-export default Store
+export default MyStore
