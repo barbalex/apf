@@ -11,9 +11,9 @@ const enhance = compose(
   inject(`store`),
   withHandlers({
     onClickAbort: props => () =>
-      props.deleteDatasetAbort(),
+      props.store.deleteDatasetAbort(),
     onClickDelete: props => () =>
-      props.deleteDatasetExecute(),
+      props.store.deleteDatasetExecute(),
   })
 )
 
