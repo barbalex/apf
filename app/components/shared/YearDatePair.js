@@ -64,7 +64,7 @@ const YearDatePair = ({
       <TextField
         floatingLabelText={yearLabel}
         type="number"
-        value={yearValue}
+        value={yearValue || ``}
         errorText={yearErrorText}
         fullWidth
         onChange={(event, val) =>

@@ -1,7 +1,9 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import sortBy from 'lodash/sortBy'
 import styled from 'styled-components'
+import compose from 'recompose/compose'
+import withProps from 'recompose/withProps'
 
 import RadioButtonGroup from '../../shared/RadioButtonGroup'
 import Label from '../../shared/Label'
@@ -19,64 +21,65 @@ const FieldsContainer = styled.div`
   padding-bottom: 95px;
 `
 
-@inject(`store`)
-@observer
-class Tpopmassnber extends Component { // eslint-disable-line react/prefer-stateless-function
-
-  static propTypes = {
-    store: PropTypes.object,
-  }
-
-  get tpopmassnErfbeurtWerte() {
-    const { store } = this.props
-    let werte = Array.from(store.table.tpopmassn_erfbeurt_werte.values())
-    werte = sortBy(werte, `BeurteilOrd`)
-    return werte.map(el => ({
+const enhance = compose(
+  inject(`store`),
+  withProps((props) => {
+    const { store } = props
+    const { activeDataset } = store
+    let tpopmassnErfbeurtWerte = Array.from(store.table.tpopmassn_erfbeurt_werte.values())
+    tpopmassnErfbeurtWerte = sortBy(tpopmassnErfbeurtWerte, `BeurteilOrd`)
+    tpopmassnErfbeurtWerte = tpopmassnErfbeurtWerte.map(el => ({
       value: el.BeurteilId,
       label: el.BeurteilTxt,
     }))
-  }
+    return { tpopmassnErfbeurtWerte, activeDataset }
+  }),
+  observer
+)
 
-  render() {
-    const { store } = this.props
-    const { activeDataset } = store
+const Tpopmassnber = ({
+  store,
+  tpopmassnErfbeurtWerte,
+  activeDataset,
+}) =>
+  <Container>
+    <FormTitle title="Massnahmen-Bericht Teil-Population" />
+    <FieldsContainer>
+      <TextField
+        label="Jahr"
+        fieldName="TPopMassnBerJahr"
+        value={activeDataset.row.TPopMassnBerJahr}
+        errorText={activeDataset.valid.TPopMassnBerJahr}
+        type="number"
+        updateProperty={store.updateProperty}
+        updatePropertyInDb={store.updatePropertyInDb}
+      />
+      <Label label="Entwicklung" />
+      <RadioButtonGroup
+        fieldName="TPopMassnBerErfolgsbeurteilung"
+        value={activeDataset.row.TPopMassnBerErfolgsbeurteilung}
+        errorText={activeDataset.valid.TPopMassnBerErfolgsbeurteilung}
+        dataSource={tpopmassnErfbeurtWerte}
+        updatePropertyInDb={store.updatePropertyInDb}
+      />
+      <TextField
+        label="Interpretation"
+        fieldName="TPopMassnBerTxt"
+        value={activeDataset.row.TPopMassnBerTxt}
+        errorText={activeDataset.valid.TPopMassnBerTxt}
+        type="text"
+        multiLine
+        fullWidth
+        updateProperty={store.updateProperty}
+        updatePropertyInDb={store.updatePropertyInDb}
+      />
+    </FieldsContainer>
+  </Container>
 
-    return (
-      <Container>
-        <FormTitle title="Massnahmen-Bericht Teil-Population" />
-        <FieldsContainer>
-          <TextField
-            label="Jahr"
-            fieldName="TPopMassnBerJahr"
-            value={activeDataset.row.TPopMassnBerJahr}
-            errorText={activeDataset.valid.TPopMassnBerJahr}
-            type="number"
-            updateProperty={store.updateProperty}
-            updatePropertyInDb={store.updatePropertyInDb}
-          />
-          <Label label="Entwicklung" />
-          <RadioButtonGroup
-            fieldName="TPopMassnBerErfolgsbeurteilung"
-            value={activeDataset.row.TPopMassnBerErfolgsbeurteilung}
-            errorText={activeDataset.valid.TPopMassnBerErfolgsbeurteilung}
-            dataSource={this.tpopmassnErfbeurtWerte}
-            updatePropertyInDb={store.updatePropertyInDb}
-          />
-          <TextField
-            label="Interpretation"
-            fieldName="TPopMassnBerTxt"
-            value={activeDataset.row.TPopMassnBerTxt}
-            errorText={activeDataset.valid.TPopMassnBerTxt}
-            type="text"
-            multiLine
-            fullWidth
-            updateProperty={store.updateProperty}
-            updatePropertyInDb={store.updatePropertyInDb}
-          />
-        </FieldsContainer>
-      </Container>
-    )
-  }
+Tpopmassnber.propTypes = {
+  store: PropTypes.object.isRequired,
+  tpopmassnErfbeurtWerte: PropTypes.array.isRequired,
+  activeDataset: PropTypes.object.isRequired,
 }
 
-export default Tpopmassnber
+export default enhance(Tpopmassnber)
