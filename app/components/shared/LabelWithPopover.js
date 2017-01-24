@@ -4,6 +4,7 @@ import Popover from 'material-ui/Popover'
 import compose from 'recompose/compose'
 import withState from 'recompose/withState'
 import withHandlers from 'recompose/withHandlers'
+import styled from 'styled-components'
 
 const enhance = compose(
   withState(`popupOpen`, `changePopupOpen`, false),
@@ -21,7 +22,20 @@ const enhance = compose(
   observer
 )
 
-// DONT use styled because popupAnchorEl then seems to be at 0 0!!!!
+const StyledDiv = styled.div`
+  margin-top: 10px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.498039);
+  user-select: none;
+  padding-bottom: 8px;
+  cursor: pointer;
+  pointer-events: auto;
+  text-decoration: underline;
+`
+const StyledPopover = styled(Popover)`
+  border-radius: 4px;
+`
+
 const LabelWithPopover = ({
   label,
   popupOpen,
@@ -30,21 +44,11 @@ const LabelWithPopover = ({
   onClickDiv,
   onRequestClosePopover,
 }) =>
-  <div
+  <StyledDiv
     onClick={onClickDiv}
-    style={{
-      marginTop: `10px`,
-      fontSize: `12px`,
-      color: `rgba(255, 255, 255, 0.498039)`,
-      userSelect: `none`,
-      paddingBottom: `8px`,
-      cursor: `pointer`,
-      pointerEvents: `auto`,
-      textDecoration: `underline`,
-    }}
   >
     {label}
-    <Popover
+    <StyledPopover
       open={popupOpen}
       anchorEl={popupAnchorEl}
       anchorOrigin={{ horizontal: `left`, vertical: `top` }}
@@ -53,13 +57,10 @@ const LabelWithPopover = ({
       autoCloseWhenOffScreen
       canAutoPosition
       onRequestClose={onRequestClosePopover}
-      style={{
-        borderRadius: `4px`,
-      }}
     >
       {children}
-    </Popover>
-  </div>
+    </StyledPopover>
+  </StyledDiv>
 
 LabelWithPopover.propTypes = {
   label: PropTypes.string.isRequired,
