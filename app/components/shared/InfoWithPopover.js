@@ -23,25 +23,30 @@ const enhance = compose(
   observer
 )
 
+const StyledFontIcon = styled(FontIcon)`
+  cursor: pointer;
+  pointer-events: auto;
+`
+const StyledPopover = styled(Popover)`
+  border-radius: 4px;
+`
+
 const InfoWithPopover = ({
   popupOpen,
   popupAnchorEl,
   onRequestClosePopover,
   onClickFontIcon,
+  children,
 }) =>
   <div>
-    <FontIcon
+    <StyledFontIcon
       id="iconEl"
       className="material-icons"
       onClick={onClickFontIcon}
-      style={{
-        cursor: `pointer`,
-        pointerEvents: `auto`,
-      }}
     >
       info_outline
-    </FontIcon>
-    <Popover
+    </StyledFontIcon>
+    <StyledPopover
       open={popupOpen}
       anchorEl={popupAnchorEl}
       anchorOrigin={{ horizontal: `left`, vertical: `top` }}
@@ -50,12 +55,9 @@ const InfoWithPopover = ({
       autoCloseWhenOffScreen
       canAutoPosition
       onRequestClose={onRequestClosePopover}
-      style={{
-        borderRadius: `4px`,
-      }}
     >
-      {this.props.children}
-    </Popover>
+      {children}
+    </StyledPopover>
   </div>
 
 InfoWithPopover.propTypes = {
