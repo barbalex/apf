@@ -64,7 +64,7 @@ const LabelWithPopover = ({
 
 LabelWithPopover.propTypes = {
   label: PropTypes.string.isRequired,
-  children: PropTypes.array.isRequired,
+  children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired,
   popupOpen: PropTypes.bool.isRequired,
   changePopupOpen: PropTypes.func.isRequired,
   popupAnchorEl: PropTypes.object,

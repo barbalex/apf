@@ -9,6 +9,7 @@ import React from 'react'
 import { observer, inject } from 'mobx-react'
 import { Map, Marker, Popup, ScaleControl, LayersControl } from 'react-leaflet'
 import styled from 'styled-components'
+import compose from 'recompose/compose'
 // import Proj4leaflet from 'proj4leaflet'
 import Leaflet from 'leaflet'
 // import Proj4 from 'proj4'
@@ -24,8 +25,11 @@ const StyledMap = styled(Map)`
   height: 100%;
 `
 
-@inject(`store`)
-@observer
+const enhance = compose(
+  inject(`store`),
+  observer
+)
+
 class Karte extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     const position = [47.295, 8.58]
@@ -72,4 +76,4 @@ class Karte extends React.Component { // eslint-disable-line react/prefer-statel
   }
 }
 
-export default Karte
+export default enhance(Karte)

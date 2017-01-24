@@ -22,8 +22,7 @@ const enhance = compose(
     let filteredTable = ``
     if (activeDataset && activeDataset.folder) {
       filteredTable = activeDataset.folder
-    }
-    if (activeDataset && activeDataset.table) {
+    } else if (activeDataset && activeDataset.table) {
       filteredTable = activeDataset.table
     }
     return { filteredTable }

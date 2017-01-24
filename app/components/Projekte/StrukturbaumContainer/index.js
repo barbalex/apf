@@ -1,6 +1,10 @@
+/**
+ * need to keep class because of ref
+ */
 import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import styled from 'styled-components'
+import compose from 'recompose/compose'
 
 import LabelFilter from './LabelFilter'
 import Strukturbaum from './Strukturbaum'
@@ -65,8 +69,11 @@ const LabelFilterContainer = styled.div`
   padding-right: 30px;
 `
 
-@inject(`store`)
-@observer
+const enhance = compose(
+  inject(`store`),
+  observer
+)
+
 class StrukturbaumContainer extends Component { // eslint-disable-line react/prefer-stateless-function
 
   static propTypes = {
@@ -179,4 +186,4 @@ class StrukturbaumContainer extends Component { // eslint-disable-line react/pre
   }
 }
 
-export default StrukturbaumContainer
+export default enhance(StrukturbaumContainer)
