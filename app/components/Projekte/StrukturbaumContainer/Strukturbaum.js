@@ -11,6 +11,7 @@ import { observer, inject } from 'mobx-react'
 import { AutoSizer, List } from 'react-virtualized'
 import { ContextMenuTrigger } from 'react-contextmenu'
 import styled from 'styled-components'
+import compose from 'recompose/compose'
 
 import getNrOfNodeRows from '../../../modules/getNrOfNodeRows'
 import isNodeInActiveNodePath from '../../../modules/isNodeInActiveNodePath'
@@ -81,13 +82,15 @@ const LoadingDiv = styled.div`
   padding-left: 15px;
   font-size: 14px;
 `
+const enhance = compose(
+  inject(`store`),
+  observer
+)
 
-@inject(`store`)
-@observer
 class Strukturbaum extends Component { // eslint-disable-line react/prefer-stateless-function
 
   static propTypes = {
-    store: PropTypes.object,
+    store: PropTypes.object.isRequired,
   }
 
   constructor() {
@@ -219,9 +222,6 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
     // correcting by 10px seems to keep the tree from jumping
     const scrolltop = (treeHeightAboveActiveNode - roomAboveClick) + 10
 
-    // console.log(`Strukturbaum: nrOfRows:`, nrOfRows)  // eslint-disable-line no-console
-    // console.log(`Strukturbaum: rowHeight:`, rowHeight)  // eslint-disable-line no-console
-
     return (
       <Container>
         <AutoSizer>
@@ -244,4 +244,4 @@ class Strukturbaum extends Component { // eslint-disable-line react/prefer-state
   }
 }
 
-export default Strukturbaum
+export default enhance(Strukturbaum)
