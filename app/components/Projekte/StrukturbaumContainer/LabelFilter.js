@@ -6,7 +6,6 @@ import TextField from 'material-ui/TextField'
 import styled from 'styled-components'
 import compose from 'recompose/compose'
 import withHandlers from 'recompose/withHandlers'
-import withProps from 'recompose/withProps'
 
 import tables from '../../../modules/tables'
 
@@ -17,16 +16,6 @@ const FilterField = styled(TextField)`
 
 const enhance = compose(
   inject(`store`),
-  withProps((props) => {
-    const { activeDataset } = props.store
-    let filteredTable = ``
-    if (activeDataset && activeDataset.folder) {
-      filteredTable = activeDataset.folder
-    } else if (activeDataset && activeDataset.table) {
-      filteredTable = activeDataset.table
-    }
-    return { filteredTable }
-  }),
   withHandlers({
     onChange: props => (event, val) =>
       props.store.updateLabelFilter(props.filteredTable, val)
@@ -38,9 +27,15 @@ const enhance = compose(
 const LabelFilter = ({
   store,
   onChange,
-  filteredTable,
 }) => {
   const { node } = store
+  const { activeDataset } = store
+  let filteredTable = ``
+  if (activeDataset && activeDataset.folder) {
+    filteredTable = activeDataset.folder
+  } else if (activeDataset && activeDataset.table) {
+    filteredTable = activeDataset.table
+  }
   let labelText = `filtern`
   let filterValue = ``
   if (filteredTable) {
@@ -65,7 +60,6 @@ const LabelFilter = ({
 LabelFilter.propTypes = {
   store: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
-  filteredTable: PropTypes.string.isRequired,
 }
 
 export default enhance(LabelFilter)

@@ -58,7 +58,6 @@ const YearDatePair = ({
   onChangeDate,
 }) => {
   const dateValueObject = dateValue ? new Date(dateValue) : {}
-
   return (
     <div>
       <TextField

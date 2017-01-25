@@ -8,7 +8,6 @@ import React, { PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import styled from 'styled-components'
 import compose from 'recompose/compose'
-import withProps from 'recompose/withProps'
 
 import Projekt from './Projekt'
 import Ap from './Ap'
@@ -45,18 +44,13 @@ const Container = styled.div`
 
 const enhance = compose(
   inject(`store`),
-  withProps((props) => {
-    const { store } = props
-    const { activeDataset, activeUrlElements } = store
-    return { activeDataset, activeUrlElements }
-  }),
   observer
 )
 
 const Daten = ({
-  activeDataset,
-  activeUrlElements,
+  store,
 }) => {
+  const { activeDataset, activeUrlElements } = store
   if (!activeDataset || !activeDataset.table || !activeDataset.row) {
     return <div />
   }
@@ -120,8 +114,6 @@ const Daten = ({
 
 Daten.propTypes = {
   store: PropTypes.object.isRequired,
-  activeDataset: PropTypes.object.isRequired,
-  activeUrlElements: PropTypes.object.isRequired,
 }
 
 export default enhance(Daten)

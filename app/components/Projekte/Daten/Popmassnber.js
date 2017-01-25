@@ -25,60 +25,61 @@ const enhance = compose(
   inject(`store`),
   withProps((props) => {
     const { store } = props
-    const { activeDataset } = store
     let tpopmassnErfbeurtWerte = Array.from(store.table.tpopmassn_erfbeurt_werte.values())
     tpopmassnErfbeurtWerte = sortBy(tpopmassnErfbeurtWerte, `BeurteilOrd`)
     tpopmassnErfbeurtWerte = tpopmassnErfbeurtWerte.map(el => ({
       value: el.BeurteilId,
       label: el.BeurteilTxt,
     }))
-    return { tpopmassnErfbeurtWerte, activeDataset }
+    return { tpopmassnErfbeurtWerte }
   }),
   observer
 )
 
 const Popmassnber = ({
   store,
-  activeDataset,
   tpopmassnErfbeurtWerte,
-}) =>
-  <Container>
-    <FormTitle title="Massnahmen-Bericht Population" />
-    <FieldsContainer>
-      <TextField
-        label="Jahr"
-        fieldName="PopMassnBerJahr"
-        value={activeDataset.row.PopMassnBerJahr}
-        errorText={activeDataset.valid.PopMassnBerJahr}
-        type="number"
-        updateProperty={store.updateProperty}
-        updatePropertyInDb={store.updatePropertyInDb}
-      />
-      <Label label="Entwicklung" />
-      <RadioButtonGroup
-        fieldName="PopMassnBerErfolgsbeurteilung"
-        value={activeDataset.row.PopMassnBerErfolgsbeurteilung}
-        errorText={activeDataset.valid.PopMassnBerErfolgsbeurteilung}
-        dataSource={tpopmassnErfbeurtWerte}
-        updatePropertyInDb={store.updatePropertyInDb}
-      />
-      <TextField
-        label="Interpretation"
-        fieldName="PopMassnBerTxt"
-        value={activeDataset.row.PopMassnBerTxt}
-        errorText={activeDataset.valid.PopMassnBerTxt}
-        type="text"
-        multiLine
-        fullWidth
-        updateProperty={store.updateProperty}
-        updatePropertyInDb={store.updatePropertyInDb}
-      />
-    </FieldsContainer>
-  </Container>
+}) => {
+  const { activeDataset } = store
+  return (
+    <Container>
+      <FormTitle title="Massnahmen-Bericht Population" />
+      <FieldsContainer>
+        <TextField
+          label="Jahr"
+          fieldName="PopMassnBerJahr"
+          value={activeDataset.row.PopMassnBerJahr}
+          errorText={activeDataset.valid.PopMassnBerJahr}
+          type="number"
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+        <Label label="Entwicklung" />
+        <RadioButtonGroup
+          fieldName="PopMassnBerErfolgsbeurteilung"
+          value={activeDataset.row.PopMassnBerErfolgsbeurteilung}
+          errorText={activeDataset.valid.PopMassnBerErfolgsbeurteilung}
+          dataSource={tpopmassnErfbeurtWerte}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+        <TextField
+          label="Interpretation"
+          fieldName="PopMassnBerTxt"
+          value={activeDataset.row.PopMassnBerTxt}
+          errorText={activeDataset.valid.PopMassnBerTxt}
+          type="text"
+          multiLine
+          fullWidth
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+      </FieldsContainer>
+    </Container>
+  )
+}
 
 Popmassnber.propTypes = {
   store: PropTypes.object.isRequired,
-  activeDataset: PropTypes.object.isRequired,
   tpopmassnErfbeurtWerte: PropTypes.array.isRequired,
 }
 

@@ -39,7 +39,6 @@ const enhance = compose(
 
 const Ziel = ({ store, zielTypWerte }) => {
   const { activeDataset } = store
-
   return (
     <Container>
       <FormTitle title="Ziel" />

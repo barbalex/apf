@@ -6,6 +6,7 @@ import { greenA200 } from 'material-ui/styles/colors'
 import getUrls from 'get-urls'
 import styled from 'styled-components'
 import compose from 'recompose/compose'
+import withHandlers from 'recompose/withHandlers'
 
 const Container = styled.div`
   display: flex;
@@ -16,19 +17,24 @@ const StyledFontIcon = styled(FontIcon)`
 `
 
 const enhance = compose(
+  withHandlers({
+    onChange: props => (event, val) =>
+      props.updateProperty(props.fieldName, val),
+    onBlur: props => event =>
+      props.updatePropertyInDb(props.fieldName, event.target.value),
+  }),
   observer
 )
 
 const MyTextFieldWithUrl = ({
   label,
-  fieldName,
   value,
   errorText,
   type,
   multiLine,
-  updateProperty,
-  updatePropertyInDb,
   disabled,
+  onChange,
+  onBlur,
 }) => {
   const urls = value ? getUrls(value) : []
 
@@ -42,12 +48,8 @@ const MyTextFieldWithUrl = ({
         errorText={errorText}
         disabled={disabled}
         fullWidth
-        onChange={(event, val) =>
-          updateProperty(fieldName, val)
-        }
-        onBlur={event =>
-          updatePropertyInDb(fieldName, event.target.value)
-        }
+        onChange={onChange}
+        onBlur={onBlur}
       />
       {
         urls.map((url, index) => (
@@ -76,6 +78,8 @@ MyTextFieldWithUrl.propTypes = {
   disabled: PropTypes.bool,
   updateProperty: PropTypes.func.isRequired,
   updatePropertyInDb: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onBlur: PropTypes.func.isRequired,
 }
 
 MyTextFieldWithUrl.defaultProps = {

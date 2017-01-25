@@ -26,7 +26,6 @@ const enhance = compose(
   inject(`store`),
   withProps((props) => {
     const { store } = props
-    const { activeDataset } = store
     let zaehleinheitWerte = Array.from(
       store.table.tpopkontrzaehl_einheit_werte.values()
     )
@@ -50,7 +49,6 @@ const enhance = compose(
     return {
       zaehleinheitWerte,
       methodeWerte,
-      activeDataset,
     }
   }),
   observer
@@ -60,46 +58,48 @@ const Tpopkontrzaehl = ({
   store,
   zaehleinheitWerte,
   methodeWerte,
-  activeDataset,
-}) =>
-  <Container>
-    <FormTitle title="Zählung" />
-    <FieldsContainer>
-      <TextField
-        label="Anzahl"
-        fieldName="Anzahl"
-        value={activeDataset.row.Anzahl}
-        errorText={activeDataset.valid.Anzahl}
-        type="number"
-        updateProperty={store.updateProperty}
-        updatePropertyInDb={store.updatePropertyInDb}
-      />
-      <SelectField
-        label="Einheit"
-        fieldName="Zaehleinheit"
-        value={activeDataset.row.Zaehleinheit}
-        errorText={activeDataset.valid.Zaehleinheit}
-        dataSource={zaehleinheitWerte}
-        valueProp="value"
-        labelProp="label"
-        updatePropertyInDb={store.updatePropertyInDb}
-      />
-      <Label label="Methode" />
-      <RadioButtonGroup
-        fieldName="Methode"
-        value={activeDataset.row.Methode}
-        errorText={activeDataset.valid.Methode}
-        dataSource={methodeWerte}
-        updatePropertyInDb={store.updatePropertyInDb}
-      />
-    </FieldsContainer>
-  </Container>
+}) => {
+  const { activeDataset } = store
+  return (
+    <Container>
+      <FormTitle title="Zählung" />
+      <FieldsContainer>
+        <TextField
+          label="Anzahl"
+          fieldName="Anzahl"
+          value={activeDataset.row.Anzahl}
+          errorText={activeDataset.valid.Anzahl}
+          type="number"
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+        <SelectField
+          label="Einheit"
+          fieldName="Zaehleinheit"
+          value={activeDataset.row.Zaehleinheit}
+          errorText={activeDataset.valid.Zaehleinheit}
+          dataSource={zaehleinheitWerte}
+          valueProp="value"
+          labelProp="label"
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+        <Label label="Methode" />
+        <RadioButtonGroup
+          fieldName="Methode"
+          value={activeDataset.row.Methode}
+          errorText={activeDataset.valid.Methode}
+          dataSource={methodeWerte}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+      </FieldsContainer>
+    </Container>
+  )
+}
 
 Tpopkontrzaehl.propTypes = {
   store: PropTypes.object.isRequired,
   zaehleinheitWerte: PropTypes.array.isRequired,
   methodeWerte: PropTypes.array.isRequired,
-  activeDataset: PropTypes.object.isRequired,
 }
 
 export default enhance(Tpopkontrzaehl)

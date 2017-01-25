@@ -24,7 +24,6 @@ const enhance = compose(
 
 const Zielber = ({ store }) => {
   const { activeDataset } = store
-
   return (
     <Container>
       <FormTitle title="Ziel-Bericht" />

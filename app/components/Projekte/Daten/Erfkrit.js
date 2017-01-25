@@ -1,7 +1,9 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import sortBy from 'lodash/sortBy'
 import styled from 'styled-components'
+import compose from 'recompose/compose'
+import withProps from 'recompose/withProps'
 
 import RadioButtonGroup from '../../shared/RadioButtonGroup'
 import Label from '../../shared/Label'
@@ -19,55 +21,58 @@ const FieldsContainer = styled.div`
   padding-bottom: 95px;
 `
 
-@inject(`store`)
-@observer
-class Erfkrit extends Component { // eslint-disable-line react/prefer-stateless-function
-
-  static propTypes = {
-    store: PropTypes.object,
-  }
-
-  get apErfkritWerte() {
-    const { store } = this.props
-    let apErfkritWerte = Array.from(store.table.ap_erfkrit_werte.values())
+const enhance = compose(
+  inject(`store`),
+  withProps((props) => {
+    let apErfkritWerte = Array.from(
+      props.store.table.ap_erfkrit_werte.values()
+    )
     apErfkritWerte = sortBy(apErfkritWerte, `BeurteilOrd`)
-    return apErfkritWerte.map(el => ({
+    apErfkritWerte = apErfkritWerte.map(el => ({
       value: el.BeurteilId,
       label: el.BeurteilTxt,
     }))
-  }
+    return { apErfkritWerte }
+  }),
+  observer
+)
 
-  render() {
-    const { store } = this.props
-    const { activeDataset } = store
-
-    return (
-      <Container>
-        <FormTitle title="Erfolgs-Kriterium" />
-        <FieldsContainer>
-          <Label label="Beurteilung" />
-          <RadioButtonGroup
-            fieldName="ErfkritErreichungsgrad"
-            value={activeDataset.row.ErfkritErreichungsgrad}
-            errorText={activeDataset.valid.ErfkritErreichungsgrad}
-            dataSource={this.apErfkritWerte}
-            updatePropertyInDb={store.updatePropertyInDb}
-          />
-          <TextField
-            label="Kriterien"
-            fieldName="ErfkritTxt"
-            value={activeDataset.row.ErfkritTxt}
-            errorText={activeDataset.valid.ErfkritTxt}
-            type="text"
-            multiLine
-            fullWidth
-            updateProperty={store.updateProperty}
-            updatePropertyInDb={store.updatePropertyInDb}
-          />
-        </FieldsContainer>
-      </Container>
-    )
-  }
+const Erfkrit = ({
+  store,
+  apErfkritWerte,
+}) => {
+  const { activeDataset } = store
+  return (
+    <Container>
+      <FormTitle title="Erfolgs-Kriterium" />
+      <FieldsContainer>
+        <Label label="Beurteilung" />
+        <RadioButtonGroup
+          fieldName="ErfkritErreichungsgrad"
+          value={activeDataset.row.ErfkritErreichungsgrad}
+          errorText={activeDataset.valid.ErfkritErreichungsgrad}
+          dataSource={apErfkritWerte}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+        <TextField
+          label="Kriterien"
+          fieldName="ErfkritTxt"
+          value={activeDataset.row.ErfkritTxt}
+          errorText={activeDataset.valid.ErfkritTxt}
+          type="text"
+          multiLine
+          fullWidth
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+      </FieldsContainer>
+    </Container>
+  )
 }
 
-export default Erfkrit
+Erfkrit.propTypes = {
+  store: PropTypes.object.isRequired,
+  apErfkritWerte: PropTypes.array.isRequired,
+}
+
+export default enhance(Erfkrit)
