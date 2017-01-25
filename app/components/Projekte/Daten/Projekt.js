@@ -1,6 +1,8 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import styled from 'styled-components'
+import compose from 'recompose/compose'
+import withProps from 'recompose/withProps'
 
 import TextField from '../../shared/TextField'
 import FormTitle from '../../shared/FormTitle'
@@ -16,43 +18,46 @@ const FieldsContainer = styled.div`
   padding-bottom: 95px;
 `
 
-@inject(`store`)
-@observer
-class Projekt extends Component { // eslint-disable-line react/prefer-stateless-function
-
-  static propTypes = {
-    store: PropTypes.object,
-  }
-
-  render() {
-    const { store } = this.props
+const enhance = compose(
+  inject(`store`),
+  withProps((props) => {
+    const { store } = props
     const { activeDataset } = store
+    return { activeDataset }
+  }),
+  observer
+)
 
-    return (
-      <Container>
-        <FormTitle title="Projekt" />
-        <FieldsContainer>
-          <TextField
-            label="Name"
-            fieldName="ProjName"
-            value={
-              (activeDataset && activeDataset.row && activeDataset.row.ProjName) ?
-              activeDataset.row.ProjName :
-              ``
-            }
-            errorText={
-              (activeDataset && activeDataset.valid && activeDataset.valid.ProjName) ?
-              activeDataset.valid.ProjName :
-              ``
-            }
-            type="text"
-            updateProperty={store.updateProperty}
-            updatePropertyInDb={store.updatePropertyInDb}
-          />
-        </FieldsContainer>
-      </Container>
-    )
-  }
+const Projekt = ({
+  store,
+  activeDataset,
+}) =>
+  <Container>
+    <FormTitle title="Projekt" />
+    <FieldsContainer>
+      <TextField
+        label="Name"
+        fieldName="ProjName"
+        value={
+          (activeDataset && activeDataset.row && activeDataset.row.ProjName) ?
+          activeDataset.row.ProjName :
+          ``
+        }
+        errorText={
+          (activeDataset && activeDataset.valid && activeDataset.valid.ProjName) ?
+          activeDataset.valid.ProjName :
+          ``
+        }
+        type="text"
+        updateProperty={store.updateProperty}
+        updatePropertyInDb={store.updatePropertyInDb}
+      />
+    </FieldsContainer>
+  </Container>
+
+Projekt.propTypes = {
+  store: PropTypes.object.isRequired,
+  activeDataset: PropTypes.object.isRequired,
 }
 
-export default Projekt
+export default enhance(Projekt)
