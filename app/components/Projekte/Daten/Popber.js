@@ -1,7 +1,9 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import sortBy from 'lodash/sortBy'
 import styled from 'styled-components'
+import compose from 'recompose/compose'
+import withProps from 'recompose/withProps'
 
 import RadioButtonGroup from '../../shared/RadioButtonGroup'
 import Label from '../../shared/Label'
@@ -19,64 +21,65 @@ const FieldsContainer = styled.div`
   padding-bottom: 95px;
 `
 
-@inject(`store`)
-@observer
-class Popber extends Component { // eslint-disable-line react/prefer-stateless-function
-
-  static propTypes = {
-    store: PropTypes.object,
-  }
-
-  get popEntwicklungWerte() {
-    const { store } = this.props
+const enhance = compose(
+  inject(`store`),
+  withProps((props) => {
+    const { store } = props
+    const { activeDataset } = store
     let popEntwicklungWerte = Array.from(store.table.pop_entwicklung_werte.values())
     popEntwicklungWerte = sortBy(popEntwicklungWerte, `EntwicklungOrd`)
-    return popEntwicklungWerte.map(el => ({
+    popEntwicklungWerte = popEntwicklungWerte.map(el => ({
       value: el.EntwicklungId,
       label: el.EntwicklungTxt,
     }))
-  }
+    return { popEntwicklungWerte, activeDataset }
+  }),
+  observer
+)
 
-  render() {
-    const { store } = this.props
-    const { activeDataset } = store
+const Popber = ({
+  store,
+  activeDataset,
+  popEntwicklungWerte,
+}) =>
+  <Container>
+    <FormTitle title="Kontroll-Bericht Population" />
+    <FieldsContainer>
+      <TextField
+        label="Jahr"
+        fieldName="PopBerJahr"
+        value={activeDataset.row.PopBerJahr}
+        errorText={activeDataset.valid.PopBerJahr}
+        type="number"
+        updateProperty={store.updateProperty}
+        updatePropertyInDb={store.updatePropertyInDb}
+      />
+      <Label label="Entwicklung" />
+      <RadioButtonGroup
+        fieldName="PopBerEntwicklung"
+        value={activeDataset.row.PopBerEntwicklung}
+        errorText={activeDataset.valid.PopBerEntwicklung}
+        dataSource={popEntwicklungWerte}
+        updatePropertyInDb={store.updatePropertyInDb}
+      />
+      <TextField
+        label="Bemerkungen"
+        fieldName="PopBerTxt"
+        value={activeDataset.row.PopBerTxt}
+        errorText={activeDataset.valid.PopBerTxt}
+        type="text"
+        multiLine
+        fullWidth
+        updateProperty={store.updateProperty}
+        updatePropertyInDb={store.updatePropertyInDb}
+      />
+    </FieldsContainer>
+  </Container>
 
-    return (
-      <Container>
-        <FormTitle title="Kontroll-Bericht Population" />
-        <FieldsContainer>
-          <TextField
-            label="Jahr"
-            fieldName="PopBerJahr"
-            value={activeDataset.row.PopBerJahr}
-            errorText={activeDataset.valid.PopBerJahr}
-            type="number"
-            updateProperty={store.updateProperty}
-            updatePropertyInDb={store.updatePropertyInDb}
-          />
-          <Label label="Entwicklung" />
-          <RadioButtonGroup
-            fieldName="PopBerEntwicklung"
-            value={activeDataset.row.PopBerEntwicklung}
-            errorText={activeDataset.valid.PopBerEntwicklung}
-            dataSource={this.popEntwicklungWerte}
-            updatePropertyInDb={store.updatePropertyInDb}
-          />
-          <TextField
-            label="Bemerkungen"
-            fieldName="PopBerTxt"
-            value={activeDataset.row.PopBerTxt}
-            errorText={activeDataset.valid.PopBerTxt}
-            type="text"
-            multiLine
-            fullWidth
-            updateProperty={store.updateProperty}
-            updatePropertyInDb={store.updatePropertyInDb}
-          />
-        </FieldsContainer>
-      </Container>
-    )
-  }
+Popber.propTypes = {
+  store: PropTypes.object.isRequired,
+  activeDataset: PropTypes.object.isRequired,
+  popEntwicklungWerte: PropTypes.array.isRequired,
 }
 
-export default Popber
+export default enhance(Popber)
