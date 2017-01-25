@@ -10,6 +10,7 @@ export default (url) => {
   const qk = (ap && url.length > 4 && url[4] === `Qualitaetskontrollen`) || false
   const assozart = assozartFolder && url.length > 5 ? parseInt(url[5], 10) : null
   const idealbiotopFolder = (ap && url.length > 4 && url[4] === `Idealbiotop`) || false
+  const idealbiotop = idealbiotopFolder ? parseInt(url[3], 10) : null
   const beobNichtZuzuordnenFolder = (ap && url.length > 4 && url[4] === `nicht-zuzuordnende-Beobachtungen`) || false
   let beobNichtZuzuordnen = beobNichtZuzuordnenFolder && url.length > 5 ? url[5] : null
   if (beobNichtZuzuordnen && !isNaN(beobNichtZuzuordnen)) {
@@ -68,6 +69,7 @@ export default (url) => {
     assozart,
     qk,
     idealbiotopFolder,
+    idealbiotop,
     beobNichtZuzuordnenFolder,
     beobNichtZuzuordnen,
     beobzuordnungFolder,
