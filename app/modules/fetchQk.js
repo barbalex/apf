@@ -1,21 +1,19 @@
 import axios from 'axios'
-import dateFns from 'date-fns'
 
 import apiBaseUrl from './apiBaseUrl'
 import isPointInsidePolygon from './isPointInsidePolygon'
 import zhGeojson from '../etc/ktZh.json'
 
-export default ({ store }) => {
+const fetchQk = ({ store }) => {
   const messages = []
   const apArtId = store.activeUrlElements.ap
   const qk = store.qk.get(apArtId)
   let berichtjahr
-  if (qk) {
+  if (qk && qk.berichtjahr) {
     berichtjahr = qk.berichtjahr
   } else {
-    const refDate = new Date()
-    refDate.setMonth(refDate.getMonth() - 6)
-    berichtjahr = parseInt(dateFns.format(refDate, `YYYY`), 10)
+    store.setQk({})
+    return setTimeout(() => fetchQk({ store }))
   }
   const qkTypes = [
     // Population: ohne Nr/Name/Status/bekannt seit/Koordinaten/tpop
@@ -168,3 +166,5 @@ export default ({ store }) => {
       store.listError(error)
     )
 }
+
+export default fetchQk

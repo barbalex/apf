@@ -8,7 +8,6 @@ import { Card, CardText } from 'material-ui/Card'
 import compose from 'recompose/compose'
 import withHandlers from 'recompose/withHandlers'
 import withProps from 'recompose/withProps'
-import dateFns from 'date-fns'
 
 import FormTitle from '../../shared/FormTitle'
 import appBaseUrl from '../../../modules/appBaseUrl'
@@ -37,33 +36,11 @@ const FilterField = styled(TextField)`
 
 const enhance = compose(
   inject(`store`),
-  withProps((props) => {
-    const { activeUrlElements, qk } = props.store
-    const apArtId = activeUrlElements.ap
-    const existingQk = qk.get(apArtId)
-    let berichtjahr = ``
-    let messages = []
-    let filter = ``
-    if (existingQk) {
-      if (existingQk.berichtjahr) berichtjahr = existingQk.berichtjahr
-      if (existingQk.messages) messages = existingQk.messages
-      if (existingQk.filter) filter = existingQk.filter
-    }
-    const messagesFiltered = (
-      filter ?
-      messages.filter(m =>
-        m.hw.toLowerCase().includes(filter.toLowerCase())
-      ) :
-      messages
-    )
-    return { messagesFiltered, berichtjahr, filter }
-  }),
   withHandlers({
     onChangeBerichtjahr: props => (event, val) => {
       props.store.setQk({ berichtjahr: val })
       if ((isNaN(val) && val.length === 4) || (!isNaN(val) && val > 1000)) {
-        const { store } = props
-        fetchQk({ store })
+        fetchQk({ store: props.store, berichtjahr: val })
       }
     },
   }),
@@ -74,39 +51,38 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
 
   static propTypes = {
     store: PropTypes.object.isRequired,
-    berichtjahr: PropTypes.any.isRequired,
     onChangeBerichtjahr: PropTypes.func.isRequired,
-    messagesFiltered: PropTypes.array.isRequired,
-    filter: PropTypes.string,
   }
 
   static defaultProps = {
     filter: ``,
   }
 
-
   componentDidMount() {
-    // TODO: initialize qk in store
     const { store } = this.props
-    const apArtId = store.activeUrlElements.ap
-    const existingQk = store.qk.get(apArtId)
-    if (!existingQk) {
-      const refDate = new Date()
-      refDate.setMonth(refDate.getMonth() - 6)
-      const berichtjahr = parseInt(dateFns.format(refDate, `YYYY`), 10)
-      store.setQk({ berichtjahr, messages: [], filter: `` })
-    }
+    console.log(`qk, componentDidMount`)
     fetchQk({ store })
   }
 
   render() {
     const {
       store,
-      berichtjahr,
-      messagesFiltered,
-      filter,
       onChangeBerichtjahr,
     } = this.props
+
+    const { activeUrlElements, qk } = store
+    const apArtId = activeUrlElements.ap
+    const existingQk = qk.get(apArtId)
+    const berichtjahr = existingQk ? existingQk.filter : ``
+    const messages = existingQk ? existingQk.messages : []
+    const filter = existingQk ? existingQk.filter : ``
+    const messagesFiltered = (
+      filter ?
+      messages.filter(m =>
+        m.hw.toLowerCase().includes(filter.toLowerCase())
+      ) :
+      messages
+    )
 
     return (
       <Container>
