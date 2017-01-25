@@ -60,7 +60,6 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
 
   componentDidMount() {
     const { store } = this.props
-    console.log(`qk, componentDidMount`)
     fetchQk({ store })
   }
 

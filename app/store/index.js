@@ -60,6 +60,9 @@ function Store() {
     setQk: action(({ berichtjahr, messages, filter }) =>
       setQk({ store: this, berichtjahr, messages, filter })
     ),
+    addMessagesToQk: action((messages) => {
+      //TODO
+    }),
     fetchFields: action(() =>
       fetchFields(this)
     ),
