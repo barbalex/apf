@@ -1,11 +1,11 @@
 import axios from 'axios'
+import isArray from 'lodash/isArray'
 
 import apiBaseUrl from './apiBaseUrl'
 import isPointInsidePolygon from './isPointInsidePolygon'
 import zhGeojson from '../etc/ktZh.json'
 
 const fetchQk = ({ store }) => {
-  const messages = []
   const apArtId = store.activeUrlElements.ap
   const qk = store.qk.get(apArtId)
   let berichtjahr
@@ -126,6 +126,7 @@ const fetchQk = ({ store }) => {
     // assoziierte Art ohne Art
     { type: `view`, name: `v_qk2_assozart_ohneart` },
   ]
+  let nrOfMessages = 0
   const urls = qkTypes.map(t =>
     `${apiBaseUrl}/${t.type === `view` ? `qkView/` : ``}${t.name}/${store.activeUrlElements.ap}${t.berichtjahr ? `/${t.berichtjahr}` : ``}`
   )
@@ -134,9 +135,17 @@ const fetchQk = ({ store }) => {
       .then((res) => {
         if (res.data.length > 0) {
           const hw = res.data[0].hw
-          const url = res.data.map(d => d.url)
-          messages.push({ hw, url })
-          store.setQk({ messages })
+          let url = []
+          res.data.forEach((d) => {
+            if (isArray(d.url[0])) {
+              url = url.concat(d.url)
+            } else {
+              url.push(d.url)
+            }
+          })
+          const messages = ({ hw, url })
+          store.addMessagesToQk({ messages })
+          nrOfMessages += 1
         }
         return null
       })
@@ -150,16 +159,17 @@ const fetchQk = ({ store }) => {
         tpop.TPopApBerichtRelevant === 1 && !isPointInsidePolygon(zhGeojson, tpop.TPopXKoord, tpop.TPopYKoord)
       )
       if (tpops.length > 0) {
-        messages.push({
+        const messages = {
           hw: `Teilpopulation ist als 'Für AP-Bericht relevant' markiert, liegt aber ausserhalb des Kt. Zürich und sollte daher nicht relevant sein:`,
           url: tpops.map(tpop => [`Projekte`, 1, `Arten`, tpop.ApArtId, `Populationen`, tpop.PopId, `Teil-Populationen`, tpop.TPopId]),
-        })
-        store.setQk({ messages })
+        }
+        store.addMessagesToQk({ messages })
+        nrOfMessages += 1
       }
       // if no messages: tell user
-      if (messages.length === 0) {
-        messages.push({ hw: `Wow: Scheint alles i.O. zu sein!` })
-        store.setQk({ messages })
+      if (nrOfMessages === 0) {
+        const messages = { hw: `Wow: Scheint alles i.O. zu sein!` }
+        store.addMessagesToQk({ messages })
       }
     })
     .catch(error =>

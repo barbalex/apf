@@ -40,7 +40,8 @@ const enhance = compose(
     onChangeBerichtjahr: props => (event, val) => {
       props.store.setQk({ berichtjahr: val })
       if ((isNaN(val) && val.length === 4) || (!isNaN(val) && val > 1000)) {
-        fetchQk({ store: props.store, berichtjahr: val })
+        props.store.setQk({})
+        setTimeout(() => fetchQk({ store: props.store, berichtjahr: val }))
       }
     },
   }),
@@ -72,7 +73,7 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
     const { activeUrlElements, qk } = store
     const apArtId = activeUrlElements.ap
     const existingQk = qk.get(apArtId)
-    const berichtjahr = existingQk ? existingQk.filter : ``
+    const berichtjahr = existingQk ? existingQk.berichtjahr : ``
     const messages = existingQk ? existingQk.messages : []
     const filter = existingQk ? existingQk.filter : ``
     const messagesFiltered = (
@@ -105,27 +106,9 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
           />
           {
             messagesFiltered.map((m, index) => {
-              let links = null
-              let children
-              if (m.url) {
-                children = `${appBaseUrl}/${m.url.join(`/`)}`
-                if (m.url[0] && isArray(m.url[0])) {
-                  // an array of arrays was returned
-                  children = m.url.map((u, i) => (
-                    <div key={i}>{`${appBaseUrl}/${u.join(`/`)}`}</div>
-                  ))
-                  if (m.url[0][0] && isArray(m.url[0][0])) {
-                    children = m.url.map((u, i) => u.map((uu, ii) => (
-                      <div key={`${i}/${ii}`}>{`${appBaseUrl}/${uu.join(`/`)}`}</div>
-                    )))
-                  }
-                }
-                links = (
-                  <Linkify properties={{ target: `_blank`, style: { color: `white`, fontWeight: 100 } }}>
-                    {children}
-                  </Linkify>
-                )
-              }
+              const children = m.url.map((u, i) => (
+                <div key={i}>{`${appBaseUrl}/${u.join(`/`)}`}</div>
+              ))
               return (
                 <StyledCard key={index}>
                   <CardText>
@@ -133,7 +116,9 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
                       {m.hw}
                     </Title>
                     <div>
-                      {links}
+                      <Linkify properties={{ target: `_blank`, style: { color: `white`, fontWeight: 100 } }}>
+                        {children}
+                      </Linkify>
                     </div>
                   </CardText>
                 </StyledCard>

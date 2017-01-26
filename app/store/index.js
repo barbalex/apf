@@ -26,6 +26,7 @@ import toggleNode from '../modules/toggleNode'
 import listError from '../modules/listError'
 import setUrlQuery from '../modules/setUrlQuery'
 import setQk from '../modules/setQk'
+import addMessagesToQk from '../modules/addMessagesToQk'
 
 import TableStore from './table'
 import ObservableHistory from './ObservableHistory'
@@ -60,8 +61,8 @@ function Store() {
     setQk: action(({ berichtjahr, messages, filter }) =>
       setQk({ store: this, berichtjahr, messages, filter })
     ),
-    addMessagesToQk: action((messages) => {
-      //TODO
+    addMessagesToQk: action(({ messages }) => {
+      addMessagesToQk({ store: this, messages })
     }),
     fetchFields: action(() =>
       fetchFields(this)
