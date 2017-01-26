@@ -9,7 +9,7 @@ const SecondLevelCard = styled(Card)`
   margin-bottom: 5px;
 `
 
-const Exporte = () =>
+const Tipps = () =>
   <FirstLevelCard>
     <CardHeader
       title="Tipps und Tricks"
@@ -159,4 +159,4 @@ const Exporte = () =>
     </CardText>
   </FirstLevelCard>
 
-export default Exporte
+export default Tipps
