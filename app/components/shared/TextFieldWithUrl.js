@@ -44,7 +44,7 @@ const MyTextFieldWithUrl = ({
         floatingLabelText={`${label} (bitte "www." statt "http://" eingeben)`}
         type={type}
         multiLine={multiLine}
-        value={value}
+        value={value || ``}
         errorText={errorText}
         disabled={disabled}
         fullWidth
