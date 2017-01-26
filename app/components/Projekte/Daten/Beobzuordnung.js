@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import styled from 'styled-components'
 import sortBy from 'lodash/sortBy'
+import compose from 'recompose/compose'
 
 import FormTitle from '../../shared/FormTitle'
 import RadioButtonGroup from '../../shared/RadioButtonGroup'
@@ -54,8 +55,11 @@ const nichtZuordnenPopover = (
   </Container>
 )
 
-@inject(`store`)
-@observer
+const enhance = compose(
+  inject(`store`),
+  observer
+)
+
 class Beob extends Component { // eslint-disable-line react/prefer-stateless-function
 
   static propTypes = {
@@ -202,4 +206,4 @@ class Beob extends Component { // eslint-disable-line react/prefer-stateless-fun
   }
 }
 
-export default Beob
+export default enhance(Beob)
