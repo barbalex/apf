@@ -1,6 +1,7 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import styled from 'styled-components'
+import compose from 'recompose/compose'
 
 import TextField from '../../shared/TextField'
 import FormTitle from '../../shared/FormTitle'
@@ -16,47 +17,46 @@ const FieldsContainer = styled.div`
   padding-bottom: 95px;
 `
 
-@inject(`store`)
-@observer
-class Apberuebersicht extends Component { // eslint-disable-line react/prefer-stateless-function
+const enhance = compose(
+  inject(`store`),
+  observer
+)
 
-  static propTypes = {
-    store: PropTypes.object,
-  }
+const Apberuebersicht = ({ store }) => {
+  const { activeDataset } = store
 
-  render() {
-    const { store } = this.props
-    const { activeDataset } = store
-
-    return (
-      <Container>
-        <FormTitle title="AP-Bericht Jahresübersicht" />
-        <FieldsContainer>
-          <TextField
-            label="Jahr"
-            fieldName="JbuJahr"
-            value={activeDataset.row.JbuJahr}
-            errorText={activeDataset.valid.JbuJahr}
-            type="number"
-            fullWidth={false}
-            updateProperty={store.updateProperty}
-            updatePropertyInDb={store.updatePropertyInDb}
-          />
-          <TextField
-            label="Bemerkungen"
-            fieldName="JbuBemerkungen"
-            value={activeDataset.row.JbuBemerkungen}
-            errorText={activeDataset.valid.JbuBemerkungen}
-            type="text"
-            multiLine
-            fullWidth
-            updateProperty={store.updateProperty}
-            updatePropertyInDb={store.updatePropertyInDb}
-          />
-        </FieldsContainer>
-      </Container>
-    )
-  }
+  return (
+    <Container>
+      <FormTitle title="AP-Bericht Jahresübersicht" />
+      <FieldsContainer>
+        <TextField
+          label="Jahr"
+          fieldName="JbuJahr"
+          value={activeDataset.row.JbuJahr}
+          errorText={activeDataset.valid.JbuJahr}
+          type="number"
+          fullWidth={false}
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+        <TextField
+          label="Bemerkungen"
+          fieldName="JbuBemerkungen"
+          value={activeDataset.row.JbuBemerkungen}
+          errorText={activeDataset.valid.JbuBemerkungen}
+          type="text"
+          multiLine
+          fullWidth
+          updateProperty={store.updateProperty}
+          updatePropertyInDb={store.updatePropertyInDb}
+        />
+      </FieldsContainer>
+    </Container>
+  )
 }
 
-export default Apberuebersicht
+Apberuebersicht.propTypes = {
+  store: PropTypes.object.isRequired,
+}
+
+export default enhance(Apberuebersicht)
