@@ -36,6 +36,8 @@ const fetchDataForActiveUrlElements = (store) => {
       store.fetchTableByParentId(`apflora`, `assozart`, activeUrlElements.ap)
       store.fetchTableByParentId(`apflora`, `idealbiotop`, activeUrlElements.ap)
       store.fetchTable(`apflora`, `adresse`)
+      store.fetchTable(`apflora`, `ap_bearbstand_werte`)
+      store.fetchTable(`apflora`, `ap_umsetzung_werte`)
       store.fetchBeobBereitgestellt(activeUrlElements.ap)
       store.fetchBeobzuordnung(activeUrlElements.ap)
     },
