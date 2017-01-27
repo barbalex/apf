@@ -6,6 +6,7 @@ import isPointInsidePolygon from './isPointInsidePolygon'
 import zhGeojson from '../etc/ktZh.json'
 
 const fetchQk = ({ store }) => {
+  store.setQkLoading(true)
   const apArtId = store.activeUrlElements.ap
   const qk = store.qk.get(apArtId)
   let berichtjahr
@@ -131,27 +132,25 @@ const fetchQk = ({ store }) => {
     `${apiBaseUrl}/${t.type === `view` ? `qkView/` : ``}${t.name}/${store.activeUrlElements.ap}${t.berichtjahr ? `/${t.berichtjahr}` : ``}`
   )
   const dataFetchingPromises = urls.map(dataUrl =>
-    setTimeout(() =>
-      axios.get(dataUrl)
-        .then((res) => {
-          if (res.data.length > 0) {
-            const hw = res.data[0].hw
-            let url = []
-            res.data.forEach((d) => {
-              if (isArray(d.url[0])) {
-                url = url.concat(d.url)
-              } else {
-                url.push(d.url)
-              }
-            })
-            const messages = ({ hw, url })
-            store.addMessagesToQk({ messages })
-            nrOfMessages += 1
-          }
-          return null
-        })
-        .catch(e => e)
-    )
+    axios.get(dataUrl)
+      .then((res) => {
+        if (res.data.length > 0) {
+          const hw = res.data[0].hw
+          let url = []
+          res.data.forEach((d) => {
+            if (isArray(d.url[0])) {
+              url = url.concat(d.url)
+            } else {
+              url.push(d.url)
+            }
+          })
+          const messages = ({ hw, url })
+          store.addMessagesToQk({ messages })
+          nrOfMessages += 1
+        }
+        return null
+      })
+      .catch(e => e)
   )
   Promise.all(dataFetchingPromises)
     .then(() => axios.get(`${apiBaseUrl}/tpopKoordFuerProgramm/apId=${store.activeUrlElements.ap}`))
@@ -173,10 +172,12 @@ const fetchQk = ({ store }) => {
         const messages = { hw: `Wow: Scheint alles i.O. zu sein!` }
         store.addMessagesToQk({ messages })
       }
+      store.setQkLoading(false)
     })
-    .catch(error =>
+    .catch((error) => {
       store.listError(error)
-    )
+      store.setQkLoading(false)
+    })
 }
 
 export default fetchQk

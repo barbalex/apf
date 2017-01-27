@@ -1,22 +1,13 @@
-import { extendObservable, computed } from 'mobx'
+import buildQkMessages from './buildQkMessages'
 
 const setQk = ({ store, filter }) => {
   const apArtId = store.activeUrlElements.ap
   const existingQk = store.qk.get(apArtId)
   const { berichtjahr, messages } = existingQk
-  const value = {
+  const value = buildQkMessages({
     berichtjahr,
     messages,
     filter,
-  }
-  extendObservable(value, {
-    messagesFiltered: computed(() => (
-      filter ?
-      messages.filter(m =>
-        m.hw.toLowerCase().includes(filter.toLowerCase())
-      ) :
-      messages
-    )),
   })
   store.qk.set(apArtId, value)
 }
