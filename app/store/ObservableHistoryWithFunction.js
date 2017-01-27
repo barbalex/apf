@@ -9,7 +9,7 @@
  * http://stackoverflow.com/questions/25806608/how-to-detect-browser-back-button-event-cross-browser
  */
 
-import { observable } from 'mobx'
+import { extendObservable } from 'mobx'
 import createHistory from 'history/createBrowserHistory'
 
 const History = () => {
@@ -27,7 +27,11 @@ History.goBack = History.history.goBack
 History.goForward = History.history.goForward
 History.length = History.history.length
 History.createHref = History.history.createHref
-History.location = observable(History.history.location)
+
+extendObservable(History, {
+  location: History.history.location,
+})
+// History.location = observable(History.history.location)
 History.history.listen((location) => {
   History.location = location
 })

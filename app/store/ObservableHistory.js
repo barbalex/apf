@@ -10,45 +10,41 @@
  */
 
 import { extendObservable } from 'mobx'
-import singleton from 'singleton'
 import createHistory from 'history/createBrowserHistory'
 
-class ObservableHistory extends singleton {
-  constructor() {
-    super()
-    // this.location = this.history.location
-    extendObservable(this, {
-      location: this.history.location,
-    })
-    this.history.listen((location) => {
-      this.location = location
-    })
-    document.onmouseover = () => {
-      this.mouseIsInDoc = true
-    }
-    document.onmouseleave = () => {
-      this.mouseIsInDoc = false
-    }
-    window.onpopstate = () => {
-      if (!this.mouseIsInDoc) {
-        this.location.pathname = document.location.pathname
-        this.location.search = document.location.search
-      }
-    }
-  }
+const history = createHistory()
 
-  mouseIsInDoc = true
-
-  history = createHistory()
-  action = this.history.action
-  push = this.history.push
-  replace = this.history.replace
-  block = this.history.block
-  go = this.history.go
-  goBack = this.history.goBack
-  goForward = this.history.goForward
-  length = this.history.length
-  createHref = this.history.createHref
+const History = {
+  mouseIsInDoc: true,
+  history,
+  action: history.action,
+  push: history.push,
+  replace: history.replace,
+  block: history.block,
+  go: history.go,
+  goBack: history.goBack,
+  goForward: history.goForward,
+  length: history.length,
+  createHref: history.createHref,
 }
 
-export default ObservableHistory.get()
+extendObservable(History, {
+  location: history.location,
+})
+history.listen((location) => {
+  History.location = location
+})
+document.onmouseover = () => {
+  History.mouseIsInDoc = true
+}
+document.onmouseleave = () => {
+  History.mouseIsInDoc = false
+}
+window.onpopstate = () => {
+  if (!History.mouseIsInDoc) {
+    History.location.pathname = document.location.pathname
+    History.location.search = document.location.search
+  }
+}
+
+export default History
