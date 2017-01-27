@@ -60,7 +60,7 @@ function Store() {
   this.qk = observable.map()
   extendObservable(this, {
     datasetToDelete: {},
-    qkLoading: observable(false),
+    qkLoading: false,
     setQkLoading: action((loading) => {
       this.qkLoading = loading
     }),
