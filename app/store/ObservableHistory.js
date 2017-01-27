@@ -9,14 +9,17 @@
  * http://stackoverflow.com/questions/25806608/how-to-detect-browser-back-button-event-cross-browser
  */
 
-import { observable, extendObservable } from 'mobx'
+import { extendObservable } from 'mobx'
 import singleton from 'singleton'
 import createHistory from 'history/createBrowserHistory'
 
 class ObservableHistory extends singleton {
   constructor() {
     super()
-    this.location = this.history.location
+    // this.location = this.history.location
+    extendObservable(this, {
+      location: this.history.location,
+    })
     this.history.listen((location) => {
       this.location = location
     })
@@ -32,10 +35,6 @@ class ObservableHistory extends singleton {
         this.location.search = document.location.search
       }
     }
-    /*
-    extendObservable(this, {
-      location: ``,
-    })*/
   }
 
   mouseIsInDoc = true
@@ -50,7 +49,6 @@ class ObservableHistory extends singleton {
   goForward = this.history.goForward
   length = this.history.length
   createHref = this.history.createHref
-  @observable location = ``
 }
 
 export default ObservableHistory.get()
