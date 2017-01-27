@@ -1,6 +1,7 @@
 import dateFns from 'date-fns'
 import compose from 'recompose/compose'
 import renameProps from 'recompose/renameProps'
+import { extendObservable, computed } from 'mobx'
 
 const enhance = compose(
   renameProps({
@@ -29,7 +30,21 @@ const setQk = ({ store, berichtjahrPassed, messagesPassed, filterPassed }) => {
   if (!filter && filter !== ``) {
     filter = existingQk && existingQk.filter ? existingQk.filter : ``
   }
-  store.qk.set(apArtId, { berichtjahr, messages, filter })
+  const value = {
+    berichtjahr,
+    messages,
+    filter,
+  }
+  extendObservable(value, {
+    messagesFiltered: computed(() => (
+      filter ?
+      messages.filter(m =>
+        m.hw.toLowerCase().includes(filter.toLowerCase())
+      ) :
+      messages
+    )),
+  })
+  store.qk.set(apArtId, value)
 }
 
 export default enhance(setQk)

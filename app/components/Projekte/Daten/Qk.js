@@ -2,12 +2,10 @@ import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import TextField from 'material-ui/TextField'
 import Linkify from 'react-linkify'
-import isArray from 'lodash/isArray'
 import styled from 'styled-components'
 import { Card, CardText } from 'material-ui/Card'
 import compose from 'recompose/compose'
 import withHandlers from 'recompose/withHandlers'
-import withProps from 'recompose/withProps'
 
 import FormTitle from '../../shared/FormTitle'
 import appBaseUrl from '../../../modules/appBaseUrl'
@@ -59,11 +57,6 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
     filter: ``,
   }
 
-  componentDidMount() {
-    const { store } = this.props
-    fetchQk({ store })
-  }
-
   render() {
     const {
       store,
@@ -72,17 +65,13 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
 
     const { activeUrlElements, qk } = store
     const apArtId = activeUrlElements.ap
-    const existingQk = qk.get(apArtId)
-    const berichtjahr = existingQk ? existingQk.berichtjahr : ``
-    const messages = existingQk ? existingQk.messages : []
-    const filter = existingQk ? existingQk.filter : ``
-    const messagesFiltered = (
-      filter ?
-      messages.filter(m =>
-        m.hw.toLowerCase().includes(filter.toLowerCase())
-      ) :
-      messages
-    )
+    // need to pass value for when qk does not yet exist
+    const myQk = qk.get(apArtId) || {
+      berichtjahr: ``,
+      filter: ``,
+      messagesFiltered: [],
+    }
+    const { berichtjahr, filter, messagesFiltered } = myQk
 
     return (
       <Container>
@@ -101,7 +90,7 @@ class Qk extends Component { // eslint-disable-line react/prefer-stateless-funct
             value={filter || ``}
             fullWidth
             onChange={(event, val) =>
-              store.setQk({ filter: val })
+              store.setQkFilter({ filter: val })
             }
           />
           {

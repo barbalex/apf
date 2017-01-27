@@ -1,23 +1,24 @@
 import { extendObservable, computed } from 'mobx'
 
-export default ({ store, messages }) => {
+const setQk = ({ store, filter }) => {
   const apArtId = store.activeUrlElements.ap
   const existingQk = store.qk.get(apArtId)
-  const newMessages = existingQk.messages.concat(messages)
-  const filter = existingQk.filter
+  const { berichtjahr, messages } = existingQk
   const value = {
-    berichtjahr: existingQk.berichtjahr,
-    messages: newMessages,
+    berichtjahr,
+    messages,
     filter,
   }
   extendObservable(value, {
     messagesFiltered: computed(() => (
       filter ?
-      newMessages.filter(m =>
+      messages.filter(m =>
         m.hw.toLowerCase().includes(filter.toLowerCase())
       ) :
-      newMessages
+      messages
     )),
   })
   store.qk.set(apArtId, value)
 }
+
+export default setQk

@@ -9,10 +9,10 @@ const fetchQk = ({ store }) => {
   const apArtId = store.activeUrlElements.ap
   const qk = store.qk.get(apArtId)
   let berichtjahr
+  store.setQk({ messages: [] })
   if (qk && qk.berichtjahr) {
     berichtjahr = qk.berichtjahr
   } else {
-    store.setQk({})
     return setTimeout(() => fetchQk({ store }))
   }
   const qkTypes = [
@@ -131,25 +131,27 @@ const fetchQk = ({ store }) => {
     `${apiBaseUrl}/${t.type === `view` ? `qkView/` : ``}${t.name}/${store.activeUrlElements.ap}${t.berichtjahr ? `/${t.berichtjahr}` : ``}`
   )
   const dataFetchingPromises = urls.map(dataUrl =>
-    axios.get(dataUrl)
-      .then((res) => {
-        if (res.data.length > 0) {
-          const hw = res.data[0].hw
-          let url = []
-          res.data.forEach((d) => {
-            if (isArray(d.url[0])) {
-              url = url.concat(d.url)
-            } else {
-              url.push(d.url)
-            }
-          })
-          const messages = ({ hw, url })
-          store.addMessagesToQk({ messages })
-          nrOfMessages += 1
-        }
-        return null
-      })
-      .catch(e => e)
+    setTimeout(() =>
+      axios.get(dataUrl)
+        .then((res) => {
+          if (res.data.length > 0) {
+            const hw = res.data[0].hw
+            let url = []
+            res.data.forEach((d) => {
+              if (isArray(d.url[0])) {
+                url = url.concat(d.url)
+              } else {
+                url.push(d.url)
+              }
+            })
+            const messages = ({ hw, url })
+            store.addMessagesToQk({ messages })
+            nrOfMessages += 1
+          }
+          return null
+        })
+        .catch(e => e)
+    )
   )
   Promise.all(dataFetchingPromises)
     .then(() => axios.get(`${apiBaseUrl}/tpopKoordFuerProgramm/apId=${store.activeUrlElements.ap}`))

@@ -26,6 +26,8 @@ import toggleNode from '../modules/toggleNode'
 import listError from '../modules/listError'
 import setUrlQuery from '../modules/setUrlQuery'
 import setQk from '../modules/setQk'
+import setQkFilter from '../modules/setQkFilter'
+import fetchQk from '../modules/fetchQk'
 import addMessagesToQk from '../modules/addMessagesToQk'
 
 import TableStore from './table'
@@ -58,8 +60,14 @@ function Store() {
   this.qk = observable.map()
   extendObservable(this, {
     datasetToDelete: {},
+    fetchQk: action(() =>
+      fetchQk({ store: this })
+    ),
     setQk: action(({ berichtjahr, messages, filter }) =>
       setQk({ store: this, berichtjahr, messages, filter })
+    ),
+    setQkFilter: action(({ filter }) =>
+      setQkFilter({ store: this, filter })
     ),
     addMessagesToQk: action(({ messages }) => {
       addMessagesToQk({ store: this, messages })

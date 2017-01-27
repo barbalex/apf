@@ -41,6 +41,9 @@ const fetchDataForActiveUrlElements = (store) => {
       store.fetchBeobBereitgestellt(activeUrlElements.ap)
       store.fetchBeobzuordnung(activeUrlElements.ap)
     },
+    qk() {
+      store.fetchQk()
+    },
     assozartFolder() {},
     idealbiotopFolder() {},
     beobNichtZuzuordnenFolder() {
